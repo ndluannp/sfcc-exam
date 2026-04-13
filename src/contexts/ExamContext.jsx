@@ -141,7 +141,7 @@ export function ExamProvider({ children }) {
 
     // Load questions
     useEffect(() => {
-        fetch('/questions.json')
+        fetch(`${import.meta.env.BASE_URL}questions.json`)
             .then(res => res.json())
             .then(data => {
                 dispatch({ type: 'SET_QUESTIONS', payload: data });
