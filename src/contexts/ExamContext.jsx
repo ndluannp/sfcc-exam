@@ -61,6 +61,23 @@ function reducer(state, action) {
         case 'SET_CURRENT_INDEX':
             return { ...state, currentIndex: action.payload };
 
+        case 'TOGGLE_ANSWER': {
+            const { questionId, letter, isMultiple } = action.payload;
+            const currentAnswer = state.answers[questionId] || [];
+            let newAnswer;
+            if (isMultiple) {
+                newAnswer = currentAnswer.includes(letter)
+                    ? currentAnswer.filter(a => a !== letter)
+                    : [...currentAnswer, letter];
+            } else {
+                newAnswer = [letter];
+            }
+            return {
+                ...state,
+                answers: { ...state.answers, [questionId]: newAnswer },
+            };
+        }
+
         case 'SET_ANSWER': {
             const { questionId, answer } = action.payload;
             return {

@@ -40,15 +40,10 @@ export default function ExamPage() {
                 if (!q) return;
                 const optIdx = key.charCodeAt(0) - 65;
                 if (optIdx < q.options.length) {
-                    const currentAnswer = state.answers[q.id] || [];
-                    if (q.type === 'multiple') {
-                        const newAnswer = currentAnswer.includes(key)
-                            ? currentAnswer.filter(a => a !== key)
-                            : [...currentAnswer, key];
-                        dispatch({ type: 'SET_ANSWER', payload: { questionId: q.id, answer: newAnswer } });
-                    } else {
-                        dispatch({ type: 'SET_ANSWER', payload: { questionId: q.id, answer: [key] } });
-                    }
+                    dispatch({
+                        type: 'TOGGLE_ANSWER',
+                        payload: { questionId: q.id, letter: key, isMultiple: q.type === 'multiple' },
+                    });
                 }
             }
 

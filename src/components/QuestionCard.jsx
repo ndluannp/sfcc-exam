@@ -14,14 +14,10 @@ export default function QuestionCard() {
     const isMultiple = question.type === 'multiple';
 
     const handleSelect = (letter) => {
-        if (isMultiple) {
-            const newAnswer = userAnswer.includes(letter)
-                ? userAnswer.filter(a => a !== letter)
-                : [...userAnswer, letter];
-            dispatch({ type: 'SET_ANSWER', payload: { questionId: question.id, answer: newAnswer } });
-        } else {
-            dispatch({ type: 'SET_ANSWER', payload: { questionId: question.id, answer: [letter] } });
-        }
+        dispatch({
+            type: 'TOGGLE_ANSWER',
+            payload: { questionId: question.id, letter, isMultiple },
+        });
         if (state.studyMode) setShowStudyAnswer(true);
     };
 
@@ -114,8 +110,8 @@ export default function QuestionCard() {
                         >
                             <span
                                 className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg font-bold text-sm transition-all duration-200 ${isSelected
-                                        ? 'bg-primary-500 text-white'
-                                        : 'bg-gray-100 dark:bg-surface-700 text-gray-500 dark:text-gray-400 group-hover:bg-primary-100 dark:group-hover:bg-primary-900/50 group-hover:text-primary-600'
+                                    ? 'bg-primary-500 text-white'
+                                    : 'bg-gray-100 dark:bg-surface-700 text-gray-500 dark:text-gray-400 group-hover:bg-primary-100 dark:group-hover:bg-primary-900/50 group-hover:text-primary-600'
                                     } ${state.studyMode && showStudyAnswer && isCorrectAnswer ? 'bg-emerald-500 text-white' : ''}
                 ${state.studyMode && showStudyAnswer && isSelected && !isCorrectAnswer ? 'bg-rose-500 text-white' : ''}`}
                             >
