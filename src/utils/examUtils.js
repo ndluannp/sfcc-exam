@@ -62,7 +62,14 @@ export function shuffleOptions(question) {
 
 export function selectQuestions(allQuestions, mode, options = {}) {
     const { topics = [], wrongIds = [], count = 60 } = options;
-    let pool = [...allQuestions];
+
+    // Deduplicate by ID
+    const seen = new Set();
+    let pool = allQuestions.filter(q => {
+        if (seen.has(q.id)) return false;
+        seen.add(q.id);
+        return true;
+    });
 
     if (mode === 'topic' && topics.length > 0) {
         pool = pool.filter(q => topics.includes(q.source));
@@ -72,17 +79,18 @@ export function selectQuestions(allQuestions, mode, options = {}) {
         pool = pool.filter(q => wrongIds.includes(q.id));
     }
 
-    if (mode === 'full' || mode === 'random') {
-        pool = shuffleArray(pool).slice(0, Math.min(count, pool.length));
-    } else {
-        pool = shuffleArray(pool);
+    pool = shuffleArray(pool);
+
+    if (mode === 'full') {
+        const scored = pool.slice(0, Math.min(count, pool.length));
+        const scoredIds = new Set(scored.map(q => q.id));
+        const remaining = pool.filter(q => !scoredIds.has(q.id));
+        const nonScored = remaining.slice(0, 5).map(q => ({ ...q, _nonScored: true }));
+        return shuffleArray([...scored, ...nonScored]);
     }
 
-    // Add 5 non-scored questions for full exam mode
-    if (mode === 'full' && pool.length >= count) {
-        const scored = pool.slice(0, count);
-        const nonScored = pool.slice(count, count + 5).map(q => ({ ...q, _nonScored: true }));
-        pool = shuffleArray([...scored, ...nonScored]);
+    if (mode === 'random') {
+        return pool.slice(0, Math.min(count, pool.length));
     }
 
     return pool;
