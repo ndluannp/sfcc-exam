@@ -15561,15 +15561,15 @@
     "question": "B2C Commerce:",
     "type": "single",
     "options": [
-      "Has rich features to allow customers to\n                            customize their stores to be on brand",
+      "Has rich features to allow customers to customize their stores to be on brand",
       "Is in English only",
-      "Offers a single look and feel for all\n                            websites",
-      "Is all-inclusive and therefore not\n                            intended to work with outside applications"
+      "Offers a single look and feel for all websites",
+      "Is all-inclusive and therefore not intended to work with outside applications"
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Has rich features to allow customers to\n                            customize their stores to be on brand",
+    "explanation": "Correct answer: A. Has rich features to allow customers to customize their stores to be on brand",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15578,18 +15578,18 @@
   {
     "id": 126,
     "set": "Learn About B2C Commerce",
-    "question": "Through the power of AI and machine learning, the Merchandising and Marketing feature enables\n                        retailers to:",
+    "question": "Through the power of AI and machine learning, the Merchandising and Marketing feature enables retailers to:",
     "type": "single",
     "options": [
-      "Predict what customers buy, based on\n                            their public records from the courthouse",
-      "Perform automated search engine\n                            optimization on sites and content",
-      "Personalize their engagement with\n                            customers through offers and product recommendations",
-      "Create geo-specific websites featuring\n                            different languages and currencies"
+      "Predict what customers buy, based on their public records from the courthouse",
+      "Perform automated search engine optimization on sites and content",
+      "Personalize their engagement with customers through offers and product recommendations",
+      "Create geo-specific websites featuring different languages and currencies"
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Personalize their engagement with\n                            customers through offers and product recommendations",
+    "explanation": "Correct answer: C. Personalize their engagement with customers through offers and product recommendations",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15601,15 +15601,15 @@
     "question": "With Einstein for B2C Commerce:",
     "type": "single",
     "options": [
-      "Data scientists send reports to our\n                            customers every week, detailing product and consumer insights.",
-      "Additional data integration is required\n                            to get the most out of the machine-learning algorithms.",
-      "Personalization is supercharged, using a\n                            retailer’s own commerce data.",
-      "Personalization is available for\n                            websites, but not in-store or on mobile devices."
+      "Data scientists send reports to our customers every week, detailing product and consumer insights.",
+      "Additional data integration is required to get the most out of the machine-learning algorithms.",
+      "Personalization is supercharged, using a retailer’s own commerce data.",
+      "Personalization is available for websites, but not in-store or on mobile devices."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Personalization is supercharged, using a\n                            retailer’s own commerce data.",
+    "explanation": "Correct answer: C. Personalization is supercharged, using a retailer’s own commerce data.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15621,15 +15621,15 @@
     "question": "What do Einstein Product Recommendations do?",
     "type": "single",
     "options": [
-      "They suggest relevant products during a\n                            consumer’s shopping journey.",
-      "They suggest the best size and color\n                            combinations for each shopper.",
-      "They help in-store sales associates\n                            arrange related merchandise to maximize sales.",
-      "They suggest to retailers relevant\n                            products to add to their inventory."
+      "They suggest relevant products during a consumer’s shopping journey.",
+      "They suggest the best size and color combinations for each shopper.",
+      "They help in-store sales associates arrange related merchandise to maximize sales.",
+      "They suggest to retailers relevant products to add to their inventory."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. They suggest relevant products during a\n                            consumer’s shopping journey.",
+    "explanation": "Correct answer: A. They suggest relevant products during a consumer’s shopping journey.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15643,8 +15643,8 @@
     "options": [
       "Descriptive product pages",
       "Contract pricing by account",
-      "Personalized product\n                            recommendations",
-      "Industry-leading ecommerce\n                            sites"
+      "Personalized product recommendations",
+      "Industry-leading ecommerce sites"
     ],
     "answer": [
       "B"
@@ -15661,15 +15661,15 @@
     "question": "What’s a benefit of combining B2B Commerce and CRM Data?",
     "type": "single",
     "options": [
-      "Businesses can sell their products at a\n                            discount.",
-      "Customer sites look more flashy thanks\n                            to more data.",
-      "Sites can host a larger product\n                            catalog.",
-      "Sales reps can see relevant customer\n                            data in one place."
+      "Businesses can sell their products at a discount.",
+      "Customer sites look more flashy thanks to more data.",
+      "Sites can host a larger product catalog.",
+      "Sales reps can see relevant customer data in one place."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. Sales reps can see relevant customer\n                            data in one place.",
+    "explanation": "Correct answer: D. Sales reps can see relevant customer data in one place.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15681,9 +15681,9 @@
     "question": "What is unified commerce?",
     "type": "single",
     "options": [
-      "A way to connect the shopper's entire\n                            commerce experience",
-      "Consistent products and merchandising in\n                            stores worldwide",
-      "An integral part of the Salesforce\n                            Customer Success Platform",
+      "A way to connect the shopper's entire commerce experience",
+      "Consistent products and merchandising in stores worldwide",
+      "An integral part of the Salesforce Customer Success Platform",
       "Both A and C"
     ],
     "answer": [
@@ -15742,9 +15742,9 @@
     "question": "How can a brand or retailer use Instagram with Commerce Cloud?",
     "type": "single",
     "options": [
-      "Post photos of products that link to the\n                            brand’s product page.",
-      "Create an entire brand experience with\n                            curated media that directs shoppers to their Commerce Cloud site.",
-      "Post a page that describes their\n                            corporate culture.",
+      "Post photos of products that link to the brand’s product page.",
+      "Create an entire brand experience with curated media that directs shoppers to their Commerce Cloud site.",
+      "Post a page that describes their corporate culture.",
       "A and B",
       "B and C"
     ],
@@ -15764,14 +15764,14 @@
     "type": "single",
     "options": [
       "Access to customer credit scores",
-      "Customer order data, profile data, and\n                            case history",
-      "Detailed information about the purchases\n                            customers have made on other websites",
-      "Access to a list of every customer's\n                            Facebook friends"
+      "Customer order data, profile data, and case history",
+      "Detailed information about the purchases customers have made on other websites",
+      "Access to a list of every customer's Facebook friends"
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. Customer order data, profile data, and\n                            case history",
+    "explanation": "Correct answer: B. Customer order data, profile data, and case history",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15783,15 +15783,15 @@
     "question": "How can agents become a selling channel?",
     "type": "single",
     "options": [
-      "Add product recommendations to closed\n                            case emails",
-      "Leverage Trailhead to learn cross-selling\n                            skills",
-      "Help customers exchange a product for a\n                            different size",
-      "Use \"order on behalf of\"\n                            capabilities"
+      "Add product recommendations to closed case emails",
+      "Leverage Trailhead to learn cross-selling skills",
+      "Help customers exchange a product for a different size",
+      "Use \"order on behalf of\" capabilities"
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. Use \"order on behalf of\"\n                            capabilities",
+    "explanation": "Correct answer: D. Use \"order on behalf of\" capabilities",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15803,15 +15803,15 @@
     "question": "Why is an import and export schema important?",
     "type": "single",
     "options": [
-      "It helps you export coupon codes in XML\n                            format.",
-      "To enable your digital storefronts to\n                            use the documents.",
-      "Using import and export is optional\n                            with B2C Commerce.",
-      "Schema files specify the file structure\n                            expected by B2C Commerce import and export."
+      "It helps you export coupon codes in XML format.",
+      "To enable your digital storefronts to use the documents.",
+      "Using import and export is optional with B2C Commerce.",
+      "Schema files specify the file structure expected by B2C Commerce import and export."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. Schema files specify the file structure\n                            expected by B2C Commerce import and export.",
+    "explanation": "Correct answer: D. Schema files specify the file structure expected by B2C Commerce import and export.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15844,10 +15844,10 @@
     "question": "What are the B2C Commerce instance types on a PIG?",
     "type": "single",
     "options": [
-      "Sandbox, staging, and\n                            production",
-      "Sandbox, staging, development, and\n                            production",
+      "Sandbox, staging, and production",
+      "Sandbox, staging, development, and production",
       "Development, staging, and production",
-      "Sandbox, staging, and\n                            development"
+      "Sandbox, staging, and development"
     ],
     "answer": [
       "C"
@@ -15864,15 +15864,15 @@
     "question": "How do sites and organizations relate to instances?",
     "type": "single",
     "options": [
-      "The multiple sites on an instance are\n                            an organization.",
-      "A site contains a PIG and a\n                            SIG.",
-      "An organization is a realm containing\n                            sites.",
-      "A site relates to a PIG and a SIG,\n                            while an organization relates to a realm."
+      "The multiple sites on an instance are an organization.",
+      "A site contains a PIG and a SIG.",
+      "An organization is a realm containing sites.",
+      "A site relates to a PIG and a SIG, while an organization relates to a realm."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. The multiple sites on an instance are\n                            an organization.",
+    "explanation": "Correct answer: A. The multiple sites on an instance are an organization.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15904,15 +15904,15 @@
     "question": "How does the import and export process differ from data replication?",
     "type": "single",
     "options": [
-      "Import and export moves data from one\n                            instance to another, after it's already in a B2C Commerce database. Replication moves data\n                            to and from external systems.",
-      "After your data is in a B2C Commerce\n                            database, import and export moves data to and from external systems, replication moves data\n                            from one instance to another.",
-      "Export creates a copy of the data from\n                            the originating instance database at a new location in the target instance database, without\n                            replacing the original data. Replication replaces the data.",
-      "The replication process changes a site\n                            automatically and instantaneously, rather than gradually."
+      "Import and export moves data from one instance to another, after it's already in a B2C Commerce database. Replication moves data to and from external systems.",
+      "After your data is in a B2C Commerce database, import and export moves data to and from external systems, replication moves data from one instance to another.",
+      "Export creates a copy of the data from the originating instance database at a new location in the target instance database, without replacing the original data. Replication replaces the data.",
+      "The replication process changes a site automatically and instantaneously, rather than gradually."
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. After your data is in a B2C Commerce\n                            database, import and export moves data to and from external systems, replication moves data\n                            from one instance to another.",
+    "explanation": "Correct answer: B. After your data is in a B2C Commerce database, import and export moves data to and from external systems, replication moves data from one instance to another.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -15921,7 +15921,7 @@
   {
     "id": 143,
     "set": "Get to Know Headless Commerce",
-    "question": "True or false: With headless commerce, the front-end and back-end portions of a commerce system\n                        communicate with web APIs.",
+    "question": "True or false: With headless commerce, the front-end and back-end portions of a commerce system communicate with web APIs.",
     "type": "single",
     "options": [
       "True",
@@ -15942,9 +15942,9 @@
     "question": "What are the features of headless commerce that distinguish it from traditional commerce?",
     "type": "single",
     "options": [
-      "Developers can use different\n                            programming languages for front-end and back-end development.",
+      "Developers can use different programming languages for front-end and back-end development.",
       "Developers can use AI.",
-      "Developers can deploy front- and\n                            back-end systems independently.",
+      "Developers can deploy front- and back-end systems independently.",
       "B and C",
       "A and C"
     ],
@@ -15981,7 +15981,7 @@
   {
     "id": 146,
     "set": "Plan Your Headless Commerce Implementation",
-    "question": "True or false: The headless approach is a great fit if your company has a solid IT department\n                        with a strong do-it-yourself attitude and want faster delivery of front-end changes on many\n                        devices and viewing formats.",
+    "question": "True or false: The headless approach is a great fit if your company has a solid IT department with a strong do-it-yourself attitude and want faster delivery of front-end changes on many devices and viewing formats.",
     "type": "single",
     "options": [
       "True",
@@ -15999,18 +15999,18 @@
   {
     "id": 147,
     "set": "Discover PWA Kit and Managed Runtime",
-    "question": "What specific resources does the PWA Kit provide to developers to accelerate the build\n                        process?",
+    "question": "What specific resources does the PWA Kit provide to developers to accelerate the build process?",
     "type": "single",
     "options": [
-      "A proprietary database management\n                            system.",
-      "A drag-and-drop interface for\n                            non-technical users.",
-      "Project templates and a routing\n                            system.",
-      "A monolithic server\n                            architecture."
+      "A proprietary database management system.",
+      "A drag-and-drop interface for non-technical users.",
+      "Project templates and a routing system.",
+      "A monolithic server architecture."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Project templates and a routing\n                            system.",
+    "explanation": "Correct answer: C. Project templates and a routing system.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16019,18 +16019,18 @@
   {
     "id": 148,
     "set": "Discover PWA Kit and Managed Runtime",
-    "question": "Which metric highlights the reliability benefit of using the Managed Runtime for store\n                        operations?",
+    "question": "Which metric highlights the reliability benefit of using the Managed Runtime for store operations?",
     "type": "single",
     "options": [
-      "Unlimited storage capacity for all\n                            media assets.",
-      "Support for unlimited concurrent\n                            developer user accounts.",
-      "Guaranteed 100 millisecond page loads\n                            on 3G networks.",
-      "A historical 99.99% uptime\n                            record."
+      "Unlimited storage capacity for all media assets.",
+      "Support for unlimited concurrent developer user accounts.",
+      "Guaranteed 100 millisecond page loads on 3G networks.",
+      "A historical 99.99% uptime record."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. A historical 99.99% uptime\n                            record.",
+    "explanation": "Correct answer: D. A historical 99.99% uptime record.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16140,7 +16140,7 @@
   {
     "id": 154,
     "set": "Explore Admin Tasks for B2C Commerce",
-    "question": "True or false: When you assign roles to Business Manager users, you can restrict module and\n                        functional access by job scope.",
+    "question": "True or false: When you assign roles to Business Manager users, you can restrict module and functional access by job scope.",
     "type": "single",
     "options": [
       "True",
@@ -16158,7 +16158,7 @@
   {
     "id": 155,
     "set": "Set Up Business Manager Users",
-    "question": "True or false: Account Manager is the tool for creating and managing Business Manager\n                        users.",
+    "question": "True or false: Account Manager is the tool for creating and managing Business Manager users.",
     "type": "single",
     "options": [
       "True",
@@ -16176,19 +16176,19 @@
   {
     "id": 156,
     "set": "Set Up Business Manager Users",
-    "question": "Why is it important to add password protection to a B2C Commerce site that's under\n                        development?",
+    "question": "Why is it important to add password protection to a B2C Commerce site that's under development?",
     "type": "single",
     "options": [
-      "You want potential shoppers to find it\n                            through a search engine before it's ready.",
-      "You want to surprise everyone on launch\n                            day.",
-      "You want to give site access to only\n                            the people working on it and no one else.",
+      "You want potential shoppers to find it through a search engine before it's ready.",
+      "You want to surprise everyone on launch day.",
+      "You want to give site access to only the people working on it and no one else.",
       "A and B.",
       "A and C."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. You want to give site access to only\n                            the people working on it and no one else.",
+    "explanation": "Correct answer: C. You want to give site access to only the people working on it and no one else.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16235,7 +16235,7 @@
   {
     "id": 159,
     "set": "Explore On-Demand Sandboxes",
-    "question": "True or false: On-demand sandboxes allow you to dispose of environments when the work\n                        completes.",
+    "question": "True or false: On-demand sandboxes allow you to dispose of environments when the work completes.",
     "type": "single",
     "options": [
       "True",
@@ -16256,16 +16256,16 @@
     "question": "Which is true about credit consumption?",
     "type": "single",
     "options": [
-      "Credits are consumed based on the number\n                            of sandwiches counted.",
-      "Credits are consumed based on\n                            usage.",
-      "Deleted sandboxes consume\n                            credits.",
+      "Credits are consumed based on the number of sandwiches counted.",
+      "Credits are consumed based on usage.",
+      "Deleted sandboxes consume credits.",
       "A and B",
       "B and C"
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. Credits are consumed based on\n                            usage.",
+    "explanation": "Correct answer: B. Credits are consumed based on usage.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16277,7 +16277,7 @@
     "question": "Which of these steps would a developer include in an automated process?",
     "type": "single",
     "options": [
-      "Calculate actual cash value (ACV) for a\n                            time period.",
+      "Calculate actual cash value (ACV) for a time period.",
       "Perform a site data audit.",
       "Deploy code to the sandbox.",
       "A and B",
@@ -16295,7 +16295,7 @@
   {
     "id": 162,
     "set": "Configure an On-Demand Sandbox",
-    "question": "True or false: The OCAPI and WebDAV Client Permissions settings in Business Manager are required\n                        for API client access to on-demand sandboxes.",
+    "question": "True or false: The OCAPI and WebDAV Client Permissions settings in Business Manager are required for API client access to on-demand sandboxes.",
     "type": "single",
     "options": [
       "True",
@@ -16317,8 +16317,8 @@
     "type": "single",
     "options": [
       "HTML",
-      "B2C Commerce Cloud Developer Sandbox\n                            REST API",
-      "The command line interface\n                            (CLI)",
+      "B2C Commerce Cloud Developer Sandbox REST API",
+      "The command line interface (CLI)",
       "A and B",
       "B and C"
     ],
@@ -16352,7 +16352,7 @@
   {
     "id": 165,
     "set": "Explore Business Manager Import and Export",
-    "question": "True or false: Schema files provide the file structure for the XML files that you import into a\n                        B2C Commerce system.",
+    "question": "True or false: Schema files provide the file structure for the XML files that you import into a B2C Commerce system.",
     "type": "single",
     "options": [
       "True",
@@ -16414,7 +16414,7 @@
     "type": "single",
     "options": [
       "Update mode.",
-      "Delete mode for a file that only contains\n                            objects to be deleted.",
+      "Delete mode for a file that only contains objects to be deleted.",
       "Merge mode.",
       "Delete mode at the object level.",
       "B and D"
@@ -16431,7 +16431,7 @@
   {
     "id": 169,
     "set": "Configure Import and Export",
-    "question": "True or false: To import a catalog, you must create a pdf file on the external system, upload\n                        the file to B2C Commerce, and then compress the file.",
+    "question": "True or false: To import a catalog, you must create a pdf file on the external system, upload the file to B2C Commerce, and then compress the file.",
     "type": "single",
     "options": [
       "True",
@@ -16449,7 +16449,7 @@
   {
     "id": 170,
     "set": "Configure Import and Export",
-    "question": "True or false: Site import lets you save the configuration and data on one instance and restore\n                        it on another.",
+    "question": "True or false: Site import lets you save the configuration and data on one instance and restore it on another.",
     "type": "single",
     "options": [
       "True",
@@ -16470,15 +16470,15 @@
     "question": "What's the difference between a storefront catalog and a product catalog?",
     "type": "single",
     "options": [
-      "Storefront catalogs are mailed while\n                            product catalogs are not.",
-      "Storefront catalogs are where you\n                            edit products. You can't edit products in a product catalog.",
-      "The category structure of a\n                            storefront catalog drives storefront navigation, while a product catalog mirrors an external\n                            database.",
-      "Storefront catalogs offer steep\n                            discounts, while product catalogs contain list prices."
+      "Storefront catalogs are mailed while product catalogs are not.",
+      "Storefront catalogs are where you edit products. You can't edit products in a product catalog.",
+      "The category structure of a storefront catalog drives storefront navigation, while a product catalog mirrors an external database.",
+      "Storefront catalogs offer steep discounts, while product catalogs contain list prices."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. The category structure of a\n                            storefront catalog drives storefront navigation, while a product catalog mirrors an external\n                            database.",
+    "explanation": "Correct answer: C. The category structure of a storefront catalog drives storefront navigation, while a product catalog mirrors an external database.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16490,15 +16490,15 @@
     "question": "What types of products can you display on a B2C Commerce storefront?",
     "type": "single",
     "options": [
-      "Base, variation, bundle, set, and\n                            standard",
-      "Base, variation, and\n                            favorites",
-      "Apparel, electronics, furniture, and\n                            food",
+      "Base, variation, bundle, set, and standard",
+      "Base, variation, and favorites",
+      "Apparel, electronics, furniture, and food",
       "Multiple, orderable, and set"
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Base, variation, bundle, set, and\n                            standard",
+    "explanation": "Correct answer: A. Base, variation, bundle, set, and standard",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16510,15 +16510,15 @@
     "question": "How can you increase search hits from external search engines?",
     "type": "single",
     "options": [
-      "Leave HTML page metatags\n                            blank.",
+      "Leave HTML page metatags blank.",
       "Add standard content to all metatags.",
-      "Streamline URLs and eliminate\n                            irrelevant keywords.",
+      "Streamline URLs and eliminate irrelevant keywords.",
       "Ignore 404 errors."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Streamline URLs and eliminate\n                            irrelevant keywords.",
+    "explanation": "Correct answer: C. Streamline URLs and eliminate irrelevant keywords.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16530,15 +16530,15 @@
     "question": "How do search redirects benefit shoppers?",
     "type": "single",
     "options": [
-      "Shoppers are sent automatically to the\n                            page they're interested in.",
-      "Shoppers are more willing to spend\n                            money.",
-      "Shoppers find unexpected products they\n                            weren't looking for.",
-      "Shoppers get to buy products at a\n                            discount."
+      "Shoppers are sent automatically to the page they're interested in.",
+      "Shoppers are more willing to spend money.",
+      "Shoppers find unexpected products they weren't looking for.",
+      "Shoppers get to buy products at a discount."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Shoppers are sent automatically to the\n                            page they're interested in.",
+    "explanation": "Correct answer: A. Shoppers are sent automatically to the page they're interested in.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16552,13 +16552,13 @@
     "options": [
       "Categories, search redirects",
       "Stock market data",
-      "Antonyms, metaphors, rhyming\n                            words",
-      "Synonyms, stop words, word\n                            stems"
+      "Antonyms, metaphors, rhyming words",
+      "Synonyms, stop words, word stems"
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. Synonyms, stop words, word\n                            stems",
+    "explanation": "Correct answer: D. Synonyms, stop words, word stems",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16590,15 +16590,15 @@
     "question": "What's an example of merchant-directed search sorting by a dynamic attribute?",
     "type": "single",
     "options": [
-      "Search results sort based on the text\n                            a shopper enters into the search field.",
-      "Search results sort by color after the\n                            shopper selects Blue from a menu on the search results page.",
-      "Search results sort by price after the\n                            shopper selects Low to High from a dropdown list on the search results page.",
-      "Search results sort by product\n                            availability."
+      "Search results sort based on the text a shopper enters into the search field.",
+      "Search results sort by color after the shopper selects Blue from a menu on the search results page.",
+      "Search results sort by price after the shopper selects Low to High from a dropdown list on the search results page.",
+      "Search results sort by product availability."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. Search results sort by product\n                            availability.",
+    "explanation": "Correct answer: D. Search results sort by product availability.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16610,15 +16610,15 @@
     "question": "What can Einstein Search Dictionaries do?",
     "type": "single",
     "options": [
-      "Detect relationships between search\n                            terms and generate recommendations",
-      "Collect data from inventory\n                            updates",
-      "Find search terms that are already in\n                            your dictionaries",
+      "Detect relationships between search terms and generate recommendations",
+      "Collect data from inventory updates",
+      "Find search terms that are already in your dictionaries",
       "Detect relationships between products"
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Detect relationships between search\n                            terms and generate recommendations",
+    "explanation": "Correct answer: A. Detect relationships between search terms and generate recommendations",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16630,15 +16630,15 @@
     "question": "How do campaigns relate to promotions?",
     "type": "single",
     "options": [
-      "Promotions can contain one or more\n                            campaigns.",
-      "Campaigns can contain only one\n                            promotion.",
-      "Campaigns can contain one or more\n                            promotion experiences.",
-      "Campaigns and promotions are the same\n                            thing."
+      "Promotions can contain one or more campaigns.",
+      "Campaigns can contain only one promotion.",
+      "Campaigns can contain one or more promotion experiences.",
+      "Campaigns and promotions are the same thing."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Campaigns can contain one or more\n                            promotion experiences.",
+    "explanation": "Correct answer: C. Campaigns can contain one or more promotion experiences.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16670,15 +16670,15 @@
     "question": "What qualifiers are available in B2C Commerce?",
     "type": "single",
     "options": [
-      "Coupons, source codes, and customer\n                            groups",
-      "Coupons, products, and\n                            discounts",
+      "Coupons, source codes, and customer groups",
+      "Coupons, products, and discounts",
       "Source codes and exclusivity",
       "Sorting rules and rank"
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Coupons, source codes, and customer\n                            groups",
+    "explanation": "Correct answer: A. Coupons, source codes, and customer groups",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16691,9 +16691,9 @@
     "type": "single",
     "options": [
       "Product locking",
-      "Product details and\n                            categories",
+      "Product details and categories",
       "Exclusivity and rank",
-      "With a combination of qualifying\n                            products"
+      "With a combination of qualifying products"
     ],
     "answer": [
       "C"
@@ -16710,9 +16710,9 @@
     "question": "Which of these statements about catalogs is true?",
     "type": "single",
     "options": [
-      "You can assign a catalog to as many\n                            sites as you want.",
-      "You can only assign one catalog to a\n                            site.",
-      "Catalogs and sites have a one-to-one\n                            correspondence.",
+      "You can assign a catalog to as many sites as you want.",
+      "You can only assign one catalog to a site.",
+      "Catalogs and sites have a one-to-one correspondence.",
       "A and B",
       "A and C"
     ],
@@ -16728,12 +16728,12 @@
   {
     "id": 184,
     "set": "Explore B2C Commerce Catalogs",
-    "question": "You want to configure catalogs for multiple geographic markets. Which of these statements is\n                        true?",
+    "question": "You want to configure catalogs for multiple geographic markets. Which of these statements is true?",
     "type": "single",
     "options": [
-      "All products in a storefront catalog\n                            are visible on the assigned site.",
-      "If you have two sites, you can\n                            configure which products are available on both sites and which are not.",
-      "Products can be available in multiple\n                            categories.",
+      "All products in a storefront catalog are visible on the assigned site.",
+      "If you have two sites, you can configure which products are available on both sites and which are not.",
+      "Products can be available in multiple categories.",
       "A and B",
       "B and C"
     ],
@@ -16752,9 +16752,9 @@
     "question": "Which of these statements is true about B2C Commerce categories?",
     "type": "single",
     "options": [
-      "It’s important to categorize as many\n                            levels as possible to document product complexity.",
-      "You can create categories that are not\n                            part of the navigation structure.",
-      "You can assign products to more than one\n                            category within and across catalogs.",
+      "It’s important to categorize as many levels as possible to document product complexity.",
+      "You can create categories that are not part of the navigation structure.",
+      "You can assign products to more than one category within and across catalogs.",
       "A and B",
       "B and C"
     ],
@@ -16770,7 +16770,7 @@
   {
     "id": 186,
     "set": "Create Categories",
-    "question": "True or false: A dynamic categorization rule set automates product category assignment via AND\n                        and OR logic operators.",
+    "question": "True or false: A dynamic categorization rule set automates product category assignment via AND and OR logic operators.",
     "type": "single",
     "options": [
       "True",
@@ -16791,9 +16791,9 @@
     "question": "Which of these statements describe the product attribute relationship?",
     "type": "single",
     "options": [
-      "Products can share attributes or have\n                            different attributes.",
-      "Product attributes define how well a\n                            product sells.",
-      "The product ID attribute identifies a\n                            distinct item (or product) for sale.",
+      "Products can share attributes or have different attributes.",
+      "Product attributes define how well a product sells.",
+      "The product ID attribute identifies a distinct item (or product) for sale.",
       "A and B",
       "A and C"
     ],
@@ -16812,9 +16812,9 @@
     "question": "Products relate to categories in which of these ways?",
     "type": "single",
     "options": [
-      "A product must be assigned to a category\n                            for it to appear on the storefront.",
-      "You can assign products to more than one\n                            category within and across catalogs.",
-      "You can configure only one category per\n                            product.",
+      "A product must be assigned to a category for it to appear on the storefront.",
+      "You can assign products to more than one category within and across catalogs.",
+      "You can configure only one category per product.",
       "A and B",
       "A and C"
     ],
@@ -16830,18 +16830,18 @@
   {
     "id": 189,
     "set": "Configure Variation Groups and Slicing",
-    "question": "Which of these illustrates the difference between displaying product variations via variation\n                        groups and slicing?",
+    "question": "Which of these illustrates the difference between displaying product variations via variation groups and slicing?",
     "type": "single",
     "options": [
-      "Variation groups help you control search\n                            results more accurately.",
-      "You can slice by multiple variations at\n                            one time.",
-      "B2C Commerce enables slicing when\n                            variation groups exist for a base product.",
-      "You can have only one variation group\n                            within a base product."
+      "Variation groups help you control search results more accurately.",
+      "You can slice by multiple variations at one time.",
+      "B2C Commerce enables slicing when variation groups exist for a base product.",
+      "You can have only one variation group within a base product."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Variation groups help you control search\n                            results more accurately.",
+    "explanation": "Correct answer: A. Variation groups help you control search results more accurately.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16850,7 +16850,7 @@
   {
     "id": 190,
     "set": "Configure Variation Groups and Slicing",
-    "question": "True or false: Slicing lets you define how variation products display in search results or on\n                        category pages: as separate products, each with its own swatch, or as one product with swatches\n                        for each of the variations.",
+    "question": "True or false: Slicing lets you define how variation products display in search results or on category pages: as separate products, each with its own swatch, or as one product with swatches for each of the variations.",
     "type": "single",
     "options": [
       "True",
@@ -16868,7 +16868,7 @@
   {
     "id": 191,
     "set": "Configure Product Sets, Bundles, and Options",
-    "question": "True or false: With a product set, shoppers can also order the individual products separately.\n                        With bundles shoppers cannot.",
+    "question": "True or false: With a product set, shoppers can also order the individual products separately. With bundles shoppers cannot.",
     "type": "single",
     "options": [
       "True",
@@ -16889,9 +16889,9 @@
     "question": "Which of these is true about B2C Commerce options?",
     "type": "single",
     "options": [
-      "Product options have their own price\n                            and display name, but do not have their own thumbnail images.",
-      "You can only create product options for\n                            a local site.",
-      "A shopper can’t search for options, but\n                            they are visible on the product detail page.",
+      "Product options have their own price and display name, but do not have their own thumbnail images.",
+      "You can only create product options for a local site.",
+      "A shopper can’t search for options, but they are visible on the product detail page.",
       "A and B",
       "A and C"
     ],
@@ -16907,18 +16907,18 @@
   {
     "id": 193,
     "set": "Configure Price Books",
-    "question": "Which factor does Salesforce B2C Commerce use to determine which price to use when multiple\n                        price books are active and have overlapping valid periods?",
+    "question": "Which factor does Salesforce B2C Commerce use to determine which price to use when multiple price books are active and have overlapping valid periods?",
     "type": "single",
     "options": [
-      "The price book with the most recent\n                            \"Valid From\" date.",
-      "The price book with the earliest \"Valid\n                            From\" date.",
-      "The price book with the highest number of\n                            products.",
-      "The price book that was created\n                            first."
+      "The price book with the most recent \"Valid From\" date.",
+      "The price book with the earliest \"Valid From\" date.",
+      "The price book with the highest number of products.",
+      "The price book that was created first."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. The price book with the most recent\n                            \"Valid From\" date.",
+    "explanation": "Correct answer: A. The price book with the most recent \"Valid From\" date.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16930,15 +16930,15 @@
     "question": "What is a key benefit of using Read-Only Price Books in Salesforce B2C Commerce?",
     "type": "single",
     "options": [
-      "They allow for manual price editing\n                            directly within Business Manager.",
-      "They are primarily used for exporting\n                            price data to an ERP system.",
-      "They offer significantly faster import\n                            times for price data and don't require product indexing for prices to take effect in the\n                            search index.",
-      "They can only hold a limited number of\n                            prices, ensuring system efficiency required for price indexing."
+      "They allow for manual price editing directly within Business Manager.",
+      "They are primarily used for exporting price data to an ERP system.",
+      "They offer significantly faster import times for price data and don't require product indexing for prices to take effect in the search index.",
+      "They can only hold a limited number of prices, ensuring system efficiency required for price indexing."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. They offer significantly faster import\n                            times for price data and don't require product indexing for prices to take effect in the\n                            search index.",
+    "explanation": "Correct answer: C. They offer significantly faster import times for price data and don't require product indexing for prices to take effect in the search index.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16950,15 +16950,15 @@
     "question": "What is the purpose of a \"Swatch\" view type?",
     "type": "single",
     "options": [
-      "To display large images on the product\n                            detail page.",
-      "To show medium images on the search\n                            results page.",
-      "To provide a very small image for hover\n                            help.",
-      "To differentiate variation products by an\n                            attribute, typically by color."
+      "To display large images on the product detail page.",
+      "To show medium images on the search results page.",
+      "To provide a very small image for hover help.",
+      "To differentiate variation products by an attribute, typically by color."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. To differentiate variation products by an\n                            attribute, typically by color.",
+    "explanation": "Correct answer: D. To differentiate variation products by an attribute, typically by color.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -16967,7 +16967,7 @@
   {
     "id": 196,
     "set": "Manage Product Images",
-    "question": "Which Salesforce B2C Commerce feature allows for matrix-based image assignment for internal or\n                        external images?",
+    "question": "Which Salesforce B2C Commerce feature allows for matrix-based image assignment for internal or external images?",
     "type": "single",
     "options": [
       "Dynamic Imaging Service (DIS)",
@@ -16990,15 +16990,15 @@
     "question": "How do private libraries differ from shared libraries?",
     "type": "single",
     "options": [
-      "A site can use its private library or a\n                            shared library, but not both.",
-      "Private libraries can be used by multiple\n                            sites, while shared libraries are specific to one site.",
-      "Shared libraries are created when a site\n                            is created, while private libraries are created independently.",
-      "Private libraries have a maximum limit of\n                            200 per instance, while shared libraries do not."
+      "A site can use its private library or a shared library, but not both.",
+      "Private libraries can be used by multiple sites, while shared libraries are specific to one site.",
+      "Shared libraries are created when a site is created, while private libraries are created independently.",
+      "Private libraries have a maximum limit of 200 per instance, while shared libraries do not."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. A site can use its private library or a\n                            shared library, but not both.",
+    "explanation": "Correct answer: A. A site can use its private library or a shared library, but not both.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17010,15 +17010,15 @@
     "question": "Which of these statements describes how storefront search handles content assets?",
     "type": "single",
     "options": [
-      "B2C Commerce ignores site-specific\n                            attribute values for content assets when indexing them.",
-      "If a site uses a shared library, the data\n                            in the private library doesn't appear in a search index.",
-      "Site-specific attribute values for content\n                            assets are ignored during indexing.",
-      "If a site uses a shared library, the data\n                            in its private library is always included in the search index."
+      "B2C Commerce ignores site-specific attribute values for content assets when indexing them.",
+      "If a site uses a shared library, the data in the private library doesn't appear in a search index.",
+      "Site-specific attribute values for content assets are ignored during indexing.",
+      "If a site uses a shared library, the data in its private library is always included in the search index."
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. If a site uses a shared library, the data\n                            in the private library doesn't appear in a search index.",
+    "explanation": "Correct answer: B. If a site uses a shared library, the data in the private library doesn't appear in a search index.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17027,7 +17027,7 @@
   {
     "id": 199,
     "set": "Explore Campaigns and Experience Types",
-    "question": "Which of the following is NOT an experience type that can be part of a B2C Commerce\n                        campaign?",
+    "question": "Which of the following is NOT an experience type that can be part of a B2C Commerce campaign?",
     "type": "single",
     "options": [
       "Promotions",
@@ -17047,18 +17047,18 @@
   {
     "id": 200,
     "set": "Explore Campaigns and Experience Types",
-    "question": "Which of these statements is correct regarding how a shopper can get a discount within a\n                        campaign?",
+    "question": "Which of these statements is correct regarding how a shopper can get a discount within a campaign?",
     "type": "single",
     "options": [
-      "A shopper can only get a discount by\n                            using a single coupon assigned to a promotion experience within a campaign.",
-      "A shopper can get a discount by\n                            qualifying via one or more coupons, customer groups, or source codes assigned to a promotion\n                            experience within a campaign.",
-      "A shopper can get a discount only if\n                            they belong to a specific customer group assigned to a promotion experience within a\n                            campaign.",
-      "A shopper can get a discount only\n                            through source codes assigned to a promotion experience within a campaign."
+      "A shopper can only get a discount by using a single coupon assigned to a promotion experience within a campaign.",
+      "A shopper can get a discount by qualifying via one or more coupons, customer groups, or source codes assigned to a promotion experience within a campaign.",
+      "A shopper can get a discount only if they belong to a specific customer group assigned to a promotion experience within a campaign.",
+      "A shopper can get a discount only through source codes assigned to a promotion experience within a campaign."
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. A shopper can get a discount by\n                            qualifying via one or more coupons, customer groups, or source codes assigned to a promotion\n                            experience within a campaign.",
+    "explanation": "Correct answer: B. A shopper can get a discount by qualifying via one or more coupons, customer groups, or source codes assigned to a promotion experience within a campaign.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17070,15 +17070,15 @@
     "question": "What are three actions that source codes can perform?",
     "type": "single",
     "options": [
-      "Direct customers to specialized landing\n                            pages, redirect them to other sites, and activate price books.",
-      "Store a code on a browser cookie, send the\n                            shopper to the storefront automatically, and activate promotions.",
-      "Activate a price book, use as a qualifier\n                            in a campaign, and redirect customers to other sites.",
-      "Contain one or more literal codes, match\n                            multiple codes, and track results on a per source code basis."
+      "Direct customers to specialized landing pages, redirect them to other sites, and activate price books.",
+      "Store a code on a browser cookie, send the shopper to the storefront automatically, and activate promotions.",
+      "Activate a price book, use as a qualifier in a campaign, and redirect customers to other sites.",
+      "Contain one or more literal codes, match multiple codes, and track results on a per source code basis."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Direct customers to specialized landing\n                            pages, redirect them to other sites, and activate price books.",
+    "explanation": "Correct answer: A. Direct customers to specialized landing pages, redirect them to other sites, and activate price books.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17087,13 +17087,13 @@
   {
     "id": 202,
     "set": "Create Qualifiers",
-    "question": "What are the three main types of qualifier settings for promotion experiences within a\n                        campaign?",
+    "question": "What are the three main types of qualifier settings for promotion experiences within a campaign?",
     "type": "single",
     "options": [
       "Coupons, Customer Groups, and Price Books",
       "Coupons, Customer Groups, and Source Codes",
-      "Discounts, Customer Groups, and Affiliate\n                            Links",
-      "Promotions, Loyalty Members, and Source\n                            Codes"
+      "Discounts, Customer Groups, and Affiliate Links",
+      "Promotions, Loyalty Members, and Source Codes"
     ],
     "answer": [
       "B"
@@ -17111,14 +17111,14 @@
     "type": "single",
     "options": [
       "Can combine with any promotion.",
-      "Can’t combine with a promotion of the\n                            same class.",
-      "Can combine with promotions of a\n                            different class.",
-      "Can’t combine with any\n                            promotion."
+      "Can’t combine with a promotion of the same class.",
+      "Can combine with promotions of a different class.",
+      "Can’t combine with any promotion."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. Can’t combine with any\n                            promotion.",
+    "explanation": "Correct answer: D. Can’t combine with any promotion.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17130,15 +17130,15 @@
     "question": "In what order does B2C Commerce process discounts by class?",
     "type": "single",
     "options": [
-      "Product promotions, order promotions,\n                            shipping promotions.",
-      "Order promotions, product promotions,\n                            shipping promotions.",
-      "Shipping promotions, product\n                            promotions, order promotions.",
-      "Product promotions, shipping\n                            promotions, order promotions."
+      "Product promotions, order promotions, shipping promotions.",
+      "Order promotions, product promotions, shipping promotions.",
+      "Shipping promotions, product promotions, order promotions.",
+      "Product promotions, shipping promotions, order promotions."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Product promotions, order promotions,\n                            shipping promotions.",
+    "explanation": "Correct answer: A. Product promotions, order promotions, shipping promotions.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17147,18 +17147,18 @@
   {
     "id": 205,
     "set": "Create Promotions",
-    "question": "What action does the Return as approaching promotion setting cause when creating an Order or\n                        Shipping promotion?",
+    "question": "What action does the Return as approaching promotion setting cause when creating an Order or Shipping promotion?",
     "type": "single",
     "options": [
-      "It removes the promotion from the\n                            storefront when the shopper meets the approaching value.",
-      "It prevents the promotion from\n                            combining with other promotions.",
-      "It sets the Alert on Approaching\n                            feature, causing the storefront to show a message when the order value is close to the\n                            discount threshold.",
-      "It applies the discount when the\n                            shopper satisfies the approaching value."
+      "It removes the promotion from the storefront when the shopper meets the approaching value.",
+      "It prevents the promotion from combining with other promotions.",
+      "It sets the Alert on Approaching feature, causing the storefront to show a message when the order value is close to the discount threshold.",
+      "It applies the discount when the shopper satisfies the approaching value."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. It sets the Alert on Approaching\n                            feature, causing the storefront to show a message when the order value is close to the\n                            discount threshold.",
+    "explanation": "Correct answer: C. It sets the Alert on Approaching feature, causing the storefront to show a message when the order value is close to the discount threshold.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17167,18 +17167,18 @@
   {
     "id": 206,
     "set": "Create Promotions",
-    "question": "When you assign the CLASS exclusivity setting to your product promotions, what does it mean for\n                        the shopper?",
+    "question": "When you assign the CLASS exclusivity setting to your product promotions, what does it mean for the shopper?",
     "type": "single",
     "options": [
-      "The shopper can only use one promotion\n                            from any class.",
-      "The shopper can’t use a promotion with\n                            another promotion in the same class.",
-      "The shopper can use multiple\n                            promotions from the same class.",
-      "The shopper can’t combine any\n                            promotions."
+      "The shopper can only use one promotion from any class.",
+      "The shopper can’t use a promotion with another promotion in the same class.",
+      "The shopper can use multiple promotions from the same class.",
+      "The shopper can’t combine any promotions."
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. The shopper can’t use a promotion with\n                            another promotion in the same class.",
+    "explanation": "Correct answer: B. The shopper can’t use a promotion with another promotion in the same class.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17190,15 +17190,15 @@
     "question": "What does selecting \"Any\" in the Required Qualifiers field for a promotion mean?",
     "type": "single",
     "options": [
-      "A shopper meets all the qualifiers to\n                            be eligible for the promotion.",
-      "A shopper provides a valid coupon\n                            associated with the promotion.",
-      "A shopper belongs to all selected\n                            customer groups.",
-      "A shopper meets at least one qualifier\n                            to be eligible for the promotion."
+      "A shopper meets all the qualifiers to be eligible for the promotion.",
+      "A shopper provides a valid coupon associated with the promotion.",
+      "A shopper belongs to all selected customer groups.",
+      "A shopper meets at least one qualifier to be eligible for the promotion."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. A shopper meets at least one qualifier\n                            to be eligible for the promotion.",
+    "explanation": "Correct answer: D. A shopper meets at least one qualifier to be eligible for the promotion.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17210,15 +17210,15 @@
     "question": "Which statement about campaigns is true?",
     "type": "single",
     "options": [
-      "Campaigns always have a start and end\n                            date.",
-      "After you set qualifiers for a\n                            campaign, you can’t deselect them.",
-      "After you create a campaign, you can\n                            use it as a default or copy it to create future campaigns.",
-      "You use the Storefront Toolkit\n                            primarily for deploying campaigns to a production instance."
+      "Campaigns always have a start and end date.",
+      "After you set qualifiers for a campaign, you can’t deselect them.",
+      "After you create a campaign, you can use it as a default or copy it to create future campaigns.",
+      "You use the Storefront Toolkit primarily for deploying campaigns to a production instance."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. After you create a campaign, you can\n                            use it as a default or copy it to create future campaigns.",
+    "explanation": "Correct answer: C. After you create a campaign, you can use it as a default or copy it to create future campaigns.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17227,12 +17227,12 @@
   {
     "id": 209,
     "set": "Explore Translation and Localization",
-    "question": "Which of these reflect general steps you’d take to localize a Salesforce B2C Commerce\n                        storefront?",
+    "question": "Which of these reflect general steps you’d take to localize a Salesforce B2C Commerce storefront?",
     "type": "single",
     "options": [
-      "Identify which components of the\n                            storefront require localization.",
-      "Determine how to attract good\n                            translators.",
-      "Identify which languages to support and\n                            how they interrelate.",
+      "Identify which components of the storefront require localization.",
+      "Determine how to attract good translators.",
+      "Identify which languages to support and how they interrelate.",
       "A and B",
       "A and C"
     ],
@@ -17251,9 +17251,9 @@
     "question": "Which of these statements explain how the dictionary fallback mechanism works?",
     "type": "single",
     "options": [
-      "Within Business Manager, you can define\n                            how B2C Commerce linguistic search rules are applied in a multi-locale site.",
-      "Once you configure the locales you want,\n                            you must rebuild locale-specific search indexes.",
-      "When a shopper selects a locale and\n                            searches on the storefront, B2C Commerce uses the standard search index.",
+      "Within Business Manager, you can define how B2C Commerce linguistic search rules are applied in a multi-locale site.",
+      "Once you configure the locales you want, you must rebuild locale-specific search indexes.",
+      "When a shopper selects a locale and searches on the storefront, B2C Commerce uses the standard search index.",
       "A and B",
       "A and C"
     ],
@@ -17293,9 +17293,9 @@
     "question": "Which of these statements is/are true about currency data in a B2C Commerce storefront?",
     "type": "single",
     "options": [
-      "You must add, edit, and remove\n                            currencies through Business Manager.",
-      "You can configure the currencies you\n                            want to allow and define how they look for a locale.",
-      "B2C Commerce comes with current world\n                            currency data.",
+      "You must add, edit, and remove currencies through Business Manager.",
+      "You can configure the currencies you want to allow and define how they look for a locale.",
+      "B2C Commerce comes with current world currency data.",
       "A and B",
       "B and C"
     ],
@@ -17314,9 +17314,9 @@
     "question": "Which of these statements is/are true about how resource files work?",
     "type": "single",
     "options": [
-      "There’s a resource bundle for each folder\n                            in the templates directory that’s stored within the /templates/resources directory.",
-      "Templates access resource messages when\n                            you ask nicely.",
-      "Resource bundles contain localized static\n                            content, such as error messages.",
+      "There’s a resource bundle for each folder in the templates directory that’s stored within the /templates/resources directory.",
+      "Templates access resource messages when you ask nicely.",
+      "Resource bundles contain localized static content, such as error messages.",
       "A and B",
       "A and C"
     ],
@@ -17335,15 +17335,15 @@
     "question": "Which of these steps must you take to translate product and content files?",
     "type": "single",
     "options": [
-      "Identify images (for example, buttons)\n                            with locale-specific text.",
-      "Export content, category, or products and\n                            then translate them.",
-      "Identify for translation only the\n                            templates that are used in the storefront.",
-      "Identify the JavaScript files where the\n                            locale-specific text is used."
+      "Identify images (for example, buttons) with locale-specific text.",
+      "Export content, category, or products and then translate them.",
+      "Identify for translation only the templates that are used in the storefront.",
+      "Identify the JavaScript files where the locale-specific text is used."
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. Export content, category, or products and\n                            then translate them.",
+    "explanation": "Correct answer: B. Export content, category, or products and then translate them.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17352,7 +17352,7 @@
   {
     "id": 215,
     "set": "Implement Multi-Currency Sites",
-    "question": "True or false: When a shopper first accesses the storefront, their session currency is\n                        initialized with the site’s default currency. B2C Commerce uses this currency for all\n                        transactions.",
+    "question": "True or false: When a shopper first accesses the storefront, their session currency is initialized with the site’s default currency. B2C Commerce uses this currency for all transactions.",
     "type": "single",
     "options": [
       "True",
@@ -17373,8 +17373,8 @@
     "question": "Which of these explains why you’d want to implement a multi-currency site?",
     "type": "single",
     "options": [
-      "Your product prices, shipping methods,\n                            shipping costs, payment methods, and promotions vary only by currency.",
-      "Your site is the same, regardless of\n                            locale, for logic and design, storefront data, shoppers, inventory, and third-party\n                            integrations.",
+      "Your product prices, shipping methods, shipping costs, payment methods, and promotions vary only by currency.",
+      "Your site is the same, regardless of locale, for logic and design, storefront data, shoppers, inventory, and third-party integrations.",
       "Your shoppers are multilingual.",
       "A and B",
       "B and C"
@@ -17395,14 +17395,14 @@
     "type": "single",
     "options": [
       "Decrease the size of your search indexes.",
-      "Add creative content like links to gift\n                            guides or key categories.",
-      "Change the number of searchable\n                            attributes.",
-      "Rebuild the search index on a staging\n                            instance."
+      "Add creative content like links to gift guides or key categories.",
+      "Change the number of searchable attributes.",
+      "Rebuild the search index on a staging instance."
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. Add creative content like links to gift\n                            guides or key categories.",
+    "explanation": "Correct answer: B. Add creative content like links to gift guides or key categories.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17411,18 +17411,18 @@
   {
     "id": 218,
     "set": "Explore Storefront Search",
-    "question": "Which statement is true about what happens during a Salesforce B2C Commerce storefront\n                        search?",
+    "question": "Which statement is true about what happens during a Salesforce B2C Commerce storefront search?",
     "type": "single",
     "options": [
-      "The shopper enters text into the search\n                            field, B2C Commerce evaluates what the shopper enters against the search dictionary,\n                            redirects, and settings, and then displays the results.",
-      "B2C Commerce evaluates what the shopper\n                            enters against the search dictionary, redirects, and settings, and then the shopper sorts\n                            the results.",
-      "The shopper enters text into the search\n                            field, B2C Commerce evaluates what the shopper enters against the search dictionary,\n                            redirects, and settings, B2C Commerce evaluates how to sort the results, and then displays\n                            the results.",
-      "B2C Commerce displays the results, and\n                            then the shopper evaluates how to sort the results."
+      "The shopper enters text into the search field, B2C Commerce evaluates what the shopper enters against the search dictionary, redirects, and settings, and then displays the results.",
+      "B2C Commerce evaluates what the shopper enters against the search dictionary, redirects, and settings, and then the shopper sorts the results.",
+      "The shopper enters text into the search field, B2C Commerce evaluates what the shopper enters against the search dictionary, redirects, and settings, B2C Commerce evaluates how to sort the results, and then displays the results.",
+      "B2C Commerce displays the results, and then the shopper evaluates how to sort the results."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. The shopper enters text into the search\n                            field, B2C Commerce evaluates what the shopper enters against the search dictionary,\n                            redirects, and settings, and then displays the results.",
+    "explanation": "Correct answer: A. The shopper enters text into the search field, B2C Commerce evaluates what the shopper enters against the search dictionary, redirects, and settings, and then displays the results.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17431,12 +17431,12 @@
   {
     "id": 219,
     "set": "Configure Storefront Search Preferences",
-    "question": "Which setting allows you to hide unavailable products or specify an availability percentage,\n                        ensuring only orderable products show up in search results?",
+    "question": "Which setting allows you to hide unavailable products or specify an availability percentage, ensuring only orderable products show up in search results?",
     "type": "single",
     "options": [
       "Search Autocorrections",
       "Einstein Search Recommendations",
-      "Include Promotion IDs in the Product\n                            Index",
+      "Include Promotion IDs in the Product Index",
       "Show Orderable Products Only"
     ],
     "answer": [
@@ -17471,7 +17471,7 @@
   {
     "id": 221,
     "set": "Configure Storefront Search Redirects",
-    "question": "Brandon wants to configure a search redirect that applies to \"mens shoes\" and\n                        \"cheap shoes for men\" but excludes results containing\n                        \"used.\"\n                        How should he configure the keywords?",
+    "question": "Brandon wants to configure a search redirect that applies to \"mens shoes\" and \"cheap shoes for men\" but excludes results containing \"used.\" How should he configure the keywords?",
     "type": "single",
     "options": [
       "-used, mens shoes",
@@ -17494,15 +17494,15 @@
     "question": "Which of the following statements about search redirects is true?",
     "type": "single",
     "options": [
-      "They allow merchandisers to direct\n                            shoppers to a specific page or URL based on their search terms.",
-      "They are primarily used to prevent\n                            shoppers from finding specific product pages.",
-      "They increase the likelihood that\n                            shoppers will browse more products without making a purchase.",
-      "They are configured to bypass the\n                            standard search function even if no redirect keyword is matched."
+      "They allow merchandisers to direct shoppers to a specific page or URL based on their search terms.",
+      "They are primarily used to prevent shoppers from finding specific product pages.",
+      "They increase the likelihood that shoppers will browse more products without making a purchase.",
+      "They are configured to bypass the standard search function even if no redirect keyword is matched."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. They allow merchandisers to direct\n                            shoppers to a specific page or URL based on their search terms.",
+    "explanation": "Correct answer: A. They allow merchandisers to direct shoppers to a specific page or URL based on their search terms.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17514,15 +17514,15 @@
     "question": "Which of these are general boost factor rules?",
     "type": "single",
     "options": [
-      "Use boost factors greater than\n                            5.00.",
+      "Use boost factors greater than 5.00.",
       "You can’t use decimals as boost factors.",
-      "Use 1.01–5.00 to increase the importance\n                            of the field in search results.",
-      "-1.00 is the default boost\n                            factor."
+      "Use 1.01–5.00 to increase the importance of the field in search results.",
+      "-1.00 is the default boost factor."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Use 1.01–5.00 to increase the importance\n                            of the field in search results.",
+    "explanation": "Correct answer: C. Use 1.01–5.00 to increase the importance of the field in search results.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17531,18 +17531,18 @@
   {
     "id": 224,
     "set": "Configure Searchable Attributes",
-    "question": "Before configuring “holiday special” as a searchable attribute for content, what is the\n                        necessary prerequisite?",
+    "question": "Before configuring “holiday special” as a searchable attribute for content, what is the necessary prerequisite?",
     "type": "single",
     "options": [
-      "It must be assigned a boost\n                            factor.",
-      "It must be enabled for\n                            autocorrection.",
-      "It must be listed in the product index\n                            attributes.",
-      "It must already exist as an attribute of\n                            a system object."
+      "It must be assigned a boost factor.",
+      "It must be enabled for autocorrection.",
+      "It must be listed in the product index attributes.",
+      "It must already exist as an attribute of a system object."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. It must already exist as an attribute of\n                            a system object.",
+    "explanation": "Correct answer: D. It must already exist as an attribute of a system object.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17554,15 +17554,15 @@
     "question": "What is the primary difference between Search Placement and Search Rank?",
     "type": "single",
     "options": [
-      "Search Placement is used for categories\n                            only, while Search Rank is used for keyword searches only.",
-      "Search Placement sorts products by\n                            price, while Search Rank sorts products by popularity.",
-      "Search Placement groups products with a\n                            numeric code, while Search Rank sets a product’s position within a Search Placement\n                            group.",
-      "Search Placement is a static setting,\n                            while Search Rank is dynamic based on customer behavior."
+      "Search Placement is used for categories only, while Search Rank is used for keyword searches only.",
+      "Search Placement sorts products by price, while Search Rank sorts products by popularity.",
+      "Search Placement groups products with a numeric code, while Search Rank sets a product’s position within a Search Placement group.",
+      "Search Placement is a static setting, while Search Rank is dynamic based on customer behavior."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Search Placement groups products with a\n                            numeric code, while Search Rank sets a product’s position within a Search Placement\n                            group.",
+    "explanation": "Correct answer: C. Search Placement groups products with a numeric code, while Search Rank sets a product’s position within a Search Placement group.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17575,14 +17575,14 @@
     "type": "single",
     "options": [
       "Simplifying product data entry",
-      "Increasing add-to-basket and conversion\n                            rates",
-      "Automating customer support\n                            responses",
+      "Increasing add-to-basket and conversion rates",
+      "Automating customer support responses",
       "Reducing website loading times"
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. Increasing add-to-basket and conversion\n                            rates",
+    "explanation": "Correct answer: B. Increasing add-to-basket and conversion rates",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17594,15 +17594,15 @@
     "question": "Which of these is in sorting rule best practice sort order?",
     "type": "single",
     "options": [
-      "Explicit search rank, explicit product\n                            placement, and explicit category placement",
-      "Explicit category placement, explicit\n                            product placement, and explicit search rank",
-      "Availability ranking, explicit search\n                            rank, and text relevance",
-      "Term frequency, availability ranking,\n                            and explicit search rank"
+      "Explicit search rank, explicit product placement, and explicit category placement",
+      "Explicit category placement, explicit product placement, and explicit search rank",
+      "Availability ranking, explicit search rank, and text relevance",
+      "Term frequency, availability ranking, and explicit search rank"
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Availability ranking, explicit search\n                            rank, and text relevance",
+    "explanation": "Correct answer: C. Availability ranking, explicit search rank, and text relevance",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17614,15 +17614,15 @@
     "question": "Which of the following is the first step B2C Commerce takes when applying sorting rules?",
     "type": "single",
     "options": [
-      "Applies the\n                            activeData.salesVelocityWeek rule.",
-      "Evaluates products by the value in the\n                            top attribute in the sorting rule list.",
-      "Sorts products with identical values\n                            using the default sorting rules.",
+      "Applies the activeData.salesVelocityWeek rule.",
+      "Evaluates products by the value in the top attribute in the sorting rule list.",
+      "Sorts products with identical values using the default sorting rules.",
       "Applies the activeData.returnRate rule."
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. Evaluates products by the value in the\n                            top attribute in the sorting rule list.",
+    "explanation": "Correct answer: B. Evaluates products by the value in the top attribute in the sorting rule list.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17651,7 +17651,7 @@
   {
     "id": 230,
     "set": "Explore Sorting Rule Strategies",
-    "question": "Brandon wants to promote products within a category by assigning a high, medium, or low value.\n                        Which manual sorting rule attribute should he use?",
+    "question": "Brandon wants to promote products within a category by assigning a high, medium, or low value. Which manual sorting rule attribute should he use?",
     "type": "single",
     "options": [
       "Category Position",
@@ -17671,18 +17671,18 @@
   {
     "id": 231,
     "set": "Create Sorting Rules",
-    "question": "Brandon wants to create a storefront sorting option that blends new arrivals and bestsellers.\n                        What is the correct order of steps he needs to take?",
+    "question": "Brandon wants to create a storefront sorting option that blends new arrivals and bestsellers. What is the correct order of steps he needs to take?",
     "type": "single",
     "options": [
-      "Create a dynamic attribute, create a\n                            sorting rule that uses the dynamic attribute, create a storefront option that uses the\n                            sorting rule.",
-      "Create a sorting rule that uses the\n                            dynamic attribute, create a dynamic attribute, create a storefront option that uses the\n                            sorting rule.",
-      "Create a storefront option that uses the\n                            sorting rule, create a dynamic attribute, create a sorting rule that uses the dynamic\n                            attribute.",
-      "Create a dynamic attribute, create a\n                            storefront option that uses the sorting rule, create a sorting rule that uses the dynamic\n                            attribute."
+      "Create a dynamic attribute, create a sorting rule that uses the dynamic attribute, create a storefront option that uses the sorting rule.",
+      "Create a sorting rule that uses the dynamic attribute, create a dynamic attribute, create a storefront option that uses the sorting rule.",
+      "Create a storefront option that uses the sorting rule, create a dynamic attribute, create a sorting rule that uses the dynamic attribute.",
+      "Create a dynamic attribute, create a storefront option that uses the sorting rule, create a sorting rule that uses the dynamic attribute."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Create a dynamic attribute, create a\n                            sorting rule that uses the dynamic attribute, create a storefront option that uses the\n                            sorting rule.",
+    "explanation": "Correct answer: A. Create a dynamic attribute, create a sorting rule that uses the dynamic attribute, create a storefront option that uses the sorting rule.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17691,18 +17691,18 @@
   {
     "id": 232,
     "set": "Create Sorting Rules",
-    "question": "When previewing a sorting rule, if no products meet the specific attribute requirements, what\n                        will still appear in the preview category?",
+    "question": "When previewing a sorting rule, if no products meet the specific attribute requirements, what will still appear in the preview category?",
     "type": "single",
     "options": [
-      "Products that have the search term in the\n                            product name.",
+      "Products that have the search term in the product name.",
       "Only out-of-stock products.",
-      "Products from a different\n                            category.",
+      "Products from a different category.",
       "No products will appear."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Products that have the search term in the\n                            product name.",
+    "explanation": "Correct answer: A. Products that have the search term in the product name.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17714,9 +17714,9 @@
     "question": "Which of these statements about meta tag rule inheritance is true?",
     "type": "single",
     "options": [
-      "Rules at the root category are visible\n                            within all child categories.",
-      "Rules follow the product category\n                            assignment structure.",
-      "Rules are inherited within the current\n                            locale context first.",
+      "Rules at the root category are visible within all child categories.",
+      "Rules follow the product category assignment structure.",
+      "Rules are inherited within the current locale context first.",
       "A and B",
       "A and C"
     ],
@@ -17732,7 +17732,7 @@
   {
     "id": 234,
     "set": "Explore Meta Tag Rules",
-    "question": "True or false: Meta tags tell search engines what a page is all about—and so, they are vital for\n                        SEO.",
+    "question": "True or false: Meta tags tell search engines what a page is all about—and so, they are vital for SEO.",
     "type": "single",
     "options": [
       "True",
@@ -17771,7 +17771,7 @@
   {
     "id": 236,
     "set": "Configure Page Meta Tag Rules",
-    "question": "True or false: The benefit of using static and dynamic text in your meta tags is that it\n                        increases SEO value across pages, products, and URLs.",
+    "question": "True or false: The benefit of using static and dynamic text in your meta tags is that it increases SEO value across pages, products, and URLs.",
     "type": "single",
     "options": [
       "True",
@@ -17812,9 +17812,9 @@
     "question": "Which of these things should you do when checking your final meta tags?",
     "type": "single",
     "options": [
-      "Pay attention to headings and how you\n                            structure your content.",
-      "Make sure all footers have alt\n                            text.",
-      "Use the robot meta tags to guide search\n                            engines on how they should access your page.",
+      "Pay attention to headings and how you structure your content.",
+      "Make sure all footers have alt text.",
+      "Use the robot meta tags to guide search engines on how they should access your page.",
       "A and B",
       "A and C"
     ],
@@ -17830,7 +17830,7 @@
   {
     "id": 239,
     "set": "Explore Search Engine Optimization",
-    "question": "True or false: Hostname aliases, SEO URLs, XML sitemaps, and in-storefront search and navigation\n                        are B2C Commerce SEO features.",
+    "question": "True or false: Hostname aliases, SEO URLs, XML sitemaps, and in-storefront search and navigation are B2C Commerce SEO features.",
     "type": "single",
     "options": [
       "True",
@@ -17852,8 +17852,8 @@
     "type": "single",
     "options": [
       "Configure meta tags in Business Manager.",
-      "Create body text, intra-site links,\n                            anchor text, and image <alt> tags.",
-      "Use a text editor to create and manage\n                            page meta tags for your storefront products.",
+      "Create body text, intra-site links, anchor text, and image <alt> tags.",
+      "Use a text editor to create and manage page meta tags for your storefront products.",
       "A and B",
       "B and C"
     ],
@@ -17872,10 +17872,10 @@
     "question": "Why is it important to configure the hostname alias for the current instance hostname?",
     "type": "single",
     "options": [
-      "To ensure that search engines see the\n                            full URL.",
-      "So shoppers get to the storefront without\n                            typing the entire URL.",
-      "To restrict the number of shoppers who\n                            land on the site.",
-      "To increase the likelihood of shoppers\n                            landing on the site.",
+      "To ensure that search engines see the full URL.",
+      "So shoppers get to the storefront without typing the entire URL.",
+      "To restrict the number of shoppers who land on the site.",
+      "To increase the likelihood of shoppers landing on the site.",
       "B and D"
     ],
     "answer": [
@@ -17911,9 +17911,9 @@
     "question": "Why would you add mapping rules to your hostname alias file?",
     "type": "single",
     "options": [
-      "To display a list of possible\n                            URLs",
-      "To direct shoppers to a specific landing\n                            page based on the hostname they type as the URL",
-      "To redirect commonly used hostname to\n                            their proper hostname",
+      "To display a list of possible URLs",
+      "To direct shoppers to a specific landing page based on the hostname they type as the URL",
+      "To redirect commonly used hostname to their proper hostname",
       "A and B",
       "B and C"
     ],
@@ -17933,7 +17933,7 @@
     "type": "single",
     "options": [
       "Bold all comments.",
-      "Use colons instead of equal signs when\n                            specifying properties.",
+      "Use colons instead of equal signs when specifying properties.",
       "Add commas after host entries.",
       "A and B",
       "A and C"
@@ -17941,7 +17941,7 @@
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. Use colons instead of equal signs when\n                            specifying properties.",
+    "explanation": "Correct answer: B. Use colons instead of equal signs when specifying properties.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17950,7 +17950,7 @@
   {
     "id": 245,
     "set": "Explore SEO URLs",
-    "question": "True or false: Optimizing site URLs for external search engines can greatly improve the shopper\n                        experience, search rankings, linking functionality, and site traffic.",
+    "question": "True or false: Optimizing site URLs for external search engines can greatly improve the shopper experience, search rankings, linking functionality, and site traffic.",
     "type": "single",
     "options": [
       "True",
@@ -17968,18 +17968,18 @@
   {
     "id": 246,
     "set": "Explore SEO URLs",
-    "question": "How does Salesforce B2C Commerce handle special characters like the ampersand (&) in\n                        URLs?",
+    "question": "How does Salesforce B2C Commerce handle special characters like the ampersand (&) in URLs?",
     "type": "single",
     "options": [
       "It removes them completely.",
-      "It converts them to underscores\n                            (_).",
-      "It replaces them with a hyphen\n                            (-).",
+      "It converts them to underscores (_).",
+      "It replaces them with a hyphen (-).",
       "It ignores them during URL generation."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. It replaces them with a hyphen\n                            (-).",
+    "explanation": "Correct answer: C. It replaces them with a hyphen (-).",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -17991,9 +17991,9 @@
     "question": "Which of these do you need to consider when configuring SEO URL rules?",
     "type": "single",
     "options": [
-      "If a site has a category depth of\n                            more than two or three categories, use category instead of category-path to keep the URLs\n                            brief.",
-      "If a site has duplicate category\n                            names within different parent categories, such as women > shoes and men > shoes, you\n                            can still use category.",
-      "If you use category-path, use a\n                            delimiter other than a forward slash.",
+      "If a site has a category depth of more than two or three categories, use category instead of category-path to keep the URLs brief.",
+      "If a site has duplicate category names within different parent categories, such as women > shoes and men > shoes, you can still use category.",
+      "If you use category-path, use a delimiter other than a forward slash.",
       "A and B",
       "A and C"
     ],
@@ -18009,7 +18009,7 @@
   {
     "id": 248,
     "set": "Configure SEO URLs",
-    "question": "True or false: You need to make sure locales appear in the URLs in a certain way to satisfy\n                        country and language-specific customs and requirements.",
+    "question": "True or false: You need to make sure locales appear in the URLs in a certain way to satisfy country and language-specific customs and requirements.",
     "type": "single",
     "options": [
       "True",
@@ -18030,9 +18030,9 @@
     "question": "Which of these is a reason for using SEO URL search refinements?",
     "type": "single",
     "options": [
-      "To streamline a rule that adds the\n                            color search refinement (blue|green) at the end of the URL.",
-      "To control the position of where\n                            search refinements are added to the URL.",
-      "To redirect commonly used hostnames\n                            to their proper hostname.",
+      "To streamline a rule that adds the color search refinement (blue|green) at the end of the URL.",
+      "To control the position of where search refinements are added to the URL.",
+      "To redirect commonly used hostnames to their proper hostname.",
       "A and B",
       "B and C"
     ],
@@ -18048,7 +18048,7 @@
   {
     "id": 250,
     "set": "Configure SEO URL Search Refinements",
-    "question": "True or false: Snapshots make it easy to compare changes over time of search refinement values\n                        and the corresponding URL mappings for all enabled category and folder search refinements.",
+    "question": "True or false: Snapshots make it easy to compare changes over time of search refinement values and the corresponding URL mappings for all enabled category and folder search refinements.",
     "type": "single",
     "options": [
       "True",
@@ -18071,7 +18071,7 @@
     "options": [
       "SEO URL redirects",
       "SEO URL Preview",
-      "SEO URL General tab showing the\n                            conflicts",
+      "SEO URL General tab showing the conflicts",
       "A and B",
       "B and C"
     ],
@@ -18087,12 +18087,12 @@
   {
     "id": 252,
     "set": "Preview and Resolve Conflicts",
-    "question": "Which of these reflects how B2C Commerce tracks category, folder, and search refinement SEO\n                        URLs?",
+    "question": "Which of these reflects how B2C Commerce tracks category, folder, and search refinement SEO URLs?",
     "type": "single",
     "options": [
-      "B2C Commerce stores product and content\n                            URLs.",
-      "B2C Commerce maintains a directory of\n                            category, folder, and search refinement URLs in its database.",
-      "The directory contains a URL endpoint\n                            for each category in the site catalog and each folder in the site library for each site\n                            locale.",
+      "B2C Commerce stores product and content URLs.",
+      "B2C Commerce maintains a directory of category, folder, and search refinement URLs in its database.",
+      "The directory contains a URL endpoint for each category in the site catalog and each folder in the site library for each site locale.",
       "A and B",
       "B and C"
     ],
@@ -18108,7 +18108,7 @@
   {
     "id": 253,
     "set": "Configure URL Redirects",
-    "question": "True or false: Within a URL Redirect mapping, it’s best practice to define the redirect target\n                        as URL directly, to reduce processing time.",
+    "question": "True or false: Within a URL Redirect mapping, it’s best practice to define the redirect target as URL directly, to reduce processing time.",
     "type": "single",
     "options": [
       "True",
@@ -18150,16 +18150,16 @@
     "question": "A sitemap file contains which of these elements?",
     "type": "single",
     "options": [
-      "An alternate link to the development\n                            instance",
+      "An alternate link to the development instance",
       "sitemap.pdf",
-      "An entry for each URL asset for the\n                            supported site locales",
+      "An entry for each URL asset for the supported site locales",
       "A and B",
       "B and C"
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. An entry for each URL asset for the\n                            supported site locales",
+    "explanation": "Correct answer: C. An entry for each URL asset for the supported site locales",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18186,7 +18186,7 @@
   {
     "id": 257,
     "set": "Generate Sitemaps",
-    "question": "True or false: If your site has 30,000 links and you set the links per sitemap setting to 5,000,\n                        B2C Commerce creates 6 sitemap files.",
+    "question": "True or false: If your site has 30,000 links and you set the links per sitemap setting to 5,000, B2C Commerce creates 6 sitemap files.",
     "type": "single",
     "options": [
       "True",
@@ -18224,7 +18224,7 @@
   {
     "id": 259,
     "set": "Notify Search Engines About Your Sitemaps",
-    "question": "True or false: After successfully creating a sitemap, you can submit your sitemap to Google by\n                        using Google Search Console.",
+    "question": "True or false: After successfully creating a sitemap, you can submit your sitemap to Google by using Google Search Console.",
     "type": "single",
     "options": [
       "True",
@@ -18242,12 +18242,12 @@
   {
     "id": 260,
     "set": "Notify Search Engines About Your Sitemaps",
-    "question": "Which of these tasks help you add the google-site-verification meta tag for Google site\n                        verification?",
+    "question": "Which of these tasks help you add the google-site-verification meta tag for Google site verification?",
     "type": "single",
     "options": [
-      "Create a custom site preference for\n                            the Google tag.",
-      "Include the Google tag in the\n                            storefront application.",
-      "Create a custom variable for the meta\n                            tag.",
+      "Create a custom site preference for the Google tag.",
+      "Include the Google tag in the storefront application.",
+      "Create a custom variable for the meta tag.",
       "A and B",
       "A and C"
     ],
@@ -18284,7 +18284,7 @@
   {
     "id": 262,
     "set": "Generate a robots.txt File",
-    "question": "True or false: You need Business Manager to upload a robots.txt file for a B2C Commerce\n                        storefront application.",
+    "question": "True or false: You need Business Manager to upload a robots.txt file for a B2C Commerce storefront application.",
     "type": "single",
     "options": [
       "True",
@@ -18305,15 +18305,15 @@
     "question": "Which three types of data does Agentforce Commerce Einstein utilize for its intelligence?",
     "type": "single",
     "options": [
-      "Historical Customer Demographics,\n                            Product Catalog, and Website Traffic",
-      "Clickstream, Orders, and\n                            Products",
-      "Product Attributes, Storefront Sessions,\n                            and Inventory",
-      "Merchandiser Activity, Promotion Data,\n                            and Site Search Terms"
+      "Historical Customer Demographics, Product Catalog, and Website Traffic",
+      "Clickstream, Orders, and Products",
+      "Product Attributes, Storefront Sessions, and Inventory",
+      "Merchandiser Activity, Promotion Data, and Site Search Terms"
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. Clickstream, Orders, and\n                            Products",
+    "explanation": "Correct answer: B. Clickstream, Orders, and Products",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18322,18 +18322,18 @@
   {
     "id": 264,
     "set": "Get to Know Commerce Cloud Einstein",
-    "question": "What is the primary difference between Einstein Product Recommendations and the Einstein Search\n                        features?",
+    "question": "What is the primary difference between Einstein Product Recommendations and the Einstein Search features?",
     "type": "single",
     "options": [
-      "Product Recommendations are only\n                            available on the production instance, while Search features are available on\n                            staging.",
-      "Search features provide personalized\n                            term completion, while Product Recommendations provide personalized product\n                            suggestions.",
-      "Product Recommendations require\n                            merchandisers to configure features in Business Manager, while Search features require only\n                            an administrator.",
-      "Product Recommendations focus on\n                            suggesting specific items, while Search features focus on search term and result\n                            optimization."
+      "Product Recommendations are only available on the production instance, while Search features are available on staging.",
+      "Search features provide personalized term completion, while Product Recommendations provide personalized product suggestions.",
+      "Product Recommendations require merchandisers to configure features in Business Manager, while Search features require only an administrator.",
+      "Product Recommendations focus on suggesting specific items, while Search features focus on search term and result optimization."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. Product Recommendations focus on\n                            suggesting specific items, while Search features focus on search term and result\n                            optimization.",
+    "explanation": "Correct answer: D. Product Recommendations focus on suggesting specific items, while Search features focus on search term and result optimization.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18342,18 +18342,18 @@
   {
     "id": 265,
     "set": "Plan Your Implementation",
-    "question": "Which set of features can a merchandiser begin configuring and testing with minimal or no\n                        development effort shortly after the initial data enablement is complete?",
+    "question": "Which set of features can a merchandiser begin configuring and testing with minimal or no development effort shortly after the initial data enablement is complete?",
     "type": "single",
     "options": [
-      "Einstein Search Dictionaries, Commerce\n                            Insights, and basic Einstein Search Recommendations.",
-      "Einstein Predictive Sort, Einstein\n                            Product Recommendations, and Commerce Insights.",
-      "Einstein Search Dictionaries, Einstein\n                            Predictive Sort, and Product Recommendations.",
-      "Basic Search Recommendations, Predictive\n                            Sort, and Product Recommendations."
+      "Einstein Search Dictionaries, Commerce Insights, and basic Einstein Search Recommendations.",
+      "Einstein Predictive Sort, Einstein Product Recommendations, and Commerce Insights.",
+      "Einstein Search Dictionaries, Einstein Predictive Sort, and Product Recommendations.",
+      "Basic Search Recommendations, Predictive Sort, and Product Recommendations."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Einstein Search Dictionaries, Commerce\n                            Insights, and basic Einstein Search Recommendations.",
+    "explanation": "Correct answer: A. Einstein Search Dictionaries, Commerce Insights, and basic Einstein Search Recommendations.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18362,18 +18362,18 @@
   {
     "id": 266,
     "set": "Plan Your Implementation",
-    "question": "After Einstein Product Recommendations are live, what methodology is recommended to ensure the\n                        best use of the predictive data?",
+    "question": "After Einstein Product Recommendations are live, what methodology is recommended to ensure the best use of the predictive data?",
     "type": "single",
     "options": [
-      "Consistently validating clickstream data\n                            using the Agentforce Commerce Recommendation Validator.",
-      "Monitoring the Einstein Dashboard to\n                            review attributed revenue relative to overall site revenue.",
-      "Implementing a test-and-learn methodology\n                            using an A/B testing tool.",
-      "Conducting routine reviews with the\n                            Marketing team to develop new product-centric campaigns."
+      "Consistently validating clickstream data using the Agentforce Commerce Recommendation Validator.",
+      "Monitoring the Einstein Dashboard to review attributed revenue relative to overall site revenue.",
+      "Implementing a test-and-learn methodology using an A/B testing tool.",
+      "Conducting routine reviews with the Marketing team to develop new product-centric campaigns."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Implementing a test-and-learn methodology\n                            using an A/B testing tool.",
+    "explanation": "Correct answer: C. Implementing a test-and-learn methodology using an A/B testing tool.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18382,18 +18382,18 @@
   {
     "id": 267,
     "set": "Develop Feature-Specific Plans",
-    "question": "Which task must a developer complete as a critical prerequisite to ensure that Predictive Sort\n                        works correctly?",
+    "question": "Which task must a developer complete as a critical prerequisite to ensure that Predictive Sort works correctly?",
     "type": "single",
     "options": [
-      "Create new recommendation slot rendering\n                            templates for content slots.",
-      "Validate that the request is not cached\n                            when predictive sort is applied as a sorting rule.",
-      "Design the content slot look and feel\n                            for the product detail page.",
-      "Define the custom recommenders used for\n                            dynamic sorting."
+      "Create new recommendation slot rendering templates for content slots.",
+      "Validate that the request is not cached when predictive sort is applied as a sorting rule.",
+      "Design the content slot look and feel for the product detail page.",
+      "Define the custom recommenders used for dynamic sorting."
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. Validate that the request is not cached\n                            when predictive sort is applied as a sorting rule.",
+    "explanation": "Correct answer: B. Validate that the request is not cached when predictive sort is applied as a sorting rule.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18405,15 +18405,15 @@
     "question": "After Product Recommendations are live, what is a key post-launch step for a merchandiser?",
     "type": "single",
     "options": [
-      "Designing the content slot look and\n                            feel.",
-      "Requesting a cache upgrade for category\n                            and search grid pages.",
-      "Using preview and the validator tool to\n                            check for issues.",
-      "Creating new recommenders in the\n                            Configurator."
+      "Designing the content slot look and feel.",
+      "Requesting a cache upgrade for category and search grid pages.",
+      "Using preview and the validator tool to check for issues.",
+      "Creating new recommenders in the Configurator."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. Using preview and the validator tool to\n                            check for issues.",
+    "explanation": "Correct answer: C. Using preview and the validator tool to check for issues.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18422,12 +18422,12 @@
   {
     "id": 269,
     "set": "Deploy Commerce Cloud Einstein",
-    "question": "Which two production instance data feeds must a Agentforce Commerce for B2C administrator\n                        execute to enable Einstein on a storefront?",
+    "question": "Which two production instance data feeds must a Agentforce Commerce for B2C administrator execute to enable Einstein on a storefront?",
     "type": "single",
     "options": [
-      "Storefront Sessions and Product\n                            Affinities",
+      "Storefront Sessions and Product Affinities",
       "Catalog and Orders",
-      "Inventory and Customer\n                            Demographics",
+      "Inventory and Customer Demographics",
       "Clickstream and Promotion Data"
     ],
     "answer": [
@@ -18442,18 +18442,18 @@
   {
     "id": 270,
     "set": "Deploy Commerce Cloud Einstein",
-    "question": "What is the primary function of enabling browser-based activity tracking for the\n                        storefront?",
+    "question": "What is the primary function of enabling browser-based activity tracking for the storefront?",
     "type": "single",
     "options": [
-      "To track third-party advertising\n                            performance in the Business Manager.",
-      "To ensure all products in the catalog\n                            are correctly indexed for search.",
-      "To allow Einstein to respond to\n                            shoppers' actions on your site in real-time.",
-      "To send daily order and product feeds to\n                            the Einstein Status Dashboard."
+      "To track third-party advertising performance in the Business Manager.",
+      "To ensure all products in the catalog are correctly indexed for search.",
+      "To allow Einstein to respond to shoppers' actions on your site in real-time.",
+      "To send daily order and product feeds to the Einstein Status Dashboard."
     ],
     "answer": [
       "C"
     ],
-    "explanation": "Correct answer: C. To allow Einstein to respond to\n                            shoppers' actions on your site in real-time.",
+    "explanation": "Correct answer: C. To allow Einstein to respond to shoppers' actions on your site in real-time.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18465,15 +18465,15 @@
     "question": "What is a key benefit of using Commerce Insights data for a merchandiser?",
     "type": "single",
     "options": [
-      "It functions as a financial reporting\n                            tool to calculate attributed revenue.",
-      "It provides the ability to create new\n                            product catalog entries.",
-      "It helps configure product bundles,\n                            deals, and “complete the look” suggestions.",
-      "It validates recommendation activities\n                            on the storefront in real-time."
+      "It functions as a financial reporting tool to calculate attributed revenue.",
+      "It provides the ability to create new product catalog entries.",
+      "It helps configure product bundles, deals, and “complete the look” suggestions.",
+      "It validates recommendation activities on the storefront in real-time."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. It validates recommendation activities\n                            on the storefront in real-time.",
+    "explanation": "Correct answer: D. It validates recommendation activities on the storefront in real-time.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18482,18 +18482,18 @@
   {
     "id": 272,
     "set": "Use Configurator to Review Data",
-    "question": "Commerce Insights drilldown, which metric detail is provided for a product \"Purchased in Same\n                        Basket\"?",
+    "question": "Commerce Insights drilldown, which metric detail is provided for a product \"Purchased in Same Basket\"?",
     "type": "single",
     "options": [
-      "The total revenue generated by the\n                            co-purchased product.",
-      "The average price of the co-purchased\n                            product.",
-      "The number of unique shoppers who bought\n                            the product together.",
-      "The percent of all key item baskets that\n                            contained the specific item."
+      "The total revenue generated by the co-purchased product.",
+      "The average price of the co-purchased product.",
+      "The number of unique shoppers who bought the product together.",
+      "The percent of all key item baskets that contained the specific item."
     ],
     "answer": [
       "D"
     ],
-    "explanation": "Correct answer: D. The percent of all key item baskets that\n                            contained the specific item.",
+    "explanation": "Correct answer: D. The percent of all key item baskets that contained the specific item.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18502,18 +18502,18 @@
   {
     "id": 273,
     "set": "Set Up Search Dictionaries",
-    "question": "What is one way Einstein Search Dictionaries adds value compared to standard keyword\n                        search?",
+    "question": "What is one way Einstein Search Dictionaries adds value compared to standard keyword search?",
     "type": "single",
     "options": [
-      "It provides basic search-as-you-type\n                            with advanced features.",
-      "It automatically detects relationships\n                            between search terms and adds data to existing dictionaries.",
-      "It allows merchants to manually create\n                            search dictionaries based on specific data.",
+      "It provides basic search-as-you-type with advanced features.",
+      "It automatically detects relationships between search terms and adds data to existing dictionaries.",
+      "It allows merchants to manually create search dictionaries based on specific data.",
       "It only uses the site’s data by default."
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. It automatically detects relationships\n                            between search terms and adds data to existing dictionaries.",
+    "explanation": "Correct answer: B. It automatically detects relationships between search terms and adds data to existing dictionaries.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18522,7 +18522,7 @@
   {
     "id": 274,
     "set": "Set Up Search Dictionaries",
-    "question": "Which of the following is a standard search feature in Salesforce Agentforce Commerce for\n                        B2C?",
+    "question": "Which of the following is a standard search feature in Salesforce Agentforce Commerce for B2C?",
     "type": "single",
     "options": [
       "Predictive Sort",
@@ -18545,15 +18545,15 @@
     "question": "Which of the following is a benefit of using Einstein Search Recommendations?",
     "type": "single",
     "options": [
-      "It increases the likelihood of zero\n                            search results.",
-      "It lowers the abandonment rate on the\n                            search results page.",
-      "It allows for the use of simple search\n                            suggestions.",
+      "It increases the likelihood of zero search results.",
+      "It lowers the abandonment rate on the search results page.",
+      "It allows for the use of simple search suggestions.",
       "It only suggests content, not products."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. It increases the likelihood of zero\n                            search results.",
+    "explanation": "Correct answer: A. It increases the likelihood of zero search results.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18562,12 +18562,12 @@
   {
     "id": 276,
     "set": "Set Up Search Recommendations",
-    "question": "Which tool should Brandon use to analyze Einstein’s effect on his autocomplete and search term\n                        corrections?",
+    "question": "Which tool should Brandon use to analyze Einstein’s effect on his autocomplete and search term corrections?",
     "type": "single",
     "options": [
-      "Agentforce Commerce Recommendations\n                            Validator",
+      "Agentforce Commerce Recommendations Validator",
       "A third-party A/B testing tool",
-      "Business Manager's native A/B testing\n                            tool",
+      "Business Manager's native A/B testing tool",
       "Search Index Query Testing Tool"
     ],
     "answer": [
@@ -18585,16 +18585,16 @@
     "question": "How does Commerce Cloud Einstein Product Recommendations enable implicit recommendations?",
     "type": "single",
     "options": [
-      "It lets you configure links between one\n                            specific product and another specific product.",
-      "It takes the guesswork out of product\n                            recommendations via leading-edge data science.",
-      "It lets you configure cross-sells and\n                            up-sells.",
+      "It lets you configure links between one specific product and another specific product.",
+      "It takes the guesswork out of product recommendations via leading-edge data science.",
+      "It lets you configure cross-sells and up-sells.",
       "A and B",
       "A and C"
     ],
     "answer": [
       "B"
     ],
-    "explanation": "Correct answer: B. It takes the guesswork out of product\n                            recommendations via leading-edge data science.",
+    "explanation": "Correct answer: B. It takes the guesswork out of product recommendations via leading-edge data science.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18621,7 +18621,7 @@
   {
     "id": 279,
     "set": "Configure Recommenders",
-    "question": "Which recommender type can you use to generate recommendations by analyzing a product's\n                        similarity to other products or by analyzing the view or purchase behavior of other\n                        customers?",
+    "question": "Which recommender type can you use to generate recommendations by analyzing a product's similarity to other products or by analyzing the view or purchase behavior of other customers?",
     "type": "single",
     "options": [
       "Product to Product",
@@ -18641,7 +18641,7 @@
   {
     "id": 280,
     "set": "Configure Recommenders",
-    "question": "True or false: For the Real-Time Personalized Recommendations strategy, Einstein analyzes the\n                        shopper's current and past viewing and purchasing behavior.",
+    "question": "True or false: For the Real-Time Personalized Recommendations strategy, Einstein analyzes the shopper's current and past viewing and purchasing behavior.",
     "type": "single",
     "options": [
       "True",
@@ -18662,15 +18662,15 @@
     "question": "The Recent Top-Selling Products strategy often results in which of these?",
     "type": "single",
     "options": [
-      "Products with the highest trailing 7-day\n                            revenue among shoppers visiting from that location on that type of device.",
-      "The highest ranked products for a\n                            specific shopper based on their recent browsing history.",
-      "Products with the highest revenue on\n                            that day.",
-      "Products with the lowest\n                            inventory."
+      "Products with the highest trailing 7-day revenue among shoppers visiting from that location on that type of device.",
+      "The highest ranked products for a specific shopper based on their recent browsing history.",
+      "Products with the highest revenue on that day.",
+      "Products with the lowest inventory."
     ],
     "answer": [
       "A"
     ],
-    "explanation": "Correct answer: A. Products with the highest trailing 7-day\n                            revenue among shoppers visiting from that location on that type of device.",
+    "explanation": "Correct answer: A. Products with the highest trailing 7-day revenue among shoppers visiting from that location on that type of device.",
     "tip": "",
     "source": "QA_7.html",
     "confidence": 0.95,
@@ -18682,9 +18682,9 @@
     "question": "What is true about content slots?",
     "type": "single",
     "options": [
-      "The global slot context is only\n                            available on the cart page.",
-      "The slot context can be global or\n                            category.",
-      "The steps for creating and managing\n                            content slot configurations are the same for global or category content slot configurations.",
+      "The global slot context is only available on the cart page.",
+      "The slot context can be global or category.",
+      "The steps for creating and managing content slot configurations are the same for global or category content slot configurations.",
       "A and B",
       "B and C"
     ],
@@ -18700,7 +18700,7 @@
   {
     "id": 283,
     "set": "Explore Page Designer",
-    "question": "True or false: With Page Designer, you can configure when a page or component is visible and who\n                        can see it, and show different content for components per locale.",
+    "question": "True or false: With Page Designer, you can configure when a page or component is visible and who can see it, and show different content for components per locale.",
     "type": "single",
     "options": [
       "True",
@@ -18721,9 +18721,9 @@
     "question": "Which of these is/are true?",
     "type": "single",
     "options": [
-      "Regions can contain other\n                            regions.",
-      "A component uses a layout that's defined\n                            by the component type.",
-      "A component contains only a static\n                            graphic.",
+      "Regions can contain other regions.",
+      "A component uses a layout that's defined by the component type.",
+      "A component contains only a static graphic.",
       "A and B",
       "B and C"
     ],
