@@ -169,6 +169,14 @@ export function ExamProvider({ children }) {
                     if (saved) {
                         const parsed = JSON.parse(saved);
                         if (parsed.examStarted && parsed.questions?.length > 0) {
+                            // Trừ thời gian đã trôi khi tắt browser
+                            if (parsed.savedAt && parsed.timeRemaining > 0) {
+                                const elapsed = Math.floor((Date.now() - parsed.savedAt) / 1000);
+                                parsed.timeRemaining = Math.max(0, parsed.timeRemaining - elapsed);
+                            }
+                            dispatch({ type: 'RESTORE_EXAM', payload: parsed });
+                        } else if (parsed.screen === 'result' && parsed.result) {
+                            // Restore kết quả thi
                             dispatch({ type: 'RESTORE_EXAM', payload: parsed });
                         }
                     }
@@ -203,6 +211,19 @@ export function ExamProvider({ children }) {
                 examStarted: state.examStarted,
                 mode: state.mode,
                 studyMode: state.studyMode,
+                savedAt: Date.now(), // Timestamp để tính thời gian trôi
+            };
+            localStorage.setItem('sfcc_exam_state', JSON.stringify(toSave));
+        } else if (state.screen === 'result' && state.result) {
+            // Lưu cả kết quả để không mất khi tắt browser
+            const toSave = {
+                screen: state.screen,
+                questions: state.questions,
+                answers: state.answers,
+                result: state.result,
+                mode: state.mode,
+                examStarted: false,
+                savedAt: Date.now(),
             };
             localStorage.setItem('sfcc_exam_state', JSON.stringify(toSave));
         } else {
@@ -211,7 +232,19 @@ export function ExamProvider({ children }) {
     }, [
         state.examStarted, state.screen, state.currentIndex,
         state.answers, state.flagged, state.timeRemaining, state.timePerQuestion,
+        state.result,
     ]);
+
+    // Cảnh báo khi đang thi mà tắt browser/tab
+    useEffect(() => {
+        if (!state.examStarted) return;
+        const handler = (e) => {
+            e.preventDefault();
+            e.returnValue = '';
+        };
+        window.addEventListener('beforeunload', handler);
+        return () => window.removeEventListener('beforeunload', handler);
+    }, [state.examStarted]);
 
     // Save wrong IDs
     useEffect(() => {
