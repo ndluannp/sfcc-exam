@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            color: #000;
+            margin: 20px;
+            line-height: 1.45;
+        }
+
+        /* ===== Auto numbering for TOPIC list (1., 2., 3., ...) ===== */
+        ol.topics {
+            margin: 0;
+            padding-left: 22px; /* room for numbers */
+        }
+
+        ol.topics > li {
+            margin: 0 0 10px 0;
+        }
+
+        ol.topics > li::marker {
+            font-weight: 700; /* bold number like summary */
+        }
+
+        /* Hide default disclosure marker so we don't get bullet + triangle */
+        ol.topics details.topic > summary {
+            list-style: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        ol.topics details.topic > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .question {
+            margin: 18px 15px 26px;
+        }
+
+        .question h2 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        /* Auto A/B/C/D... for options */
+        .options {
+            counter-reset: opt;
+            margin: 0 15px;
+            padding: 0;
+        }
+
+        .options li {
+            list-style: none;
+            margin: 6px 0;
+        }
+
+        .options label {
+            display: block;
+            cursor: pointer;
+        }
+
+        .options label::before {
+            counter-increment: opt;
+            content: counter(opt, upper-alpha) " ";
+            font-weight: 700;
+            display: inline-block;
+            width: 22px;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        details {
+            margin-top: 10px;
+        }
+
+        .answer {
+            margin-top: 8px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            background: #f7f7f7;
+            border-radius: 6px;
+        }
+
+        details.topic > div {
+            padding: 10px 0 0;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #e5e7eb;
+            margin: 18px 0;
+        }
+
+        code {
+            background: #f2f2f2;
+            padding: 1px 6px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<ol class="topics">
+    <li>
+        <details class="topic">
+            <summary>Understand the Importance of Data Privacy</summary>
+            <div>
+                <div class="question">
+                    <h2>Which of the following is not considered sensitive data?</h2>
+                    <ol class="options" aria-label="Understand the Importance of Data Privacy - Question 1 options">
+                        <li><label><input type="radio" name="privacy_q1" value="A">First name</label></li>
+                        <li><label><input type="radio" name="privacy_q1" value="B">Social security number</label></li>
+                        <li><label><input type="radio" name="privacy_q1" value="C">Physical residential address</label></li>
+                        <li><label><input type="radio" name="privacy_q1" value="D">Population of the state of residence</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Mục nào sau đây KHÔNG được xem là dữ liệu nhạy cảm?</div>
+                            <ul>
+                                <li>A: Tên (first name)</li>
+                                <li>B: Số an sinh xã hội (SSN)</li>
+                                <li>C: Địa chỉ nhà ở</li>
+                                <li>D: Dân số của bang cư trú</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>The overriding issue concerning replicating sensitive data from production into sandbox environments is:</h2>
+                    <ol class="options" aria-label="Understand the Importance of Data Privacy - Question 2 options">
+                        <li><label><input type="radio" name="privacy_q2" value="A">Monitoring and user access may be different in production than in sandbox.</label></li>
+                        <li><label><input type="radio" name="privacy_q2" value="B">There are more users in sandbox than there are in production.</label></li>
+                        <li><label><input type="radio" name="privacy_q2" value="C">Sandbox users are usually third-party contractors.</label></li>
+                        <li><label><input type="radio" name="privacy_q2" value="D">Sandbox data isn't as sensitive as production data.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>A</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Vấn đề quan trọng nhất khi sao chép dữ liệu nhạy cảm từ production sang sandbox là gì?</div>
+                            <ul>
+                                <li>A: Việc giám sát (monitoring) và quyền truy cập người dùng có thể khác giữa production và sandbox.</li>
+                                <li>B: Sandbox có nhiều user hơn production.</li>
+                                <li>C: User sandbox thường là nhà thầu bên thứ ba.</li>
+                                <li>D: Dữ liệu sandbox không nhạy cảm bằng production.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+
+    <li>
+        <details class="topic">
+            <summary>Get to Know Salesforce Data Mask</summary>
+            <div>
+                <div class="question">
+                    <h2>Delete data when you want to do which of the following?</h2>
+                    <ol class="options" aria-label="Get to Know Salesforce Data Mask - Question 1 options">
+                        <li><label><input type="radio" name="datamask_q1" value="A">Replace non-private data in sandbox orgs with randomly generated characters.</label></li>
+                        <li><label><input type="radio" name="datamask_q1" value="B">Increase the security and privacy assurance of sandbox orgs.</label></li>
+                        <li><label><input type="radio" name="datamask_q1" value="C">Create a reversible masking process that lets you engineer the original data in sandbox orgs.</label></li>
+                        <li><label><input type="radio" name="datamask_q1" value="D">Retain all business processes in sandbox orgs.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Bạn dùng chức năng xóa dữ liệu (Delete data) khi muốn làm điều nào sau đây?</div>
+                            <ul>
+                                <li>A: Thay dữ liệu không riêng tư trong sandbox org bằng ký tự ngẫu nhiên.</li>
+                                <li>B: Tăng mức đảm bảo về bảo mật và quyền riêng tư cho sandbox org.</li>
+                                <li>C: Tạo cơ chế mask có thể đảo ngược để suy ra dữ liệu gốc trong sandbox org.</li>
+                                <li>D: Giữ nguyên tất cả business process trong sandbox org.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>Replace data with values from a library when you want to do which of the following?</h2>
+                    <ol class="options" aria-label="Get to Know Salesforce Data Mask - Question 2 options">
+                        <li><label><input type="radio" name="datamask_q2" value="A">Replace private data in sandbox orgs with randomly generated characters.</label></li>
+                        <li><label><input type="radio" name="datamask_q2" value="B">Decrease the security and privacy assurance of sandbox orgs.</label></li>
+                        <li><label><input type="radio" name="datamask_q2" value="C">Map private data in sandbox orgs to random but recognizable data in each field.</label></li>
+                        <li><label><input type="radio" name="datamask_q2" value="D">Make adjustments to your business processes in sandbox orgs.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>C</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Bạn dùng “Replace data with values from a library” khi muốn làm điều nào sau đây?</div>
+                            <ul>
+                                <li>A: Thay dữ liệu private bằng ký tự ngẫu nhiên.</li>
+                                <li>B: Giảm mức đảm bảo bảo mật và quyền riêng tư của sandbox org.</li>
+                                <li>C: Ánh xạ dữ liệu private sang dữ liệu ngẫu nhiên nhưng vẫn “trông hợp lý/nhận diện được” theo từng field.</li>
+                                <li>D: Điều chỉnh business process trong sandbox org.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+    <li>
+        <details class="topic">
+            <summary>Install and Configure Salesforce Data Mask</summary>
+            <div>
+                <div class="question">
+                    <h2>When replacing data with random but recognizable data, you must also do which of the following for each field?</h2>
+                    <ol class="options" aria-label="Install and Configure Salesforce Data Mask - Question 1 options">
+                        <li><label><input type="radio" name="datamaskcfg_q1" value="A">Rename the field.</label></li>
+                        <li><label><input type="radio" name="datamaskcfg_q1" value="B">Run the mask process twice to ensure that the fields mask properly.</label></li>
+                        <li><label><input type="radio" name="datamaskcfg_q1" value="C">Translate the field data after you run the mask process.</label></li>
+                        <li><label><input type="radio" name="datamaskcfg_q1" value="D">Map the field to a field from a library.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Khi thay dữ liệu bằng giá trị ngẫu nhiên nhưng “trông hợp lý/nhận diện được”, bạn còn phải làm gì cho mỗi field?</div>
+                            <ul>
+                                <li>A: Đổi tên field.</li>
+                                <li>B: Chạy mask 2 lần để đảm bảo mask đúng.</li>
+                                <li>C: Dịch (translate) dữ liệu field sau khi mask.</li>
+                                <li>D: Map field đó với một field tương ứng trong library.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>Which of the following is true for running a mask job?</h2>
+                    <ol class="options" aria-label="Install and Configure Salesforce Data Mask - Question 2 options">
+                        <li><label><input type="radio" name="datamaskcfg_q2" value="A">You can store credentials to use for future jobs.</label></li>
+                        <li><label><input type="radio" name="datamaskcfg_q2" value="B">You can replace and delete data as part of the same mask configuration.</label></li>
+                        <li><label><input type="radio" name="datamaskcfg_q2" value="C">Manual jobs are executed from a production org.</label></li>
+                        <li><label><input type="radio" name="datamaskcfg_q2" value="D">Chatter feeds are always deleted as part of the masking process.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Điều nào sau đây đúng khi chạy một mask job?</div>
+                            <ul>
+                                <li>A: Bạn có thể lưu credentials để dùng cho các job sau.</li>
+                                <li>B: Có thể vừa replace vừa delete data trong cùng một mask configuration.</li>
+                                <li>C: Manual jobs được chạy từ production org.</li>
+                                <li>D: Chatter feeds luôn bị xóa trong quá trình mask.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+</ol>
+</body>

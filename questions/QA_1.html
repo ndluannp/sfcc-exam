@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            color: #000;
+            margin: 20px;
+            line-height: 1.45;
+        }
+
+        /* ===== Auto numbering for TOPIC list (1., 2., 3., ...) ===== */
+        ol.topics {
+            margin: 0;
+            padding-left: 22px; /* room for numbers */
+        }
+
+        ol.topics > li {
+            margin: 0 0 10px 0;
+        }
+
+        ol.topics > li::marker {
+            font-weight: 700; /* bold number like summary */
+        }
+
+        /* Hide default disclosure marker so we don't get bullet + triangle */
+        ol.topics details.topic > summary {
+            list-style: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        ol.topics details.topic > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .question {
+            margin: 18px 15px 26px;
+        }
+
+        .question h2 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        /* Auto A/B/C/D... for options */
+        .options {
+            counter-reset: opt;
+            margin: 0 15px;
+            padding: 0;
+        }
+
+        .options li {
+            list-style: none;
+            margin: 6px 0;
+        }
+
+        .options label {
+            display: block;
+            cursor: pointer;
+        }
+
+        .options label::before {
+            counter-increment: opt;
+            content: counter(opt, upper-alpha) " ";
+            font-weight: 700;
+            display: inline-block;
+            width: 22px;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        details {
+            margin-top: 10px;
+        }
+
+        .answer {
+            margin-top: 8px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            background: #f7f7f7;
+            border-radius: 6px;
+        }
+
+        details.topic > div {
+            padding: 10px 0 0;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #e5e7eb;
+            margin: 18px 0;
+        }
+
+        code {
+            background: #f2f2f2;
+            padding: 1px 6px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<ol class="topics">
+    <li>
+        <details class="topic">
+            <summary>Understand Event-Driven Software Architecture</summary>
+            <div>
+                <div class="question">
+                    <h2>What are some benefits of an event-driven software architecture?</h2>
+                    <ol class="options" aria-label="Understand Event-Driven Software Architecture - Question 1 options">
+                        <li><label><input type="radio" name="edevent_q1" value="A">It decouples event producers from channels.</label></li>
+                        <li><label><input type="radio" name="edevent_q1" value="B">It decouples event producers from event consumers, which have several dependencies on each other.</label></li>
+                        <li><label><input type="radio" name="edevent_q1" value="C">It simplifies communication between producers and consumers by requiring the writing of complex logic.</label></li>
+                        <li><label><input type="radio" name="edevent_q1" value="D">It enables the broadcasting of news messages.</label></li>
+                        <li><label><input type="radio" name="edevent_q1" value="E">It simplifies communication by decoupling event producers from event consumers.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>E</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Những lợi ích nào của kiến trúc phần mềm dựa trên sự kiện?</div>
+                            <ul>
+                                <li>A: Tách rời nhà sản xuất sự kiện khỏi các kênh.</li>
+                                <li>B: Tách rời nhà sản xuất khỏi người tiêu thụ sự kiện, những người có nhiều sự phụ thuộc lẫn nhau.</li>
+                                <li>C: Đơn giản hóa liên lạc giữa nhà sản xuất và người tiêu thụ bằng cách yêu cầu viết logic phức tạp.</li>
+                                <li>D: Cho phép phát sóng các thông điệp tin tức.</li>
+                                <li>E: Đơn giản hóa liên lạc bằng cách tách rời nhà sản xuất sự kiện khỏi người tiêu thụ sự kiện.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>What are some characteristics of a platform event message?</h2>
+                    <ol class="options" aria-label="Understand Event-Driven Software Architecture - Question 2 options">
+                        <li><label><input type="radio" name="edevent_q2" value="A">It is similar to a Salesforce object record, it is not viewable in the user interface, and it can't be edited or deleted.</label></li>
+                        <li><label><input type="radio" name="edevent_q2" value="B">It is an object, it can't be edited or deleted, and it is viewable in the user interface.</label></li>
+                        <li><label><input type="radio" name="edevent_q2" value="C">It is a Salesforce object record, it is not viewable in the user interface, and it can be edited but not deleted.</label></li>
+                        <li><label><input type="radio" name="edevent_q2" value="D">It is a one-of-a-kind custom object record!</label></li>
+                        <li><label><input type="radio" name="edevent_q2" value="E">It is similar to a Salesforce object record, it is not viewable in the user interface, and it can't be edited, but it can be deleted.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>A</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Những đặc điểm nào của thông điệp sự kiện nền tảng?</div>
+                            <ul>
+                                <li>A: Tương tự như bản ghi đối tượng Salesforce, không xem được trong giao diện người dùng và không thể chỉnh sửa hoặc xóa.</li>
+                                <li>B: Là một đối tượng, không thể chỉnh sửa hoặc xóa, nhưng có thể xem trong giao diện người dùng.</li>
+                                <li>C: Là bản ghi đối tượng Salesforce, không xem được trong giao diện người dùng, có thể chỉnh sửa nhưng không thể xóa.</li>
+                                <li>D: Là một bản ghi đối tượng tùy chỉnh độc nhất!</li>
+                                <li>E: Tương tự như bản ghi đối tượng Salesforce, không xem được trong giao diện người dùng, không thể chỉnh sửa nhưng có thể xóa.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+
+    <li>
+        <details class="topic">
+            <summary>Use Asynchronous Apex</summary>
+            <div>
+                <div class="question">
+                    <h2>You can choose to use asynchronous processing when:</h2>
+                    <ol class="options" aria-label="Use Asynchronous Apex - Question 1 options">
+                        <li><label><input type="radio" name="asyncapex_q1" value="A">You need to make callouts to external web services.</label></li>
+                        <li><label><input type="radio" name="asyncapex_q1" value="B">You want to create a better and faster user experience.</label></li>
+                        <li><label><input type="radio" name="asyncapex_q1" value="C">You are processing a large number of records.</label></li>
+                        <li><label><input type="radio" name="asyncapex_q1" value="D">All of the above</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Bạn có thể chọn sử dụng xử lý bất đồng bộ khi nào?</div>
+                            <ul>
+                                <li>A: Cần thực hiện callout tới dịch vụ web bên ngoài.</li>
+                                <li>B: Muốn tạo trải nghiệm người dùng tốt hơn và nhanh hơn.</li>
+                                <li>C: Đang xử lý một số lượng lớn bản ghi.</li>
+                                <li>D: Tất cả những điều trên.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>Which of the following is NOT a type of asynchronous processing?</h2>
+                    <ol class="options" aria-label="Use Asynchronous Apex - Question 2 options">
+                        <li><label><input type="radio" name="asyncapex_q2" value="A">Batch Apex</label></li>
+                        <li><label><input type="radio" name="asyncapex_q2" value="B">Queueable Apex</label></li>
+                        <li><label><input type="radio" name="asyncapex_q2" value="C">Future Methods</label></li>
+                        <li><label><input type="radio" name="asyncapex_q2" value="D">Back to the Future Apex</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Đâu là kiểu xử lý bất đồng bộ KHÔNG phải?</div>
+                            <ul>
+                                <li>A: Batch Apex</li>
+                                <li>B: Queueable Apex</li>
+                                <li>C: Future Methods</li>
+                                <li>D: Back to the Future Apex</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+
+    <li>
+        <details class="topic">
+            <summary>Debug and Run Diagnostics</summary>
+            <div>
+                <div class="question">
+                    <h2>The primary source of debug information on the Lightning platform is the</h2>
+                    <ol class="options" aria-label="Debug and Run Diagnostics - Question 1 options">
+                        <li><label><input type="radio" name="debugrun_q1" value="A">Apex Verifier</label></li>
+                        <li><label><input type="radio" name="debugrun_q1" value="B">Apex Error Reporting Log</label></li>
+                        <li><label><input type="radio" name="debugrun_q1" value="C">Debug Log</label></li>
+                        <li><label><input type="radio" name="debugrun_q1" value="D">Stack Log</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>C</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Nguồn thông tin debug chính trên nền tảng Lightning là:</div>
+                            <ul>
+                                <li>A: Apex Verifier</li>
+                                <li>B: Apex Error Reporting Log</li>
+                                <li>C: Debug Log</li>
+                                <li>D: Stack Log</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>Which of the following is true regarding checkpoints?</h2>
+                    <ol class="options" aria-label="Debug and Run Diagnostics - Question 2 options">
+                        <li><label><input type="radio" name="debugrun_q2" value="A">Execution is available only with production orgs.</label></li>
+                        <li><label><input type="radio" name="debugrun_q2" value="B">You cannot use checkpoints with Asynchronous Apex.</label></li>
+                        <li><label><input type="radio" name="debugrun_q2" value="C">You cannot use checkpoints with triggers.</label></li>
+                        <li><label><input type="radio" name="debugrun_q2" value="D">Execution doesn't stop on the line with the checkpoint.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Điều nào sau đây đúng về checkpoints?</div>
+                            <ul>
+                                <li>A: Chỉ thực thi với org sản xuất.</li>
+                                <li>B: Không thể sử dụng checkpoints với Asynchronous Apex.</li>
+                                <li>C: Không thể sử dụng checkpoints với triggers.</li>
+                                <li>D: Việc thực thi không dừng tại dòng chứa checkpoint.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+</ol>
+</body>
+</html>

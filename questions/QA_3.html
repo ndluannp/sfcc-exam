@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            color: #000;
+            margin: 20px;
+            line-height: 1.45;
+        }
+
+        /* ===== Auto numbering for TOPIC list (1., 2., 3., ...) ===== */
+        ol.topics {
+            margin: 0;
+            padding-left: 22px; /* room for numbers */
+        }
+
+        ol.topics > li {
+            margin: 0 0 10px 0;
+        }
+
+        ol.topics > li::marker {
+            font-weight: 700; /* bold number like summary */
+        }
+
+        /* Hide default disclosure marker so we don't get bullet + triangle */
+        ol.topics details.topic > summary {
+            list-style: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        ol.topics details.topic > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .question {
+            margin: 18px 15px 26px;
+        }
+
+        .question h2 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        /* Auto A/B/C/D... for options */
+        .options {
+            counter-reset: opt;
+            margin: 0 15px;
+            padding: 0;
+        }
+
+        .options li {
+            list-style: none;
+            margin: 6px 0;
+        }
+
+        .options label {
+            display: block;
+            cursor: pointer;
+        }
+
+        .options label::before {
+            counter-increment: opt;
+            content: counter(opt, upper-alpha) " ";
+            font-weight: 700;
+            display: inline-block;
+            width: 22px;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        details {
+            margin-top: 10px;
+        }
+
+        .answer {
+            margin-top: 8px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            background: #f7f7f7;
+            border-radius: 6px;
+        }
+
+        details.topic > div {
+            padding: 10px 0 0;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #e5e7eb;
+            margin: 18px 0;
+        }
+
+        code {
+            background: #f2f2f2;
+            padding: 1px 6px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<ol class="topics">
+    <li>
+        <details class="topic">
+            <summary>Learn JavaScript Core Concepts</summary>
+            <div>
+                <div class="question">
+                    <h2>What is the core architecture of the JavaScript engine?</h2>
+                    <ol class="options" aria-label="Learn JavaScript Core Concepts - Question 1 options">
+                        <li><label><input type="radio" name="jsconcepts_q1" value="A">Microservice</label></li>
+                        <li><label><input type="radio" name="jsconcepts_q1" value="B">Multi-threaded</label></li>
+                        <li><label><input type="radio" name="jsconcepts_q1" value="C">Serverless</label></li>
+                        <li><label><input type="radio" name="jsconcepts_q1" value="D">Single-threaded</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Kiến trúc lõi của JavaScript engine là gì?</div>
+                            <ul>
+                                <li>A: Microservice</li>
+                                <li>B: Đa luồng (Multi-threaded)</li>
+                                <li>C: Serverless</li>
+                                <li>D: Đơn luồng (Single-threaded)</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>Under what circumstance is it acceptable to use implicit type coercion?</h2>
+                    <ol class="options" aria-label="Learn JavaScript Core Concepts - Question 2 options">
+                        <li><label><input type="radio" name="jsconcepts_q2" value="A">Always</label></li>
+                        <li><label><input type="radio" name="jsconcepts_q2" value="B">To test a "falsy" or "truthy" variable value in an if conditional expression. For instance if(myVariable) {...}.</label></li>
+                        <li><label><input type="radio" name="jsconcepts_q2" value="C">When comparing two non-Boolean values with Boolean operators. For instance 1 == "1".</label></li>
+                        <li><label><input type="radio" name="jsconcepts_q2" value="D">There is never a safe way to use implicit type coercion.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Trường hợp nào chấp nhận dùng ép kiểu ngầm định trong JavaScript?</div>
+                            <ul>
+                                <li>A: Luôn luôn.</li>
+                                <li>B: Dùng để kiểm tra giá trị "falsy"/"truthy" trong biểu thức if. Ví dụ if(myVariable) {...}</li>
+                                <li>C: So sánh hai giá trị không phải Boolean với toán tử Boolean, ví dụ 1 == "1".</li>
+                                <li>D: Không có trường hợp nào an toàn cho ép kiểu ngầm định.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+
+    <li>
+        <details class="topic">
+            <summary>Understand JavaScript in the Browser</summary>
+            <div>
+                <div class="question">
+                    <h2>What's the purpose of the DOM?</h2>
+                    <ol class="options" aria-label="Understand JavaScript in the Browser - Question 1 options">
+                        <li><label><input type="radio" name="jsbrowser_q1" value="A">It represents the core JavaScript language.</label></li>
+                        <li><label><input type="radio" name="jsbrowser_q1" value="B">It represents the current web page.</label></li>
+                        <li><label><input type="radio" name="jsbrowser_q1" value="C">All web APIs are surfaced through the DOM.</label></li>
+                        <li><label><input type="radio" name="jsbrowser_q1" value="D">It allows the web page to interact with the local device.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: DOM dùng để làm gì?</div>
+                            <ul>
+                                <li>A: Đại diện cho ngôn ngữ JavaScript lõi.</li>
+                                <li>B: Đại diện cho trang web hiện tại.</li>
+                                <li>C: Mọi web API đều đi qua DOM.</li>
+                                <li>D: Cho phép trang web tương tác với thiết bị cục bộ.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>How do Lightning web components relate to the DOM?</h2>
+                    <ol class="options" aria-label="Understand JavaScript in the Browser - Question 2 options">
+                        <li><label><input type="radio" name="jsbrowser_q2" value="A">Lightning web components don't interact with the DOM.</label></li>
+                        <li><label><input type="radio" name="jsbrowser_q2" value="B">Lightning web components allow automatic DOM manipulation when data changes.</label></li>
+                        <li><label><input type="radio" name="jsbrowser_q2" value="C">Lightning web components allow explicit DOM changes.</label></li>
+                        <li><label><input type="radio" name="jsbrowser_q2" value="D">B and C</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Lightning web component liên hệ với DOM thế nào?</div>
+                            <ul>
+                                <li>A: Lightning web component không tương tác với DOM.</li>
+                                <li>B: Cho phép thao tác DOM tự động khi dữ liệu thay đổi.</li>
+                                <li>C: Cho phép thay đổi DOM trực tiếp.</li>
+                                <li>D: B và C</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+    <li>
+        <details class="topic">
+            <summary>Work with Objects, Classes, and Prototypical Inheritance</summary>
+            <div>
+                <div class="question">
+                    <h2>Considering the following JavaScript object: let bike = {gears: 10}. Which are valid ways to access its property?</h2>
+                    <ol class="options" aria-label="Work with Objects, Classes, and Prototypical Inheritance - Question 1 options">
+                        <li><label><input type="radio" name="objectclass_q1" value="A">bike.gears</label></li>
+                        <li><label><input type="radio" name="objectclass_q1" value="B">bike[gears]</label></li>
+                        <li><label><input type="radio" name="objectclass_q1" value="C">bike["gears"]</label></li>
+                        <li><label><input type="radio" name="objectclass_q1" value="D">A and B</label></li>
+                        <li><label><input type="radio" name="objectclass_q1" value="E">A and C</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>E</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Với đối tượng JavaScript sau: let bike = {gears: 10}. Các cách nào hợp lệ để truy cập property?</div>
+                            <ul>
+                                <li>A: bike.gears</li>
+                                <li>B: bike[gears]</li>
+                                <li>C: bike["gears"]</li>
+                                <li>D: A và B</li>
+                                <li>E: A và C</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>Which of the following is a feature of prototypical inheritance?</h2>
+                    <ol class="options" aria-label="Work with Objects, Classes, and Prototypical Inheritance - Question 2 options">
+                        <li><label><input type="radio" name="objectclass_q2" value="A">A class that defines all objects of a common type</label></li>
+                        <li><label><input type="radio" name="objectclass_q2" value="B">An in-memory object that defines properties and functions of other objects</label></li>
+                        <li><label><input type="radio" name="objectclass_q2" value="C">Module code artifacts that define a single reusable feature</label></li>
+                        <li><label><input type="radio" name="objectclass_q2" value="D">Architecture that ensures data from some objects can be passed to other objects.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Đặc điểm nào thuộc về kế thừa nguyên mẫu (prototypical inheritance)?</div>
+                            <ul>
+                                <li>A: Một class định nghĩa tất cả đối tượng kiểu chung.</li>
+                                <li>B: Đối tượng nằm trong bộ nhớ định nghĩa thuộc tính và hàm của các đối tượng khác.</li>
+                                <li>C: Artifact code module định nghĩa tính năng có thể tái sử dụng.</li>
+                                <li>D: Kiến trúc giúp dữ liệu từ một số đối tượng chuyển được sang đối tượng khác.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+
+    <li>
+        <details class="topic">
+            <summary>Take Action with Events and Functions</summary>
+            <div>
+                <div class="question">
+                    <h2>When defining a function with a function declaration, which of the following does not happen implicitly?</h2>
+                    <ol class="options" aria-label="Take Action with Events and Functions - Question 1 options">
+                        <li><label><input type="radio" name="eventfunc_q1" value="A">A variable name is created</label></li>
+                        <li><label><input type="radio" name="eventfunc_q1" value="B">The function is assigned to the variable</label></li>
+                        <li><label><input type="radio" name="eventfunc_q1" value="C">The variable is attached to the current scope</label></li>
+                        <li><label><input type="radio" name="eventfunc_q1" value="D">The function is invoked</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Khi khai báo function, điều nào sau đây không xảy ra ngầm định?</div>
+                            <ul>
+                                <li>A: Tạo tên biến.</li>
+                                <li>B: Gán hàm cho biến.</li>
+                                <li>C: Biến đính vào scope hiện tại.</li>
+                                <li>D: Hàm được gọi.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>When using functions as event handlers, what are the typical parameters in the function definition?</h2>
+                    <ol class="options" aria-label="Take Action with Events and Functions - Question 2 options">
+                        <li><label><input type="radio" name="eventfunc_q2" value="A">The event</label></li>
+                        <li><label><input type="radio" name="eventfunc_q2" value="B">A component and the event</label></li>
+                        <li><label><input type="radio" name="eventfunc_q2" value="C">A component, the event, and a function</label></li>
+                        <li><label><input type="radio" name="eventfunc_q2" value="D">A component, the event, and a helper</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>A</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Khi dùng hàm làm event handler, tham số thường có trong khai báo là gì?</div>
+                            <ul>
+                                <li>A: Sự kiện (event)</li>
+                                <li>B: Component và event</li>
+                                <li>C: Component, event, và function</li>
+                                <li>D: Component, event và helper</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+    <li>
+        <details class="topic">
+            <summary>Learn About Context, Scope, and Closures</summary>
+            <div>
+                <div class="question">
+                    <h2>What does 'this' reference?</h2>
+                    <ol class="options" aria-label="Take Action with Events and Functions - Question 1 options">
+                        <li><label><input type="radio" name="eventfunc2_q1" value="A">The arguments that a function was invoked with</label></li>
+                        <li><label><input type="radio" name="eventfunc2_q1" value="B">The context where a function was invoked</label></li>
+                        <li><label><input type="radio" name="eventfunc2_q1" value="C">The function where 'this' is called</label></li>
+                        <li><label><input type="radio" name="eventfunc2_q1" value="D">The object where a function was declared</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: 'this' tham chiếu đến điều gì?</div>
+                            <ul>
+                                <li>A: Các tham số hàm được gọi với</li>
+                                <li>B: Ngữ cảnh (context) mà hàm được gọi</li>
+                                <li>C: Hàm nơi gọi 'this'</li>
+                                <li>D: Đối tượng nơi hàm được khai báo</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>Which of the following creates a closure?</h2>
+                    <ol class="options" aria-label="Take Action with Events and Functions - Question 2 options">
+                        <li><label><input type="radio" name="eventfunc2_q2" value="A">Declaring a variable</label></li>
+                        <li><label><input type="radio" name="eventfunc2_q2" value="B">Declaring a function</label></li>
+                        <li><label><input type="radio" name="eventfunc2_q2" value="C">Invoking a function</label></li>
+                        <li><label><input type="radio" name="eventfunc2_q2" value="D">Invoking a constructor</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Phương án nào dưới đây tạo ra closure?</div>
+                            <ul>
+                                <li>A: Khai báo biến</li>
+                                <li>B: Khai báo hàm</li>
+                                <li>C: Gọi hàm (invoking function)</li>
+                                <li>D: Gọi constructor</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+    <li>
+        <details class="topic">
+            <summary>Write Asynchronous JavaScript</summary>
+            <div>
+                <div class="question">
+                    <h2>What is a callback function?</h2>
+                    <ol class="options" aria-label="Write Asynchronous JavaScript - Question 1 options">
+                        <li><label><input type="radio" name="asyncjs_q1" value="A">A function passed into a function to be called later.</label></li>
+                        <li><label><input type="radio" name="asyncjs_q1" value="B">A synchronous function that can block the thread.</label></li>
+                        <li><label><input type="radio" name="asyncjs_q1" value="C">A function that can be easily chained to another function.</label></li>
+                        <li><label><input type="radio" name="asyncjs_q1" value="D">A function to be executed when there is an error.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>A</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Callback function là gì?</div>
+                            <ul>
+                                <li>A: Hàm truyền vào hàm khác để gọi sau.</li>
+                                <li>B: Hàm đồng bộ có thể làm nghẽn luồng.</li>
+                                <li>C: Hàm có thể dễ dàng chain với hàm khác.</li>
+                                <li>D: Hàm thực thi khi có lỗi.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>Which of the following is not a standard function name when using promises?</h2>
+                    <ol class="options" aria-label="Write Asynchronous JavaScript - Question 2 options">
+                        <li><label><input type="radio" name="asyncjs_q2" value="A">catch</label></li>
+                        <li><label><input type="radio" name="asyncjs_q2" value="B">reject</label></li>
+                        <li><label><input type="radio" name="asyncjs_q2" value="C">resolve</label></li>
+                        <li><label><input type="radio" name="asyncjs_q2" value="D">then</label></li>
+                        <li><label><input type="radio" name="asyncjs_q2" value="E">try</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>E</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Hàm nào dưới đây không phải là function tiêu chuẩn khi dùng promise?</div>
+                            <ul>
+                                <li>A: catch</li>
+                                <li>B: reject</li>
+                                <li>C: resolve</li>
+                                <li>D: then</li>
+                                <li>E: try</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+    <li>
+        <details class="topic">
+            <summary>Get Started with Modern JavaScript Development</summary>
+            <div>
+                <div class="question">
+                    <h2>Which version of ECMAScript introduced the concept of modules?</h2>
+                    <ol class="options" aria-label="Get Started with Modern JavaScript Development - Question 1 options">
+                        <li><label><input type="radio" name="modernjs_q1" value="A">ES4</label></li>
+                        <li><label><input type="radio" name="modernjs_q1" value="B">ES5</label></li>
+                        <li><label><input type="radio" name="modernjs_q1" value="C">ES6</label></li>
+                        <li><label><input type="radio" name="modernjs_q1" value="D">ES2017</label></li>
+                        <li><label><input type="radio" name="modernjs_q1" value="E">ESNext</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>C</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Phiên bản ECMAScript nào giới thiệu khái niệm modules?</div>
+                            <ul>
+                                <li>A: ES4</li>
+                                <li>B: ES5</li>
+                                <li>C: ES6</li>
+                                <li>D: ES2017</li>
+                                <li>E: ESNext</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>How do you determine which browser supports a certain JavaScript feature?</h2>
+                    <ol class="options" aria-label="Get Started with Modern JavaScript Development - Question 2 options">
+                        <li><label><input type="radio" name="modernjs_q2" value="A">Check the Features tab in your Chrome browser.</label></li>
+                        <li><label><input type="radio" name="modernjs_q2" value="B">Check the online ECMAScript Compatibility table.</label></li>
+                        <li><label><input type="radio" name="modernjs_q2" value="C">Go to your local library and ask the librarian.</label></li>
+                        <li><label><input type="radio" name="modernjs_q2" value="D">If you're using the Chrome browser, then all features are supported.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Làm sao để biết browser nào hỗ trợ một tính năng JavaScript?</div>
+                            <ul>
+                                <li>A: Xem tab Features trong Chrome.</li>
+                                <li>B: Xem bảng ECMAScript Compatibility online.</li>
+                                <li>C: Tới thư viện hỏi thủ thư.</li>
+                                <li>D: Dùng Chrome thì mọi tính năng đều được hỗ trợ.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+
+    <li>
+        <details class="topic">
+            <summary>Get Started with Modern JavaScript Development</summary>
+            <div>
+                <div class="question">
+                    <h2>What is an advantage of declaring a variable with block scoping?</h2>
+                    <ol class="options" aria-label="Get Started with Modern JavaScript Development - Question 1 options">
+                        <li><label><input type="radio" name="modernjs2_q1" value="A">You don't have to use curly braces to define a block of code.</label></li>
+                        <li><label><input type="radio" name="modernjs2_q1" value="B">You use curly braces instead of square brackets.</label></li>
+                        <li><label><input type="radio" name="modernjs2_q1" value="C">Variables declared within a code block cannot be hoisted.</label></li>
+                        <li><label><input type="radio" name="modernjs2_q1" value="D">Variables declared within a code block scope are accessible outside the block.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>C</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Lợi ích của việc khai báo biến theo block scope là gì?</div>
+                            <ul>
+                                <li>A: Không cần dùng dấu ngoặc nhọn để tạo block code.</li>
+                                <li>B: Dùng ngoặc nhọn thay cho ngoặc vuông.</li>
+                                <li>C: Biến khai báo trong block không bị hoist (không được “kéo lên” như var).</li>
+                                <li>D: Biến trong block có thể truy cập bên ngoài block.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="question">
+                    <h2>What does the new destructuring syntax allow you to do?</h2>
+                    <ol class="options" aria-label="Get Started with Modern JavaScript Development - Question 2 options">
+                        <li><label><input type="radio" name="modernjs2_q2" value="A">Unpack values from arrays.</label></li>
+                        <li><label><input type="radio" name="modernjs2_q2" value="B">Convert an object to an array.</label></li>
+                        <li><label><input type="radio" name="modernjs2_q2" value="C">Compare the properties of two objects.</label></li>
+                        <li><label><input type="radio" name="modernjs2_q2" value="D">A and B</label></li>
+                        <li><label><input type="radio" name="modernjs2_q2" value="E">B and C</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>A</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Cú pháp destructuring mới cho phép bạn làm gì?</div>
+                            <ul>
+                                <li>A: Tách (unpack) giá trị từ array.</li>
+                                <li>B: Chuyển object thành array.</li>
+                                <li>C: So sánh thuộc tính của hai object.</li>
+                                <li>D: A và B</li>
+                                <li>E: B và C</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+    <li>
+        <details class="topic">
+            <summary>Understand JavaScript Functions</summary>
+            <div>
+                <div class="question">
+                    <h2>When is it necessary to include the return keyword in an arrow function?</h2>
+                    <ol class="options" aria-label="Understand JavaScript Functions - Question 1 options">
+                        <li><label><input type="radio" name="jsfunc_q1" value="A">When the self variable has been declared.</label></li>
+                        <li><label><input type="radio" name="jsfunc_q1" value="B">When more than one expression is included in the function.</label></li>
+                        <li><label><input type="radio" name="jsfunc_q1" value="C">When an object is used to invoke the function.</label></li>
+                        <li><label><input type="radio" name="jsfunc_q1" value="D">When there is only one parameter.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>C</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Khi nào cần phải dùng từ khóa <code>return</code> trong arrow function?</div>
+                            <ul>
+                                <li>A: Khi biến <code>self</code> đã được khai báo.</li>
+                                <li>B: Khi trong hàm có nhiều hơn một biểu thức (expression).</li>
+                                <li>C: Khi một object dùng để gọi (invoke) function.</li>
+                                <li>D: Khi chỉ có một tham số.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>Which ES6 syntax feature allows a function to use zero or more arguments?</h2>
+                    <ol class="options" aria-label="Understand JavaScript Functions - Question 2 options">
+                        <li><label><input type="radio" name="jsfunc_q2" value="A">=</label></li>
+                        <li><label><input type="radio" name="jsfunc_q2" value="B">==</label></li>
+                        <li><label><input type="radio" name="jsfunc_q2" value="C">{}</label></li>
+                        <li><label><input type="radio" name="jsfunc_q2" value="D">=&gt; {}</label></li>
+                        <li><label><input type="radio" name="jsfunc_q2" value="E">...</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>E</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Cú pháp ES6 nào cho phép function nhận 0 hoặc nhiều arguments?</div>
+                            <ul>
+                                <li>A: =</li>
+                                <li>B: ==</li>
+                                <li>C: {}</li>
+                                <li>D: =&gt; {}</li>
+                                <li>E: ... (rest parameter)</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+
+    <li>
+        <details class="topic">
+            <summary>Work with Classes</summary>
+            <div>
+                <div class="question">
+                    <h2>Which member is executed automatically for every class that is instantiated?</h2>
+                    <ol class="options" aria-label="Work with Classes - Question 1 options">
+                        <li><label><input type="radio" name="classes_q1" value="A">Constructor</label></li>
+                        <li><label><input type="radio" name="classes_q1" value="B">Prototype Method</label></li>
+                        <li><label><input type="radio" name="classes_q1" value="C">Static Method</label></li>
+                        <li><label><input type="radio" name="classes_q1" value="D">Setter Method</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>A</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Member nào sẽ tự động chạy khi một class được khởi tạo (instantiated)?</div>
+                            <ul>
+                                <li>A: Constructor</li>
+                                <li>B: Prototype Method</li>
+                                <li>C: Static Method</li>
+                                <li>D: Setter Method</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>Which keyword is used to identify a derived class?</h2>
+                    <ol class="options" aria-label="Work with Classes - Question 2 options">
+                        <li><label><input type="radio" name="classes_q2" value="A">child</label></li>
+                        <li><label><input type="radio" name="classes_q2" value="B">extends</label></li>
+                        <li><label><input type="radio" name="classes_q2" value="C">this</label></li>
+                        <li><label><input type="radio" name="classes_q2" value="D">prototype</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Keyword nào dùng để xác định một derived class (class kế thừa)?</div>
+                            <ul>
+                                <li>A: child</li>
+                                <li>B: extends</li>
+                                <li>C: this</li>
+                                <li>D: prototype</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </details>
+        <hr/>
+    </li>
+</ol>
+</body>

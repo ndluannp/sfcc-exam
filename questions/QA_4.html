@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            color: #000;
+            margin: 20px;
+            line-height: 1.45;
+        }
+
+        /* ===== Auto numbering for TOPIC list (1., 2., 3., ...) ===== */
+        ol.topics {
+            margin: 0;
+            padding-left: 22px; /* room for numbers */
+        }
+
+        ol.topics > li {
+            margin: 0 0 10px 0;
+        }
+
+        ol.topics > li::marker {
+            font-weight: 700; /* bold number like summary */
+        }
+
+        /* Hide default disclosure marker so we don't get bullet + triangle */
+        ol.topics details.topic > summary {
+            list-style: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        ol.topics details.topic > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .question {
+            margin: 18px 15px 26px;
+        }
+
+        .question h2 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        /* Auto A/B/C/D... for options */
+        .options {
+            counter-reset: opt;
+            margin: 0 15px;
+            padding: 0;
+        }
+
+        .options li {
+            list-style: none;
+            margin: 6px 0;
+        }
+
+        .options label {
+            display: block;
+            cursor: pointer;
+        }
+
+        .options label::before {
+            counter-increment: opt;
+            content: counter(opt, upper-alpha) " ";
+            font-weight: 700;
+            display: inline-block;
+            width: 22px;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        details {
+            margin-top: 10px;
+        }
+
+        .answer {
+            margin-top: 8px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            background: #f7f7f7;
+            border-radius: 6px;
+        }
+
+        details.topic > div {
+            padding: 10px 0 0;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #e5e7eb;
+            margin: 18px 0;
+        }
+
+        code {
+            background: #f2f2f2;
+            padding: 1px 6px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<ol class="topics">
+    <li>
+        <details class="topic">
+            <summary>Learn About B2C Commerce</summary>
+            <div>
+                <div class="question">
+                    <h2>What’s a primary benefit of the headless architecture used by the Composable Storefront and PWA Kit?</h2>
+                    <ol class="options" aria-label="Learn About B2C Commerce - Question 1 options">
+                        <li><label><input type="radio" name="b2c_q1" value="A">It provides a preconfigured framework with Velocity Templates for server-side rendering.</label></li>
+                        <li><label><input type="radio" name="b2c_q1" value="B">It separates the front-end presentation from back-end systems for greater design flexibility.</label></li>
+                        <li><label><input type="radio" name="b2c_q1" value="C">It helps merchant teams update content without technical skills.</label></li>
+                        <li><label><input type="radio" name="b2c_q1" value="D">It creates a customizable framework that’s perfect for businesses that need to launch their storefront quickly.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Lợi ích chính của kiến trúc headless được dùng bởi Composable Storefront và PWA Kit là gì?</div>
+                            <ul>
+                                <li>A: Cung cấp framework cấu hình sẵn với Velocity Templates để SSR.</li>
+                                <li>B: Tách phần trình bày front-end khỏi hệ thống back-end để linh hoạt thiết kế hơn.</li>
+                                <li>C: Giúp đội merchandising cập nhật nội dung mà không cần kỹ năng kỹ thuật.</li>
+                                <li>D: Tạo framework tùy biến, phù hợp cho doanh nghiệp cần ra mắt storefront nhanh.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>How does the Einstein Semantic Search feature improve the online shopping experience?</h2>
+                    <ol class="options" aria-label="Learn About B2C Commerce - Question 2 options">
+                        <li><label><input type="radio" name="b2c_q2" value="A">It generates customer segments based on their lifecycle stage.</label></li>
+                        <li><label><input type="radio" name="b2c_q2" value="B">It generates dynamic social media ads based on browsing history.</label></li>
+                        <li><label><input type="radio" name="b2c_q2" value="C">It automates the management of site pages and reusable content assets.</label></li>
+                        <li><label><input type="radio" name="b2c_q2" value="D">It helps customers find products more efficiently, reducing bounce rates.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Tính năng Einstein Semantic Search cải thiện trải nghiệm mua sắm online như thế nào?</div>
+                            <ul>
+                                <li>A: Tạo phân khúc khách hàng theo giai đoạn vòng đời.</li>
+                                <li>B: Tạo quảng cáo mạng xã hội động dựa trên lịch sử duyệt web.</li>
+                                <li>C: Tự động quản lý site pages và reusable content assets.</li>
+                                <li>D: Giúp khách hàng tìm sản phẩm hiệu quả hơn, giảm bounce rate.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+    <li>
+        <details class="topic">
+            <summary>Manage Your Storefront with Business Manager</summary>
+            <div>
+                <div class="question">
+                    <h2>How does the Page Designer tool help business users manage the storefront layout?</h2>
+                    <ol class="options" aria-label="Manage Your Storefront with Business Manager - Question 1 options">
+                        <li><label><input type="radio" name="bm_q1" value="A">It helps users to write and edit HTML directly within the platform.</label></li>
+                        <li><label><input type="radio" name="bm_q1" value="B">It helps users to import product catalogs and price books in bulk.</label></li>
+                        <li><label><input type="radio" name="bm_q1" value="C">It helps users to design, schedule, and publish pages with reusable component types.</label></li>
+                        <li><label><input type="radio" name="bm_q1" value="D">It helps users to translate page content for international regions.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>C</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Công cụ Page Designer giúp người dùng nghiệp vụ quản lý bố cục storefront như thế nào?</div>
+                            <ul>
+                                <li>A: Giúp viết và chỉnh sửa HTML trực tiếp trong nền tảng.</li>
+                                <li>B: Giúp import product catalog và price book hàng loạt.</li>
+                                <li>C: Giúp thiết kế, lên lịch và publish page bằng các reusable component types.</li>
+                                <li>D: Giúp dịch nội dung trang cho các khu vực quốc tế.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>How do dynamic customer groups differ from static lists when used for marketing segmentation?</h2>
+                    <ol class="options" aria-label="Manage Your Storefront with Business Manager - Question 2 options">
+                        <li><label><input type="radio" name="bm_q2" value="A">They update and segment customers in real-time based on profile data and session behavior.</label></li>
+                        <li><label><input type="radio" name="bm_q2" value="B">They require Salesforce admins to add customers manually based on purchase history.</label></li>
+                        <li><label><input type="radio" name="bm_q2" value="C">They act as wrappers for specific promotions and coupons.</label></li>
+                        <li><label><input type="radio" name="bm_q2" value="D">They define tax rules and configurations for regional laws.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>A</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Dynamic customer groups khác static lists như thế nào khi dùng để phân khúc marketing?</div>
+                            <ul>
+                                <li>A: Tự cập nhật và phân nhóm khách hàng theo thời gian thực dựa trên dữ liệu hồ sơ và hành vi phiên (session).</li>
+                                <li>B: Cần admin Salesforce thêm khách hàng thủ công dựa trên lịch sử mua hàng.</li>
+                                <li>C: Hoạt động như “wrapper” cho các promotions và coupons cụ thể.</li>
+                                <li>D: Định nghĩa quy tắc thuế và cấu hình cho luật theo vùng.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+    <li>
+        <details class="topic">
+            <summary>Experience Unified B2C Commerce</summary>
+            <div>
+                <div class="question">
+                    <h2>Which tool analyzes data to predict complementary accessories, such as wool socks, and displays them as Complete the Set suggestions on a product detail Page?</h2>
+                    <ol class="options" aria-label="Experience Unified B2C Commerce - Question 1 options">
+                        <li><label><input type="radio" name="unified_q1" value="A">Agentforce Guided Shopping</label></li>
+                        <li><label><input type="radio" name="unified_q1" value="B">Einstein Product Recommendations</label></li>
+                        <li><label><input type="radio" name="unified_q1" value="C">Search Refinement Definitions</label></li>
+                        <li><label><input type="radio" name="unified_q1" value="D">Order Management</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Công cụ nào phân tích dữ liệu để dự đoán phụ kiện bổ sung (ví dụ: vớ len) và hiển thị dạng gợi ý “Complete the Set” trên trang chi tiết sản phẩm?</div>
+                            <ul>
+                                <li>A: Agentforce Guided Shopping</li>
+                                <li>B: Einstein Product Recommendations</li>
+                                <li>C: Search Refinement Definitions</li>
+                                <li>D: Order Management</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>Which combination of tools helps a merchandiser display region-specific content, such as a winter hero image, to a first-time visitor immediately upon site load?</h2>
+                    <ol class="options" aria-label="Experience Unified B2C Commerce - Question 2 options">
+                        <li><label><input type="radio" name="unified_q2" value="A">Einstein Search Recommendations and Search Refinement Definitions</label></li>
+                        <li><label><input type="radio" name="unified_q2" value="B">Agentforce Service Integration and Agentforce Guided Shopping</label></li>
+                        <li><label><input type="radio" name="unified_q2" value="C">Geolocation and Dynamic Customer Groups</label></li>
+                        <li><label><input type="radio" name="unified_q2" value="D">Order Management and POS</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>C</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Bộ công cụ nào giúp merchandiser hiển thị nội dung theo vùng (ví dụ: ảnh hero mùa đông) cho khách lần đầu truy cập ngay khi site tải?</div>
+                            <ul>
+                                <li>A: Einstein Search Recommendations và Search Refinement Definitions</li>
+                                <li>B: Agentforce Service Integration và Agentforce Guided Shopping</li>
+                                <li>C: Geolocation và Dynamic Customer Groups</li>
+                                <li>D: Order Management và POS</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+</ol>
+</body>

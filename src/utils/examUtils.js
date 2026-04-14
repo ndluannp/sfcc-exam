@@ -15,6 +15,13 @@ const SOURCE_TOPIC_MAP = {
     'b2c_dev_exam_set12.md': 'Set 12 - Search & Navigation',
     'b2c_dev_exam_set13.md': 'Set 13 - Performance & Security',
     'b2c_dev_exam_set14.md': 'Set 14 - Debugging & Testing',
+    'QA_1.html': 'QA 1 - Platform Events & Async Apex',
+    'QA_2.html': 'QA 2 - Apex Integration & Testing',
+    'QA_3.html': 'QA 3 - JavaScript Fundamentals',
+    'QA_4.html': 'QA 4 - LWC Basics',
+    'QA_5.html': 'QA 5 - Aura Components',
+    'QA_6.html': 'QA 6 - Data Modeling & Security',
+    'QA_7.html': 'QA 7 - Comprehensive Practice',
 };
 
 export function getTopicName(source) {

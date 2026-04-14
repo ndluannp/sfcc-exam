@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            color: #000;
+            margin: 20px;
+            line-height: 1.45;
+        }
+
+        /* ===== Auto numbering for TOPIC list (1., 2., 3., ...) ===== */
+        ol.topics {
+            margin: 0;
+            padding-left: 22px; /* room for numbers */
+        }
+
+        ol.topics > li {
+            margin: 0 0 10px 0;
+        }
+
+        ol.topics > li::marker {
+            font-weight: 700; /* bold number like summary */
+        }
+
+        /* Hide default disclosure marker so we don't get bullet + triangle */
+        ol.topics details.topic > summary {
+            list-style: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        ol.topics details.topic > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .question {
+            margin: 18px 15px 26px;
+        }
+
+        .question h2 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        /* Auto A/B/C/D... for options */
+        .options {
+            counter-reset: opt;
+            margin: 0 15px;
+            padding: 0;
+        }
+
+        .options li {
+            list-style: none;
+            margin: 6px 0;
+        }
+
+        .options label {
+            display: block;
+            cursor: pointer;
+        }
+
+        .options label::before {
+            counter-increment: opt;
+            content: counter(opt, upper-alpha) " ";
+            font-weight: 700;
+            display: inline-block;
+            width: 22px;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        details {
+            margin-top: 10px;
+        }
+
+        .answer {
+            margin-top: 8px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            background: #f7f7f7;
+            border-radius: 6px;
+        }
+
+        details.topic > div {
+            padding: 10px 0 0;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #e5e7eb;
+            margin: 18px 0;
+        }
+
+        code {
+            background: #f2f2f2;
+            padding: 1px 6px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<ol class="topics">
+    <li>
+        <details class="topic">
+            <summary>Explore Salesforce Lightning Design System 2</summary>
+            <div>
+                <div class="question">
+                    <h2>Which of the following are key features of SLDS 2?</h2>
+                    <ol class="options" aria-label="Explore Salesforce Lightning Design System 2 - Question 1 options">
+                        <li><label><input type="radio" name="slds2_q1" value="A">Built-in theme, Salesforce Cosmos, modern web standards, SLDS Linter, AppExchange solutions</label></li>
+                        <li><label><input type="radio" name="slds2_q1" value="B">Built-in theme, Salesforce Cosmos, Lightning Web Components, SLDS Linter, AppExchange solutions</label></li>
+                        <li><label><input type="radio" name="slds2_q1" value="C">Built-in theme, Salesforce Cosmos, global styling hooks, Lightning web components, Lightning Base Components</label></li>
+                        <li><label><input type="radio" name="slds2_q1" value="D">Global styling hooks, Lightning web components, Lightning Base Components, no built-in themes</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>C</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Những tính năng chính của SLDS 2 là gì?</div>
+                            <ul>
+                                <li>A: Built-in theme, Salesforce Cosmos, modern web standards, SLDS Linter, AppExchange solutions</li>
+                                <li>B: Built-in theme, Salesforce Cosmos, Lightning Web Components, SLDS Linter, AppExchange solutions</li>
+                                <li>C: Built-in theme, Salesforce Cosmos, global styling hooks, Lightning web components, Lightning Base Components</li>
+                                <li>D: Global styling hooks, Lightning web components, Lightning Base Components, không có built-in themes</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>Which of the following in SLDS 2 is a modern, standards-based framework for building modular and reusable UI components?</h2>
+                    <ol class="options" aria-label="Explore Salesforce Lightning Design System 2 - Question 2 options">
+                        <li><label><input type="radio" name="slds2_q2" value="A">Lightning Web Components</label></li>
+                        <li><label><input type="radio" name="slds2_q2" value="B">Lightning Base Components</label></li>
+                        <li><label><input type="radio" name="slds2_q2" value="C">Aura components</label></li>
+                        <li><label><input type="radio" name="slds2_q2" value="D">SLDS Linter</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>A</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Trong SLDS 2, framework hiện đại dựa trên tiêu chuẩn để xây dựng UI components dạng module và tái sử dụng là gì?</div>
+                            <ul>
+                                <li>A: Lightning Web Components</li>
+                                <li>B: Lightning Base Components</li>
+                                <li>C: Aura components</li>
+                                <li>D: SLDS Linter</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+
+    <li>
+        <details class="topic">
+            <summary>Transition Your Org from SLDS 1 to SLDS 2</summary>
+            <div>
+                <div class="question">
+                    <h2>Which tool helps you audit and estimate the work needed to uplift your components to SLDS 2, and autofixes your code?</h2>
+                    <ol class="options" aria-label="Transition Your Org from SLDS 1 to SLDS 2 - Question 1 options">
+                        <li><label><input type="radio" name="slds_transition_q1" value="A">VS Code</label></li>
+                        <li><label><input type="radio" name="slds_transition_q1" value="B">Figma</label></li>
+                        <li><label><input type="radio" name="slds_transition_q1" value="C">SLDS Linter</label></li>
+                        <li><label><input type="radio" name="slds_transition_q1" value="D">SLDS 1</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>C</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Công cụ nào giúp bạn audit và ước lượng effort để nâng cấp component lên SLDS 2, đồng thời tự động sửa (autofix) code?</div>
+                            <ul>
+                                <li>A: VS Code</li>
+                                <li>B: Figma</li>
+                                <li>C: SLDS Linter</li>
+                                <li>D: SLDS 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>What should you do after generating the SARIF report using SLDS Linter?</h2>
+                    <ol class="options" aria-label="Transition Your Org from SLDS 1 to SLDS 2 - Question 2 options">
+                        <li><label><input type="radio" name="slds_transition_q2" value="A">Run SLDS Linter to make an initial assessment of your code.</label></li>
+                        <li><label><input type="radio" name="slds_transition_q2" value="B">Make a note of how many components SLDS Linter has identified that you must update.</label></li>
+                        <li><label><input type="radio" name="slds_transition_q2" value="C">Download SLDS Linter from AppExchange.</label></li>
+                        <li><label><input type="radio" name="slds_transition_q2" value="D">Deploy your code.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>B</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Sau khi tạo báo cáo SARIF bằng SLDS Linter, bạn nên làm gì?</div>
+                            <ul>
+                                <li>A: Chạy SLDS Linter để đánh giá ban đầu code của bạn.</li>
+                                <li>B: Ghi chú số lượng components mà SLDS Linter đã xác định bạn cần update.</li>
+                                <li>C: Tải SLDS Linter từ AppExchange.</li>
+                                <li>D: Deploy code.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+
+    <li>
+        <details class="topic">
+            <summary>Get Help and Support with SLDS 2</summary>
+            <div>
+                <div class="question">
+                    <h2>Which of the following is a recommended action for custom components using supported SLDS styling hooks and classes correctly?</h2>
+                    <ol class="options" aria-label="Get Help and Support with SLDS 2 - Question 1 options">
+                        <li><label><input type="radio" name="slds_support_q1" value="A">No action required; your custom components work in SLDS 2 as is.</label></li>
+                        <li><label><input type="radio" name="slds_support_q1" value="B">Uplift your components using SLDS 1.</label></li>
+                        <li><label><input type="radio" name="slds_support_q1" value="C">Transition all custom components to hard-coded values.</label></li>
+                        <li><label><input type="radio" name="slds_support_q1" value="D">Ensure your markup closely aligns with SLDS component blueprints.</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>D</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Hành động nào được khuyến nghị cho custom components khi dùng đúng SLDS styling hooks và classes được hỗ trợ?</div>
+                            <ul>
+                                <li>A: Không cần làm gì; custom components chạy với SLDS 2 như hiện tại.</li>
+                                <li>B: Nâng cấp components bằng SLDS 1.</li>
+                                <li>C: Chuyển tất cả custom components sang giá trị hard-code.</li>
+                                <li>D: Đảm bảo markup bám sát các blueprint của component trong SLDS.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="question">
+                    <h2>What should you continue to use to validate your code against SLDS 2 standards?</h2>
+                    <ol class="options" aria-label="Get Help and Support with SLDS 2 - Question 2 options">
+                        <li><label><input type="radio" name="slds_support_q2" value="A">SLDS Linter or SLDS Validator and our SLDS 2 developer tools</label></li>
+                        <li><label><input type="radio" name="slds_support_q2" value="B">SLDS 1 website and developer tools</label></li>
+                        <li><label><input type="radio" name="slds_support_q2" value="C">AppExchange solutions</label></li>
+                        <li><label><input type="radio" name="slds_support_q2" value="D">The Design Trailblazers group</label></li>
+                    </ol>
+                    <details>
+                        <summary>Answer</summary>
+                        <div class="answer">✅ Correct: <strong>A</strong></div>
+                    </details>
+                    <details>
+                        <summary>Translate</summary>
+                        <div class="translate">
+                            <div>Câu hỏi: Bạn nên tiếp tục dùng gì để validate code theo tiêu chuẩn SLDS 2?</div>
+                            <ul>
+                                <li>A: SLDS Linter hoặc SLDS Validator và các developer tools của SLDS 2</li>
+                                <li>B: Website SLDS 1 và developer tools</li>
+                                <li>C: AppExchange solutions</li>
+                                <li>D: Nhóm Design Trailblazers</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+        <hr/>
+    </li>
+</ol>
+</body>
