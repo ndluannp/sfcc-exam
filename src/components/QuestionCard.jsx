@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useExam } from '../contexts/ExamContext';
 import { getTopicName, getLetter } from '../utils/examUtils';
 
 export default function QuestionCard() {
     const { state, dispatch } = useExam();
     const question = state.questions[state.currentIndex];
-    const [showStudyAnswer, setShowStudyAnswer] = useState(false);
+    const [showHint, setShowHint] = useState(false);
+
+    // Reset hint khi chuyển câu
+    useEffect(() => {
+        setShowHint(false);
+    }, [state.currentIndex]);
 
     if (!question) return null;
 
@@ -18,7 +23,6 @@ export default function QuestionCard() {
             type: 'TOGGLE_ANSWER',
             payload: { questionId: question.id, letter, isMultiple },
         });
-        if (state.studyMode) setShowStudyAnswer(true);
     };
 
     const handleFlag = () => {
@@ -27,27 +31,28 @@ export default function QuestionCard() {
 
     const handleClear = () => {
         dispatch({ type: 'CLEAR_ANSWER', payload: question.id });
-        setShowStudyAnswer(false);
     };
 
     const handlePrev = () => {
-        setShowStudyAnswer(false);
         if (state.currentIndex > 0) {
             dispatch({ type: 'SET_CURRENT_INDEX', payload: state.currentIndex - 1 });
         }
     };
 
     const handleNext = () => {
-        setShowStudyAnswer(false);
         if (state.currentIndex < state.questions.length - 1) {
             dispatch({ type: 'SET_CURRENT_INDEX', payload: state.currentIndex + 1 });
         }
     };
 
-    // Study mode: check answer correctness
-    const isStudyCorrect = state.studyMode && showStudyAnswer
-        ? JSON.stringify([...userAnswer].sort()) === JSON.stringify([...question.answer].sort())
-        : null;
+    // Lấy hint text - ưu tiên tip, nếu không có thì dùng explanation (nhưng ẩn đáp án)
+    const hintText = question.tip || question.explanation || '';
+    // Lọc bỏ phần "Correct answer: X" khỏi hint để không lộ đáp án
+    const safeHint = hintText
+        .replace(/^Correct answer:\s*[A-E][\.\,\s]*/i, '')
+        .replace(/Đáp án đúng là\s*[A-E][\.\,\s]*/i, '')
+        .replace(/✅\s*Correct:\s*[A-E][\.\,\s]*/i, '')
+        .trim();
 
     return (
         <div className="animate-fade-in">
@@ -81,21 +86,14 @@ export default function QuestionCard() {
                 )}
             </div>
 
-            {/* Options */}
+            {/* Options - không hiển thị đáp án cho đến khi nộp bài */}
             <div className="space-y-3 mb-6">
                 {question.options.map((opt, idx) => {
                     const letter = getLetter(idx);
                     const isSelected = userAnswer.includes(letter);
-                    const isCorrectAnswer = question.answer.includes(letter);
 
                     let optionStyle = '';
-                    if (state.studyMode && showStudyAnswer) {
-                        if (isCorrectAnswer) {
-                            optionStyle = 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 ring-1 ring-emerald-500/50';
-                        } else if (isSelected && !isCorrectAnswer) {
-                            optionStyle = 'border-rose-500 bg-rose-50 dark:bg-rose-950/30 ring-1 ring-rose-500/50';
-                        }
-                    } else if (isSelected) {
+                    if (isSelected) {
                         optionStyle = 'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500/50';
                     }
 
@@ -103,67 +101,36 @@ export default function QuestionCard() {
                         <button
                             key={letter}
                             onClick={() => handleSelect(letter)}
-                            disabled={state.studyMode && showStudyAnswer}
-                            className={`w-full flex items-start gap-4 p-4 rounded-xl border-2 transition-all duration-200 text-left group ${optionStyle ||
+                            className={`w-full flex items-start gap-4 p-4 rounded-xl border-2 transition-all duration-200 text-left group cursor-pointer ${optionStyle ||
                                 'border-gray-200 dark:border-white/10 hover:border-primary-300 dark:hover:border-primary-500/30 hover:bg-primary-50/50 dark:hover:bg-primary-950/20'
-                                } ${state.studyMode && showStudyAnswer ? 'cursor-default' : 'cursor-pointer'}`}
+                                }`}
                         >
                             <span
                                 className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg font-bold text-sm transition-all duration-200 ${isSelected
                                     ? 'bg-primary-500 text-white'
                                     : 'bg-gray-100 dark:bg-surface-700 text-gray-500 dark:text-gray-400 group-hover:bg-primary-100 dark:group-hover:bg-primary-900/50 group-hover:text-primary-600'
-                                    } ${state.studyMode && showStudyAnswer && isCorrectAnswer ? 'bg-emerald-500 text-white' : ''}
-                ${state.studyMode && showStudyAnswer && isSelected && !isCorrectAnswer ? 'bg-rose-500 text-white' : ''}`}
+                                    }`}
                             >
                                 {letter}
                             </span>
                             <span className="flex-1 text-gray-700 dark:text-gray-200 pt-1 text-[15px]">{opt}</span>
-                            {state.studyMode && showStudyAnswer && isCorrectAnswer && (
-                                <span className="text-emerald-500 text-lg">✓</span>
-                            )}
-                            {state.studyMode && showStudyAnswer && isSelected && !isCorrectAnswer && (
-                                <span className="text-rose-500 text-lg">✗</span>
-                            )}
                         </button>
                     );
                 })}
             </div>
 
-            {/* Study mode explanation */}
-            {state.studyMode && showStudyAnswer && (
-                <div className="animate-fade-in space-y-4 mb-6">
-                    <div className={`glass-card p-5 border-l-4 ${isStudyCorrect ? 'border-l-emerald-500' : 'border-l-rose-500'}`}>
-                        <div className={`text-lg font-bold mb-2 ${isStudyCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
-                            {isStudyCorrect ? '✅ Correct!' : '❌ Incorrect'}
-                        </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                            Correct answer: <span className="font-bold text-emerald-600 dark:text-emerald-400">{question.answer.join(', ')}</span>
-                        </div>
+            {/* Hint section - hiển thị mẹo KHÔNG kèm đáp án */}
+            {showHint && safeHint && (
+                <div className="animate-fade-in mb-6">
+                    <div className="glass-card p-5 border-l-4 border-l-amber-500">
+                        <h4 className="font-semibold text-amber-600 dark:text-amber-400 mb-2 flex items-center gap-2">
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                            💡 Hint
+                        </h4>
+                        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{safeHint}</p>
                     </div>
-
-                    {question.explanation && (
-                        <div className="glass-card p-5 border-l-4 border-l-blue-500">
-                            <h4 className="font-semibold text-blue-600 dark:text-blue-400 mb-2 flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                Explanation
-                            </h4>
-                            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{question.explanation}</p>
-                        </div>
-                    )}
-
-                    {question.tip && (
-                        <div className="glass-card p-5 border-l-4 border-l-amber-500">
-                            <h4 className="font-semibold text-amber-600 dark:text-amber-400 mb-2 flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                </svg>
-                                Tip
-                            </h4>
-                            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{question.tip}</p>
-                        </div>
-                    )}
                 </div>
             )}
 
@@ -200,6 +167,17 @@ export default function QuestionCard() {
                 >
                     {isFlagged ? '🚩 Unflag' : '🏳️ Flag'}
                 </button>
+
+                {/* Hint button */}
+                {safeHint && (
+                    <button
+                        onClick={() => setShowHint(!showHint)}
+                        className={`btn-secondary ${showHint ? 'bg-amber-100 dark:bg-amber-950/30 border-amber-300 dark:border-amber-500/30 text-amber-700 dark:text-amber-400' : ''}`}
+                        title="Show hint (H)"
+                    >
+                        {showHint ? '💡 Hide Hint' : '💡 Hint'}
+                    </button>
+                )}
 
                 <button onClick={handleClear} className="btn-secondary" title="Clear answer">
                     ✕ Clear
