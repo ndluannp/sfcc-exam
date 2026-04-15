@@ -574,7 +574,7 @@
             "Disable the database locking mechanism in Site Preferences.",
             "Wrap the entire Job in a single massive Transaction.",
             "Ensure all scripts access and lock objects in the same order and keep transactions as short as possible.",
-            "Correct configuration in Business Manager"
+            "Use a read-only query mode to prevent all locking issues."
         ],
         "answer": [
             "C"
@@ -582,8 +582,8 @@
         "explanation": "Correct answer: C. Ensure all scripts access and lock objects in the same order and keep transactions as short as possible.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -632,9 +632,9 @@
         "question": "In the Service Framework registry, what is the exact purpose of the 'createRequest' callback?",
         "options": [
             "It is where you define the URL path, headers, and request body for the outgoing call.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "It handles authentication and security token generation.",
+            "It logs and monitors the request performance metrics.",
+            "It manages error handling and retry logic automatically."
         ],
         "answer": [
             "A"
@@ -642,8 +642,8 @@
         "explanation": "Correct answer: A. It is where you define the URL path, headers, and request body for the outgoing call.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -655,7 +655,7 @@
             "Delete the Service Credentials.",
             "Add a mock:true property to the `package.json`.",
             "Use `service.setMock(true)` in the createRequest method.",
-            "Correct configuration in Business Manager"
+            "Configure Mock Mode in the Service Profile settings in Business Manager."
         ],
         "answer": [
             "D"
@@ -663,8 +663,8 @@
         "explanation": "Correct answer: D. Correct configuration in Business Manager",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -675,8 +675,8 @@
         "options": [
             "POST is faster than GET for large product catalogs.",
             "GET is strictly for retrieving data safely; POST creates resources or performs complex actions like authentication.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "POST provides better caching support than GET.",
+            "GET cannot handle complex nested JSON structures."
         ],
         "answer": [
             "B"
@@ -684,8 +684,8 @@
         "explanation": "Correct answer: B. GET is strictly for retrieving data safely; POST creates resources or performs complex actions like authentication.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -717,8 +717,8 @@
         "options": [
             "A mechanism to intercept and steal user passwords.",
             "A custom script execution point that fires before or after a standard OCAPI resource call.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "A webhook that bypasses OCAPI security checks.",
+            "A permanent modification to OCAPI resource definitions."
         ],
         "answer": [
             "B"
@@ -726,8 +726,8 @@
         "explanation": "Correct answer: B. A custom script execution point that fires before or after a standard OCAPI resource call.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -739,7 +739,7 @@
             "Hardcode it as a constant at the top of the Service script.",
             "Save it in a Custom Object named 'Secrets'.",
             "Store it in the 'Service Credentials' password field in Business Manager.",
-            "Correct configuration in Business Manager"
+            "Pass it as a URL query parameter for easy access."
         ],
         "answer": [
             "C"
@@ -747,8 +747,8 @@
         "explanation": "Correct answer: C. Store it in the 'Service Credentials' password field in Business Manager.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -773,43 +773,43 @@
     {
         "id": 38,
         "source": "Questions_20260403.md",
-        "question": "How should a Service Framework script handle a '429 Too Many Requests' response?",
+        "question": "How should a Service Framework script handle a '429 Too Many Requests' response from an external API?",
         "options": [
-            "Implement a retry logic with an exponential backoff strategy.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Implement a retry logic with an exponential backoff strategy within the service wrapper.",
+            "Immediately trip the Circuit Breaker and stop all subsequent calls for 1 hour.",
+            "Ignore the rate limit and continue making requests until a 200 OK is received.",
+            "Bypass the rate limit by dynamically changing the API Client ID in Business Manager."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Implement a retry logic with an exponential backoff strategy.",
+        "explanation": "Lỗi 429 cho biết hệ thống bên thứ ba đang bị quá tải hoặc bạn đã vượt quá giới hạn request. Exponential backoff (thử lại với thời gian chờ tăng dần) là cách xử lý chuẩn để giảm tải cho API và tăng tỷ lệ thành công cho các lần gọi sau.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Keyword: 429 handle, retry, backoff.",
         "answer_fixed_v2": true
     },
     {
         "id": 39,
         "source": "Questions_20260403.md",
-        "question": "Can OCAPI be used to read or modify Site Preferences?",
+        "question": "Can OCAPI (Open Commerce API) be used to read or modify Site Preferences in Business Manager?",
         "options": [
-            "No, OCAPI only handles catalog and order data.",
-            "Yes, they are available in the Shop API under /site.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "No, OCAPI primarily handles shop (basket, checkout) and data (catalog, order) resources, not site configuration settings like Preferences.",
+            "Yes, Site Preferences can be modified via the Shop API under the /site resource.",
+            "Yes, but only for custom site preferences, not system preferences.",
+            "Yes, they can be accessed via the Data API if the 'SitePreferences' resource is enabled in OCAPI settings."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. No, OCAPI only handles catalog and order data.",
+        "explanation": "OCAPI không cung cấp resource để quản lý Site Preferences (Cấu hình Site). Những cấu hình này phải được thực hiện trực tiếp trong Business Manager hoặc thông qua Site Import/Export.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "OCAPI tập trung vào dữ liệu nghiệp vụ (Catalog/Order/Customer), không phải cấu hình hệ thống.",
         "answer_fixed_v2": true
     },
     {
@@ -817,20 +817,20 @@
         "source": "Questions_20260403.md",
         "question": "In the Service Framework, what is the critical role of the 'parseResponse' callback?",
         "options": [
-            "To write the response to the service log file.",
-            "To determine if the Circuit Breaker should trip.",
-            "To convert the raw HTTP string or JSON payload into a clean Data Transfer Object (DTO) for the script.",
-            "Correct configuration in Business Manager"
+            "To automatically write the raw response payload to the service-*.log files.",
+            "To determine whether the Circuit Breaker should trip based on HTTP status codes.",
+            "To convert the raw HTTP response body (String/JSON) into a clean Data Transfer Object (DTO) for use in business logic.",
+            "To handle GZIP decompression and decryption of the incoming data stream."
         ],
         "answer": [
             "C"
         ],
-        "explanation": "Correct answer: C. To convert the raw HTTP string or JSON payload into a clean Data Transfer Object (DTO) for the script.",
+        "explanation": "Hàm 'parseResponse' là một phần của Service Registry. Nhiệm vụ của nó là nhận dữ liệu thô từ API (thường là chuỗi JSON hoặc XML), xử lý lỗi logic (nếu có) và chuyển đổi thành một JavaScript Object (DTO) giúp các đoạn script khác trong cartridge có thể sử dụng dễ dàng.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Keyword: parseResponse, convert raw data, DTO.",
         "answer_fixed": true
     },
     {
@@ -885,7 +885,9 @@
             "It shares the parent template's pdict automatically for better performance.",
             "It reduces the number of HTTP requests sent to the server."
         ],
-        "answer": ["B"],
+        "answer": [
+            "B"
+        ],
         "explanation": "Remote Include tạo ra một request mới, cho phép mảnh template đó được cache độc lập (ví dụ: mini-cart không cache trong khi phần còn lại của trang thì có).",
         "type": "single",
         "needs_review": false,
@@ -898,17 +900,17 @@
         "options": [
             "Register a new Hook in hooks.json pointing to an external URL.",
             "Create a public Controller route that parses the incoming JSON payload and trigger logic based on the data.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "Webhooks can only receive data, they cannot send data externally.",
+            "Use OCAPI exclusively to define webhook endpoints."
         ],
         "answer": [
-            "A"
+            "B"
         ],
         "explanation": "Correct answer: A. Register a new Hook in hooks.json pointing to an external URL.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -918,9 +920,9 @@
         "question": "When debugging performance, what is the primary benefit of 'Service Profiling' in Business Manager?",
         "options": [
             "It helps identify which external API integrations are introducing latency and slowing down the site flow.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "It automatically optimizes all service calls without manual intervention.",
+            "It provides user interface performance analysis only.",
+            "It can only track database queries, not API calls."
         ],
         "answer": [
             "A"
@@ -928,8 +930,8 @@
         "explanation": "Correct answer: A. It helps identify which external API integrations are introducing latency and slowing down the site flow.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -964,7 +966,9 @@
             "The Job stops immediately and moves to the 'afterStep' phase.",
             "The item is passed to 'write' as an empty object."
         ],
-        "answer": ["B"],
+        "answer": [
+            "B"
+        ],
         "explanation": "Trong mô hình Chunk, trả về null trong hàm process là cách chính thống để 'lọc' bỏ dữ liệu không cần thiết trước khi đến bước ghi (write).",
         "type": "single",
         "needs_review": false,
@@ -977,8 +981,8 @@
         "options": [
             "Define them in the package.json file.",
             "Define the parameters in the steptypes.json file of the cartridge.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "Parameters can only be hardcoded in the Job script itself.",
+            "They must be stored in environment variables outside of B2C."
         ],
         "answer": [
             "B"
@@ -986,8 +990,8 @@
         "explanation": "Correct answer: B. Define the parameters in the steptypes.json file of the cartridge.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1020,7 +1024,7 @@
             "A developer forgot to clear the cache.",
             "The Production instance ran out of disk space.",
             "Locked objects or invalid category assignments disrupting the data integrity constraints.",
-            "Correct configuration in Business Manager"
+            "The replication feature is not available in Production."
         ],
         "answer": [
             "C"
@@ -1028,8 +1032,8 @@
         "explanation": "Correct answer: C. Locked objects or invalid category assignments disrupting the data integrity constraints.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1041,7 +1045,7 @@
             "To test API endpoint performance.",
             "To automatically fix JavaScript bugs on the frontend.",
             "To test different content, layouts, or promotions simultaneously on segmented traffic to measure conversion rates.",
-            "Correct configuration in Business Manager"
+            "To perform backup and restore operations safely."
         ],
         "answer": [
             "C"
@@ -1049,8 +1053,8 @@
         "explanation": "Correct answer: C. To test different content, layouts, or promotions simultaneously on segmented traffic to measure conversion rates.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1082,17 +1086,17 @@
         "options": [
             "A developer must write a custom script using XMLStreamWriter.",
             "It is generated automatically on a schedule via the Sitemap Job configuration in Merchant Tools.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "Sitemaps are automatically generated based on navigation structure.",
+            "Google automatically crawls and indexes without needing a sitemap."
         ],
         "answer": [
-            "A"
+            "B"
         ],
         "explanation": "Correct answer: A. A developer must write a custom script using XMLStreamWriter.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1125,7 +1129,7 @@
             "It encrypts the customer's password before saving.",
             "It connects to the Staging instance to download test data.",
             "It acts as a mock object to simulate a user profile without hitting the database.",
-            "Correct configuration in Business Manager"
+            "It manages all payment processing during tests."
         ],
         "answer": [
             "C"
@@ -1133,8 +1137,8 @@
         "explanation": "Correct answer: C. It acts as a mock object to simulate a user profile without hitting the database.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1145,17 +1149,17 @@
         "options": [
             "Wrap all code in a single transaction.",
             "Avoid using globally scoped variables that might be read or modified unpredictably by parallel executing threads.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "Jobs inherently have thread safety built in, no special handling needed.",
+            "Thread safety only applies to frontend JavaScript code."
         ],
         "answer": [
-            "D"
+            "B"
         ],
         "explanation": "Correct answer: D. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1167,7 +1171,7 @@
             "`dw.system.IndexMgr`",
             "`dw.catalog.ProductMgr`",
             "`dw.util.SearchCriteria`",
-            "Correct configuration in Business Manager"
+            "`dw.web.SearchForm`"
         ],
         "answer": [
             "A"
@@ -1175,8 +1179,8 @@
         "explanation": "Correct answer: A. `dw.system.IndexMgr`",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1209,16 +1213,16 @@
             "It forces the browser to ignore the local cache.",
             "It encrypts the cache file on the server.",
             "It is a URL parameter added to ensure different contextual versions of a component are cached separately (e.g., ?currency=EUR).",
-            "Correct configuration in Business Manager"
+            "It specifies which CDN to use for caching."
         ],
         "answer": [
-            "A"
+            "C"
         ],
         "explanation": "Correct answer: A. It forces the browser to ignore the local cache.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1230,7 +1234,7 @@
             "Redirect all errors to the Homepage via Business Manager.",
             "Wrap every single line of code in try/catch blocks.",
             "Customize the `Error.js` controller to catch exceptions and safely render a friendly maintenance or 'Oops' template.",
-            "Correct configuration in Business Manager"
+            "Disable error handling to see the raw stack trace in production."
         ],
         "answer": [
             "C"
@@ -1238,8 +1242,8 @@
         "explanation": "Correct answer: C. Customize the `Error.js` controller to catch exceptions and safely render a friendly maintenance or 'Oops' template.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1249,9 +1253,9 @@
         "question": "A developer needs to implement a custom 'Inventory Reservation' system using Custom Objects. To prevent race conditions where two customers claim the last item simultaneously, which approach is mandatory?",
         "options": [
             "Wrap the update in a Transaction and use the 'locking' parameter in the query.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Use optimistic locking with a version field.",
+            "Rely on database constraints to prevent duplicate entries.",
+            "Implement client-side JavaScript validation only."
         ],
         "answer": [
             "A"
@@ -1259,8 +1263,8 @@
         "explanation": "Correct answer: A. Wrap the update in a Transaction and use the 'locking' parameter in the query.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1334,17 +1338,17 @@
         "options": [
             "The 'Search.js' controller.",
             "The 'Product.isml' template.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "URLUtils helper functions and URL rewriting rules.",
+            "The 'robots.txt' file configuration."
         ],
         "answer": [
-            "D"
+            "C"
         ],
         "explanation": "Correct answer: D. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1356,7 +1360,7 @@
             "It automatically triggers a Site Maintenance mode.",
             "It results in an 'IllegalStateException' because nested transactions are required.",
             "It causes a 'Script.MaxCallStackDepth' violation.",
-            "Correct configuration in Business Manager"
+            "It has no performance impact and is completely safe."
         ],
         "answer": [
             "B"
@@ -1364,8 +1368,8 @@
         "explanation": "Correct answer: B. It results in an 'IllegalStateException' because nested transactions are required.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1375,18 +1379,18 @@
         "question": "A developer needs to share a 'Wishlist' across two different sites (SiteA and SiteB) within the same Realm. What is the most efficient architectural approach?",
         "options": [
             "It is impossible as sites have strictly isolated databases.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Use Custom Objects with site-agnostic IDs.",
+            "Store wishlists in the Customer Profile with multi-site support.",
+            "Create a shared database view accessible by both sites."
         ],
         "answer": [
-            "C"
+            "B"
         ],
         "explanation": "Correct answer: C. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1396,18 +1400,18 @@
         "question": "In the Service Framework, if 'mockMode' is enabled, which function is executed instead of 'createRequest' and 'parseResponse'?",
         "options": [
             "`mockFull`",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "`getMockData`",
+            "`handleMock`",
+            "Neither; the service returns a predefined mock response directly."
         ],
         "answer": [
-            "C"
+            "A"
         ],
         "explanation": "Correct answer: C. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1418,17 +1422,17 @@
         "options": [
             "To ensure logs are sent to an external syslog server automatically.",
             "To capture all log statements across the entire system regardless of the category.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "To filter logs to only show errors and warnings.",
+            "To improve logging performance by using a single logger instance."
         ],
         "answer": [
-            "D"
+            "B"
         ],
         "explanation": "Correct answer: D. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1440,16 +1444,16 @@
             "It invalidates the cache for all users globally.",
             "It automatically adds the product ID to the cache key.",
             "It is not a standard SFRA feature; caching is controlled via the 'res' object.",
-            "Correct configuration in Business Manager"
+            "It enables browser-side caching only."
         ],
         "answer": [
-            "B"
+            "C"
         ],
         "explanation": "Correct answer: B. It automatically adds the product ID to the cache key.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1461,7 +1465,7 @@
             "To compile the JavaScript code into optimized machine code.",
             "To define the sequence in which different jobs are executed.",
             "To register the custom step and define its input/output parameters for Business Manager.",
-            "Correct configuration in Business Manager"
+            "To store job execution logs and audit trails."
         ],
         "answer": [
             "C"
@@ -1469,8 +1473,8 @@
         "explanation": "Correct answer: C. To register the custom step and define its input/output parameters for Business Manager.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1482,7 +1486,7 @@
             "Every time the user clears their browser cookies.",
             "When the Search Index is rebuilt.",
             "Only when the cartridge containing the asset is uploaded with a new version string.",
-            "Correct configuration in Business Manager"
+            "Every time the user visits the page (no caching)."
         ],
         "answer": [
             "C"
@@ -1490,8 +1494,8 @@
         "explanation": "Correct answer: C. Only when the cartridge containing the asset is uploaded with a new version string.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1543,9 +1547,9 @@
         "question": "Which middleware functions are required to enable CSRF protection on a specific route pair in SFRA?",
         "options": [
             "`csrfProtection.generateToken` for GET and `csrfProtection.validateRequest` for POST.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "`csrfProtection.validateAjaxRequest` on all routes.",
+            "CSRF protection is automatically enabled, no middleware needed.",
+            "Use `server.secure()` middleware on all routes."
         ],
         "answer": [
             "A"
@@ -1553,8 +1557,8 @@
         "explanation": "Correct answer: A. `csrfProtection.generateToken` for GET and `csrfProtection.validateRequest` for POST.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1564,9 +1568,9 @@
         "question": "How do you prevent a specific Controller route from being cached at the web-tier?",
         "options": [
             "Use `res.cacheExpiration(0)`.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Return a cache-busting header in the response.",
+            "Add `cacheable:false` to the controller definition.",
+            "Configure cache settings in Business Manager only."
         ],
         "answer": [
             "A"
@@ -1574,8 +1578,8 @@
         "explanation": "Correct answer: A. Use `res.cacheExpiration(0)`.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1585,9 +1589,9 @@
         "question": "If a site's cartridge path is 'plugin_wishlist:app_custom:app_storefront_base', which 'ProductModel.js' is used if it exists in all three?",
         "options": [
             "All three are merged automatically.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "The one in app_storefront_base.",
+            "The one in plugin_wishlist (first in path wins).",
+            "The one closest to the end of the cartridge path."
         ],
         "answer": [
             "C"
@@ -1595,8 +1599,8 @@
         "explanation": "Correct answer: C. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1606,9 +1610,9 @@
         "question": "How can you pass data from a Controller to an ISML template in SFRA?",
         "options": [
             "Pass a JSON object as the second argument to res.render('templateName', { data: value }).",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Use pdict to set variables in the controller.",
+            "Assign data to session.custom and access it in template.",
+            "Use global variables defined at the top of controller."
         ],
         "answer": [
             "A"
@@ -1616,8 +1620,8 @@
         "explanation": "Correct answer: A. Pass a JSON object as the second argument to res.render('templateName', { data: value }).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1627,9 +1631,9 @@
         "question": "What is the primary difference between `server.get()` and `server.append()` in SFRA?",
         "options": [
             "`server.get` defines a new route; `server.append` adds middleware to the end of an existing route.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "`server.get` handles GET requests; `server.append` handles all HTTP methods.",
+            "`server.append` replaces the route entirely.",
+            "They are aliases for the same function."
         ],
         "answer": [
             "A"
@@ -1637,8 +1641,8 @@
         "explanation": "Correct answer: A. `server.get` defines a new route; `server.append` adds middleware to the end of an existing route.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1648,9 +1652,9 @@
         "question": "How do you securely access HTTP Cookies in a B2C Script?",
         "options": [
             "Via `request.httpCookies`.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Via `session.getCookies()`.",
+            "Via `response.cookies`.",
+            "Using `document.cookie` in B2C Script."
         ],
         "answer": [
             "A"
@@ -1658,8 +1662,8 @@
         "explanation": "Correct answer: A. Via `request.httpCookies`.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1669,9 +1673,9 @@
         "question": "Why is it dangerous to store large objects in session.custom?",
         "options": [
             "It increases the session size, degrading performance due to serialization overhead.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "It exposes data to XSS attacks.",
+            "It violates Object.MaxCustomAttributes quota.",
+            "It disables page caching permanently."
         ],
         "answer": [
             "A"
@@ -1679,8 +1683,8 @@
         "explanation": "Correct answer: A. It increases the session size, degrading performance due to serialization overhead.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1689,19 +1693,19 @@
         "source": "Questions_20260403.md",
         "question": "How do you trigger a 410 (Gone) status code for a discontinued product?",
         "options": [
+            "Use <isredirect url='410'> in the ISML template.",
+            "Throw a new Error(410).",
             "res.setStatusCode(410).",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "res.redirect('410')."
         ],
         "answer": [
-            "A"
+            "C"
         ],
         "explanation": "Correct answer: A. res.setStatusCode(410).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1711,9 +1715,9 @@
         "question": "What is the primary constraint regarding res.viewData in SFRA?",
         "options": [
             "It is a standard JS object, but it must be kept lean to avoid memory overhead during template rendering.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "It is read-only and cannot be modified by middleware.",
+            "It can only hold strings and numbers, not objects.",
+            "It automatically persists data to the database."
         ],
         "answer": [
             "A"
@@ -1721,8 +1725,8 @@
         "explanation": "Correct answer: A. It is a standard JS object, but it must be kept lean to avoid memory overhead during template rendering.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1732,9 +1736,9 @@
         "question": "How do you handle multi-language support for error messages generated in a Controller?",
         "options": [
             "Use `dw.web.Resource.msg('error.key', 'bundle', null)`.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Create separate controller files for each language.",
+            "Use `session.getLocale().translate('error.key')`.",
+            "Hardcode translations in a JSON object."
         ],
         "answer": [
             "A"
@@ -1742,8 +1746,8 @@
         "explanation": "Correct answer: A. Use `dw.web.Resource.msg('error.key', 'bundle', null)`.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1752,19 +1756,19 @@
         "source": "Questions_20260403.md",
         "question": "Which SFRA object is typically responsible for generating the 'Breadcrumbs' logic?",
         "options": [
+            "The Site Preferences.",
             "The Product or Search model/decorator.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "The URLUtils class.",
+            "The session.custom object."
         ],
         "answer": [
-            "A"
+            "B"
         ],
         "explanation": "Correct answer: A. The Product or Search model/decorator.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1773,19 +1777,19 @@
         "source": "Questions_20260403.md",
         "question": "How can a developer detect if the current request is coming from a 'Search Engine Bot'?",
         "options": [
+            "Check `session.isBot`.",
             "Check `request.httpUserAgent`.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Check `request.httpMethod === 'BOT'`.",
+            "Use `dw.system.Site.isCrawler()`."
         ],
         "answer": [
-            "A"
+            "B"
         ],
         "explanation": "Correct answer: A. Check `request.httpUserAgent`.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1794,19 +1798,19 @@
         "source": "Questions_20260403.md",
         "question": "How do you execute a redirect to the Home Page from within an SFRA Controller?",
         "options": [
+            "`server.route('Home-Show')`.",
             "`res.redirect(URLUtils.url('Home-Show'))`.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "`res.render('Home-Show')`.",
+            "`window.location.href = '/'`."
         ],
         "answer": [
-            "A"
+            "B"
         ],
         "explanation": "Correct answer: A. `res.redirect(URLUtils.url('Home-Show'))`.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1816,9 +1820,9 @@
         "question": "What is the strict platform limit for Script.MaxCallStackDepth?",
         "options": [
             "500",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "50",
+            "100",
+            "Unlimited"
         ],
         "answer": [
             "C"
@@ -1826,8 +1830,8 @@
         "explanation": "Correct answer: C. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -1837,9 +1841,9 @@
         "question": "How should a developer query for Custom Objects to avoid hitting performance bottlenecks?",
         "options": [
             "Use `CustomObjectMgr.queryCustomObjects` with a specific indexed attribute in the query string.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Use `CustomObjectMgr.getAllCustomObjects()` and filter via a JavaScript loop.",
+            "Export all Custom Objects to XML and parse them.",
+            "Use direct SQL queries."
         ],
         "answer": [
             "A"
@@ -1847,8 +1851,8 @@
         "explanation": "Correct answer: A. Use `CustomObjectMgr.queryCustomObjects` with a specific indexed attribute in the query string.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1857,19 +1861,19 @@
         "source": "Questions_20260403.md",
         "question": "What happens if a developer exceeds the Object.MaxCustomAttributes quota?",
         "options": [
-            "They cannot create new attribute definitions in Business Manager for that object type.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "The cartridge will fail to upload.",
+            "Old attributes are automatically deleted to make room.",
+            "The storefront will throw a 500 Error for all users.",
+            "They cannot create new attribute definitions in Business Manager for that object type."
         ],
         "answer": [
-            "A"
+            "D"
         ],
         "explanation": "Correct answer: A. They cannot create new attribute definitions in Business Manager for that object type.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1879,9 +1883,9 @@
         "question": "If a custom requirement dictates storing an Array of complex objects on a Customer Profile, what is the best practice?",
         "options": [
             "Stringify the array to JSON and store it in a 'Text' or 'Long String' attribute.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Create multiple custom objects for each array element.",
+            "Store each object as a separate attribute (e.g., attr1, attr2).",
+            "Use session.custom to store the array permanently."
         ],
         "answer": [
             "A"
@@ -1889,8 +1893,8 @@
         "explanation": "Correct answer: A. Stringify the array to JSON and store it in a 'Text' or 'Long String' attribute.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1899,19 +1903,19 @@
         "source": "Questions_20260403.md",
         "question": "What is the purpose of `dw.system.Transaction.begin()`?",
         "options": [
+            "To begin rendering the ISML template.",
+            "To start a new HTTP request.",
             "To manually start a database transaction when explicit control is needed.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "To initialize a Service Framework call."
         ],
         "answer": [
-            "A"
+            "C"
         ],
         "explanation": "Correct answer: A. To manually start a database transaction when explicit control is needed.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1920,19 +1924,19 @@
         "source": "Questions_20260403.md",
         "question": "How many price books can be active for a single site at once?",
         "options": [
+            "A maximum of two: one regular and one sale.",
+            "Only one active price book is allowed globally.",
             "Multiple, and they are evaluated based on the assigned priority in Business Manager.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Only one per currency."
         ],
         "answer": [
-            "A"
+            "C"
         ],
         "explanation": "Correct answer: A. Multiple, and they are evaluated based on the assigned priority in Business Manager.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1941,19 +1945,19 @@
         "source": "Questions_20260403.md",
         "question": "What is the technical difference between a 'System Quota' and a 'Service Limit'?",
         "options": [
-            "Quotas are hard platform-enforced limits; Service Limits (like API timeouts) can sometimes be configured.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "They are identical terms for the same concept.",
+            "Quotas restrict database size; Limits restrict code length.",
+            "Quotas apply to Sandbox; Limits apply to Production.",
+            "Quotas are hard platform-enforced limits; Service Limits (like API timeouts) can sometimes be configured."
         ],
         "answer": [
-            "A"
+            "D"
         ],
         "explanation": "Correct answer: A. Quotas are hard platform-enforced limits; Service Limits (like API timeouts) can sometimes be configured.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -1984,9 +1988,9 @@
         "question": "What is the maximum length of a standard 'String' attribute in B2C Commerce?",
         "options": [
             "255 characters.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "2,000 characters.",
+            "4,000 characters.",
+            "Unlimited."
         ],
         "answer": [
             "C"
@@ -1994,8 +1998,8 @@
         "explanation": "Correct answer: C. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -2004,19 +2008,19 @@
         "source": "Questions_20260403.md",
         "question": "How do you programmatically delete a persistent cookie from the user's browser?",
         "options": [
-            "Set its max age to 0 and add it to the response object.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "Use `dw.system.Session.clearCookies()`.",
+            "Set the cookie value to null.",
+            "Call `request.removeCookie('name')`.",
+            "Set its max age to 0 and add it to the response object."
         ],
         "answer": [
-            "A"
+            "D"
         ],
         "explanation": "Correct answer: A. Set its max age to 0 and add it to the response object.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -2025,19 +2029,19 @@
         "source": "Questions_20260403.md",
         "question": "Why is it highly recommended to use LocalServiceRegistry over `dw.net.HTTPClient`?",
         "options": [
+            "`HTTPClient` is blocked on Production environments.",
             "LocalServiceRegistry provides integrated logging, rate monitoring, and circuit breakers.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "`HTTPClient` cannot make HTTPS requests.",
+            "`LocalServiceRegistry` executes significantly faster."
         ],
         "answer": [
-            "A"
+            "B"
         ],
         "explanation": "Correct answer: A. LocalServiceRegistry provides integrated logging, rate monitoring, and circuit breakers.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -2046,19 +2050,19 @@
         "source": "Questions_20260403.md",
         "question": "What behavior does the api.MaxObjectCount quota restrict?",
         "options": [
+            "It limits the total number of items a customer can have in their cart.",
             "It limits the number of persistent objects (like products or orders) instantiated in a single request.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index",
-            "Update cartridge path / code settings"
+            "It limits the number of products returned in a search result.",
+            "It limits how many Custom Object definitions you can create."
         ],
         "answer": [
-            "A"
+            "B"
         ],
         "explanation": "Correct answer: A. It limits the number of persistent objects (like products or orders) instantiated in a single request.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
@@ -4259,7 +4263,9 @@
             "Increase the JVM heap size in the instance settings.",
             "Split the export into 10 separate ISML templates."
         ],
-        "answer": ["A"],
+        "answer": [
+            "A"
+        ],
         "explanation": "Với dữ liệu lớn, việc build object trong bộ nhớ sẽ gây lỗi OOM. Cần dùng cơ chế streaming để ghi dữ liệu trực tiếp ra response.",
         "type": "single",
         "needs_review": false,
@@ -4847,7 +4853,10 @@
             "Adding the attribute to the ocapi.json configuration file.",
             "Enabling the 'Facets Enabled' site preference."
         ],
-        "answer": ["A", "B"],
+        "answer": [
+            "A",
+            "B"
+        ],
         "explanation": "Để thuộc tính hiện thành bộ lọc (facet), nó phải được định nghĩa trong Search Refinements và Index phải được chạy lại.",
         "type": "multiple",
         "needs_review": false,
@@ -6880,7 +6889,11 @@
             "Review 'diff' changes in services, decorators, and hooks in the new version.",
             "Disable all log appenders to improve server IO speed."
         ],
-        "answer": ["A", "B", "C"],
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
         "explanation": "Để chẩn đoán hiệu năng, ta cần dữ liệu từ Profiler, Logs đo thời gian thực thi và rà soát các thay đổi logic trong code (Service/Decorator).",
         "type": "multiple",
         "needs_review": false,
@@ -6938,7 +6951,10 @@
             "Switch the form method from POST to GET.",
             "Disable CSRF protection to speed up submission processing."
         ],
-        "answer": ["A", "B"],
+        "answer": [
+            "A",
+            "B"
+        ],
         "explanation": "Chặn ở Client (Disable button) là bước đầu, chặn ở Server (Idempotency) là bước cuối để đảm bảo dữ liệu đơn hàng không bị trùng lặp.",
         "type": "multiple",
         "needs_review": false,
@@ -12117,7 +12133,9 @@
             "The route from app_storefront_base.",
             "The platform throws a conflict error at runtime."
         ],
-        "answer": ["A"],
+        "answer": [
+            "A"
+        ],
         "explanation": "Trong B2C Commerce, thứ tự Cartridge Path quyết định quyền ưu tiên từ trái sang phải. Tài nguyên tìm thấy đầu tiên sẽ được thực thi.",
         "type": "single",
         "needs_review": false,
@@ -12128,20 +12146,19 @@
         "source": "b2c_dev_exam_set3_hard.md",
         "question": "A site references code version “23.10.1” in Settings. You deploy new code to “23.12.0” and change the site’s referenced version, but overrides don’t appear. Which two actions are most likely required? (Select two)",
         "options": [
-            "Clear application cache and any relevant template caches",
-            "Rebuild search indexes",
-            "Update cartridge path under the site to include new cartridges",
-            "Restart the application servers"
+            "The code was already present in the environment variable, check BM.",
+            "The code was uploaded to a cartridge that precedes the current cartridge in the cartridge path.",
+            "The code is the same version across all environments.",
+            "Contact Salesforce support for version mismatch resolution."
         ],
         "answer": [
-            "A",
-            "C"
+            "B"
         ],
         "explanation": "Correct answer: A, C. [A] Clear application cache and any relevant template caches [C] Update cartridge path under the site to include new cartridges",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -12278,19 +12295,19 @@
         "source": "b2c_dev_exam_set3_hard.md",
         "question": "You introduce a new code version and keep the same cartridge path. A single custom script resolves differently than before. Which is the best first step? (Select one)",
         "options": [
-            "Clear logs",
-            "Compare directory structures and ensure the script exists in the same cartridge location",
-            "Rebuild caches",
-            "Change code version label"
+            "It increases the session size, degrading performance due to serialization overhead.",
+            "It exposes data to XSS attacks.",
+            "It violates Object.MaxCustomAttributes quota.",
+            "It disables page caching permanently."
         ],
         "answer": [
-            "B"
+            "A"
         ],
         "explanation": "Correct answer: B. Compare directory structures and ensure the script exists in the same cartridge location",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
+        "ai_inferred": false,
+        "confidence": 0.9,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
@@ -12347,7 +12364,9 @@
             "Missing OCAPI Data write permissions in the new cartridge.",
             "The code version does not support multiple custom cartridges."
         ],
-        "answer": ["A"],
+        "answer": [
+            "A"
+        ],
         "explanation": "Vì cơ chế shadowing (ghi đè theo tên file), nếu cartridge mới có file trùng tên với file mà Page Designer component đang phụ thuộc vào, nó sẽ ghi đè và có thể gây lỗi nếu logic không tương thích.",
         "type": "single",
         "needs_review": false,
@@ -12363,7 +12382,10 @@
             "The attribute was not added to the ocapi.json file.",
             "Log appenders for search were not configured correctly."
         ],
-        "answer": ["A", "B"],
+        "answer": [
+            "A",
+            "B"
+        ],
         "explanation": "Một số kiểu dữ liệu không thể index, và nếu thiếu dữ liệu ở locale cụ thể mà site đang sử dụng, kết quả tìm kiếm sẽ không hiển thị.",
         "type": "multiple",
         "needs_review": false,
@@ -12638,7 +12660,11 @@
             "The number of retries and exponential backoff settings.",
             "The Script.MaxCallStackDepth limit in Site Preferences."
         ],
-        "answer": ["A", "B", "C"],
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
         "explanation": "Để hệ thống không bị treo khi bên thứ 3 chậm, cần cấu hình timeout ngắn, ngắt mạch (Circuit Breaker) và giới hạn số lần thử lại.",
         "type": "multiple",
         "needs_review": false,
@@ -12826,7 +12852,9 @@
             "Increase the 'Script.MaxMemory' quota in Business Manager.",
             "Use an ISML template to iterate and print JSON fragments."
         ],
-        "answer": ["B"],
+        "answer": [
+            "B"
+        ],
         "explanation": "Để tránh lỗi OOM (Out of Memory) với dữ liệu lớn, ta phải dùng cơ chế streaming (ghi trực tiếp vào luồng output) thay vì tạo một biến object khổng lồ trong bộ nhớ.",
         "type": "single",
         "needs_review": false,
@@ -13146,7 +13174,9 @@
             "Change the cartridge path to prioritize the base cartridge.",
             "Enable 'Legacy JSON Mode' in Business Manager site settings."
         ],
-        "answer": ["A"],
+        "answer": [
+            "A"
+        ],
         "explanation": "Hàm res.json() của SFRA đã tự động stringify object. Nếu bạn tự stringify trước khi truyền vào, dữ liệu sẽ bị mã hóa 2 lần.",
         "type": "single",
         "needs_review": false,
@@ -18542,7 +18572,9 @@
             "Configure a dedicated OCAPI client for Predictive Sort.",
             "Create a specific Job to update sorting data hourly."
         ],
-        "answer": ["A"],
+        "answer": [
+            "A"
+        ],
         "explanation": "Predictive Sort dựa trên dữ liệu cá nhân hóa thời gian thực của người dùng. Nếu trang bị cache ở tầng Web (Web-Tier cache), Einstein sẽ không thể thay đổi thứ tự sản phẩm dựa trên từng cá nhân.",
         "type": "single",
         "needs_review": false,
