@@ -592,20 +592,17 @@
         "source": "Questions_20260403.md",
         "question": "Are native JavaScript 'Map' and 'Set' objects supported in B2C Commerce Script?",
         "options": [
-            "Yes, they are fully ES2022 compliant.",
-            "No, native JavaScript Map and Set objects are not supported; you must use dw.util classes.",
-            "Yes, but they require a specific Business Manager setting.",
-            "Only in Job scripts, not in Storefront controllers."
+            "Yes, they are fully ES6 compliant.",
+            "No, native JavaScript Map and Set objects are not supported; you must use dw.util classes like HashMap.",
+            "Yes, but only in Job scripts, not in controllers.",
+            "Yes, if you enable the 'Modern JS' setting in Business Manager."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "B2C Script dựa trên Rhino (ES5). Map/Set là ES6+, nên phải dùng dw.util.HashMap hoặc dw.util.HashSet.",
+        "explanation": "B2C Commerce Script dựa trên công cụ Rhino (tương thích ES5). Map và Set là tính năng ES6 nên không được hỗ trợ trực tiếp. Phải dùng dw.util.HashMap hoặc dw.util.HashSet.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Nhớ rằng platform chủ yếu hỗ trợ ES5.",
         "answer_fixed": true
     },
     {
@@ -758,22 +755,19 @@
     {
         "id": 37,
         "source": "Questions_20260403.md",
-        "question": "A storefront Service is intermittently timing out and blocking checkout. What is the best immediate architectural fix?",
+        "question": "A storefront Service used during checkout is intermittently timing out, causing the flow to hang. What is the best immediate architectural fix?",
         "options": [
             "Enable and configure the Circuit Breaker in the Service Framework.",
-            "Increase the service timeout to 60 seconds.",
+            "Increase the Connection Timeout to 90 seconds.",
             "Wrap the service call in a background Job.",
-            "Rebuild the product search index."
+            "Rebuild the search index to clear stale connections."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Circuit Breaker giúp ngắt kết nối đến service đang lỗi, tránh treo luồng (thread) và cho phép checkout tiếp tục với fallback logic.",
+        "explanation": "Circuit Breaker giúp ngắt các kết nối lỗi ngay lập tức, ngăn chặn việc treo luồng xử lý (blocking threads) và cho phép hệ thống thực hiện logic dự phòng (fallback).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Keyword: Blocking, Timeout, Circuit Breaker.",
         "answer_fixed": true
     },
     {
@@ -884,22 +878,17 @@
     {
         "id": 43,
         "source": "Questions_20260403.md",
-        "question": "What is the primary benefit of using a 'Remote Include' (isinclude url=...) in ISML?",
+        "question": "What is the primary benefit of using a 'Remote Include' (<isinclude url=... />) in ISML?",
         "options": [
-            "It allows ISML to call third-party APIs directly.",
-            "It enables partial page caching with different cache policies.",
-            "It automatically minifies the HTML output.",
-            "It shares the same pdict object with the parent template."
+            "It allows ISML to call third-party APIs directly for real-time data.",
+            "It enables partial page caching with independent cache policies for specific fragments.",
+            "It shares the parent template's pdict automatically for better performance.",
+            "It reduces the number of HTTP requests sent to the server."
         ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Remote Include gọi một controller khác và có thể có bộ nhớ đệm (cache) riêng biệt với trang chính, rất hữu ích cho các thành phần như Header hoặc Giỏ hàng mini.",
+        "answer": ["B"],
+        "explanation": "Remote Include tạo ra một request mới, cho phép mảnh template đó được cache độc lập (ví dụ: mini-cart không cache trong khi phần còn lại của trang thì có).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Remote Include = Separate Cache / Separate Request.",
         "answer_fixed": true
     },
     {
@@ -966,24 +955,19 @@
         "answer_fixed": true
     },
     {
-        "id": 47,
+        "id": 62,
         "source": "Questions_20260403.md",
-        "question": "In the Job ChunkProcessing model, what is the purpose of the 'beforeStep' or 'onOpen' callback?",
+        "question": "In a Job using the 'Chunk' processing model, what happens if the 'process' function returns 'null'?",
         "options": [
-            "It clears the database cache.",
-            "It is called exactly once before any chunks are processed to initialize resources like file streams or iterators.",
-            "Correct configuration in Business Manager",
-            "Rebuild cache or index"
+            "The entire Job fails with a 'NullPointerException'.",
+            "The item is filtered out and will not be passed to the 'write' function.",
+            "The Job stops immediately and moves to the 'afterStep' phase.",
+            "The item is passed to 'write' as an empty object."
         ],
-        "answer": [
-            "D"
-        ],
-        "explanation": "Correct answer: D. Rebuild cache or index",
+        "answer": ["B"],
+        "explanation": "Trong mô hình Chunk, trả về null trong hàm process là cách chính thống để 'lọc' bỏ dữ liệu không cần thiết trước khi đến bước ghi (write).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
@@ -3678,10 +3662,11 @@
             "Code Versions page"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] templates/resources/*.properties [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -3762,10 +3747,11 @@
             "Disable caching globally"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Render ISML, then convert to JSON",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Set Content-Type to application/json [B] Use res.json or write JSON to response",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -3804,10 +3790,11 @@
             "Use System.out.println"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Use Service Framework with timeouts and circuit breaker",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Use Service Framework with timeouts and circuit breaker [B] Batch/caching to avoid N+1",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -3947,10 +3934,11 @@
             "Add a PD component"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Configure ocapi.json Shop permissions with allowed attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Configure ocapi.json Shop permissions with allowed attributes [B] Map client credentials to that setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -3968,10 +3956,11 @@
             "Restart instances"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. System step to trigger delta/full index",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Script step to import inventory [B] System step to trigger delta/full index",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -3989,10 +3978,11 @@
             "/static/default/"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. /versioned/cartridges/",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -4010,10 +4000,11 @@
             "Run as a controller route"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Coordinate schedules/locks (serialize)",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Retry with exponential backoff [B] Coordinate schedules/locks (serialize)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -4031,10 +4022,11 @@
             "Expose all fields"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Restrict read_attributes to required fields",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Restrict read_attributes to required fields [B] Dedicated client credentials per integration",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -4052,10 +4044,11 @@
             "Stop traffic"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Introduce new credential/profile and cut over",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Introduce new credential/profile and cut over [C] Support overlapping keys if upstream allows",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -4073,10 +4066,11 @@
             "Never cache"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Short timeouts and circuit breaker",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Short timeouts and circuit breaker [B] Retries with exponential backoff",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -4115,10 +4109,11 @@
             "Search refinements"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Client credentials mapped to that ocapi.json setting",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json write with write_attributes [B] Client credentials mapped to that ocapi.json setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -4199,10 +4194,11 @@
             "Use OCAPI only"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Cache static fragments with iscache and proper vary",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute heavy fields in decorators [B] Cache static fragments with iscache and proper vary",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -4220,10 +4216,11 @@
             "Remote includes per tile"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Batch/cache calls",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Batch/cache calls [B] Compute offline via jobs; decorate from storage",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -4241,10 +4238,11 @@
             "Rename code version"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Clear application cache",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache fragments",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -4253,24 +4251,19 @@
     },
     {
         "id": 52,
-        "source": "b2c_dev_exam_set12.md",
-        "question": "Large JSON export OOMs. Correct pattern: (Select one)",
+        "source": "b2c_dev_exam_set13.md",
+        "question": "A large JSON export results in Out of Memory (OOM) errors. What is the correct approach?",
         "options": [
-            "Stream JSON chunks",
-            "Build the entire object in memory",
-            "Use ISML",
-            "Disable HTTPS"
+            "Stream JSON chunks directly to the response output writer.",
+            "Build the full JSON object in memory and then call res.json().",
+            "Increase the JVM heap size in the instance settings.",
+            "Split the export into 10 separate ISML templates."
         ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. Stream JSON chunks",
+        "answer": ["A"],
+        "explanation": "Với dữ liệu lớn, việc build object trong bộ nhớ sẽ gây lỗi OOM. Cần dùng cơ chế streaming để ghi dữ liệu trực tiếp ra response.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "answer_fixed": true
     },
     {
         "id": 53,
@@ -4283,10 +4276,11 @@
             "Using Resource.msg"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Global cache with no vary",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Global cache with no vary [C] Using decorators",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -4323,10 +4317,12 @@
             "Increase synchronous calls"
         ],
         "answer": [
-            "A"
+            "A",
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: A. Short timeouts (fail fast)",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Short timeouts (fail fast) [B] Retries with backoff [C] Circuit breaker",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -4344,10 +4340,12 @@
             "Disable logs permanently"
         ],
         "answer": [
+            "A",
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Diff changed services/decorators/hooks",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Compare profiler traces before/after [B] Add targeted timing logs [C] Diff changed services/decorators/hooks",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -4365,10 +4363,11 @@
             "Heavy loops in ISML"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Cache static fragments",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute in helpers/decorators [B] Cache static fragments",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -4407,10 +4406,11 @@
             "Disable CSRF"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Idempotency keys with server-side dedupe",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Idempotency keys with server-side dedupe [B] Disable submit button after click",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -4585,10 +4585,11 @@
             "/impex/exports/ for cartridge upload"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. /versioned/cartridges/<code-version>/cartridges for code",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] /versioned/cartridges/<code-version>/cartridges for code [B] /impex/src/ for data import",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -4839,22 +4840,17 @@
     {
         "id": 21,
         "source": "b2c_dev_exam_set4.md",
-        "question": "You added a new searchable and refinable attribute, but it doesn’t appear in the storefront facet menu. Which two steps might be missing? (Select two)",
+        "question": "You added a new searchable attribute, but it doesn’t appear in the storefront facet menu. Which two steps are likely missing? (Select two)",
         "options": [
-            "Assigning the attribute to a refinement menu",
-            "Rebuilding the index so values are available",
-            "Adding the attribute to ocapi.shop read_attributes",
-            "Creating a new site preference"
+            "Assigning the attribute to the Search Refinement Definition in Business Manager.",
+            "Rebuilding the Search Index to include the new attribute data.",
+            "Adding the attribute to the ocapi.json configuration file.",
+            "Enabling the 'Facets Enabled' site preference."
         ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. Adding the attribute to ocapi.shop read_attributes",
-        "type": "single",
+        "answer": ["A", "B"],
+        "explanation": "Để thuộc tính hiện thành bộ lọc (facet), nó phải được định nghĩa trong Search Refinements và Index phải được chạy lại.",
+        "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
@@ -4910,10 +4906,11 @@
             "Code Versions (merchandisers)"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Content and Page Designer (merchandisers)",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Content and Page Designer (merchandisers) [B] Search and Dictionaries (merchandisers)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -4931,10 +4928,11 @@
             "Disable HTTPS"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Use res.json or write JSON string; avoid rendering ISML",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Use res.json or write JSON string; avoid rendering ISML [C] Always reuse PDP ISML to ensure consistency",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5015,10 +5013,11 @@
             "Use System.out.println for timing"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Aggregate/batch calls or cache responses to avoid N+1 patterns",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Use the Service Framework with timeouts and circuit breaker [B] Aggregate/batch calls or cache responses to avoid N+1 patterns",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5078,10 +5077,11 @@
             "Disable HTTPS for performance"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Validate input, enforce size limits, and reject malformed payloads",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Validate input, enforce size limits, and reject malformed payloads [C] Log full payloads at DEBUG for later inspection",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -5120,10 +5120,11 @@
             "CDN cache with no vary"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Cache with vary keys including customer group, locale, currency",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Cache with vary keys including customer group, locale, currency [C] Cache globally for all users",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5183,10 +5184,11 @@
             "Add a new code version"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json Shop permissions for basket resources with allowed attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json Shop permissions for basket resources with allowed attributes [B] Create and map client credentials to that ocapi.json setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -5204,10 +5206,11 @@
             "Repackage cartridges"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. System step to trigger delta or full indexing",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Script step to perform inventory import [B] System step to trigger delta or full indexing",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5225,10 +5228,11 @@
             "/on-demand/tmp/"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. /versioned/cartridges/",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5246,10 +5250,11 @@
             "Run the job from controllers"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Coordinate schedules/locks to avoid overlap",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Add retry with exponential backoff [B] Coordinate schedules/locks to avoid overlap",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5267,10 +5272,11 @@
             "Expose all fields for convenience"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Restrict read_attributes to required fields only",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Restrict read_attributes to required fields only [C] Issue dedicated credentials per integration",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -5288,10 +5294,11 @@
             "Stop traffic during rotation"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Introduce a new credential/profile, cut over in config, then remove old",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Introduce a new credential/profile, cut over in config, then remove old [C] Support overlapping key validity if upstream allows",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -5309,10 +5316,11 @@
             "Remove caching"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Implement retries with exponential backoff for transient failures",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Configure short timeouts and a circuit breaker [B] Implement retries with exponential backoff for transient failures",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5351,10 +5359,11 @@
             "Add to search refinement menus"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json write_permissions with write_attributes listed",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json write_permissions with write_attributes listed [B] Client credentials with that ocapi.json setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -5435,10 +5444,11 @@
             "Render via OCAPI only"
         ],
         "answer": [
-            "D"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: D. Render via OCAPI only",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute heavy fields in decorators; avoid blocking calls per request [B] Use iscache for static fragments and proper vary keys",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5456,10 +5466,11 @@
             "Render JSON in ISML"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Batch/aggregate calls and cache responses",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Batch/aggregate calls and cache responses [B] Move computation offline via jobs; fetch precomputed attributes",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -5519,10 +5530,11 @@
             "Using Logger at INFO"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Using global cache with no vary",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Using global cache with no vary [C] Using decorators",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5540,10 +5552,11 @@
             "Change the code version"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Add the locale to ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Add templates/resources/*.properties files for the new locale [B] Use Resource.msg/Resource.msgf to fetch localized strings",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5561,10 +5574,12 @@
             "Increase synchronous calls"
         ],
         "answer": [
+            "A",
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Graceful degradation (cached/placeholder content)",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Fail fast (short timeouts) [B] Retries with exponential backoff and circuit breaker [C] Graceful degradation (cached/placeholder content)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5582,10 +5597,12 @@
             "Clear all caches permanently"
         ],
         "answer": [
+            "A",
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Diff changes in services/decorators/hooks",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Compare profiler traces for the route before vs. after [B] Add targeted timing logs to isolate hotspots [C] Diff changes in services/decorators/hooks",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5603,10 +5620,11 @@
             "Add loops with heavy computation in ISML"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Move complex logic to helpers/decorators; pass view-ready data",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Move complex logic to helpers/decorators; pass view-ready data [B] Cache static fragments with iscache",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -5645,10 +5663,11 @@
             "Disable CSRF"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Idempotency keys with server-side deduplication",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Idempotency keys with server-side deduplication [B] Client-side submit button disable to prevent double-click",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -5769,10 +5788,11 @@
             "Rename the cartridge root folder"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Invalidate relevant template caches (iscache)",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate relevant template caches (iscache)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -5956,10 +5976,11 @@
             "Add attribute to ocapi.json write_attributes"
         ],
         "answer": [
-            "C"
+            "A",
+            "D"
         ],
-        "explanation": "Đáp án đúng là C. Lựa chọn này phù hợp với nguyên tắc chuẩn của Salesforce B2C Commerce / SFRA / Business Manager.",
-        "type": "single",
+        "explanation": "Correct answer: A, D. [A] Set the attribute as searchable [D] Add attribute to ocapi.json write_attributes",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.85,
@@ -6018,10 +6039,11 @@
             "services.json"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Product model decorators/factory to expose value [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6081,10 +6103,11 @@
             "Code version not active"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Missing localized attribute values",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Missing localized attribute values [B] Forgot to reindex",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6102,10 +6125,11 @@
             "Rebuild search indexes"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Configure ocapi.json with read/write and attribute lists",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Configure ocapi.json with read/write and attribute lists [B] Create and map client credentials",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6165,10 +6189,11 @@
             "logs"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] templates/resources/*.properties [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6249,10 +6274,11 @@
             "Disable caching globally"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Set response Content-Type to application/json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Set response Content-Type to application/json [B] Use res.json or write JSON",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6291,10 +6317,11 @@
             "System.out.println timers"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Batch/cache to avoid N+1",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Use Service Framework with timeouts and circuit breaker [B] Batch/cache to avoid N+1",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6312,10 +6339,11 @@
             "services.json"
         ],
         "answer": [
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Resource.msg/Resource.msgf [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6396,10 +6424,11 @@
             "Use GET instead of POST"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Restrict OCAPI Data permissions by least privilege",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Minimize/encrypt sensitive fields where possible [B] Restrict OCAPI Data permissions by least privilege",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6438,10 +6467,11 @@
             "A PD component"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json Shop permissions with allowed attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json Shop permissions with allowed attributes [B] Client credentials mapped to that setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6459,10 +6489,11 @@
             "Restart the sandbox"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. System step: delta/full indexing",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Script step: import inventory [B] System step: delta/full indexing",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6480,10 +6511,11 @@
             "/static/default/"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. /versioned/cartridges/",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6501,10 +6533,11 @@
             "Run imports from controllers"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Coordinate schedules and locks (serialize)",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Retry with exponential backoff [B] Coordinate schedules and locks (serialize)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6522,10 +6555,11 @@
             "Expose all attributes for simplicity"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Limit read_attributes to required fields",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Limit read_attributes to required fields [B] Use dedicated client credentials per integration",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6543,10 +6577,11 @@
             "Stopping traffic"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Adding a new credential/profile and cutting over",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Adding a new credential/profile and cutting over [B] Hardcoding secrets in code",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6564,10 +6599,11 @@
             "Avoid any caching"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Retries with backoff for transient errors",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Short timeouts and circuit breaker [B] Retries with backoff for transient errors",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6606,10 +6642,11 @@
             "Search refinements"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json write with write_attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json write with write_attributes [B] Client credentials mapped",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6690,10 +6727,11 @@
             "Force OCAPI on all pages"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Cache static fragments (iscache) with relevant vary keys",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute heavy fields in decorators [B] Cache static fragments (iscache) with relevant vary keys",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6711,10 +6749,11 @@
             "Use remote includes per tile"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Batch/cache calls",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Batch/cache calls [B] Precompute via jobs and decorate from storage",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6732,10 +6771,11 @@
             "Change code version label"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Clear application cache",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache fragments",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6774,10 +6814,11 @@
             "Using properties bundles"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Using global cache with no vary",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Using global cache with no vary [C] Using decorators",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6795,10 +6836,11 @@
             "Switch code versions"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Update ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Add locale-specific templates/resources/*.properties [B] Use Resource.msg/Resource.msgf",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -6816,10 +6858,12 @@
             "Increase synchronous calls"
         ],
         "answer": [
-            "A"
+            "A",
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: A. Short timeouts (fail fast)",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Short timeouts (fail fast) [B] Retries with backoff [C] Circuit breaker",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -6829,23 +6873,17 @@
     {
         "id": 56,
         "source": "b2c_dev_exam_set13.md",
-        "question": "After release, PDP slower by ~200ms. Which three diagnostics help? (Select three)",
+        "question": "After release, PDP is slower by ~200ms. Which three diagnostics help isolate the cause? (Select three)",
         "options": [
             "Compare Pipeline/Controller profiler traces from before and after the release.",
-            "Add targeted timing logs using dw.system.Logger to isolate hotspots in code.",
-            "Review and 'diff' changes made in services, decorators, and hooks in the new version.",
-            "Disable all log appenders permanently to improve IO performance."
+            "Add targeted timing logs using dw.system.Logger to isolate hotspots.",
+            "Review 'diff' changes in services, decorators, and hooks in the new version.",
+            "Disable all log appenders to improve server IO speed."
         ],
-        "answer": [
-            "A",
-            "B",
-            "C"
-        ],
-        "explanation": "Để chẩn đoán hiệu năng giảm, cần so sánh số liệu profiler, sử dụng log đo thời gian thực thi và rà soát thay đổi trong các thành phần logic quan trọng (Service, Decorator, Hooks).",
+        "answer": ["A", "B", "C"],
+        "explanation": "Để chẩn đoán hiệu năng, ta cần dữ liệu từ Profiler, Logs đo thời gian thực thi và rà soát các thay đổi logic trong code (Service/Decorator).",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
         "answer_fixed": true
     },
     {
@@ -6893,23 +6931,18 @@
     {
         "id": 59,
         "source": "b2c_dev_exam_set13.md",
-        "question": "Prevent duplicate POST submissions: (Select two)",
+        "question": "Prevent duplicate POST submissions during checkout: (Select two)",
         "options": [
-            "Implement idempotency keys and server-side deduplication logic.",
-            "Use client-side JavaScript to disable the submit button immediately after the first click.",
-            "Switch the form method from POST to GET to avoid duplicate entries.",
-            "Disable CSRF protection middleware to speed up form processing."
+            "Implement idempotency keys with server-side deduplication logic.",
+            "Use client-side JavaScript to disable the submit button after the first click.",
+            "Switch the form method from POST to GET.",
+            "Disable CSRF protection to speed up submission processing."
         ],
-        "answer": [
-            "A",
-            "B"
-        ],
-        "explanation": "Để ngăn chặn việc gửi trùng lặp (như đặt hàng 2 lần), cần kết hợp cả chặn ở giao diện (Disable button) và kiểm tra ở server (Idempotency/Deduplication) để đảm bảo an toàn tuyệt đối.",
+        "answer": ["A", "B"],
+        "explanation": "Chặn ở Client (Disable button) là bước đầu, chặn ở Server (Idempotency) là bước cuối để đảm bảo dữ liệu đơn hàng không bị trùng lặp.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "answer_fixed_v2": true
+        "answer_fixed": true
     },
     {
         "id": 60,
@@ -7066,10 +7099,11 @@
             "services.json with route priorities"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json with controller routes",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] controller.js using server middleware [C] ocapi.json with controller routes",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -7212,10 +7246,11 @@
             "Restart the application server"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Đáp án đúng là C. Lựa chọn này phù hợp với nguyên tắc chuẩn của Salesforce B2C Commerce / SFRA / Business Manager.",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Mark the attribute as searchable in attribute definitions [B] Add the attribute to ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.85,
@@ -7274,10 +7309,11 @@
             "Log appenders"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Product model decorators/factory",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Product model decorators/factory [B] PDP ISML templates",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7316,10 +7352,11 @@
             "Service Profiles"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. OCAPI Data permissions",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Content Assets and Folders [B] Page Designer pages and components",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -7358,10 +7395,11 @@
             "Page Designer page type"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json read/write attributes for the object",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json read/write attributes for the object [B] Client ID/secret mapped to the OCAPI settings",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7421,10 +7459,11 @@
             "Restart the sandbox"
         ],
         "answer": [
-            "A"
+            "B",
+            "C"
         ],
-        "explanation": "Đáp án đúng là A. Lựa chọn này phù hợp với nguyên tắc chuẩn của Salesforce B2C Commerce / SFRA / Business Manager.",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Add the attribute to ReadAttributes in ocapi.json [C] Ensure the attribute is assigned to the product type and populated",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.85,
@@ -7482,10 +7521,11 @@
             "Enable “JSON Mode” in site preferences"
         ],
         "answer": [
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Render an ISML template that outputs JSON",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Use res.json or write JSON string to response [C] Render an ISML template that outputs JSON",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -7545,10 +7585,12 @@
             "Form binding/validation via SFCC Form API"
         ],
         "answer": [
-            "A"
+            "A",
+            "C",
+            "D"
         ],
-        "explanation": "Correct answer: A. forms XML definition for fields/validation",
-        "type": "single",
+        "explanation": "Correct answer: A, C, D. [A] forms XML definition for fields/validation [C] Client-side only validation; server validation optional [D] Form binding/validation via SFCC Form API",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7629,10 +7671,11 @@
             "Move logic to ISML"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Use Service Framework with timeouts/retries/circuit breakers",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Cache service responses prudently [B] Use Service Framework with timeouts/retries/circuit breakers",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -7671,10 +7714,11 @@
             "Change code version name"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. Invalidate template cache (iscache)",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Clear application cache [C] Invalidate template cache (iscache)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -7692,10 +7736,12 @@
             "Response parser and optional caching"
         ],
         "answer": [
-            "A"
+            "A",
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: A. Connection/socket timeouts",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Connection/socket timeouts [B] Retry/circuit breaker strategy [C] Full payload logging at all times",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7734,10 +7780,11 @@
             "Page Designer registration"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json Shop permissions for baskets",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json Shop permissions for baskets [B] Client credential configured for OCAPI",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7755,10 +7802,11 @@
             "Change site ID"
         ],
         "answer": [
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. System step to trigger delta search index",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Disable cache globally [C] System step to trigger delta search index",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -7776,10 +7824,11 @@
             "/services/ocapi/"
         ],
         "answer": [
-            "D"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: D. /services/ocapi/",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7797,10 +7846,11 @@
             "Run ISML to free locks"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Retry with exponential backoff",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Retry with exponential backoff [C] Pre-check locks and conditionally skip/wait",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7818,10 +7868,11 @@
             "Never; synchronous is always better"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. When long-running and not required for immediate shopper response",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] When long-running and not required for immediate shopper response [B] When work can be queued and retried without blocking the request path",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7902,10 +7953,12 @@
             "Increase synchronous calls per page"
         ],
         "answer": [
+            "A",
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Cache responses where feasible",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Reduce timeouts to fail fast [B] Add retries with backoff and circuit breakers [C] Cache responses where feasible",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -7923,10 +7976,11 @@
             "ISML step"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Script step (custom JS)",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Script step (custom JS) [B] System step (built-in function)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7944,10 +7998,11 @@
             "CDN-only caching"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Response cache (res.cachePeriod/varyBy)",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] iscache in templates [B] Response cache (res.cachePeriod/varyBy)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -7965,10 +8020,11 @@
             "Put everything in a single controller file"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Move domain logic to helpers/decorators/factories",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Move domain logic to helpers/decorators/factories [C] Keep controllers thin; leverage services for integrations",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -7986,10 +8042,11 @@
             "Store localized strings in ocapi.json"
         ],
         "answer": [
-            "D"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: D. Store localized strings in ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Use templates/resources/*.properties by locale [C] Use Resource.msg/Resource.msgf to fetch strings",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8007,10 +8064,11 @@
             "Returning JSON for APIs"
         ],
         "answer": [
-            "D"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: D. Returning JSON for APIs",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Repeated synchronous service calls without caching [C] Using decorators for computed properties",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8049,10 +8107,11 @@
             "Disable all caches permanently"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Rebuild search indexes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Enable targeted log categories and inspect request logs [B] Use BM profiler to measure controller time",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8112,10 +8171,11 @@
             "Switch to a different sandbox"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Invalidate iscache entries for affected templates",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache entries for affected templates",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8154,10 +8214,11 @@
             "Avoid all caching for correctness"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Precompute view data in models/decorators instead of templates",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute view data in models/decorators instead of templates [B] Cache static fragments with iscache",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -8217,10 +8278,11 @@
             "The custom cartridge appears before app_storefront_base in the site path"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. The override must be registered in ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] The override sits in the same relative path/name in a higher‑priority custom cartridge [B] The override must be registered in ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8280,10 +8342,11 @@
             "Rename the code version"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Invalidate affected template fragment caches (iscache)",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate affected template fragment caches (iscache)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8467,10 +8530,11 @@
             "Add the attribute to ocapi.json write_attributes"
         ],
         "answer": [
-            "C"
+            "A",
+            "D"
         ],
-        "explanation": "Đáp án đúng là C. Lựa chọn này phù hợp với nguyên tắc chuẩn của Salesforce B2C Commerce / SFRA / Business Manager.",
-        "type": "single",
+        "explanation": "Correct answer: A, D. [A] Mark the attribute as searchable [D] Add the attribute to ocapi.json write_attributes",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.85,
@@ -8529,10 +8593,11 @@
             "ocapi.json"
         ],
         "answer": [
+            "A",
             "D"
         ],
-        "explanation": "Correct answer: D. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, D. [A] Product model decorators/factory (to expose data) [D] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8592,10 +8657,11 @@
             "Cartridge path missing the base cartridge"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Missing localized values for searchable attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Missing localized values for searchable attributes [B] Search index not rebuilt after data change",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -8613,10 +8679,11 @@
             "Rebuild the search index"
         ],
         "answer": [
-            "D"
+            "A",
+            "B"
         ],
-        "explanation": "Đáp án đúng là D. Lựa chọn này phù hợp với nguyên tắc chuẩn của Salesforce B2C Commerce / SFRA / Business Manager.",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Update ocapi.json with read/write permissions and attribute lists [B] Create client credentials and map to that ocapi.json setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.85,
@@ -8675,10 +8742,11 @@
             "dw.json"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] templates/resources/*.properties [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8759,10 +8827,11 @@
             "Must disable caching globally"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Set Content‑Type to application/json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Set Content‑Type to application/json [B] Respond using res.json or by writing a JSON string",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -8801,10 +8870,11 @@
             "Use System.out.println for timing"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Use Service Framework with timeouts and a circuit breaker",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Use Service Framework with timeouts and a circuit breaker [B] Batch/caching results to avoid N+1 calls",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -8822,10 +8892,11 @@
             "services.json"
         ],
         "answer": [
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Resource.msg/Resource.msgf helpers [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8906,10 +8977,11 @@
             "Use GET to avoid CSRF"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Restrict OCAPI Data access to least privilege",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Minimize and encrypt sensitive fields where possible [B] Restrict OCAPI Data access to least privilege",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8948,10 +9020,11 @@
             "Add a Page Designer component"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Configure ocapi.json Shop permissions for baskets with allowed attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Configure ocapi.json Shop permissions for baskets with allowed attributes [B] Map a client ID/secret to that ocapi.json setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -8969,10 +9042,11 @@
             "Rename the code version"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. System step to trigger delta/full indexing",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Script step to import inventory [B] System step to trigger delta/full indexing",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8990,10 +9064,11 @@
             "/static/default/"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. /versioned/cartridges/",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -9011,10 +9086,11 @@
             "Use ISML for synchronization"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Introduce locking/serialization or mutually exclusive schedules",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Introduce locking/serialization or mutually exclusive schedules [B] Add retries with exponential backoff",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9032,10 +9108,11 @@
             "Expose all fields for flexibility"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Restrict read_attributes to just required fields",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Restrict read_attributes to just required fields [B] Dedicated client credentials per integration",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9053,10 +9130,11 @@
             "Stop traffic entirely during rotation"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Add a new credential/profile, cut over, then retire old",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Add a new credential/profile, cut over, then retire old [B] Hardcode the new secret into code constants",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9074,10 +9152,11 @@
             "Never use caching"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Always log full request/response payloads",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Short timeouts and a circuit breaker [B] Retries with exponential backoff for transient failures",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -9116,10 +9195,11 @@
             "Search refinements"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json write permissions and write_attributes for those fields",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json write permissions and write_attributes for those fields [B] Client credentials mapped to that ocapi.json setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9200,10 +9280,11 @@
             "Force OCAPI for all pages"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Precompute heavy fields in decorators; avoid per‑request blocking calls",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute heavy fields in decorators; avoid per‑request blocking calls [B] Cache static fragments with iscache and proper vary",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9221,10 +9302,11 @@
             "Use remote includes for each tile"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Batch/cache calls to avoid N+1 patterns",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Batch/cache calls to avoid N+1 patterns [B] Move computation offline into jobs; decorate from stored values",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9242,10 +9324,11 @@
             "Change code version label"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Clear application cache",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache fragments for affected templates",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9284,10 +9367,11 @@
             "Using Resource.msg"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Using global cache with no vary",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Using global cache with no vary [C] Using decorators",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -9305,10 +9389,11 @@
             "Switch code versions"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Update ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Add locale‑specific properties under templates/resources [B] Use Resource.msg/Resource.msgf to fetch strings",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -9326,10 +9411,12 @@
             "Add more synchronous calls"
         ],
         "answer": [
-            "A"
+            "A",
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: A. Short timeouts (fail fast)",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Short timeouts (fail fast) [B] Retries with exponential backoff [C] Circuit breaker",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9347,10 +9434,12 @@
             "Disable all logs permanently"
         ],
         "answer": [
+            "A",
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Diff changes in services/decorators/hooks",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Compare profiler traces for that route before/after [B] Add targeted timing logs around suspect code [C] Diff changes in services/decorators/hooks",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -9368,10 +9457,11 @@
             "Expand loops in templates for compute"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Precompute data in helpers/decorators; pass view‑ready data",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute data in helpers/decorators; pass view‑ready data [B] Cache static fragments with iscache",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9410,10 +9500,11 @@
             "Disable CSRF"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Idempotency keys with server‑side deduplication",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Idempotency keys with server‑side deduplication [B] Disable the submit button after first click on the client",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9494,10 +9585,11 @@
             "A dedicated code version alias is required"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. ocapi.json includes the template path",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Override placed at same relative path/name as base [B] Custom cartridge has higher priority (before app_storefront_base)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -9536,10 +9628,11 @@
             "Reset synonyms"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Clear application cache",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache fragments",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9723,10 +9816,11 @@
             "Add to ocapi.json read_attributes"
         ],
         "answer": [
-            "C"
+            "A",
+            "D"
         ],
-        "explanation": "Đáp án đúng là C. Lựa chọn này phù hợp với nguyên tắc chuẩn của Salesforce B2C Commerce / SFRA / Business Manager.",
-        "type": "single",
+        "explanation": "Correct answer: A, D. [A] Mark the attribute searchable [D] Add to ocapi.json read_attributes",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.85,
@@ -9785,10 +9879,11 @@
             "services.json"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Product decorators/factory [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -9848,10 +9943,11 @@
             "Wrong code version"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Missing localized values for searchable attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Missing localized values for searchable attributes [B] Forgot to reindex",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9869,10 +9965,11 @@
             "Add a Page Designer type"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Update ocapi.json with read/write and attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Update ocapi.json with read/write and attributes [B] Create and map OCAPI client credentials",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -9932,10 +10029,11 @@
             "dw.json"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] templates/resources/*.properties [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10016,10 +10114,11 @@
             "Disable caching globally"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Render ISML then convert to JSON",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Set Content-Type to application/json [B] Use res.json or write JSON string",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10058,10 +10157,11 @@
             "System.out.println timing"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Batch/cache to avoid N+1",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Use Service Framework with timeouts and circuit breaker [B] Batch/cache to avoid N+1",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10079,10 +10179,11 @@
             "services.json"
         ],
         "answer": [
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Resource.msg/Resource.msgf [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10163,10 +10264,11 @@
             "Use GET to avoid CSRF"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Restrict OCAPI Data access (least privilege)",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Minimize/encrypt sensitive fields [B] Restrict OCAPI Data access (least privilege)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10205,10 +10307,11 @@
             "Add PD component"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json Shop permissions with attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json Shop permissions with attributes [B] Map client ID/secret to that setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10226,10 +10329,11 @@
             "Restart code version"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. System step to trigger delta/full index",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Script step for import [B] System step to trigger delta/full index",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10247,10 +10351,11 @@
             "/static/default/"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. /versioned/cartridges/",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10268,10 +10373,11 @@
             "Run via controller"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Retry with exponential backoff",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Retry with exponential backoff [B] Coordinate schedules and locks",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10289,10 +10395,11 @@
             "Expose all fields"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Restrict read_attributes to required fields",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Restrict read_attributes to required fields [B] Dedicated credentials per integration",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10310,10 +10417,11 @@
             "Stopping traffic"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Adding new credential/profile and cutting over",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Adding new credential/profile and cutting over [B] Hardcoding secret",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10331,10 +10439,11 @@
             "Never cache"
         ],
         "answer": [
-            "A"
+            "A",
+            "D"
         ],
-        "explanation": "Correct answer: A. Short timeouts and circuit breaker",
-        "type": "single",
+        "explanation": "Correct answer: A, D. [A] Short timeouts and circuit breaker [D] Never cache",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10373,10 +10482,11 @@
             "Search refinements"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json write with write_attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json write with write_attributes [B] Client credentials mapped",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10457,10 +10567,11 @@
             "Use OCAPI only"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Cache static fragments with iscache and proper vary",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute heavy fields in decorators [B] Cache static fragments with iscache and proper vary",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10478,10 +10589,11 @@
             "Remote includes per tile"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Batch/cache calls",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Batch/cache calls [B] Compute offline via jobs and decorate from storage",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10499,10 +10611,11 @@
             "Rename code version"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Clear application cache",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache fragments",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10541,10 +10654,11 @@
             "Using Resource.msg"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Global cache with no vary",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Global cache with no vary [C] Using decorators",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10562,10 +10676,11 @@
             "Switch code version"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Update ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Add locale properties under templates/resources [B] Use Resource.msg/Resource.msgf",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10583,10 +10698,12 @@
             "Increase synchronous calls"
         ],
         "answer": [
-            "A"
+            "A",
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: A. Short timeouts (fail fast)",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Short timeouts (fail fast) [B] Retries with backoff [C] Circuit breaker",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10604,10 +10721,12 @@
             "Disable logs permanently"
         ],
         "answer": [
+            "A",
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Diff services/decorators/hooks changes",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Compare profiler traces before/after [B] Add targeted timing logs [C] Diff services/decorators/hooks changes",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10625,10 +10744,11 @@
             "Heavy loops in ISML"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Cache static fragments",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute in helpers/decorators [B] Cache static fragments",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10667,10 +10787,11 @@
             "Disable CSRF"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Idempotency keys with server-side dedupe",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Idempotency keys with server-side dedupe [B] Disable submit button after click",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10751,10 +10872,11 @@
             "Code version alias missing"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. ocapi.json missing the template",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] File path/name doesn’t match the base template [B] Custom cartridge ordered after app_storefront_base",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -10793,10 +10915,11 @@
             "Change the site ID"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Clear application cache",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate affected iscache fragments",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -10980,10 +11103,11 @@
             "Add to ocapi.json read_attributes"
         ],
         "answer": [
+            "A",
             "D"
         ],
-        "explanation": "Correct answer: D. Add to ocapi.json read_attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, D. [A] Mark attribute searchable [D] Add to ocapi.json read_attributes",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11043,10 +11167,11 @@
             "services.json"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Product model decorators/factory [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11106,10 +11231,11 @@
             "Missing cspTrustedSite"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Missing dw.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Missing localized values for searchable attributes [B] Forgot to reindex",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11127,10 +11253,11 @@
             "Create a new cartridge"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Update ocapi.json with read/write and attribute lists",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Update ocapi.json with read/write and attribute lists [B] Create and map OCAPI client credentials",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -11190,10 +11317,11 @@
             "Code Versions page"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] templates/resources/*.properties [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11274,10 +11402,11 @@
             "Disable caching globally"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Render ISML then convert to JSON",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Set Content-Type to application/json [B] Use res.json or write JSON to response",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11316,10 +11445,11 @@
             "Use System.out.println for timing"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Batch/cache to avoid N+1",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Use Service Framework with timeouts and circuit breaker [B] Batch/cache to avoid N+1",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11337,10 +11467,11 @@
             "services.json"
         ],
         "answer": [
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Resource.msg/Resource.msgf [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11421,10 +11552,11 @@
             "Use GET instead of POST"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Restrict OCAPI Data access with least privilege",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Minimize/encrypt sensitive fields [B] Restrict OCAPI Data access with least privilege",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11463,10 +11595,11 @@
             "Add PD component"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Configure ocapi.json Shop permissions with allowed attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Configure ocapi.json Shop permissions with allowed attributes [B] Map client ID/secret to that setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -11484,10 +11617,11 @@
             "Restart code version"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. System step for delta/full index",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Script step for import [B] System step for delta/full index",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11505,10 +11639,11 @@
             "/static/default/"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. /versioned/cartridges/",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11526,10 +11661,11 @@
             "Run imports from controllers"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Coordinate schedules/locks to serialize",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Retry with exponential backoff [B] Coordinate schedules/locks to serialize",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11547,10 +11683,11 @@
             "Expose all attributes"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Restrict read_attributes to necessary fields",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Restrict read_attributes to necessary fields [B] Use dedicated client credentials per integration",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -11568,10 +11705,11 @@
             "Stop traffic"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Introduce a new credential/profile and cut over",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Introduce a new credential/profile and cut over [C] Support overlapping keys if upstream allows",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -11589,10 +11727,11 @@
             "Never cache"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Retries with backoff for transient errors",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Short timeouts and circuit breaker [B] Retries with backoff for transient errors",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11631,10 +11770,11 @@
             "Search refinements"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Client credentials mapped to that ocapi.json setting",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json write with write_attributes [B] Client credentials mapped to that ocapi.json setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11715,10 +11855,11 @@
             "Use OCAPI only"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Cache static fragments (iscache) with proper vary",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute heavy fields in decorators [B] Cache static fragments (iscache) with proper vary",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11736,10 +11877,11 @@
             "Use remote includes per tile"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Batch/cache calls",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Batch/cache calls [B] Precompute via jobs and decorate from storage",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -11757,10 +11899,11 @@
             "Rename code version"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Clear application cache",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache fragments",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -11799,10 +11942,11 @@
             "Using properties bundles"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Using global cache with no vary",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Using global cache with no vary [C] Using decorators",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11820,10 +11964,11 @@
             "Switch code version"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Update ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Add locale-specific templates/resources/*.properties [B] Use Resource.msg/Resource.msgf",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11841,10 +11986,12 @@
             "Increase synchronous calls"
         ],
         "answer": [
-            "A"
+            "A",
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: A. Short timeouts (fail fast)",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Short timeouts (fail fast) [B] Retries with exponential backoff [C] Circuit breaker",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -11862,10 +12009,12 @@
             "Disable logs permanently"
         ],
         "answer": [
+            "A",
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Diff changes in services/decorators/hooks",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Compare profiler traces before/after [B] Add targeted timing logs [C] Diff changes in services/decorators/hooks",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11883,10 +12032,11 @@
             "Heavy loops in ISML"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Cache static fragments with iscache",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Move logic to helpers/decorators [B] Cache static fragments with iscache",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -11925,10 +12075,11 @@
             "Disable CSRF"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Idempotency keys with server-side dedupe",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Idempotency keys with server-side dedupe [B] Disable submit button after click on client",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -11959,23 +12110,18 @@
     {
         "id": 1,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "You deploy two custom cartridges that both define the same controller route path. Cartridge order is: app_custom_extA, app_custom_extB, app_storefront_base. Which route executes when the storefront requests that path? (Select one)",
+        "question": "You deploy two custom cartridges that define the same controller route. Cartridge order is: app_custom_extA, app_custom_extB, app_storefront_base. Which route executes?",
         "options": [
-            "The route from app_storefront_base",
-            "The route from app_custom_extB",
-            "The route from app_custom_extA",
-            "The platform throws an ambiguity error"
+            "The route from app_custom_extA (leftmost is highest priority).",
+            "The route from app_custom_extB.",
+            "The route from app_storefront_base.",
+            "The platform throws a conflict error at runtime."
         ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. The route from app_storefront_base",
+        "answer": ["A"],
+        "explanation": "Trong B2C Commerce, thứ tự Cartridge Path quyết định quyền ưu tiên từ trái sang phải. Tài nguyên tìm thấy đầu tiên sẽ được thực thi.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "answer_fixed": true
     },
     {
         "id": 2,
@@ -11988,10 +12134,11 @@
             "Restart the application servers"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. Update cartridge path under the site to include new cartridges",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Clear application cache and any relevant template caches [C] Update cartridge path under the site to include new cartridges",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12051,10 +12198,11 @@
             "Missing CSRF token"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Route-level cache not varying by product ID",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Route-level cache not varying by product ID [B] iscache fragment without vary keys including product ID",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12093,10 +12241,11 @@
             "Logger mis-level (INFO vs DEBUG)"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Missing ocapi.json Shop settings",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Remote include cached without vary-by-promotion state [B] Response cache on parent route not varying by basket UUID",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12177,10 +12326,11 @@
             "Breaking OCAPI rate-limits"
         ],
         "answer": [
-            "D"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: D. Breaking OCAPI rate-limits",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Leaking shopper-specific data across users [C] Serving outdated or mismatched personalization",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12190,44 +12340,34 @@
     {
         "id": 12,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "After adding a cartridge with a higher path priority, a few Page Designer components stop rendering. What is the MOST likely reason? (Select one)",
+        "question": "After adding a cartridge with higher priority, some Page Designer components stop rendering. What is the MOST likely reason?",
         "options": [
-            "The new cartridge shadows template or script names expected by PD components",
-            "CDN disabled",
-            "Missing ocapi.data write permission",
-            "Log level is too low"
+            "The new cartridge contains a script or template with the same name that shadows the one needed by Page Designer.",
+            "The CDN cache must be purged manually for Page Designer.",
+            "Missing OCAPI Data write permissions in the new cartridge.",
+            "The code version does not support multiple custom cartridges."
         ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. Missing ocapi.data write permission",
+        "answer": ["A"],
+        "explanation": "Vì cơ chế shadowing (ghi đè theo tên file), nếu cartridge mới có file trùng tên với file mà Page Designer component đang phụ thuộc vào, nó sẽ ghi đè và có thể gây lỗi nếu logic không tương thích.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
         "id": 13,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "A new searchable product attribute is defined and populated. The attribute is still not searchable after a reindex. Which two issues are likely? (Select two)",
+        "question": "A new searchable product attribute is defined and populated, but still not searchable after a reindex. Which two issues are likely? (Select two)",
         "options": [
-            "The attribute type is non-indexable (e.g., binary)",
-            "The attribute wasn’t added to the product type assigned to the SKUs",
-            "The attribute is localized, but values were uploaded only for the default locale while search uses another",
-            "Log appenders weren’t configured"
+            "The attribute type is non-indexable (e.g., Image or Binary).",
+            "The attribute values were uploaded only for the default locale while search uses a specific locale.",
+            "The attribute was not added to the ocapi.json file.",
+            "Log appenders for search were not configured correctly."
         ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. The attribute type is non-indexable (e.g., binary)",
-        "type": "single",
+        "answer": ["A", "B"],
+        "explanation": "Một số kiểu dữ liệu không thể index, và nếu thiếu dữ liệu ở locale cụ thể mà site đang sử dụng, kết quả tìm kiếm sẽ không hiển thị.",
+        "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "answer_fixed": true
     },
     {
         "id": 14,
@@ -12261,10 +12401,11 @@
             "Creating a custom object"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Rebuilding the search index to include the attribute",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Assigning the refinement to the relevant search refinement menu [B] Rebuilding the search index to include the attribute",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12303,10 +12444,11 @@
             "Remote include disabled"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Missing trigger for delta indexing job step post-import",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Missing trigger for delta indexing job step post-import [B] Attribute not marked searchable",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12345,10 +12487,11 @@
             "Use client-side JavaScript to reorder results after page load"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Precompute and store margin in an indexable attribute updated by jobs",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Precompute and store margin in an indexable attribute updated by jobs [C] Implement a custom sort definition using the precomputed field",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12366,10 +12509,11 @@
             "Too many Page Designer components"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. The tokenizer for that locale differs, resulting in stricter matching",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Missing localized attribute values for that locale [C] The tokenizer for that locale differs, resulting in stricter matching",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12429,10 +12573,11 @@
             "Replace the catalog"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Add it to ocapi.json write_attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Enable both searchable and sortable flags on the attribute definition [B] Add the attribute to “refinements” and to the sort definition",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12450,10 +12595,11 @@
             "Increase log levels"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Reduce precision (e.g., truncate decimals) if exact precision is unnecessary",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Reduce precision (e.g., truncate decimals) if exact precision is unnecessary [B] Store normalized values, not verbose text, if text is not required",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12471,10 +12617,11 @@
             "Write directly to logs for auditing PII"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Input validation and size limits; reject overly large or malformed payloads",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] CSRF protection on POST routes when relevant [B] Input validation and size limits; reject overly large or malformed payloads",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12484,22 +12631,17 @@
     {
         "id": 26,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "Your service call must fail fast during peak traffic to protect storefront performance. Which three configurations should you tune? (Select three)",
+        "question": "Your service call must fail fast during peak traffic. Which three configurations should you tune? (Select three)",
         "options": [
-            "Connection timeout and socket timeout",
-            "Circuit breaker thresholds and open-state duration",
-            "Retry count with exponential backoff",
-            "Disable all logging globally"
+            "Connection timeout and socket timeout in the Service Profile.",
+            "Circuit breaker thresholds (error rate and open duration).",
+            "The number of retries and exponential backoff settings.",
+            "The Script.MaxCallStackDepth limit in Site Preferences."
         ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Correct answer: B. Circuit breaker thresholds and open-state duration",
-        "type": "single",
+        "answer": ["A", "B", "C"],
+        "explanation": "Để hệ thống không bị treo khi bên thứ 3 chậm, cần cấu hình timeout ngắn, ngắt mạch (Circuit Breaker) và giới hạn số lần thử lại.",
+        "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
@@ -12513,10 +12655,11 @@
             "Force CDN to ignore all headers"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Do not cache or include vary keys (customer, locale, currency) where needed",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Do not cache or include vary keys (customer, locale, currency) where needed [B] If caching, include appropriate vary keys (customer group, locale, currency) or disable cache",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12576,10 +12719,11 @@
             "Use GET for submissions to ease caching"
         ],
         "answer": [
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Restrict OCAPI Data read/write to least privilege",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Validate and minimize PII storage; encrypt or avoid storing sensitive fields [C] Restrict OCAPI Data read/write to least privilege",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12618,10 +12762,11 @@
             "Log category disabled"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Incorrect ocapi.json write_attributes for the payload fields",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Incorrect ocapi.json write_attributes for the payload fields [C] CDN cache is stale",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12660,10 +12805,11 @@
             "Replace POST with GET"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Idempotency key in payload and server-side dedupe",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Idempotency key in payload and server-side dedupe [B] Client-side JS to disable the submit button after click",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12673,22 +12819,17 @@
     {
         "id": 35,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "A controller needs to stream a large JSON export to the browser without exhausting memory. Which approach is best? (Select one)",
+        "question": "A controller needs to stream a large JSON export without exhausting memory (OOM). Which approach is best?",
         "options": [
-            "Build a giant object and stringify at end",
-            "Stream chunks to the response writer incrementally and set appropriate headers",
-            "Write to ISML then convert to JSON",
-            "Use Logger to buffer chunks"
+            "Build a smaller object and use res.json() multiple times.",
+            "Stream chunks directly to the response output stream using a JSON writer.",
+            "Increase the 'Script.MaxMemory' quota in Business Manager.",
+            "Use an ISML template to iterate and print JSON fragments."
         ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. Write to ISML then convert to JSON",
+        "answer": ["B"],
+        "explanation": "Để tránh lỗi OOM (Out of Memory) với dữ liệu lớn, ta phải dùng cơ chế streaming (ghi trực tiếp vào luồng output) thay vì tạo một biến object khổng lồ trong bộ nhớ.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
@@ -12723,10 +12864,11 @@
             "Put secrets in cartridge constants.js"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Expose only required resources and attributes in read/write sections",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Expose only required resources and attributes in read/write sections [B] Grant global read/write to speed development",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12744,10 +12886,12 @@
             "Restrict fields to non-PII where possible"
         ],
         "answer": [
-            "B"
+            "A",
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Allow order resources with explicit read_attributes in ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Create client ID/secret in BM and map to OCAPI settings [B] Allow order resources with explicit read_attributes in ocapi.json [C] Enable Shop API basket read/write",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12765,10 +12909,11 @@
             "Avoid logging request/response bodies unless masked or essential"
         ],
         "answer": [
+            "A",
             "D"
         ],
-        "explanation": "Correct answer: D. Avoid logging request/response bodies unless masked or essential",
-        "type": "single",
+        "explanation": "Correct answer: A, D. [A] Redact tokens and PII in service response parser before logging [D] Avoid logging request/response bodies unless masked or essential",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -12807,10 +12952,11 @@
             "Merge all logs into one bucket"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Different OCAPI credentials and permissions per environment",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Different OCAPI credentials and permissions per environment [B] Shared code versions across all environments",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12828,10 +12974,11 @@
             "Support both old and new keys for a transition period if the upstream allows it"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Create a new credential/profile, deploy code to reference it, cut over, then remove the old one",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Create a new credential/profile, deploy code to reference it, cut over, then remove the old one [B] Change the password in code and redeploy",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12891,10 +13038,11 @@
             "Incorrect HTTP method"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Wrong credentials or environment-specific key",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Wrong credentials or environment-specific key [B] Sandbox IP allow-lists applied to prod",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12912,10 +13060,11 @@
             "Include full PAN in DEBUG for reconciliation"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Do not store PANs; rely on tokenization via the PSP",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Do not store PANs; rely on tokenization via the PSP [B] Redact PANs in all logs and prevent them from being written by parsers",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12975,10 +13124,12 @@
             "Use batched lookups or cached services to avoid N+1 patterns"
         ],
         "answer": [
-            "A"
+            "A",
+            "B",
+            "D"
         ],
-        "explanation": "Correct answer: A. Introduce response cache with vary keys (locale, currency, page, filters)",
-        "type": "single",
+        "explanation": "Correct answer: A, B, D. [A] Introduce response cache with vary keys (locale, currency, page, filters) [B] Precompute expensive fields in decorators and avoid per-item service calls [D] Use batched lookups or cached services to avoid N+1 patterns",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -12988,22 +13139,17 @@
     {
         "id": 50,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "You discover double JSON serialization (stringified strings). What is the clean fix? (Select one)",
+        "question": "You discover double JSON serialization (stringified strings) in your API output. What is the clean fix?",
         "options": [
-            "Keep as-is; browsers parse twice",
-            "Ensure the controller passes a JS object to res.json once; avoid pre-stringifying",
-            "Render ISML instead",
-            "Cache longer"
+            "Ensure the controller passes a plain JavaScript object to res.json() once.",
+            "Use JSON.parse() twice on the client side.",
+            "Change the cartridge path to prioritize the base cartridge.",
+            "Enable 'Legacy JSON Mode' in Business Manager site settings."
         ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Correct answer: B. Ensure the controller passes a JS object to res.json once; avoid pre-stringifying",
+        "answer": ["A"],
+        "explanation": "Hàm res.json() của SFRA đã tự động stringify object. Nếu bạn tự stringify trước khi truyền vào, dữ liệu sẽ bị mã hóa 2 lần.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
@@ -13017,10 +13163,11 @@
             "Use more remote includes"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Aggregate calls: one request for many items or cache results",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Aggregate calls: one request for many items or cache results [C] Remove the call or precompute data offline via jobs and decorate from storage",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -13038,10 +13185,11 @@
             "Logger buffering"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Wrong ocapi.json client name",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] A remote include has its own cache not invalidated [B] CDN edge cache still serving old variant",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13080,10 +13228,11 @@
             "Use ISML to render diagnostics to shoppers"
         ],
         "answer": [
-            "D"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: D. Use ISML to render diagnostics to shoppers",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Analyze BM Profiler data and request logs for allocation hotspots [C] Add targeted logging and correlate with service latencies",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13101,10 +13250,12 @@
             "Add synchronous retries inside ISML"
         ],
         "answer": [
+            "A",
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Graceful degradation (serve cached/placeholder content)",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Circuit breaker to shed failing dependency [B] Exponential backoff retries with jitter for transient failures [C] Graceful degradation (serve cached/placeholder content)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13122,10 +13273,11 @@
             "Use GET to skip CSRF"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Tenant scoping on queries and authorization checks",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Tenant scoping on queries and authorization checks [C] Content-Disposition and CSV headers; stream output",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -13185,10 +13337,11 @@
             "Disable logs"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. Cache negative responses appropriately (with short TTL)",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Rate-limit/throttle at the Service Framework or edge [C] Cache negative responses appropriately (with short TTL)",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13206,10 +13359,12 @@
             "Add targeted timers/logs around suspect blocks to measure deltas"
         ],
         "answer": [
-            "A"
+            "A",
+            "B",
+            "D"
         ],
-        "explanation": "Correct answer: A. Compare profiler traces before/after by route",
-        "type": "single",
+        "explanation": "Correct answer: A, B, D. [A] Compare profiler traces before/after by route [B] Diff code between versions and examine changed services/decorators [D] Add targeted timers/logs around suspect blocks to measure deltas",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -13269,10 +13424,11 @@
             "The template must be in /impex/src/templates"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. The override must be registered in ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] The override must be placed at the same relative path/name [B] The override must be registered in ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13311,10 +13467,11 @@
             "Change the cartridge id"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Invalidate iscache fragments for affected templates",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache fragments for affected templates",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13498,10 +13655,11 @@
             "Add it to ocapi.json read_attributes"
         ],
         "answer": [
-            "C"
+            "A",
+            "D"
         ],
-        "explanation": "Đáp án đúng là C. Lựa chọn này phù hợp với nguyên tắc chuẩn của Salesforce B2C Commerce / SFRA / Business Manager.",
-        "type": "single",
+        "explanation": "Correct answer: A, D. [A] Mark the attribute as searchable [D] Add it to ocapi.json read_attributes",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.85,
@@ -13560,10 +13718,11 @@
             "services.json"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Product model decorators/factory to expose data [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13623,10 +13782,11 @@
             "Wrong code version active"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Forgot to reindex after data change",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Missing localized values for searchable attributes [B] Forgot to reindex after data change",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13644,10 +13804,11 @@
             "New Page Designer page type"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json with read/write and attribute lists",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json with read/write and attribute lists [B] OCAPI client credentials mapped to that setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -13707,10 +13868,11 @@
             "dw.json"
         ],
         "answer": [
+            "A",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] templates/resources/*.properties [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13791,10 +13953,11 @@
             "Disable caching globally"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Render ISML then parse to JSON",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Set Content-Type to application/json [B] Use res.json or write JSON",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13833,10 +13996,11 @@
             "Use System.out.println for timing"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Batch/cache to avoid N+1 calls",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Use Service Framework with timeouts and circuit breaker [B] Batch/cache to avoid N+1 calls",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13854,10 +14018,11 @@
             "services.json"
         ],
         "answer": [
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Resource.msg/Resource.msgf [C] ocapi.json",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13938,10 +14103,11 @@
             "Use GET to avoid CSRF"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Restrict OCAPI Data access to least privilege",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Minimize/encrypt sensitive fields where possible [B] Restrict OCAPI Data access to least privilege",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -13980,10 +14146,11 @@
             "Add a Page Designer component"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json Shop permissions with allowed attributes",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json Shop permissions with allowed attributes [B] Map a client ID/secret to that setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -14001,10 +14168,11 @@
             "Rename code version"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. System step: trigger delta/full index",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Script step: import inventory [B] System step: trigger delta/full index",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -14022,10 +14190,11 @@
             "/static/default/"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. /versioned/cartridges/",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -14043,10 +14212,11 @@
             "Run the job from controllers"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Coordinate schedules/locks to avoid overlap",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Retry with exponential backoff [B] Coordinate schedules/locks to avoid overlap",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -14064,10 +14234,11 @@
             "Expose all fields to simplify mapping"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Restrict read_attributes to only required fields",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Restrict read_attributes to only required fields [B] Dedicated client credentials per integration",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -14085,10 +14256,11 @@
             "Stop traffic"
         ],
         "answer": [
-            "A"
+            "A",
+            "C"
         ],
-        "explanation": "Correct answer: A. Add a new credential/profile and cut over",
-        "type": "single",
+        "explanation": "Correct answer: A, C. [A] Add a new credential/profile and cut over [C] Support overlapping keys if upstream allows",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -14106,10 +14278,11 @@
             "Never cache anything"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Short timeouts and circuit breaker",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Short timeouts and circuit breaker [B] Retries with exponential backoff for transient failures",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -14148,10 +14321,11 @@
             "Search refinements"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. ocapi.json write permissions and write_attributes for fields",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] ocapi.json write permissions and write_attributes for fields [B] Client credentials mapped to that ocapi.json setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -14232,10 +14406,11 @@
             "Force OCAPI"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Cache static fragments with iscache and proper vary",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute heavy fields in decorators; avoid per-request blocking calls [B] Cache static fragments with iscache and proper vary",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -14253,10 +14428,11 @@
             "Use remote includes for each tile"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Batch/cache calls to avoid N+1",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Batch/cache calls to avoid N+1 [B] Move computation offline to jobs; decorate from stored values",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -14274,10 +14450,11 @@
             "Change code version name"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Invalidate template caches (iscache) for affected templates",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate template caches (iscache) for affected templates",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -14316,10 +14493,11 @@
             "Using Resource.msg"
         ],
         "answer": [
-            "B"
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Using global cache with no vary",
-        "type": "single",
+        "explanation": "Correct answer: B, C. [B] Using global cache with no vary [C] Using decorators",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -14337,10 +14515,11 @@
             "Switch code version"
         ],
         "answer": [
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: C. Update ocapi.json",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Add locale-specific properties under templates/resources [B] Use Resource.msg/Resource.msgf helpers",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -14358,10 +14537,12 @@
             "Increase synchronous calls"
         ],
         "answer": [
-            "A"
+            "A",
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: A. Short timeouts (fail fast)",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Short timeouts (fail fast) [B] Retries with backoff [C] Circuit breaker",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -14379,10 +14560,12 @@
             "Disable logs permanently"
         ],
         "answer": [
+            "A",
+            "B",
             "C"
         ],
-        "explanation": "Correct answer: C. Diff services/decorators/hooks changes",
-        "type": "single",
+        "explanation": "Correct answer: A, B, C. [A] Compare profiler traces before/after [B] Add targeted timing logs around suspect blocks [C] Diff services/decorators/hooks changes",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -14400,10 +14583,11 @@
             "Heavy loops in ISML"
         ],
         "answer": [
-            "A"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: A. Precompute data in helpers/decorators; pass view-ready data",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Precompute data in helpers/decorators; pass view-ready data [B] Cache static fragments with iscache",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -14442,10 +14626,11 @@
             "Disable CSRF"
         ],
         "answer": [
+            "A",
             "B"
         ],
-        "explanation": "Correct answer: B. Disable submit button client-side after click",
-        "type": "single",
+        "explanation": "Correct answer: A, B. [A] Idempotency keys and server-side dedupe [B] Disable submit button client-side after click",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -18268,7 +18453,7 @@
         "id": 263,
         "set": "Get to Know Commerce Cloud Einstein",
         "question": "Which three types of data does Agentforce Commerce Einstein utilize for its intelligence?",
-        "type": "single",
+        "type": "multiple",
         "options": [
             "Historical Customer Demographics, Product Catalog, and Website Traffic",
             "Clickstream, Orders, and Products",
@@ -18276,9 +18461,11 @@
             "Merchandiser Activity, Promotion Data, and Site Search Terms"
         ],
         "answer": [
-            "B"
+            "A",
+            "B",
+            "C"
         ],
-        "explanation": "Correct answer: B. Clickstream, Orders, and Products",
+        "explanation": "Correct answer: A, B, C. [A] Historical Customer Demographics, Product Catalog, and Website Traffic [B] Clickstream, Orders, and Products [C] Product Attributes, Storefront Sessions, and Inventory",
         "tip": "",
         "source": "QA_7.html",
         "confidence": 0.95,
@@ -18347,22 +18534,19 @@
     {
         "id": 267,
         "set": "Develop Feature-Specific Plans",
-        "question": "Which task must a developer complete as a critical prerequisite to ensure that Predictive Sort works correctly?",
-        "type": "single",
-        "options": [
-            "Create new recommendation slot rendering templates for content slots.",
-            "Validate that the request is not cached when predictive sort is applied as a sorting rule.",
-            "Design the content slot look and feel for the product detail page.",
-            "Define the custom recommenders used for dynamic sorting."
-        ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Correct answer: B. Validate that the request is not cached when predictive sort is applied as a sorting rule.",
-        "tip": "",
         "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
+        "question": "Which task is a critical prerequisite to ensure that Einstein Predictive Sort works correctly?",
+        "options": [
+            "Ensure the category and search grid requests are NOT cached by the Web-Tier.",
+            "Validate that the request is allowed to be cached with a long TTL.",
+            "Configure a dedicated OCAPI client for Predictive Sort.",
+            "Create a specific Job to update sorting data hourly."
+        ],
+        "answer": ["A"],
+        "explanation": "Predictive Sort dựa trên dữ liệu cá nhân hóa thời gian thực của người dùng. Nếu trang bị cache ở tầng Web (Web-Tier cache), Einstein sẽ không thể thay đổi thứ tự sản phẩm dựa trên từng cá nhân.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed": true
     },
     {
         "id": 268,
@@ -18388,7 +18572,7 @@
         "id": 269,
         "set": "Deploy Commerce Cloud Einstein",
         "question": "Which two production instance data feeds must a Agentforce Commerce for B2C administrator execute to enable Einstein on a storefront?",
-        "type": "single",
+        "type": "multiple",
         "options": [
             "Storefront Sessions and Product Affinities",
             "Catalog and Orders",
@@ -18396,9 +18580,10 @@
             "Clickstream and Promotion Data"
         ],
         "answer": [
-            "B"
+            "A",
+            "D"
         ],
-        "explanation": "Correct answer: B. Catalog and Orders",
+        "explanation": "Correct answer: A, D. [A] Storefront Sessions and Product Affinities [D] Clickstream and Promotion Data",
         "tip": "",
         "source": "QA_7.html",
         "confidence": 0.95,
@@ -19242,8 +19427,10 @@
             "A custom cartridge, a base cartridge, and an overlay plugin.",
             "A plugin cartridge, an app_storefront_base cartridge, and a custom cartridge."
         ],
-        "answer": [],
-        "explanation": "Correct answer: . ",
+        "answer": [
+            "D"
+        ],
+        "explanation": "Correct answer: D. A plugin cartridge, an app_storefront_base cartridge, and a custom cartridge.",
         "tip": "",
         "source": "QA_7.html",
         "confidence": 0.95,
