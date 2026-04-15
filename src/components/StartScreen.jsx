@@ -10,6 +10,8 @@ export default function StartScreen() {
     const [shuffleQ, setShuffleQ] = useState(true);
     const [shuffleA, setShuffleA] = useState(false);
     const [studyMode, setStudyMode] = useState(false);
+    const [questionCount, setQuestionCount] = useState(60);
+    const [customCount, setCustomCount] = useState('');
 
     const topics = useMemo(() => getUniqueTopics(state.allQuestions), [state.allQuestions]);
 
@@ -22,10 +24,11 @@ export default function StartScreen() {
     const handleStart = () => {
         if (state.allQuestions.length === 0) return;
 
+        const count = mode === 'full' ? 60 : questionCount;
         let questions = selectQuestions(state.allQuestions, mode, {
             topics: selectedTopics,
             wrongIds: state.wrongQuestionIds,
-            count: 60,
+            count,
         });
 
         if (shuffleA) {
@@ -43,14 +46,20 @@ export default function StartScreen() {
         });
     };
 
-    const estimatedQuestions = useMemo(() => {
+    const maxAvailable = useMemo(() => {
         if (mode === 'retry') return state.wrongQuestionIds.length;
         if (mode === 'topic') {
             if (selectedTopics.length === 0) return state.allQuestions.length;
             return state.allQuestions.filter(q => selectedTopics.includes(q.source)).length;
         }
-        return Math.min(65, state.allQuestions.length);
+        return state.allQuestions.length;
     }, [mode, selectedTopics, state.allQuestions, state.wrongQuestionIds]);
+
+    const estimatedQuestions = useMemo(() => {
+        if (mode === 'full') return Math.min(65, state.allQuestions.length);
+        if (mode === 'retry') return state.wrongQuestionIds.length;
+        return Math.min(questionCount, maxAvailable);
+    }, [mode, questionCount, maxAvailable, state.allQuestions, state.wrongQuestionIds]);
 
     if (state.loading) {
         return (
@@ -106,8 +115,8 @@ export default function StartScreen() {
                                 onClick={() => setMode(m.id)}
                                 disabled={m.id === 'retry' && state.wrongQuestionIds.length === 0}
                                 className={`p-4 rounded-xl border-2 text-left transition-all duration-200 ${mode === m.id
-                                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500/30'
-                                        : 'border-gray-200 dark:border-white/10 hover:border-primary-300 dark:hover:border-primary-500/30'
+                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500/30'
+                                    : 'border-gray-200 dark:border-white/10 hover:border-primary-300 dark:hover:border-primary-500/30'
                                     } disabled:opacity-30 disabled:cursor-not-allowed`}
                             >
                                 <div className="flex items-center gap-3">
@@ -133,8 +142,8 @@ export default function StartScreen() {
                                 <label
                                     key={t.id}
                                     className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all duration-200 ${selectedTopics.includes(t.id)
-                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30'
-                                            : 'border-gray-200 dark:border-white/10 hover:border-primary-300 dark:hover:border-primary-500/20'
+                                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30'
+                                        : 'border-gray-200 dark:border-white/10 hover:border-primary-300 dark:hover:border-primary-500/20'
                                         }`}
                                 >
                                     <input
@@ -149,6 +158,64 @@ export default function StartScreen() {
                                     </div>
                                 </label>
                             ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Question count selector - ẩn khi Full Exam hoặc Retry */}
+                {mode !== 'full' && mode !== 'retry' && (
+                    <div className="glass-card p-6 md:p-8 mb-6 animate-fade-in">
+                        <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                            🔢 Number of Questions
+                            <span className="text-sm font-normal text-gray-400">({maxAvailable} available)</span>
+                        </h3>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                            {[10, 20, 30, 40, 60, 100].filter(n => n <= maxAvailable).map(n => (
+                                <button
+                                    key={n}
+                                    onClick={() => { setQuestionCount(n); setCustomCount(''); }}
+                                    className={`px-4 py-2 rounded-xl border-2 font-semibold text-sm transition-all duration-200 ${questionCount === n && !customCount
+                                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30 text-primary-700 dark:text-primary-300'
+                                        : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:border-primary-300'
+                                        }`}
+                                >
+                                    {n}
+                                </button>
+                            ))}
+                            <button
+                                onClick={() => { setQuestionCount(maxAvailable); setCustomCount(''); }}
+                                className={`px-4 py-2 rounded-xl border-2 font-semibold text-sm transition-all duration-200 ${questionCount === maxAvailable && !customCount
+                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30 text-primary-700 dark:text-primary-300'
+                                    : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:border-primary-300'
+                                    }`}
+                            >
+                                All ({maxAvailable})
+                            </button>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <span className="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">Custom:</span>
+                            <input
+                                type="number"
+                                min="1"
+                                max={maxAvailable}
+                                value={customCount}
+                                placeholder={String(questionCount)}
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    setCustomCount(val);
+                                    const num = parseInt(val, 10);
+                                    if (num > 0 && num <= maxAvailable) setQuestionCount(num);
+                                }}
+                                className="w-24 px-3 py-2 rounded-xl border-2 border-gray-200 dark:border-white/10 bg-white dark:bg-surface-800 text-gray-800 dark:text-white text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 outline-none transition-all"
+                            />
+                            <input
+                                type="range"
+                                min="1"
+                                max={maxAvailable}
+                                value={questionCount}
+                                onChange={(e) => { setQuestionCount(parseInt(e.target.value, 10)); setCustomCount(''); }}
+                                className="flex-1 h-2 rounded-full appearance-none bg-gray-200 dark:bg-surface-700 accent-primary-500 cursor-pointer"
+                            />
                         </div>
                     </div>
                 )}
