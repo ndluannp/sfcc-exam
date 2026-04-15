@@ -754,21 +754,22 @@
     },
     {
         "id": 37,
-        "source": "Questions_20260403.md",
-        "question": "A storefront Service used during checkout is intermittently timing out, causing the flow to hang. What is the best immediate architectural fix?",
+        "source": "Service Framework",
+        "question": "A storefront Service is timing out and blocking checkout. What is the best immediate architectural fix?",
         "options": [
             "Enable and configure the Circuit Breaker in the Service Framework.",
-            "Increase the Connection Timeout to 90 seconds.",
-            "Wrap the service call in a background Job.",
-            "Rebuild the search index to clear stale connections."
+            "Increase the Connection Timeout in Business Manager.",
+            "Implement a fallback logic in the controller.",
+            "Wrap the service call in a background Job."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Circuit Breaker giúp ngắt các kết nối lỗi ngay lập tức, ngăn chặn việc treo luồng xử lý (blocking threads) và cho phép hệ thống thực hiện logic dự phòng (fallback).",
         "type": "single",
         "needs_review": false,
-        "answer_fixed": true
+        "answer_fixed": true,
+        "explanation": "Circuit Breaker giúp ngắt kết nối đến service đang treo, giải phóng thread của hệ thống để khách hàng không bị đứng trang checkout.",
+        "tip": "Keyword 'Blocking/Timeout' -> 'Circuit Breaker'. Đừng tăng Timeout, sẽ làm treo trang lâu hơn."
     },
     {
         "id": 38,
@@ -891,7 +892,8 @@
         "explanation": "Remote Include tạo ra một request mới, cho phép mảnh template đó được cache độc lập (ví dụ: mini-cart không cache trong khi phần còn lại của trang thì có).",
         "type": "single",
         "needs_review": false,
-        "answer_fixed": true
+        "answer_fixed": true,
+        "tip": "Remote Include = New Request + Separate Cache Policy. Thường dùng cho Header/Mini-cart."
     },
     {
         "id": 44,
@@ -1286,7 +1288,7 @@
         "needs_review": false,
         "ai_inferred": false,
         "confidence": 1.0,
-        "tip": "Process return null = Filter item.",
+        "tip": "Chunk Job: process() trả về null = Bỏ qua item đó (Filter). Không lỗi, không ghi.",
         "answer_fixed": true
     },
     {
@@ -1564,23 +1566,23 @@
     },
     {
         "id": 4,
-        "source": "Questions_20260403.md",
+        "source": "Caching",
         "question": "How do you prevent a specific Controller route from being cached at the web-tier?",
         "options": [
-            "Use `res.cacheExpiration(0)`.",
-            "Return a cache-busting header in the response.",
-            "Add `cacheable:false` to the controller definition.",
-            "Configure cache settings in Business Manager only."
+            "Use `cache.applyDefaultCache` middleware.",
+            "Set `res.cacheExpiration(0)` in the controller route.",
+            "Use `<iscache status='off' />` in the ISML template.",
+            "Disable the 'Enable Page Cache' preference in Business Manager."
         ],
         "answer": [
-            "A"
+            "B"
         ],
-        "explanation": "Correct answer: A. Use `res.cacheExpiration(0)`.",
         "type": "single",
         "needs_review": false,
         "ai_inferred": false,
         "confidence": 0.9,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "explanation": "Để tắt cache cho một route cụ thể trong SFRA, cách chuẩn nhất là đặt thời gian hết hạn cache bằng 0 thông qua đối tượng response (res).",
+        "tip": "Tắt cache route -> 'cacheExpiration(0)'. Tắt cache template -> 'iscache status=off'.",
         "answer_fixed_v2": true
     },
     {
@@ -3928,94 +3930,6 @@
         "answer_fixed_v2": true
     },
     {
-        "id": 37,
-        "source": "b2c_dev_exam_set12.md",
-        "question": "To allow baskets via OCAPI Shop, do which two? (Select two)",
-        "options": [
-            "Configure ocapi.json Shop permissions with allowed attributes",
-            "Map client credentials to that setting",
-            "Create a new code version",
-            "Add a PD component"
-        ],
-        "answer": [
-            "A",
-            "B"
-        ],
-        "explanation": "Correct answer: A, B. [A] Configure ocapi.json Shop permissions with allowed attributes [B] Map client credentials to that setting",
-        "type": "multiple",
-        "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
-    },
-    {
-        "id": 38,
-        "source": "b2c_dev_exam_set12.md",
-        "question": "A nightly job imports inventory and reindexes search. Typical steps: (Select two)",
-        "options": [
-            "Script step to import inventory",
-            "System step to trigger delta/full index",
-            "Disable CSRF",
-            "Restart instances"
-        ],
-        "answer": [
-            "A",
-            "B"
-        ],
-        "explanation": "Correct answer: A, B. [A] Script step to import inventory [B] System step to trigger delta/full index",
-        "type": "multiple",
-        "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
-    },
-    {
-        "id": 39,
-        "source": "b2c_dev_exam_set12.md",
-        "question": "Which inbound folders are common for imports? (Select two)",
-        "options": [
-            "/impex/src/",
-            "/impex/src/instance/",
-            "/versioned/cartridges/",
-            "/static/default/"
-        ],
-        "answer": [
-            "A",
-            "B"
-        ],
-        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
-        "type": "multiple",
-        "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
-    },
-    {
-        "id": 40,
-        "source": "b2c_dev_exam_set12.md",
-        "question": "Import job collisions occur. Which two mitigations help? (Select two)",
-        "options": [
-            "Retry with exponential backoff",
-            "Coordinate schedules/locks (serialize)",
-            "Add TRACE logs only",
-            "Run as a controller route"
-        ],
-        "answer": [
-            "A",
-            "B"
-        ],
-        "explanation": "Correct answer: A, B. [A] Retry with exponential backoff [B] Coordinate schedules/locks (serialize)",
-        "type": "multiple",
-        "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
-    },
-    {
         "id": 41,
         "source": "b2c_dev_exam_set12.md",
         "question": "Least-privilege Data API on orders requires: (Select two)",
@@ -4127,43 +4041,43 @@
     {
         "id": 46,
         "source": "b2c_dev_exam_set12.md",
-        "question": "Two job steps conflict updating same records. Remedy: (Select one)",
+        "question": "Two job steps intermittently conflict because they attempt to update the same database records simultaneously. What is the best architectural remedy?",
         "options": [
-            "Locking/serialization or mutually exclusive windows",
-            "Disable logs",
-            "Remote includes",
-            "Global cache"
+            "Implement a locking/serialization strategy or schedule the steps in mutually exclusive time windows.",
+            "Disable 'Communication Logs' to reduce the database transaction overhead.",
+            "Use 'Remote Includes' in the job script to offload the update logic to a different thread.",
+            "Increase the 'Global Cache' TTL to prevent the database from checking record status."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Locking/serialization or mutually exclusive windows",
+        "explanation": "Khi có xung đột cập nhật, bạn phải đảm bảo tính tuần tự (Serialization) bằng cách sử dụng cơ chế khóa (Locking) hoặc tách biệt thời gian chạy (Mutually exclusive windows) để đảm bảo tại một thời điểm chỉ có một Job được quyền ghi vào bản ghi đó.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Job conflict/Record contention -> Luôn chọn 'Locking', 'Serialization' hoặc 'Exclusive windows'. Đừng bao giờ chọn Log hay Cache.",
         "answer_fixed_v2": true
     },
     {
         "id": 47,
         "source": "b2c_dev_exam_set12.md",
-        "question": "Prevent token leakage from service logs by: (Select one)",
+        "question": "How can a developer prevent sensitive data (like API tokens or passwords) from leaking into service log files?",
         "options": [
-            "Redact/mask in parser; avoid logging bodies unless masked",
-            "Use System.out.println",
-            "Always DEBUG",
-            "Disable services"
+            "Implement redacting or masking logic within the service response parser and avoid logging full bodies unless masked.",
+            "Use System.out.println() instead of Logger to bypass the service logging framework.",
+            "Set the service log level to ALWAYS DEBUG to ensure all data is captured and encrypted by the platform.",
+            "Disable the 'Communication Log' setting in Business Manager for all production services."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Redact/mask in parser; avoid logging bodies unless masked",
+        "explanation": "Để bảo vệ thông tin nhạy cảm, bạn phải can thiệp vào bước parse dữ liệu (parser). Tại đây, bạn sẽ tìm các trường nhạy cảm và thay thế chúng bằng dấu '*' hoặc xóa bỏ trước khi đẩy dữ liệu vào log của hệ thống.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Log Security -> Luôn chọn 'Redact/Mask' hoặc 'Filter'. Tuyệt đối không chọn 'System.out' hay 'Disable Log'.",
         "answer_fixed_v2": true
     },
     {
@@ -4383,23 +4297,21 @@
     {
         "id": 58,
         "source": "b2c_dev_exam_set12.md",
-        "question": "A PD component shows wrong currency when cached. Fix: (Select one)",
+        "question": "A Page Designer component shows the wrong currency when cached. What is the fix?",
         "options": [
-            "Add vary-by-currency",
-            "Use ocapi.json",
-            "Disable CSRF",
-            "Rebuild catalog"
+            "Disable caching for the entire page.",
+            "Add 'currency' as a vary-by parameter in the component's cache configuration.",
+            "Configure the currency settings in ocapi.json.",
+            "Rebuild the product search index."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Correct answer: B. Use ocapi.json",
+        "explanation": "Nếu component hiển thị sai tiền tệ khi có cache, đó là do nó đang dùng chung cache cho mọi loại tiền. Cần thêm 'vary-by currency' để hệ thống tạo ra các bản cache riêng biệt.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "answer_fixed": true,
+        "tip": "Dữ liệu cá nhân hóa (tiền, giá, khuyến mãi) bị sai khi cache -> Phải thêm 'Vary-by' key."
     },
     {
         "id": 59,
@@ -10313,50 +10225,6 @@
         "answer_fixed_v2": true
     },
     {
-        "id": 37,
-        "source": "b2c_dev_exam_set11.md",
-        "question": "To allow baskets via OCAPI Shop, do which two? (Select two)",
-        "options": [
-            "ocapi.json Shop permissions with attributes",
-            "Map client ID/secret to that setting",
-            "Create new code version",
-            "Add PD component"
-        ],
-        "answer": [
-            "A",
-            "B"
-        ],
-        "explanation": "Correct answer: A, B. [A] ocapi.json Shop permissions with attributes [B] Map client ID/secret to that setting",
-        "type": "multiple",
-        "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
-    },
-    {
-        "id": 38,
-        "source": "b2c_dev_exam_set11.md",
-        "question": "Nightly job imports inventory and reindexes search. Typical steps: (Select two)",
-        "options": [
-            "Script step for import",
-            "System step to trigger delta/full index",
-            "Disable logs",
-            "Restart code version"
-        ],
-        "answer": [
-            "A",
-            "B"
-        ],
-        "explanation": "Correct answer: A, B. [A] Script step for import [B] System step to trigger delta/full index",
-        "type": "multiple",
-        "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
-    },
-    {
         "id": 39,
         "source": "b2c_dev_exam_set11.md",
         "question": "Inbound import folders include: (Select two)",
@@ -10447,24 +10315,23 @@
     {
         "id": 43,
         "source": "b2c_dev_exam_set11.md",
-        "question": "Robust synchronous integration includes: (Select two)",
+        "question": "What are two key components of a robust synchronous integration in B2C Commerce?",
         "options": [
-            "Short timeouts and circuit breaker",
-            "Retries with backoff for transients",
-            "Always log full payloads",
-            "Never cache"
+            "Implementing short timeouts and a Circuit Breaker strategy.",
+            "Implementing retry logic with exponential backoff for transient failures.",
+            "Always logging the full request and response payloads in Production.",
+            "Ensuring that the service response is never cached to guarantee real-time data."
         ],
         "answer": [
             "A",
-            "D"
+            "B"
         ],
-        "explanation": "Correct answer: A, D. [A] Short timeouts and circuit breaker [D] Never cache",
+        "explanation": "Để tích hợp đồng bộ (Synchronous) hoạt động ổn định, hệ thống phải 'Fail Fast' thông qua Timeout và Circuit Breaker để tránh làm treo luồng (thread). Đồng thời, việc thử lại (Retry) với độ trễ tăng dần giúp vượt qua các lỗi mạng tạm thời mà không gây quá tải cho hệ thống đích.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Resiliency/Robust Integration -> Luôn tìm cặp bài trùng: 'Timeout/Circuit Breaker' và 'Retry/Backoff'. Tuyệt đối không chọn 'Always log full payloads' (vì vi phạm bảo mật/hiệu năng)."
     },
     {
         "id": 44,
@@ -11603,24 +11470,23 @@
     {
         "id": 37,
         "source": "b2c_dev_exam_set14.md",
-        "question": "To allow baskets via OCAPI Shop, do which two? (Select two)",
+        "question": "Which two steps are required to enable the creation and management of baskets via the OCAPI Shop API?",
         "options": [
-            "Configure ocapi.json Shop permissions with allowed attributes",
-            "Map client ID/secret to that setting",
-            "Create new code version",
-            "Add PD component"
+            "Configure 'OCAPI Settings' in Business Manager with the appropriate 'basket' resource permissions.",
+            "Map a valid Client ID to the specific OCAPI settings for the site.",
+            "Ensure the latest code version is activated and contains the 'Basket.js' controller.",
+            "Add a Page Designer component to the storefront to initialize the basket session."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Configure ocapi.json Shop permissions with allowed attributes [B] Map client ID/secret to that setting",
+        "explanation": "Để sử dụng OCAPI, bạn cần thực hiện cấu hình tại 'Administration > Site Development > OCAPI Settings'. Tại đây, bạn phải (1) Khai báo Client ID của ứng dụng và (2) Cấu hình quyền truy cập (read/write) cho tài nguyên 'baskets'. Nếu thiếu một trong hai, mọi yêu cầu từ ứng dụng ngoại vi sẽ bị hệ thống từ chối với lỗi 401 Unauthorized hoặc 403 Forbidden.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "OCAPI Configuration -> Luôn đi kèm với 'Client ID' và 'Resource Permissions' trong Business Manager. Hãy nhớ: OCAPI không phụ thuộc vào Code Version hay UI Components (như Page Designer)."
     },
     {
         "id": 38,
@@ -14687,6 +14553,22 @@
         "confidence": 0.65,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
+    },
+    {
+        "id": 61,
+        "source": "Large Data",
+        "question": "A large JSON export endpoint causes Out of Memory (OOM) errors. What is the correct remediation?",
+        "options": [
+            "Build the full JSON in memory before sending.",
+            "Stream JSON chunks directly to the response output writer.",
+            "Increase the 'Script.MaxMemory' quota.",
+            "Use multiple ISML templates to render parts of the JSON."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Với dữ liệu lớn (Catalog/Orders), không bao giờ được chứa toàn bộ vào một biến. Phải dùng cơ chế 'Stream' để đẩy dữ liệu ra ngoài ngay khi xử lý xong từng phần.",
+        "tip": "Dữ liệu lớn + Lỗi Memory -> 'Stream' hoặc 'XMLStreamWriter'. Tuyệt đối không chọn 'In Memory'."
     },
     {
         "id": 73,
@@ -19901,5 +19783,1289 @@
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
+    },
+    {
+        "id": 1,
+        "source": "SFRA Architecture",
+        "question": "How do you extend a Controller without modifying the base cartridge in SFRA?",
+        "options": [
+            "Copy the base controller into your cartridge and modify it.",
+            "Create a controller with the same name and use server.extend(module.superModule).",
+            "Use the `server.replace()` method to overwrite the base route.",
+            "Use `require('app_storefront_base/...')` directly in the view."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "SFRA sử dụng cơ chế kế thừa thông qua module.superModule. Việc dùng server.extend cho phép bạn thêm logic (append/prepend) mà không làm mất code gốc.",
+        "tip": "Cứ thấy 'Extend Controller' -> Tìm 'superModule'. Đừng bao giờ chọn 'Copy file'."
+    },
+    {
+        "id": 2,
+        "source": "Questions_20260403.md",
+        "question": "In a middleware chain, what happens if you call res.render() and then next()?",
+        "options": [
+            "The template renders twice.",
+            "An error occurs, and the request fails.",
+            "The template renders, and the next middleware executes normally.",
+            "The `next()` call is silently ignored."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "res.render() chỉ thiết lập viewData và template, luồng middleware vẫn tiếp tục cho đến khi kết thúc chuỗi hoặc có phản hồi cuối cùng.",
+        "tip": "render() không dừng luồng. next() sẽ chạy middleware tiếp theo. Chỉ ngắt luồng khi ném lỗi hoặc không gọi next()."
+    },
+    {
+        "id": 3,
+        "source": "Questions_20260403.md",
+        "question": "Which middleware functions are required to enable CSRF protection on a specific route pair in SFRA?",
+        "options": [
+            "`csrfProtection.validateAjaxRequest` on all routes.",
+            "`csrfProtection.generateToken` for GET and `csrfProtection.validateRequest` for POST.",
+            "`server.middleware.csrf` on both GET and POST routes.",
+            "`security.enableCSRF()` on the POST route."
+        ],
+        "answer": [
+            "B"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "explanation": "Quy trình CSRF: GET sinh ra Token -> POST kiểm tra Token đó.",
+        "tip": "CSRF: Luôn chọn cặp 'generateToken' cho GET và 'validateRequest' cho POST.",
+        "answer_fixed": true
+    },
+    {
+        "id": 5,
+        "source": "Questions_20260403.md",
+        "question": "If a site's cartridge path is 'plugin_wishlist:app_custom:app_storefront_base', which 'ProductModel.js' is used if it exists in all three?",
+        "options": [
+            "All three are merged automatically.",
+            "The one in app_storefront_base.",
+            "The one in plugin_wishlist.",
+            "The one in app_custom."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: C. The one in plugin_wishlist.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Cartridge Path Precedence: Trái sang Phải. Thằng đầu tiên (leftmost) luôn thắng.",
+        "answer_fixed": true
+    },
+    {
+        "id": 6,
+        "source": "Questions_20260403.md",
+        "question": "In SFRA, what is the standard method for passing data from a Controller to an ISML template for rendering?",
+        "options": [
+            "Pass a JavaScript object as the second argument to 'res.render(templateName, dataObject)'.",
+            "Export the data directly from the controller's module.exports object.",
+            "Use the 'pdict.set(key, value)' method within the controller before calling the response.",
+            "Assign the data to the 'session.custom' object to make it globally available to the template."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Trong SFRA, lớp 'res' (Response) có phương thức 'render'. Khi bạn truyền một object vào đối số thứ hai, Salesforce sẽ tự động đưa các thuộc tính của object đó vào một biến toàn cục tên là 'pdict' (Pipeline Dictionary) bên trong file ISML. Nhờ đó, bạn có thể truy xuất dữ liệu trong HTML bằng cú pháp '${pdict.data}'.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Data Transfer -> Luôn chọn 'res.render' với đối số thứ hai. Hãy nhớ: Trong ISML, mọi dữ liệu được truyền từ Controller đều phải bắt đầu bằng tiền tố 'pdict.'."
+    },
+    {
+        "id": 7,
+        "source": "Questions_20260403.md",
+        "question": "What is the primary technical difference between 'server.get()' and 'server.append()' in the context of SFRA Controller extension?",
+        "options": [
+            "'server.get' defines a brand new route; 'server.append' adds additional middleware logic to the end of an existing route from another cartridge.",
+            "'server.get' is used exclusively for retrieving data (GET requests), while 'server.append' is used for creating new database records.",
+            "'server.get' is designed for standard page loads, whereas 'server.append' is optimized for handling background AJAX requests.",
+            "'server.append' is used to completely overwrite and replace the original route's logic in the cartridge path."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Trong SFRA, khi bạn muốn thêm tính năng vào một trang đã có (ví dụ: thêm một ô nhập liệu vào trang Product-Show), bạn dùng 'server.append'. Lệnh này cho phép logic gốc chạy xong, sau đó mới chạy đến code của bạn. Ngược lại, 'server.get' thường dùng khi bạn tạo một URL hoàn toàn mới cho trang web của mình.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Extend Route -> Luôn chọn 'append' (thêm vào cuối) hoặc 'prepend' (thêm vào đầu). New Route -> Chọn 'server.get' hoặc 'server.post'. Hãy nhớ: 'append' không thay thế code cũ, nó chỉ chạy tiếp nối."
+    },
+    {
+        "id": 8,
+        "source": "Questions_20260403.md",
+        "question": "How do you securely access HTTP Cookies in a B2C Script?",
+        "options": [
+            "Via `response.cookies`.",
+            "Via `session.getCookies()`.",
+            "Via `request.httpCookies`.",
+            "Using `document.cookie`."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: C. Via `request.httpCookies`.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Server-side Cookie -> Dùng request.httpCookies. document.cookie chỉ dùng ở phía Client (Browser).",
+        "answer_fixed": true
+    },
+    {
+        "id": 9,
+        "source": "Performance",
+        "question": "Why is it dangerous to store large objects in session.custom?",
+        "options": [
+            "It exposes data to XSS attacks.",
+            "It increases session size, degrading performance due to serialization overhead on every request.",
+            "It violates the api.MaxObjectCount quota.",
+            "It prevents the user from logging out."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "session.custom được lưu trữ trong cookie và được đồng bộ (serialize/deserialize) trong mọi request. Đối tượng quá lớn sẽ làm chậm tốc độ phản hồi của website.",
+        "tip": "Lỗi Session -> Luôn liên quan đến 'Serialization' hoặc 'Performance'."
+    },
+    {
+        "id": 10,
+        "source": "Questions_20260403.md",
+        "question": "In SFRA, how can a developer programmatically trigger a '410 (Gone)' status code for a product that has been permanently discontinued?",
+        "options": [
+            "Include the '<isstatus value=\"410\" />' tag within the product's ISML template.",
+            "Throw a 'new Error(410)' inside the controller to let the system handle it.",
+            "Use the 'res.setStatusCode(410)' method within the Controller before rendering the response.",
+            "Call 'res.redirect('410')' to send the user to a dedicated 410 error page."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Trong SFRA, đối tượng 'res' (Response) cung cấp phương thức 'setStatusCode' để ghi đè mã trạng thái HTTP mặc định (200). Khi xác định một sản phẩm không còn tồn tại và không có sản phẩm thay thế, việc đặt mã 410 giúp tối ưu SEO, báo hiệu cho các công cụ tìm kiếm gỡ bỏ URL này khỏi danh sách index nhanh hơn so với mã 404.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "HTTP Status Control -> Luôn dùng 'res.setStatusCode()'. Hãy nhớ: 404 là 'Không tìm thấy (có thể tạm thời)', 410 là 'Đã biến mất vĩnh viễn'. Đề thi thường hỏi về sự khác biệt này trong ngữ cảnh SEO."
+    },
+    {
+        "id": 11,
+        "source": "Questions_20260403.md",
+        "question": "What is a primary performance constraint regarding the 'res.viewData' object in SFRA?",
+        "options": [
+            "It is a standard JavaScript object used for data transport, but it must be kept lean to avoid excessive memory overhead during template rendering.",
+            "It is an immutable (read-only) object that can only be populated once by the initial controller function.",
+            "It is restricted by the platform to only store primitive data types like strings and numbers, excluding nested objects.",
+            "Any data assigned to 'res.viewData' is automatically persisted to the Salesforce database as a Custom Object."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Trong SFRA, 'res.viewData' là tập hợp dữ liệu sẽ được truyền vào 'pdict' trong ISML. Vì đối tượng này tồn tại trong RAM suốt vòng đời của request, việc đưa vào đó các đối tượng quá lớn (như toàn bộ Catalog hoặc hàng nghìn bản ghi) sẽ làm tiêu tốn bộ nhớ hệ thống (Heap space), dẫn đến chậm trang hoặc lỗi Quota.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "res.viewData/pdict -> Luôn chọn đáp án liên quan đến 'Lean/Memory overhead'. Hãy nhớ: Chỉ truyền những gì ISML thực sự cần hiển thị, đừng truyền thừa dữ liệu."
+    },
+    {
+        "id": 12,
+        "source": "Questions_20260403.md",
+        "question": "What is the standard approach for implementing multi-language support for error messages or labels within a B2C Commerce Controller?",
+        "options": [
+            "Utilize the 'dw.web.Resource.msg()' method to fetch strings from resource bundles (.properties files).",
+            "Maintain separate Controller files for each supported locale (e.g., account_en.js, account_fr.js).",
+            "Use the 'session.getLocale().translate()' method to dynamically convert hardcoded strings.",
+            "Store all translations in a central JSON object within the Controller script and select based on 'request.locale'."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Cơ chế Localization của Salesforce dựa trên các 'Resource Bundles' (tệp .properties). Khi bạn gọi 'Resource.msg()', hệ thống sẽ tự động tìm trong thư mục 'resources' của cartridge, chọn đúng tệp tương ứng với ngôn ngữ của session hiện tại (ví dụ: 'error_fr.properties' cho tiếng Pháp) để lấy giá trị văn bản phù hợp.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Multi-language/Localization -> Luôn chọn 'Resource.msg()'. Từ khóa đi kèm: '.properties files', 'Resource Bundles'. Hãy nhớ: Không bao giờ hardcode văn bản hiển thị trực tiếp trong Controller hoặc ISML."
+    },
+    {
+        "id": 13,
+        "source": "Questions_20260403.md",
+        "question": "In the SFRA architecture, which component is typically responsible for calculating and generating the data structure for 'Breadcrumbs'?",
+        "options": [
+            "The Global Site Preferences configured in Business Manager.",
+            "The Product or Search Model (using Decorators to extend base data).",
+            "The 'dw.web.URLUtils' class, which generates the links automatically.",
+            "The 'session.custom' object, which tracks the user's click path."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Để xây dựng Breadcrumbs, hệ thống cần biết cấu trúc cây thư mục (Category hierarchy) của sản phẩm hoặc kết quả tìm kiếm. Trong SFRA, logic này được đóng gói bên trong các Decorators (như 'searchBreadcrumbs.js' hoặc 'productBreadcrumbs.js'). Các Decorator này lấy đối tượng gốc và 'trang trí' thêm mảng dữ liệu breadcrumbs vào 'pdict' trước khi render ISML.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Breadcrumbs/UI Data Logic -> Luôn chọn 'Model' hoặc 'Decorator'. Hãy nhớ: SFRA tách biệt logic xử lý dữ liệu (Model) khỏi logic điều hướng (Controller) và hiển thị (ISML)."
+    },
+    {
+        "id": 14,
+        "source": "Questions_20260403.md",
+        "question": "Which method should a developer use to identify if a request is likely coming from a 'Search Engine Bot' or 'Crawler'?",
+        "options": [
+            "Access the system session property: 'session.isBot'.",
+            "Inspect the 'User-Agent' string via 'request.httpUserAgent'.",
+            "Evaluate the HTTP method using 'request.httpMethod === \"BOT\"'.",
+            "Invoke the system check: 'dw.system.Site.current.isCrawler()'."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Để nhận diện một request từ đâu tới, lập trình viên phải kiểm tra chuỗi 'User-Agent' trong Header của HTTP Request. Các bot như Googlebot hay Bingbot luôn gửi kèm một chuỗi định danh đặc thù trong 'request.httpUserAgent'. Dựa vào việc phân tích (parsing) chuỗi này, hệ thống có thể quyết định cách xử lý dữ liệu phù hợp.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Bot Detection -> Luôn là 'User-Agent'. Hãy nhớ: Salesforce không cung cấp một biến 'isBot' có sẵn, bạn phải tự thực hiện logic kiểm tra chuỗi văn bản trong Header."
+    },
+    {
+        "id": 15,
+        "source": "Questions_20260403.md",
+        "question": "What is the standard way to programmatically redirect a user to the Home Page from within an SFRA Controller function?",
+        "options": [
+            "Invoke 'server.route('Home-Show')' to pass control to the Home controller.",
+            "Use 'res.redirect(URLUtils.url('Home-Show'))' to send a 302 redirect header.",
+            "Call 'res.render('Home-Show')' to display the home page template directly.",
+            "Use 'window.location.href = \"/\"' to trigger a client-side redirection."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Trong SFRA, để điều hướng trình duyệt sang một trang khác, bạn phải thực hiện hai bước: 1. Sử dụng 'URLUtils.url()' để tạo ra một URL an toàn và đúng cấu trúc. 2. Sử dụng 'res.redirect()' để gửi phản hồi HTTP (mã 302) yêu cầu trình duyệt di chuyển tới URL đó. Cách tiếp cận này đảm bảo URL luôn được tạo chính xác dựa trên cấu hình Site và Locale.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Redirect -> Luôn tìm cặp bài trùng 'res.redirect' + 'URLUtils.url'. Hãy nhớ: 'res.render' chỉ hiển thị giao diện tại URL hiện tại, không làm thay đổi thanh địa chỉ của trình duyệt."
+    },
+    {
+        "id": 16,
+        "source": "Questions_20260403.md",
+        "question": "What is the strict platform limit for 'Script.MaxCallStackDepth' in Salesforce B2C Commerce?",
+        "options": [
+            "500 levels",
+            "50 levels",
+            "100 levels",
+            "Unlimited levels (dynamic memory allocation)"
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Hệ thống giới hạn độ sâu của ngăn xếp lệnh (Call Stack) là 100. Nếu một hàm tự gọi chính nó (đệ quy) hoặc một chuỗi các hàm gọi nhau vượt quá 100 lần mà chưa kết thúc, hệ thống sẽ ngay lập tức ném ra lỗi 'StackOverflowError' và dừng request để bảo vệ tài nguyên.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Call Stack Depth -> Nhớ con số '100'. Nếu bạn đang xử lý cấu trúc cây (như Category tree) quá sâu, hãy cân nhắc dùng vòng lặp (Iteration) thay vì đệ quy (Recursion) để tránh chạm giới hạn này."
+    },
+    {
+        "id": 17,
+        "source": "Questions_20260403.md",
+        "question": "To ensure optimal performance and avoid hitting execution limits, how should a developer query for Custom Objects in B2C Commerce?",
+        "options": [
+            "Use 'CustomObjectMgr.queryCustomObjects' with a Query String that filters by an Indexed Attribute.",
+            "Retrieve all records using 'CustomObjectMgr.getAllCustomObjects()' and filter the results using a JavaScript 'Array.filter()' loop.",
+            "Export the Custom Objects to an XML file using a Job and parse the file in the Controller.",
+            "Execute direct SQL 'SELECT' statements against the underlying database instance."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Truy vấn trực tiếp từ database luôn nhanh hơn việc lọc dữ liệu trong bộ nhớ (RAM). Tuy nhiên, để thực sự tối ưu, bạn phải lọc dựa trên các 'Indexed Attributes'. Nếu bạn query một thuộc tính không được đánh chỉ mục, hệ thống phải quét toàn bộ bảng (Full Table Scan), gây tốn tài nguyên và dễ dẫn đến lỗi Time-out nếu số lượng bản ghi lớn.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Query Custom Objects -> Luôn dùng 'queryCustomObjects' + 'Indexed Attribute'. Hãy nhớ: 'getAllCustomObjects' là 'thuốc độc' cho hiệu năng nếu số lượng bản ghi vượt quá vài trăm."
+    },
+    {
+        "id": 18,
+        "source": "Questions_20260403.md",
+        "question": "What is the immediate consequence when a developer attempts to exceed the 'Object.MaxCustomAttributes' quota for a specific System Object (e.g., Product or Profile)?",
+        "options": [
+            "The code deployment via UX Studio or Propel will fail immediately.",
+            "The system will automatically purge the oldest, least-used custom attributes to make space.",
+            "The entire storefront will crash and display a '500 Server Error' to all visiting customers.",
+            "The developer will be blocked from creating any new attribute definitions for that specific object type in Business Manager or via Metadata import."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Mỗi đối tượng trong Salesforce B2C Commerce (như Product, Order, SitePreferences) đều có một giới hạn tối đa về số lượng thuộc tính tùy chỉnh (Custom Attributes) có thể tạo thêm. Khi chạm ngưỡng này, Business Manager sẽ chặn nút 'New' hoặc quá trình Import Metadata sẽ báo lỗi. Điều này không làm sập trang web hiện tại nhưng ngăn cản việc mở rộng tính năng mới cho đến khi các thuộc tính cũ không dùng đến bị xóa bỏ.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Object Attribute Quota -> Đây là giới hạn về 'Định nghĩa' (Definition/Metadata), không phải giới hạn về 'Dữ liệu' (Data). Nó chỉ ảnh hưởng đến Developer/Admin trong Business Manager, không ảnh hưởng trực tiếp đến trải nghiệm người dùng cuối (Storefront)."
+    },
+    {
+        "id": 20,
+        "source": "Questions_20260403.md",
+        "question": "What is the primary purpose of the 'dw.system.Transaction.begin()' method in B2C Commerce Script?",
+        "options": [
+            "To signal the server to start rendering the ISML template to the browser.",
+            "To initiate a new HTTP request thread for handling parallel processing.",
+            "To manually start a database transaction when explicit control over commit and rollback is required.",
+            "To initialize a Service Framework configuration before making an external API call."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Trong Salesforce B2C Commerce, hầu hết các thao tác ghi dữ liệu (write) phải nằm trong một giao dịch. Trong khi 'Transaction.wrap()' tự động hóa việc này, 'Transaction.begin()' cho phép developer kiểm soát thủ công: bắt đầu một đơn vị công việc và sau đó tự quyết định khi nào sẽ gọi '.commit()' hoặc '.rollback()' dựa trên logic nghiệp vụ phức tạp.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Transaction.begin() -> Thủ công (Manual Control). Hãy nhớ: Nếu bạn dùng 'begin', bạn BẮT BUỘC phải có 'commit' hoặc 'rollback' đi kèm, nếu không dữ liệu sẽ không được lưu hoặc gây lỗi treo luồng (thread)."
+    },
+    {
+        "id": 21,
+        "source": "Questions_20260403.md",
+        "question": "How many price books can be active and assigned to a single site at the same time?",
+        "options": [
+            "A maximum of two: one designated as 'Regular' and one as 'Sale'.",
+            "Strictly only one active price book is allowed per site to prevent data conflicts.",
+            "Only one active price book per currency is supported by the platform.",
+            "Multiple price books can be active; they are evaluated based on their assigned priority in Business Manager."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Salesforce B2C Commerce cho phép gán nhiều bảng giá cho một Site. Khi một sản phẩm xuất hiện trong nhiều bảng giá đang hoạt động, hệ thống sẽ áp dụng bảng giá có thứ tự ưu tiên (Priority) cao nhất. Nếu ưu tiên bằng nhau, hệ thống thường chọn mức giá thấp nhất để đảm bảo quyền lợi cho khách hàng.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Price Books per Site -> Luôn chọn 'Multiple'. Từ khóa quan trọng: 'Priority' (Thứ tự ưu tiên). Hãy nhớ: Price Book có thể được kế thừa (Parent/Child) để quản lý giá hiệu quả hơn."
+    },
+    {
+        "id": 22,
+        "source": "Questions_20260403.md",
+        "question": "What is the technical difference between a 'System Quota' and a 'Service Configuration Limit' (like a Timeout) in B2C Commerce?",
+        "options": [
+            "There is no technical difference; they are interchangeable terms used in different versions of the documentation.",
+            "System Quotas restrict the physical database storage size, while Service Limits restrict the number of lines of code per cartridge.",
+            "System Quotas are only enforced on Sandbox instances, whereas Service Limits are strictly applied to Production environments.",
+            "System Quotas are hard, platform-enforced boundaries to ensure stability; Service Limits (e.g., Timeouts, Rate Limits) are configurable within the Service Framework."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "System Quotas (như api.MaxObjectCount) là các 'hàng rào' cứng do Salesforce thiết lập để ngăn một khách hàng làm ảnh hưởng đến hiệu năng của toàn bộ hạ tầng đám mây (Multi-tenant). Ngược lại, Service Limits (như Connection Timeout) là các thông số bạn có thể tùy chỉnh trong Business Manager để phù hợp với tốc độ phản hồi thực tế của đối tác tích hợp.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "System Quota -> Cứng (Hard), không thể sửa, dùng để bảo vệ Platform. Service Limit -> Mềm (Configurable), có thể sửa trong Business Manager để phù hợp với Integration."
+    },
+    {
+        "id": 23,
+        "source": "Questions_20260403.md",
+        "question": "How do you programmatically retrieve the value of a Custom Site Preference named 'myConfig' in a B2C Commerce script?",
+        "options": [
+            "By accessing the global session object: 'session.custom.myConfig'.",
+            "By calling the request helper: 'request.getPreference('myConfig')'.",
+            "By using the direct Site reference: 'Site.preferences.myConfig'.",
+            "By using the Site class: 'dw.system.Site.current.getCustomPreferenceValue('myConfig')'."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Trong Salesforce B2C Commerce, các cấu hình tùy chỉnh (Custom Site Preferences) được quản lý tập trung trong Business Manager. Để lấy giá trị của chúng trong code, bạn phải sử dụng lớp 'dw.system.Site'. Phương thức 'current' tham chiếu đến Site đang chạy, và 'getCustomPreferenceValue' sẽ trả về giá trị dựa trên ID mà bạn đã định nghĩa.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Custom Site Preference -> Luôn tìm đáp án có 'getCustomPreferenceValue'. Lưu ý: Nếu ID không tồn tại hoặc sai chính tả, phương thức này sẽ trả về 'null' thay vì ném ra lỗi."
+    },
+    {
+        "id": 25,
+        "source": "Questions_20260403.md",
+        "question": "How do you programmatically delete a persistent cookie from the user's browser in a B2C Commerce script?",
+        "options": [
+            "Execute the 'dw.system.Session.clearCookies()' method to wipe all session data.",
+            "Simply set the cookie's value to null in the 'dw.web.Cookie' object.",
+            "Call 'request.getHttpCookies().removeCookie(name)' to delete it from the incoming request.",
+            "Create a new 'dw.web.Cookie' with the same name, set its 'maxAge' to 0, and add it to the response object."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Để xóa một cookie, bạn phải gửi một bản sao của cookie đó về trình duyệt nhưng với thời gian sống (Max Age) bằng 0. Khi trình duyệt nhận được lệnh này qua header 'Set-Cookie', nó sẽ nhận ra cookie đã hết hạn và tự động xóa khỏi bộ nhớ lưu trữ tại máy khách.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Delete Cookie -> Luôn chọn 'Max Age = 0' + 'Add to Response'. Hãy nhớ: Server chỉ có thể yêu cầu trình duyệt xóa, chứ không tự xóa trực tiếp được."
+    },
+    {
+        "id": 26,
+        "source": "Questions_20260403.md",
+        "question": "Why is it highly recommended to use 'dw.svc.LocalServiceRegistry' instead of 'dw.net.HTTPClient' for external API integrations?",
+        "options": [
+            "The 'dw.net.HTTPClient' class is deprecated and strictly blocked on all Production environments for security reasons.",
+            "LocalServiceRegistry offers a standardized framework with integrated logging, performance monitoring, and automatic 'Circuit Breaker' logic.",
+            "'dw.net.HTTPClient' lacks support for modern encryption standards and cannot make secure HTTPS requests.",
+            "LocalServiceRegistry utilizes a proprietary protocol that executes network calls significantly faster than standard HTTP."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Service Framework cung cấp khả năng quản trị tập trung. Khi dùng framework này, bạn được hưởng lợi từ: 1. Circuit Breaker (tự động ngắt kết nối nếu đối tác bị lỗi để bảo vệ hệ thống); 2. Service Profiling (theo dõi độ trễ); 3. Quản lý thông tin đăng nhập tập trung trong Business Manager thay vì hardcode trong script.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Service Integration -> Luôn chọn 'LocalServiceRegistry'. Từ khóa cứu mạng: 'Circuit Breaker', 'Monitoring', 'Logging', 'Business Manager Configuration'."
+    },
+    {
+        "id": 27,
+        "source": "Questions_20260403.md",
+        "question": "What behavior does the 'api.MaxObjectCount' quota restrict in Salesforce B2C Commerce?",
+        "options": [
+            "It limits the total number of line items a customer is allowed to add to their shopping cart.",
+            "It limits the number of persistent business objects (e.g., Products, Orders) instantiated in memory during a single request.",
+            "It limits the maximum number of products that can be returned in the 'Hits' collection of a search result.",
+            "It restricts the total number of unique Custom Object definitions a developer can create in Business Manager."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Quota 'api.MaxObjectCount' (mặc định là 2000) giới hạn số lượng đối tượng nghiệp vụ được tải vào bộ nhớ trong một request duy nhất. Nếu bạn cố gắng truy xuất hoặc chỉnh sửa quá nhiều sản phẩm/đơn hàng trong một vòng lặp tại Storefront, hệ thống sẽ ném ra lỗi Quota để ngăn chặn việc tràn bộ nhớ (Heap space) hoặc làm chậm server.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "api.MaxObjectCount -> Luôn liên quan đến 'Instantiated Objects' và 'In a single request'. Hãy nhớ: Đây là giới hạn về bộ nhớ tạm thời khi xử lý, không phải giới hạn về tổng số bản ghi trong Database."
+    },
+    {
+        "id": 28,
+        "source": "Questions_20260403.md",
+        "question": "How can a developer best avoid database 'Deadlocks' in high-volume custom scripts?",
+        "options": [
+            "Disable the database locking mechanism in Site Preferences.",
+            "Wrap the entire Job in a single massive Transaction.",
+            "Ensure all scripts access and lock objects in the same order and keep transactions as short as possible.",
+            "Increase the number of application server instances to spread the load."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Để tránh Deadlock (khóa chết), quy tắc vàng là luôn truy cập và khóa các đối tượng theo một thứ tự cố định (ví dụ: luôn khóa Order trước rồi mới đến Custom Object) và đảm bảo transaction kết thúc nhanh nhất có thể.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed": true,
+        "tip": "Deadlock -> Luôn chọn 'Access in same order' và 'Keep transactions short'."
+    },
+    {
+        "id": 30,
+        "source": "Questions_20260403.md",
+        "question": "How can a developer programmatically trigger a full rebuild of the Product Search Index from within a Storefront Controller script?",
+        "options": [
+            "Update the search index status to 'Stale' using 'dw.catalog.SearchModel'.",
+            "Import the 'dw.catalog.SearchIndexMgr' class and execute the 'rebuildAll()' method.",
+            "Execute an OCAPI Data API call with a POST command to the '/search_indices' resource.",
+            "A full rebuild cannot be triggered directly from a Storefront script; it must be configured as a Job using the 'Search-Index' system step."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Việc rebuild index là một tiến trình tiêu tốn rất nhiều tài nguyên (Resource-intensive). Salesforce B2C Commerce cố tình không cung cấp API để chạy việc này trong Controller nhằm ngăn chặn rủi ro làm sập hệ thống nếu có nhiều request cùng gọi rebuild. Mọi thay đổi về Index phải được thực hiện thông qua Job Framework hoặc thao tác thủ công trong Business Manager.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Search Index Rebuild -> Luôn là 'Job' hoặc 'Business Manager'. Không bao giờ có chuyện gọi trực tiếp từ Controller (Script). Hãy nhớ: Controller chỉ dùng để hiển thị dữ liệu (Read), không dùng cho các tác vụ quản trị nặng (Admin tasks)."
+    },
+    {
+        "id": 31,
+        "source": "Questions_20260403.md",
+        "question": "In the Service Framework registry, what is the exact purpose of the 'createRequest' callback?",
+        "options": [
+            "It is where you define the URL path, headers, and request body for the outgoing call.",
+            "It handles the automatic retry logic for failed requests.",
+            "It parses the raw HTTP response into a JavaScript object.",
+            "It is used to configure the Circuit Breaker thresholds."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Hàm createRequest là bước đầu tiên trong Service Framework, dùng để thiết lập các thông số cần thiết (URL, header, payload) trước khi thực hiện gọi API.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed_v2": true,
+        "tip": "Vòng đời Service: createRequest (Chuẩn bị) -> execute (Gửi) -> parseResponse (Xử lý kết quả)."
+    },
+    {
+        "id": 32,
+        "source": "Questions_20260403.md",
+        "question": "How do you enable 'Mock Mode' for a specific Service to bypass external network calls and use simulated data?",
+        "options": [
+            "Delete the associated Service Credentials to force a failure state.",
+            "Add a 'mock': true property to the cartridge's 'package.json' file.",
+            "Programmatically call 'service.setMock(true)' within the 'createRequest' callback.",
+            "Enable the 'Mock Mode' setting within the Service's Profile configuration in Business Manager."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Để bật Mock Mode, developer hoặc admin không cần sửa code. Thay vào đó, bạn truy cập vào Business Manager > Administration > Operations > Services, tìm đến Service Profile tương ứng và tích vào ô 'Mock Mode'. Khi đó, hệ thống sẽ tự động gọi hàm 'mockFull' trong script thay vì gửi request thật đi.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Mock Mode Enable -> Luôn là thao tác 'Cấu hình' (Configuration) trong Business Manager. Nhớ: Lập trình viên viết hàm 'mockFull', nhưng Admin mới là người 'Bật/Tắt' nó qua giao diện."
+    },
+    {
+        "id": 33,
+        "source": "Questions_20260403.md",
+        "question": "When designing an OCAPI integration, what primarily dictates the choice of using a POST request instead of a GET request?",
+        "options": [
+            "POST requests have a higher processing priority and are faster for large catalog exports.",
+            "GET is for idempotent data retrieval; POST is used to create resources, update state, or perform sensitive actions like authentication.",
+            "POST is preferred for public storefront data because it offers better built-in caching at the web-tier.",
+            "GET is technically limited and cannot transmit complex nested JSON structures in the request header."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Trong kiến trúc OCAPI, GET được coi là một phương thức 'an toàn' (safe/idempotent), chỉ dùng để đọc dữ liệu mà không làm thay đổi trạng thái hệ thống. POST được dùng khi bạn muốn tạo mới một đối tượng (như tạo Giỏ hàng), thực hiện các hành động thay đổi dữ liệu, hoặc gửi thông tin nhạy cảm (như mật khẩu khi login) vì dữ liệu POST nằm trong body thay vì hiển thị trên URL.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "GET = Read-only (Lấy dữ liệu). POST = Create/Action (Tạo mới hoặc thực hiện lệnh). Hãy nhớ: Chỉ có GET mới được cache hiệu quả tại Web-tier.",
+        "answer_fixed": true
+    },
+    {
+        "id": 34,
+        "source": "Questions_20260403.md",
+        "question": "How do you securely authorize an OCAPI call coming from an external client, such as a custom Mobile App?",
+        "options": [
+            "Include a hidden 'security-token' input field within the mobile app's local storage.",
+            "Pass the Business Manager administrator credentials directly in the HTTP request header.",
+            "Configure OCAPI settings to 'Open Access' by disabling the 'client_id' requirement for all resources.",
+            "Obtain a JWT (JSON Web Token) using the 'customers/auth' resource and include it as a Bearer token in subsequent requests."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Để đảm bảo an ninh, Salesforce không cho phép dùng mật khẩu admin để gọi API từ bên ngoài. Thay vào đó, ứng dụng di động phải gửi thông tin đăng nhập đến OCAPI để đổi lấy một mã JWT. Mã này sau đó được đính kèm vào header của mọi yêu cầu (Request Header) để xác nhận danh tính người dùng và quyền hạn của ứng dụng (Client ID).",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "OCAPI Authorization/Mobile App -> Luôn chọn 'JWT' (JSON Web Token) hoặc 'Bearer Token'. Hãy nhớ: Client ID chỉ là định danh ứng dụng, còn JWT mới là 'chìa khóa' để truy cập dữ liệu."
+    },
+    {
+        "id": 35,
+        "source": "Questions_20260403.md",
+        "question": "In the context of OCAPI (Open Commerce API), what is the technical definition of a 'Hook'?",
+        "options": [
+            "A malicious mechanism designed to intercept and record plain-text user passwords during authentication.",
+            "A predefined execution point that allows developers to run custom scripts before or after a standard API resource call.",
+            "A server-side webhook that allows external systems to bypass standard OCAPI security and quota checks.",
+            "A permanent and irreversible modification to the core OCAPI resource schema definitions."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "OCAPI Hooks cho phép bạn can thiệp vào logic mặc định của Salesforce. Có 3 loại chính: 'before' (chạy trước khi tài nguyên được xử lý), 'after' (chạy sau khi có kết quả nhưng trước khi gửi về client), và 'modifyResponse' (dùng để thay đổi cấu trúc JSON trả về). Điều này giúp thêm các logic như kiểm tra tồn kho tùy chỉnh hoặc thêm các thuộc tính mở rộng (custom attributes) vào API.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "OCAPI Hook -> Luôn chọn 'Execution point' hoặc 'Before/After'. Hãy nhớ: Hook không thay đổi Core OCAPI, nó chỉ 'chen' thêm code của bạn vào luồng chạy hiện có."
+    },
+    {
+        "id": 36,
+        "source": "Questions_20260403.md",
+        "question": "What is the most secure and recommended way to store and pass an API Key to an external Service in B2C Commerce?",
+        "options": [
+            "Hardcode the key as a constant at the top of the Service script file for performance.",
+            "Save the key in a Custom Object named 'Secrets' and query it during the service call.",
+            "Store it in the 'Password' field of the Service Credentials configuration in Business Manager.",
+            "Pass it as a URL query parameter in the 'createRequest' callback for easy debugging."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Trong Salesforce B2C Commerce, 'Service Credentials' cung cấp một môi trường lưu trữ an toàn. Khi bạn lưu API Key vào trường Password, giá trị này sẽ được mã hóa và không bao giờ hiển thị dưới dạng văn bản thuần (plain text) trong Business Manager hay log. Script có thể truy cập nó một cách an toàn thông qua đối tượng 'credential'.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Security + API Key/Password -> Luôn chọn 'Service Credentials'. Tuyệt đối không lưu trong Code (Hardcode) hay Custom Object vì dễ bị lộ khi export dữ liệu hoặc truy cập code."
+    },
+    {
+        "id": 42,
+        "source": "Questions_20260403.md",
+        "question": "What is the operational implication of using a 'Local Include' (<isinclude template='...' />) in ISML?",
+        "options": [
+            "It executes asynchronously via JavaScript after the main page has finished loading.",
+            "It bypasses the SFRA controller logic and accesses the database directly for faster rendering.",
+            "It triggers a separate, independent HTTP request to the application server to fetch the fragment.",
+            "It executes in the same request thread and inherits the cache policy of the parent template."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Local Include hoạt động giống như việc bạn 'copy-paste' code từ template này vào template kia tại thời điểm biên dịch. Vì nó chạy cùng một luồng (thread) với trang cha, nó sẽ dùng chung bộ nhớ và quan trọng nhất là dùng chung cấu hình Cache (Page Caching). Nếu trang cha không được cache, phần include này cũng vậy.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Local Include -> Cùng Thread, cùng Cache Policy. Remote Include -> Khác Thread, có Cache Policy riêng. Hãy chọn 'D' nếu đề bài nhắc đến việc dùng chung tài nguyên với trang cha."
+    },
+    {
+        "id": 44,
+        "source": "Questions_20260403.md",
+        "question": "How do you implement a Webhook listener in B2C Commerce to receive updates from an external ERP?",
+        "options": [
+            "Register a new Hook in hooks.json pointing to an external URL.",
+            "Create a public Controller route that parses the incoming JSON payload and triggers logic based on the data.",
+            "Use the 'WebDAV' protocol to receive files directly into the ERP folder.",
+            "Webhooks are not supported; you must poll the external system using a Job."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Trong SFCC, để nhận Webhook, bạn tạo một Controller route (ví dụ: `Webhook-Notify`). Hệ thống bên ngoài sẽ gọi vào URL này qua POST để gửi dữ liệu.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 45,
+        "source": "Questions_20260403.md",
+        "question": "When debugging site performance, what is the primary benefit of using the 'Service Profiling' tool in Business Manager?",
+        "options": [
+            "It helps identify which specific external API integrations (Services) are introducing latency and slowing down the request/response flow.",
+            "It provides an automated engine that optimizes slow service calls without requiring developer code changes.",
+            "It focuses exclusively on analyzing the rendering performance of the frontend User Interface (CSS/JS).",
+            "It is limited to tracking internal database queries and cannot monitor calls to external REST/SOAP APIs."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Service Profiling cho phép bạn theo dõi thời gian thực thi của từng Service được đăng ký trong Service Framework. Nó hiển thị các số liệu như: thời gian phản hồi trung bình, số lượng cuộc gọi, và tỷ lệ lỗi. Điều này giúp developer biết chính xác liệu trang web chậm là do lỗi code nội bộ hay do API của bên thứ ba (như cổng thanh toán, đơn vị vận chuyển) phản hồi chậm.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Performance/Latency + Service -> Luôn chọn 'Identify slow API/Integration'. Hãy nhớ: Profiler là để chẩn đoán (Diagnostic), không phải để tự động sửa lỗi (Optimization)."
+    },
+    {
+        "id": 48,
+        "source": "Questions_20260403.md",
+        "question": "How do you define custom parameters (such as a 'File Path' or 'Export Mode') that can be passed from the Business Manager UI into a Scripted Job Step?",
+        "options": [
+            "Declare them within the 'package.json' file of the cartridge containing the job logic.",
+            "Define the parameters within the 'steptypes.json' file located in the 'metadata/' folder of your cartridge.",
+            "Custom parameters are not supported; they must be hardcoded as constants in the JavaScript file.",
+            "Store them as System Environment Variables through the Control Center interface."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "File 'steptypes.json' đóng vai trò là một manifest (bản khai báo). Nó định nghĩa các 'input-parameters' (kiểu dữ liệu, tên, giá trị mặc định). Khi file này được tải lên, Business Manager sẽ tự động tạo ra các ô nhập liệu tương ứng trong giao diện cấu hình Job Step cho người dùng.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "BM UI <-> Scripted Job Step -> Cầu nối duy nhất là 'steptypes.json'. Mọi tham số (parameters) muốn hiển thị trên giao diện đều phải khai báo ở đây."
+    },
+    {
+        "id": 49,
+        "source": "Questions_20260403.md",
+        "question": "Why must a developer use the 'dw.io.XMLStreamWriter' class instead of concatenating a massive XML string for large catalog exports?",
+        "options": [
+            "Because standard JavaScript strings in B2C Commerce cannot store XML-specific tags or characters.",
+            "To ensure the resulting XML output is automatically minified and optimized for external systems.",
+            "To leverage the built-in encryption methods available only within the XMLStreamWriter class.",
+            "To stream data directly to the file system, thereby avoiding the memory quotas and performance degradation that massive string concatenation would trigger."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Trong Salesforce B2C Commerce, mỗi request/job đều có giới hạn bộ nhớ (Memory Quota). Việc nối chuỗi (String concatenation) cho hàng nghìn sản phẩm sẽ tạo ra một đối tượng khổng lồ trong RAM, dễ dẫn đến lỗi 'Quota Exceeded'. XMLStreamWriter đẩy dữ liệu trực tiếp vào file trên ổ cứng theo từng phần nhỏ (chunk), giữ cho lượng RAM tiêu thụ luôn ở mức thấp và ổn định.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Dữ liệu lớn (Large/Massive) + Xuất file (Export) -> Luôn chọn 'Streaming' hoặc 'XMLStreamWriter/CSVStreamWriter'. Đây là giải pháp để vượt qua giới hạn bộ nhớ (Memory Quota)."
+    },
+    {
+        "id": 50,
+        "source": "Questions_20260403.md",
+        "question": "What is a common cause for a 'Catalog Replication' task to fail when moving data from Staging to Production?",
+        "options": [
+            "A developer failed to clear the browser cache on the Production instance before starting.",
+            "The Production instance hit a physical disk space limit during the file transfer process.",
+            "Data integrity issues such as locked objects on Production or invalid category assignments (e.g., cycles).",
+            "Replication is a manual process that requires the Production instance to be in 'Maintenance Mode'."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Quá trình Replication yêu cầu tính toàn vẹn dữ liệu cực cao. Nếu một bản ghi đang bị một tiến trình khác (như Job) khóa trên Production, hoặc nếu dữ liệu trên Staging vi phạm quy tắc hệ thống (ví dụ: Danh mục cha được gán ngược làm con của danh mục con - Category Cycle), hệ thống sẽ từ chối sao chép để bảo vệ Production.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Replication Failure -> Luôn tìm lỗi liên quan đến 'Data Integrity', 'Locked Objects' hoặc 'Category Cycles'. Tuyệt đối không chọn Cache hay Disk Space."
+    },
+    {
+        "id": 51,
+        "source": "Questions_20260403.md",
+        "question": "What is the functional purpose of the 'A/B Testing' feature natively built into the Salesforce B2C Commerce platform?",
+        "options": [
+            "To test the throughput and performance limits of custom API endpoints under heavy load.",
+            "To provide an automated debugging environment for fixing JavaScript errors on the storefront frontend.",
+            "To present different content, site layouts, or promotions simultaneously to segmented groups of traffic to measure which version performs better in terms of conversion or revenue.",
+            "To allow developers to safely perform backup and restore operations for the system configuration files."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "A/B Testing trong B2C Commerce là một công cụ kinh doanh (Business Tool). Nó cho phép chia luồng khách hàng vào các nhóm khác nhau (Control Group và Test Groups) để hiển thị các biến thể khác nhau của website (ví dụ: Banner A vs Banner B). Hệ thống sẽ theo dõi hành vi mua hàng để báo cáo biến thể nào mang lại doanh thu cao hơn.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "A/B Testing -> Luôn liên quan đến 'Conversion', 'Segmented traffic' và 'Business Optimization'. Đừng nhầm với Technical Testing (Unit Test, Load Test)."
+    },
+    {
+        "id": 52,
+        "source": "Questions_20260403.md",
+        "question": "How can a developer programmatically determine which specific promotion triggered a discount on a product already added to the basket?",
+        "options": [
+            "Query the PromotionMgr class to find the lowest potential price for the product.",
+            "Call the getPromotions() method on the Product object to see all active campaigns.",
+            "Check the session.custom.promo object for a list of applied coupon codes.",
+            "Iterate through the lineItem.priceAdjustments collection and inspect the promotionID property of each adjustment."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Trong Salesforce B2C Commerce, khi một khuyến mãi được áp dụng vào một mặt hàng trong giỏ hàng, hệ thống sẽ tạo ra một đối tượng 'PriceAdjustment'. Để biết chính xác khuyến mãi nào đã gây ra việc giảm giá, developer phải truy cập vào thuộc tính 'priceAdjustments' của Line Item đó và đọc 'promotionID'.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Xác định khuyến mãi ĐÃ ÁP DỤNG -> Luôn tìm trong 'PriceAdjustments'. Các hàm getPromotions() trên Product chỉ cho biết các khuyến mãi CÓ THỂ áp dụng, không phải cái đã thực sự chạy.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 53,
+        "source": "Questions_20260403.md",
+        "question": "How is an XML 'Sitemap' generated for search engines in B2C Commerce?",
+        "options": [
+            "A developer must write a custom script using XMLStreamWriter.",
+            "It is generated automatically on a schedule via the Sitemap Job configuration in Merchant Tools.",
+            "It is created manually by exporting the Product Catalog and renaming the file.",
+            "Google automatically generates it by crawling the storefront home page."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "B2C Commerce có sẵn tính năng tạo Sitemap. Bạn chỉ cần cấu hình tần suất và nội dung trong Merchant Tools > SEO > Sitemaps, hệ thống sẽ chạy Job tự động.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 54,
+        "source": "Questions_20260403.md",
+        "question": "What is the standard architectural pattern for implementing 'Infinite Scroll' on a Product Listing Page (PLP) in SFRA?",
+        "options": [
+            "Fetch all 10,000+ products on the first page load and use CSS 'display: none' to hide them.",
+            "Use a JavaScript redirect to force the browser to load the next full page automatically when scrolling.",
+            "Implement an OCAPI call to fetch product JSON data and render the tiles using a client-side framework like React or Vue.",
+            "Use an AJAX call to a Controller route that renders a partial ISML template (product tiles only) and appends the returned HTML to the existing DOM."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Trong kiến trúc SFRA tiêu chuẩn, Infinite Scroll được thực hiện bằng cách gửi một yêu cầu AJAX đến controller (thường là Search-Show) với tham số 'start' và 'sz'. Server sẽ xử lý và chỉ render một đoạn mã HTML nhỏ (partial template chứa các ô sản phẩm) thay vì toàn bộ trang. JavaScript ở phía trình duyệt sẽ nhận đoạn HTML này và đính thêm (append) vào danh sách hiện tại.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Infinite Scroll/Load More -> Trong SFRA mặc định là 'AJAX + Partial ISML rendering'. Tránh chọn JSON/React trừ khi đề bài nhắc cụ thể đến Headless Commerce."
+    },
+    {
+        "id": 55,
+        "source": "Questions_20260403.md",
+        "question": "What is the purpose of a 'Profile Wrapper' (or similar Mock Wrappers) often used in SFRA Unit Tests?",
+        "options": [
+            "It encrypts the customer's sensitive data before it is saved to the production database.",
+            "It establishes a secure connection to the Staging instance to fetch real test data.",
+            "It acts as a mock object to simulate the behavior of a Customer Profile without requiring a database connection or a real session.",
+            "It is a mandatory middleware that manages all secure payment gateways during the testing phase."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Trong Unit Testing, chúng ta muốn kiểm tra logic của hàm một cách độc lập. Vì API của Salesforce B2C Commerce (dw.customer.Profile) chỉ chạy được trên server thật, developer sử dụng 'Wrapper' để tạo ra các đối tượng giả (Mock). Điều này giúp bài test chạy nhanh hơn và không phụ thuộc vào dữ liệu thật trong Database.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Unit Test + Wrapper/Mock -> Luôn nhằm mục đích 'Simulate' (mô phỏng) và 'Isolation' (cô lập) code khỏi Platform API/Database."
+    },
+    {
+        "id": 56,
+        "source": "Questions_20260403.md",
+        "question": "How do you ensure 'Thread Safety' when writing a complex background Job?",
+        "options": [
+            "Wrap all code in a single transaction.",
+            "Avoid using globally scoped variables that might be read or modified unpredictably by parallel executing threads.",
+            "Always use 'require' inside the loop to ensure fresh instances of modules.",
+            "The platform handles all thread safety automatically for custom scripts."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Khi chạy Job song song (Parallel), việc dùng biến Global có thể dẫn đến việc các thread ghi đè dữ liệu của nhau. Phải sử dụng biến cục bộ (Local scope) để đảm bảo an toàn.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed": true,
+        "tip": "Thread Safety -> Tuyệt đối không dùng 'Global variables'. Phải dùng biến cục bộ (local scope)."
+    },
+    {
+        "id": 57,
+        "source": "Questions_20260403.md",
+        "question": "Which B2C Script API class is the primary engine for executing search queries, sorting, and facet filtering on the storefront?",
+        "options": [
+            "dw.catalog.ProductSearchModel",
+            "dw.system.IndexMgr",
+            "dw.catalog.ProductMgr",
+            "dw.util.SearchCriteria"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Trong Salesforce B2C Commerce, 'dw.catalog.ProductSearchModel' là lớp quan trọng nhất để xử lý tìm kiếm. Nó cho phép thiết lập các tham số tìm kiếm (search phrase), bộ lọc (refinements/facets), và thứ tự sắp xếp (sorting), sau đó thực thi truy vấn để lấy danh sách sản phẩm.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Search Engine/Facets trên Storefront -> Luôn là 'ProductSearchModel'. 'ProductMgr' chỉ dùng để lấy một sản phẩm cụ thể qua ID, không dùng để tìm kiếm hàng loạt theo bộ lọc.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 59,
+        "source": "Questions_20260403.md",
+        "question": "What is the function of a 'Custom Cache Key' when dealing with Remote Includes?",
+        "options": [
+            "It forces the browser to ignore the local cache.",
+            "It encrypts the cache file on the server.",
+            "It is a URL parameter added to ensure different contextual versions of a component are cached separately (e.g., ?currency=EUR).",
+            "It identifies the specific code version used to render the template."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Custom Cache Key giúp tách biệt cache cho các ngữ cảnh khác nhau. Ví dụ: Mini-cart cần cache riêng cho từng khách hàng hoặc từng loại tiền tệ.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 60,
+        "source": "Questions_20260403.md",
+        "question": "How should a developer handle 'Global Errors' (e.g., unhandled 500 exceptions) in an SFRA project to ensure a professional user experience?",
+        "options": [
+            "Use Business Manager to set up a global 301 redirect for all 500 errors to the Homepage.",
+            "Implement a global try/catch block around every function call in all controllers manually.",
+            "Customize the 'Error.js' controller in a custom cartridge to catch unhandled exceptions and render a user-friendly error or maintenance ISML template.",
+            "Disable the default error handling settings in Site Preferences to show raw stack traces for easier debugging in Production."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Trong SFRA, khi một ngoại lệ (exception) không được xử lý xảy ra, hệ thống sẽ tự động gọi đến controller 'Error-Start' (mặc định nằm trong Error.js). Bằng cách override controller này trong cartridge tùy chỉnh, developer có thể kiểm soát nội dung hiển thị (trang 'Oops' thân thiện) và ghi log lỗi một cách tập trung.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Global Error/Unhandled Exception -> Luôn xử lý tại 'Error.js' Controller. Đây là 'tuyến phòng thủ cuối cùng' của SFRA trước khi người dùng thấy màn hình trắng hoặc lỗi mặc định của server.",
+        "answer_fixed": true
+    },
+    {
+        "id": 61,
+        "source": "Questions_20260403.md",
+        "question": "A developer needs to implement a custom 'Inventory Reservation' system using Custom Objects. To prevent race conditions where two customers claim the last item simultaneously, which approach is mandatory?",
+        "options": [
+            "Wrap the update in a Transaction and use the 'locking' parameter (true) in the getCustomObject or query call.",
+            "Use optimistic locking by manually comparing a version field before each update.",
+            "Rely on standard database unique constraints to prevent duplicate reservation entries.",
+            "Implement client-side JavaScript validation to disable the purchase button once inventory is low."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Trong B2C Commerce, để ngăn chặn tình trạng hai tiến trình cùng sửa đổi một bản ghi đồng thời (Race Condition), bạn phải sử dụng 'Pessimistic Locking'. Điều này thực hiện bằng cách bọc code trong Transaction và truyền tham số 'true' vào các hàm lấy đối tượng (như getCustomObject). Khi đó, hệ thống sẽ khóa bản ghi này cho đến khi giao dịch kết thúc, buộc các tiến trình khác phải chờ.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Race Condition/Simultaneously/Reservation -> Từ khóa cứu mạng là 'Transaction' + 'Locking parameter'. Lưu ý: Platform mặc định không tự khóa đối tượng trừ khi bạn yêu cầu.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 63,
+        "source": "Questions_20260403.md",
+        "question": "When configuring an OCAPI 'before' hook for a 'POST' request (e.g., beforePOST), how can a developer modify the incoming request body data before it is processed by the standard resource logic?",
+        "options": [
+            "Use a 'Remote Include' to intercept and transform the JSON payload.",
+            "It is impossible to modify the request body; hooks are limited to validation and error returning.",
+            "Use the setHttpBody() method on the global request object within the hook script.",
+            "Modify the properties of the argument object (script parameter) passed directly into the hook function."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Trong cơ chế OCAPI Hooks, Salesforce truyền một đối tượng vào hàm hook (thường đặt tên là doc hoặc object). Bằng cách thay đổi các thuộc tính của đối tượng này bên trong hàm 'before', dữ liệu đã chỉnh sửa sẽ được chuyển tiếp đến logic xử lý tài nguyên tiêu chuẩn thay vì dữ liệu gốc từ khách hàng.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Modify OCAPI Data in Hook -> Luôn chọn 'Modify argument/parameter object'. Hãy nhớ: global request object là read-only đối với payload.",
+        "answer_fixed": true
+    },
+    {
+        "id": 65,
+        "source": "Questions_20260403.md",
+        "question": "To implement a complex SEO requirement where the Product URL must include the parent category name, which area or file should be primarily extended or configured?",
+        "options": [
+            "The 'Search.js' controller to modify the route parameters.",
+            "The 'Product.isml' template using hardcoded URL strings.",
+            "Configure 'Search Engine Optimization > Library > URL Rules' in Business Manager.",
+            "Extend the 'URLUtils.js' helper script to override product URL generation logic."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Trong Salesforce B2C Commerce, cấu trúc URL (SEO URLs) cho sản phẩm và danh mục được quản lý tập trung thông qua hệ thống 'URL Rules' trong Business Manager. Tại đây, bạn có thể định nghĩa các quy tắc để tự động bao gồm tên danh mục cha vào đường dẫn sản phẩm mà không cần viết thêm code script phức tạp.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "SEO URL / Category in URL -> Luôn tìm đáp án liên quan đến 'URL Rules' trong Business Manager. Đây là cấu hình khai báo (Declarative), không phải mở rộng code controller.",
+        "answer_fixed": true
+    },
+    {
+        "id": 66,
+        "source": "Questions_20260403.md",
+        "question": "What is the specific risk or outcome of using 'Transaction.wrap()' inside a loop that iterates over thousands of items in B2C Commerce Script?",
+        "options": [
+            "It automatically triggers a Site Maintenance mode to protect the database.",
+            "It results in an 'IllegalStateException' because nested transactions are not allowed if a transaction is already active.",
+            "It causes a 'Script.MaxCallStackDepth' violation due to excessive function wrapping.",
+            "It leads to severe performance degradation and potential 'Transaction Limit Exceeded' errors due to excessive committing."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Mặc dù đáp án B nói về IllegalStateException là một lỗi phổ biến khi dùng sai Transaction, nhưng rủi ro 'đặc thù' khi bỏ vào vòng lặp hàng nghìn item là việc commit dữ liệu liên tục. Điều này gây áp lực cực lớn lên Database IO và dễ dàng vượt quá giới hạn 'Max Transaction' của platform, gây treo hệ thống hoặc lỗi hiệu năng nghiêm trọng.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Giao dịch (Transaction) + Vòng lặp (Loop) -> Luôn là rủi ro về Hiệu năng (Performance) và Giới hạn (Limits). Hãy đưa Transaction ra ngoài vòng lặp (wrap cả vòng lặp) để tối ưu.",
+        "answer_fixed": true
+    },
+    {
+        "id": 67,
+        "source": "Questions_20260403.md",
+        "question": "A developer needs to share a 'Wishlist' across two different sites (SiteA and SiteB) within the same Realm/Organization. What is the most efficient architectural approach?",
+        "options": [
+            "It is impossible as sites have strictly isolated databases for all customer data.",
+            "Use Custom Objects and set their storage scope to 'Global' (Organization) level.",
+            "Store wishlist data within the Customer Profile, as Profiles are shared across sites within the same Organization.",
+            "Implement a cross-site Service call to sync data using the OCAPI Data API."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Trong Salesforce B2C Commerce, Customer Profile là đối tượng ở cấp độ Organization. Do đó, bất kỳ dữ liệu nào (bao gồm thuộc tính tùy chỉnh) được lưu trên Profile đều có thể truy cập được từ bất kỳ Site nào thuộc Organization đó, giúp việc chia sẻ Wishlist trở nên hiệu quả nhất.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Chia sẻ dữ liệu giữa các Site -> Nghĩ ngay đến 'Customer Profile'. Hầu hết các đối tượng khác (Order, Product, Custom Object) mặc định đều bị tách biệt theo Site.",
+        "answer_fixed": true
+    },
+    {
+        "id": 68,
+        "source": "Questions_20260403.md",
+        "question": "In the Service Framework registry, if 'mockMode' is enabled for a service, which callback function is executed instead of making an actual network call?",
+        "options": [
+            "mockFull",
+            "getMockData",
+            "handleMock",
+            "Neither; the service returns a predefined static response from Business Manager."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Khi bật Mock Mode trong Service Profile (Business Manager), platform sẽ bỏ qua các hàm 'createRequest' và 'execute'. Thay vào đó, nó sẽ chạy hàm 'mockFull' được định nghĩa trong Service Registry để trả về dữ liệu giả lập (mock data) ngay lập tức.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Mock Mode -> Chạy hàm 'mockFull'. Hãy nhớ: Mock không gửi request đi, nó chỉ lấy kết quả 'giả' bạn viết sẵn trong code.",
+        "answer_fixed": true
+    },
+    {
+        "id": 69,
+        "source": "Questions_20260403.md",
+        "question": "Why would a developer use 'dw.system.Logger.getRootLogger()' instead of 'dw.system.Logger.getLogger('name')'?",
+        "options": [
+            "To ensure logs are sent to an external syslog server automatically.",
+            "To capture all log statements across the entire system regardless of the category.",
+            "To filter logs to only show errors and warnings.",
+            "To improve logging performance by using a single logger instance."
+        ],
+        "answer": [
+            "B"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "Root Logger là logger cấp cao nhất, nó ghi nhận mọi thông tin log mà không bị giới hạn bởi các category cụ thể được định nghĩa trong Business Manager.",
+        "tip": "Root Logger = 'Cái rây' lớn nhất. Dùng khi muốn bắt mọi thứ đang diễn ra trong hệ thống mà không quan tâm phân loại.",
+        "answer_fixed": true
+    },
+    {
+        "id": 70,
+        "source": "Questions_20260403.md",
+        "question": "What is the impact of setting 'pdict.cacheTag = true' in an SFRA controller?",
+        "options": [
+            "It invalidates the cache for all users globally.",
+            "It automatically adds the product ID to the cache key.",
+            "It is not a standard SFRA feature; caching is controlled via the 'res' object.",
+            "It enables browser-side caching only."
+        ],
+        "answer": [
+            "C"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "Trong SFRA, việc quản lý cache đã được chuyển sang đối tượng middleware 'res' (ví dụ: res.cacheExpiration). 'pdict.cacheTag' là một tàn dư hoặc tính năng không chính thống của bộ máy Pipeline cũ.",
+        "tip": "SFRA Cache -> Luôn tìm đối tượng 'res'. Mọi thứ liên quan đến pdict.cache... thường là 'bẫy' từ thời SiteGenesis.",
+        "answer_fixed": true
+    },
+    {
+        "id": 71,
+        "source": "Questions_20260403.md",
+        "question": "When developing a 'Scripted' Job Step, what is the purpose of the 'steptypes.json' file?",
+        "options": [
+            "To compile the JavaScript code into optimized machine code.",
+            "To define the sequence in which different jobs are executed.",
+            "To register the custom step and define its input/output parameters for Business Manager.",
+            "To store job execution logs and audit trails."
+        ],
+        "answer": [
+            "C"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "steptypes.json đóng vai trò như một bản khai báo (manifest) để Business Manager biết Job Step đó có những đầu vào (input) nào để người dùng có thể cấu hình trong giao diện.",
+        "tip": "Job Parameter -> Phải nằm trong 'steptypes.json'. Đây là cầu nối giữa Code và UI của Business Manager.",
+        "answer_fixed": true
+    },
+    {
+        "id": 72,
+        "source": "Questions_20260403.md",
+        "question": "If a developer uses 'URLUtils.staticURL()' to link to an image, when will that link be updated in the user's browser?",
+        "options": [
+            "Every time the user clears their browser cookies.",
+            "When the Search Index is rebuilt.",
+            "Only when the cartridge containing the asset is uploaded with a new version string.",
+            "Every time the user visits the page (no caching)."
+        ],
+        "answer": [
+            "C"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "staticURL tạo ra đường dẫn chứa version của code. Trình duyệt dựa vào version này để quyết định tải mới hay dùng bản cũ trong cache.",
+        "tip": "staticURL = Caching vĩnh viễn cho đến khi đổi Code Version. Muốn đổi ảnh ngay? -> Đổi Code Version.",
+        "answer_fixed": true
+    },
+    {
+        "id": 19,
+        "source": "Questions_20260403.md",
+        "question": "If a custom requirement dictates storing an Array of complex objects on a Customer Profile, what is the best practice?",
+        "options": [
+            "Stringify the array to JSON and store it in a 'Text' or 'Long String' attribute.",
+            "Create multiple custom objects for each array element.",
+            "Store each object as a separate attribute (e.g., attr1, attr2).",
+            "Use session.custom to store the array permanently."
+        ],
+        "answer": [
+            "A"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "Vì System Object không hỗ trợ mảng phức tạp, cách duy nhất để lưu trữ lâu dài là biến chúng thành chuỗi JSON và lưu vào thuộc tính String.",
+        "tip": "Complex Data + Profile -> Giải pháp luôn là JSON.stringify vào một 'Long String'.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 24,
+        "source": "Questions_20260403.md",
+        "question": "What is the maximum length of a standard 'String' attribute in B2C Commerce?",
+        "options": [
+            "255 characters.",
+            "2,000 characters.",
+            "4,000 characters.",
+            "Unlimited."
+        ],
+        "answer": [
+            "C"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "Đây là giới hạn vật lý của platform cho kiểu dữ liệu String. Nếu vượt quá, dữ liệu sẽ bị cắt cụt.",
+        "tip": "Ghi nhớ con số 4000. Nếu đề bài nói cần lưu nhiều hơn -> Phải dùng kiểu 'Text'.",
+        "answer_fixed": true
+    },
+    {
+        "id": 29,
+        "source": "b2c_dev_exam_set12.md",
+        "question": "A developer needs to modify the standard pricing or tax calculation logic without modifying the base SFRA controllers. Which mechanism should be used? (Select one)",
+        "options": [
+            "Implement custom logic using Pricing and Tax Hook extension points.",
+            "Modify the component attributes within Page Designer.",
+            "Configure Dynamic URL Rules in Business Manager.",
+            "Create a new Site Preference to toggle the default pricing engine."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Salesforce cung cấp các 'Hook' hệ thống (ví dụ: dw.ocapi.shop.basket.calculate). Khi bạn đăng ký một script vào hook này, hệ thống sẽ ưu tiên chạy code của bạn để tính toán lại giá sản phẩm, chiết khấu hoặc thuế mỗi khi giỏ hàng được cập nhật, thay vì sử dụng logic mặc định.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Modify Calculation Logic/No Controller Edit -> Luôn nghĩ đến 'Hooks'. Đây là cách an toàn nhất để nâng cấp dự án (Upgrade-friendly) vì nó giữ cho code nhân (core) luôn sạch sẽ."
+    },
+    {
+        "id": 37,
+        "source": "b2c_dev_exam_set12.md",
+        "question": "To allow an external application to manage baskets via OCAPI Shop API, which two steps must a developer perform in Business Manager? (Select two)",
+        "options": [
+            "Configure the OCAPI 'Shop' permissions in Business Manager, specifying the 'baskets' resource and allowed methods.",
+            "Map the specific Client ID (Client Credentials) to the OCAPI permission settings for the desired site.",
+            "Create and activate a new code version containing the OCAPI hooks for basket calculation.",
+            "Add a Page Designer (PD) component to the storefront to initialize the OCAPI session handler."
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Để OCAPI hoạt động, bạn cần hai thành phần: 1. Khai báo quyền (Permissions) trong Business Manager để chỉ định API nào được phép chạy (ví dụ: POST/GET trên /baskets). 2. Gán quyền đó cho một Client ID cụ thể (đã tạo trong Account Manager) để hệ thống biết ứng dụng nào đang thực hiện yêu cầu.",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "OCAPI Setup -> 1. Resources/Methods (JSON config) + 2. Client ID Mapping. Hãy nhớ: OCAPI là cấu hình (Configuration), không phải là Code Version."
+    },
+    {
+        "id": 38,
+        "source": "b2c_dev_exam_set12.md",
+        "question": "A nightly job imports inventory and reindexes search. Typical steps: (Select two)",
+        "options": [
+            "Script step to import inventory",
+            "System step to trigger delta/full index",
+            "Disable CSRF",
+            "Restart instances"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "explanation": "Quy trình chuẩn cho việc cập nhật dữ liệu: 1. Import dữ liệu thô (Script) -> 2. Cập nhật bộ máy tìm kiếm (System step).",
+        "tip": "Combo 'Nightly Job': 1 Script (Import) + 1 System (Index). Không bao giờ cần Restart server cho Jobs.",
+        "answer_fixed": true
+    },
+    {
+        "id": 39,
+        "source": "b2c_dev_exam_set12.md",
+        "question": "When configuring Data Import Jobs, which two inbound folders within the IMPEX directory are commonly used for storing source files? (Select two)",
+        "options": [
+            "/src/ (Global source folder)",
+            "/src/instance/ (Instance-specific source folder)",
+            "/versioned/cartridges/ (Folder for code deployment)",
+            "/static/default/ (Folder for storefront static assets)"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Trong cấu trúc thư mục của Salesforce B2C Commerce, thư mục 'IMPEX' là nơi duy nhất dành cho việc xuất nhập dữ liệu. Thư mục '/src/' được dùng chung cho các tệp nguồn, trong khi '/src/instance/' cho phép bạn tách biệt dữ liệu theo từng instance cụ thể (như Staging hoặc Development) để tránh nhầm lẫn.",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Data Import/Export -> Luôn luôn nằm trong '/impex/'. Thư mục chứa file nguồn để Import luôn bắt đầu bằng '/src/'. Hãy nhớ: Tuyệt đối không để dữ liệu nghiệp vụ vào thư mục Cartridge hoặc Static."
+    },
+    {
+        "id": 40,
+        "source": "b2c_dev_exam_set12.md",
+        "question": "Import job collisions occur. Which two mitigations help? (Select two)",
+        "options": [
+            "Retry with exponential backoff",
+            "Coordinate schedules/locks (serialize)",
+            "Add TRACE logs only",
+            "Run as a controller route"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "explanation": "Xung đột tài nguyên cần được xử lý bằng cách: Thử lại (Retry) hoặc đảm bảo tính tuần tự (Serialization/Locking).",
+        "tip": "Collision/Deadlock -> Tìm 'Retry', 'Locking' hoặc 'Serialization'. Bỏ qua các đáp án về Cartridge Path.",
+        "answer_fixed": true
     }
 ]
