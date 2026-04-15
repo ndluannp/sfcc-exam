@@ -12,49 +12,12 @@
         "answer": [
             "B"
         ],
-        "explanation": "Trong SFRA, server.extend(module.superModule) cho phép kế thừa các route hiện có từ cartridge nằm sau trong cartridge path.",
+        "explanation": "Correct answer: B. Create a controller with the same name and use server.extend(module.superModule).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Keyword: Extend Controller, superModule.",
-        "answer_fixed": true
-    },
-    {
-        "id": 1,
-        "source": "SFRA Architecture",
-        "question": "How do you extend a Controller without modifying the base cartridge in SFRA?",
-        "options": [
-            "Copy the base controller into your cartridge and modify it.",
-            "Create a controller with the same name and use server.extend(module.superModule).",
-            "Use the `server.replace()` method to overwrite the base route.",
-            "Use `require('app_storefront_base/...')` directly in the view."
-        ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "SFRA sử dụng cơ chế kế thừa thông qua module.superModule. Việc dùng server.extend cho phép bạn thêm logic (append/prepend) mà không làm mất code gốc.",
-        "tip": "Cứ thấy 'Extend Controller' -> Tìm 'superModule'. Đừng bao giờ chọn 'Copy file'."
-    },
-    {
-        "id": 2,
-        "source": "Questions_20260403.md",
-        "question": "In a middleware chain, what happens if you call res.render() and then next()?",
-        "options": [
-            "The template renders twice.",
-            "An error occurs, and the request fails.",
-            "The template renders, and the tiếp theo middleware vẫn thực thi.",
-            "The `next()` call is ignored because the response was already assigned."
-        ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "res.render() chỉ gán template và viewData vào response object, việc thực thi tiếp theo middleware qua next() vẫn diễn ra bình thường cho đến khi luồng kết thúc.",
-        "type": "single",
-        "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Middleware chain xử lý tuần tự trừ khi có lỗi hoặc res.print() sớm.",
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
@@ -70,8 +33,13 @@
         "answer": [
             "C"
         ],
-        "explanation": "res.render() chỉ thiết lập viewData và template, luồng middleware vẫn tiếp tục cho đến khi kết thúc chuỗi hoặc có phản hồi cuối cùng.",
-        "tip": "render() không dừng luồng. next() sẽ chạy middleware tiếp theo. Chỉ ngắt luồng khi ném lỗi hoặc không gọi next()."
+        "explanation": "Correct answer: C. The template renders, and the next middleware executes normally.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
     },
     {
         "id": 3,
@@ -86,34 +54,34 @@
         "answer": [
             "B"
         ],
+        "explanation": "Correct answer: B. `csrfProtection.generateToken` for GET and `csrfProtection.validateRequest` for POST.",
         "type": "single",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
-        "explanation": "Quy trình CSRF: GET sinh ra Token -> POST kiểm tra Token đó.",
-        "tip": "CSRF: Luôn chọn cặp 'generateToken' cho GET và 'validateRequest' cho POST.",
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
         "id": 4,
-        "source": "Caching",
+        "source": "Questions_20260403.md",
         "question": "How do you prevent a specific Controller route from being cached at the web-tier?",
         "options": [
-            "Use `cache.applyDefaultCache` middleware.",
-            "Set `res.cacheExpiration(0)` in the controller route.",
-            "Use `<iscache status='off' />` in the ISML template.",
-            "Disable the 'Enable Page Cache' preference in Business Manager."
+            "Use `cache.applyDefaultCache`.",
+            "Return false from the middleware.",
+            "Use `iscacheable` in the controller.",
+            "Use `res.cacheExpiration(0)`."
         ],
         "answer": [
-            "B"
+            "D"
         ],
+        "explanation": "Correct answer: D. Use `res.cacheExpiration(0)`.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 0.9,
-        "explanation": "Để tắt cache cho một route cụ thể trong SFRA, cách chuẩn nhất là đặt thời gian hết hạn cache bằng 0 thông qua đối tượng response (res).",
-        "tip": "Tắt cache route -> 'cacheExpiration(0)'. Tắt cache template -> 'iscache status=off'.",
-        "answer_fixed_v2": true
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
     },
     {
         "id": 5,
@@ -133,48 +101,50 @@
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
-        "tip": "Cartridge Path Precedence: Trái sang Phải. Thằng đầu tiên (leftmost) luôn thắng.",
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
         "id": 6,
         "source": "Questions_20260403.md",
-        "question": "In SFRA, what is the standard method for passing data from a Controller to an ISML template for rendering?",
+        "question": "How can you pass data from a Controller to an ISML template in SFRA?",
         "options": [
-            "Pass a JavaScript object as the second argument to 'res.render(templateName, dataObject)'.",
-            "Export the data directly from the controller's module.exports object.",
-            "Use the 'pdict.set(key, value)' method within the controller before calling the response.",
-            "Assign the data to the 'session.custom' object to make it globally available to the template."
+            "Pass a JSON object as the second argument to res.render('templateName', { data: value }).",
+            "Return the data from the controller module.",
+            "Use the `pdict.set()` method in the controller.",
+            "Assign the data to session.custom."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Trong SFRA, đối tượng 'res' (Response) có phương thức 'render'. Khi bạn truyền một object vào đối số thứ hai, Salesforce sẽ tự động đưa các thuộc tính của object đó vào một biến toàn cục tên là 'pdict' (Pipeline Dictionary) bên trong file ISML. Nhờ đó, bạn có thể truy xuất dữ liệu trong HTML bằng cú pháp '${pdict.data}'.",
+        "explanation": "Correct answer: A. Pass a JSON object as the second argument to res.render('templateName', { data: value }).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Data Transfer -> Luôn chọn 'res.render' với đối số thứ hai. Hãy nhớ: Trong ISML, mọi dữ liệu được truyền từ Controller đều phải bắt đầu bằng tiền tố 'pdict.'."
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
     },
     {
         "id": 7,
         "source": "Questions_20260403.md",
-        "question": "What is the primary technical difference between 'server.get()' and 'server.append()' in the context of SFRA Controller extension?",
+        "question": "What is the primary difference between `server.get()` and `server.append()` in SFRA?",
         "options": [
-            "'server.get' defines a brand new route; 'server.append' adds additional middleware logic to the end of an existing route from another cartridge.",
-            "'server.get' is used exclusively for retrieving data (GET requests), while 'server.append' is used for creating new database records.",
-            "'server.get' is designed for standard page loads, whereas 'server.append' is optimized for handling background AJAX requests.",
-            "'server.append' is used to completely overwrite and replace the original route's logic in the cartridge path."
+            "`server.get` defines a new route; `server.append` adds middleware to the end of an existing route.",
+            "`server.get` handles data retrieval; `server.append` handles database writes.",
+            "`server.get` is for AJAX; `server.append` is for page loads.",
+            "`server.append` replaces the original route completely."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Trong SFRA, khi bạn muốn thêm tính năng vào một trang đã có (ví dụ: thêm một ô nhập liệu vào trang Product-Show), bạn dùng 'server.append'. Lệnh này cho phép logic gốc chạy xong, sau đó mới chạy đến code của bạn. Ngược lại, 'server.get' thường dùng khi bạn tạo một URL hoàn toàn mới cho trang web của mình.",
+        "explanation": "Correct answer: A. `server.get` defines a new route; `server.append` adds middleware to the end of an existing route.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Extend Route -> Luôn chọn 'append' (thêm vào cuối) hoặc 'prepend' (thêm vào đầu). New Route -> Chọn 'server.get' hoặc 'server.post'. Hãy nhớ: 'append' không thay thế code cũ, nó chỉ chạy tiếp nối."
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
     },
     {
         "id": 8,
@@ -194,24 +164,29 @@
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
-        "tip": "Server-side Cookie -> Dùng request.httpCookies. document.cookie chỉ dùng ở phía Client (Browser).",
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
         "id": 9,
-        "source": "Performance",
+        "source": "Questions_20260403.md",
         "question": "Why is it dangerous to store large objects in session.custom?",
         "options": [
-            "It exposes data to XSS attacks.",
-            "It increases session size, degrading performance due to serialization overhead on every request.",
-            "It violates the api.MaxObjectCount quota.",
-            "It prevents the user from logging out."
+            "It exposes the data to cross-site scripting (XSS) attacks.",
+            "It automatically disables the page cache.",
+            "It increases the session size, degrading performance due to serialization overhead.",
+            "It violates the Object.MaxCustomAttributes quota."
         ],
         "answer": [
-            "B"
+            "C"
         ],
-        "explanation": "session.custom được lưu trữ trong cookie và được đồng bộ (serialize/deserialize) trong mọi request. Đối tượng quá lớn sẽ làm chậm tốc độ phản hồi của website.",
-        "tip": "Lỗi Session -> Luôn liên quan đến 'Serialization' hoặc 'Performance'."
+        "explanation": "Correct answer: C. It increases the session size, degrading performance due to serialization overhead.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
     },
     {
         "id": 10,
@@ -424,27 +399,6 @@
         "answer_fixed": true
     },
     {
-        "id": 19,
-        "source": "Questions_20260403.md",
-        "question": "If a custom requirement dictates storing an Array of complex objects on a Customer Profile, what is the best practice?",
-        "options": [
-            "Stringify the array to JSON and store it in a 'Text' or 'Long String' attribute.",
-            "Create multiple custom objects for each array element.",
-            "Store each object as a separate attribute (e.g., attr1, attr2).",
-            "Use session.custom to store the array permanently."
-        ],
-        "answer": [
-            "A"
-        ],
-        "type": "single",
-        "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 0.9,
-        "explanation": "Vì System Object không hỗ trợ mảng phức tạp, cách duy nhất để lưu trữ lâu dài là biến chúng thành chuỗi JSON và lưu vào thuộc tính String.",
-        "tip": "Complex Data + Profile -> Giải pháp luôn là JSON.stringify vào một 'Long String'.",
-        "answer_fixed_v2": true
-    },
-    {
         "id": 20,
         "source": "Questions_20260403.md",
         "question": "What is the purpose of `dw.system.Transaction.begin()`?",
@@ -550,27 +504,6 @@
         "answer_fixed": true
     },
     {
-        "id": 24,
-        "source": "Questions_20260403.md",
-        "question": "What is the maximum length of a standard 'String' attribute in B2C Commerce?",
-        "options": [
-            "255 characters.",
-            "2,000 characters.",
-            "4,000 characters.",
-            "Unlimited."
-        ],
-        "answer": [
-            "C"
-        ],
-        "type": "single",
-        "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 0.9,
-        "explanation": "Đây là giới hạn vật lý của platform cho kiểu dữ liệu String. Nếu vượt quá, dữ liệu sẽ bị cắt cụt.",
-        "tip": "Ghi nhớ con số 4000. Nếu đề bài nói cần lưu nhiều hơn -> Phải dùng kiểu 'Text'.",
-        "answer_fixed": true
-    },
-    {
         "id": 25,
         "source": "Questions_20260403.md",
         "question": "How do you programmatically delete a persistent cookie from the user's browser?",
@@ -641,16 +574,18 @@
             "Disable the database locking mechanism in Site Preferences.",
             "Wrap the entire Job in a single massive Transaction.",
             "Ensure all scripts access and lock objects in the same order and keep transactions as short as possible.",
-            "Increase the number of application server instances to spread the load."
+            "Use a read-only query mode to prevent all locking issues."
         ],
         "answer": [
             "C"
         ],
-        "explanation": "Để tránh Deadlock (khóa chết), quy tắc vàng là luôn truy cập và khóa các đối tượng theo một thứ tự cố định (ví dụ: luôn khóa Order trước rồi mới đến Custom Object) và đảm bảo transaction kết thúc nhanh nhất có thể.",
+        "explanation": "Correct answer: C. Ensure all scripts access and lock objects in the same order and keep transactions as short as possible.",
         "type": "single",
         "needs_review": false,
-        "answer_fixed": true,
-        "tip": "Deadlock -> Luôn chọn 'Access in same order' và 'Keep transactions short'."
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
     },
     {
         "id": 29,
@@ -697,18 +632,20 @@
         "question": "In the Service Framework registry, what is the exact purpose of the 'createRequest' callback?",
         "options": [
             "It is where you define the URL path, headers, and request body for the outgoing call.",
-            "It handles the automatic retry logic for failed requests.",
-            "It parses the raw HTTP response into a JavaScript object.",
-            "It is used to configure the Circuit Breaker thresholds."
+            "It handles authentication and security token generation.",
+            "It logs and monitors the request performance metrics.",
+            "It manages error handling and retry logic automatically."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Hàm createRequest là bước đầu tiên trong Service Framework, dùng để thiết lập các thông số cần thiết (URL, header, payload) trước khi thực hiện gọi API.",
+        "explanation": "Correct answer: A. It is where you define the URL path, headers, and request body for the outgoing call.",
         "type": "single",
         "needs_review": false,
-        "answer_fixed_v2": true,
-        "tip": "Vòng đời Service: createRequest (Chuẩn bị) -> execute (Gửi) -> parseResponse (Xử lý kết quả)."
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
     },
     {
         "id": 32,
@@ -964,16 +901,19 @@
         "question": "How do you implement a Webhook listener in B2C Commerce to receive updates from an external ERP?",
         "options": [
             "Register a new Hook in hooks.json pointing to an external URL.",
-            "Create a public Controller route that parses the incoming JSON payload and triggers logic based on the data.",
-            "Use the 'WebDAV' protocol to receive files directly into the ERP folder.",
-            "Webhooks are not supported; you must poll the external system using a Job."
+            "Create a public Controller route that parses the incoming JSON payload and trigger logic based on the data.",
+            "Webhooks can only receive data, they cannot send data externally.",
+            "Use OCAPI exclusively to define webhook endpoints."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Trong SFCC, để nhận Webhook, bạn tạo một Controller route (ví dụ: `Webhook-Notify`). Hệ thống bên ngoài sẽ gọi vào URL này qua POST để gửi dữ liệu.",
+        "explanation": "Correct answer: A. Register a new Hook in hooks.json pointing to an external URL.",
         "type": "single",
         "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
     {
@@ -1148,15 +1088,18 @@
         "options": [
             "A developer must write a custom script using XMLStreamWriter.",
             "It is generated automatically on a schedule via the Sitemap Job configuration in Merchant Tools.",
-            "It is created manually by exporting the Product Catalog and renaming the file.",
-            "Google automatically generates it by crawling the storefront home page."
+            "Sitemaps are automatically generated based on navigation structure.",
+            "Google automatically crawls and indexes without needing a sitemap."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "B2C Commerce có sẵn tính năng tạo Sitemap. Bạn chỉ cần cấu hình tần suất và nội dung trong Merchant Tools > SEO > Sitemaps, hệ thống sẽ chạy Job tự động.",
+        "explanation": "Correct answer: A. A developer must write a custom script using XMLStreamWriter.",
         "type": "single",
         "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
     {
@@ -1208,17 +1151,19 @@
         "options": [
             "Wrap all code in a single transaction.",
             "Avoid using globally scoped variables that might be read or modified unpredictably by parallel executing threads.",
-            "Always use 'require' inside the loop to ensure fresh instances of modules.",
-            "The platform handles all thread safety automatically for custom scripts."
+            "Jobs inherently have thread safety built in, no special handling needed.",
+            "Thread safety only applies to frontend JavaScript code."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Khi chạy Job song song (Parallel), việc dùng biến Global có thể dẫn đến việc các thread ghi đè dữ liệu của nhau. Phải sử dụng biến cục bộ (Local scope) để đảm bảo an toàn.",
+        "explanation": "Correct answer: D. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
-        "answer_fixed": true,
-        "tip": "Thread Safety -> Tuyệt đối không dùng 'Global variables'. Phải dùng biến cục bộ (local scope)."
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
     },
     {
         "id": 57,
@@ -1270,14 +1215,17 @@
             "It forces the browser to ignore the local cache.",
             "It encrypts the cache file on the server.",
             "It is a URL parameter added to ensure different contextual versions of a component are cached separately (e.g., ?currency=EUR).",
-            "It identifies the specific code version used to render the template."
+            "It specifies which CDN to use for caching."
         ],
         "answer": [
             "C"
         ],
-        "explanation": "Custom Cache Key giúp tách biệt cache cho các ngữ cảnh khác nhau. Ví dụ: Mini-cart cần cache riêng cho từng khách hàng hoặc từng loại tiền tệ.",
+        "explanation": "Correct answer: A. It forces the browser to ignore the local cache.",
         "type": "single",
         "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
     {
@@ -1306,20 +1254,20 @@
         "source": "Questions_20260403.md",
         "question": "A developer needs to implement a custom 'Inventory Reservation' system using Custom Objects. To prevent race conditions where two customers claim the last item simultaneously, which approach is mandatory?",
         "options": [
-            "Wrap the update in a Transaction and use the 'locking' parameter (true) in the getCustomObject or query call.",
-            "Use optimistic locking by manually comparing a version field before each update.",
-            "Rely on standard database unique constraints to prevent duplicate reservation entries.",
-            "Implement client-side JavaScript validation to disable the purchase button once inventory is low."
+            "Wrap the update in a Transaction and use the 'locking' parameter in the query.",
+            "Use optimistic locking with a version field.",
+            "Rely on database constraints to prevent duplicate entries.",
+            "Implement client-side JavaScript validation only."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Trong B2C Commerce, để ngăn chặn tình trạng hai tiến trình cùng sửa đổi một bản ghi đồng thời (Race Condition), bạn phải sử dụng 'Pessimistic Locking'. Điều này thực hiện bằng cách bọc code trong Transaction và truyền tham số 'true' vào các hàm lấy đối tượng (như getCustomObject). Khi đó, hệ thống sẽ khóa bản ghi này cho đến khi giao dịch kết thúc, buộc các tiến trình khác phải chờ.",
+        "explanation": "Correct answer: A. Wrap the update in a Transaction and use the 'locking' parameter in the query.",
         "type": "single",
         "needs_review": false,
         "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Race Condition/Simultaneously/Reservation -> Từ khóa cứu mạng là 'Transaction' + 'Locking parameter'. Lưu ý: Platform mặc định không tự khóa đối tượng trừ khi bạn yêu cầu.",
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
     },
     {
@@ -1482,12 +1430,12 @@
         "answer": [
             "B"
         ],
+        "explanation": "Correct answer: D. Rebuild cache or index",
         "type": "single",
         "needs_review": false,
         "ai_inferred": false,
         "confidence": 0.9,
-        "explanation": "Root Logger là logger cấp cao nhất, nó ghi nhận mọi thông tin log mà không bị giới hạn bởi các category cụ thể được định nghĩa trong Business Manager.",
-        "tip": "Root Logger = 'Cái rây' lớn nhất. Dùng khi muốn bắt mọi thứ đang diễn ra trong hệ thống mà không quan tâm phân loại.",
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
@@ -1503,12 +1451,12 @@
         "answer": [
             "C"
         ],
+        "explanation": "Correct answer: B. It automatically adds the product ID to the cache key.",
         "type": "single",
         "needs_review": false,
         "ai_inferred": false,
         "confidence": 0.9,
-        "explanation": "Trong SFRA, việc quản lý cache đã được chuyển sang đối tượng middleware 'res' (ví dụ: res.cacheExpiration). 'pdict.cacheTag' là một tàn dư hoặc tính năng không chính thống của bộ máy Pipeline cũ.",
-        "tip": "SFRA Cache -> Luôn tìm đối tượng 'res'. Mọi thứ liên quan đến pdict.cache... thường là 'bẫy' từ thời SiteGenesis.",
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
@@ -1524,12 +1472,12 @@
         "answer": [
             "C"
         ],
+        "explanation": "Correct answer: C. To register the custom step and define its input/output parameters for Business Manager.",
         "type": "single",
         "needs_review": false,
         "ai_inferred": false,
         "confidence": 0.9,
-        "explanation": "steptypes.json đóng vai trò như một bản khai báo (manifest) để Business Manager biết Job Step đó có những đầu vào (input) nào để người dùng có thể cấu hình trong giao diện.",
-        "tip": "Job Parameter -> Phải nằm trong 'steptypes.json'. Đây là cầu nối giữa Code và UI của Business Manager.",
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
     },
     {
@@ -1545,13 +1493,580 @@
         "answer": [
             "C"
         ],
+        "explanation": "Correct answer: C. Only when the cartridge containing the asset is uploaded with a new version string.",
         "type": "single",
         "needs_review": false,
         "ai_inferred": false,
         "confidence": 0.9,
-        "explanation": "staticURL tạo ra đường dẫn chứa version của code. Trình duyệt dựa vào version này để quyết định tải mới hay dùng bản cũ trong cache.",
-        "tip": "staticURL = Caching vĩnh viễn cho đến khi đổi Code Version. Muốn đổi ảnh ngay? -> Đổi Code Version.",
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
+    },
+    {
+        "id": 1,
+        "source": "Questions_20260403.md",
+        "question": "How do you extend a Controller without modifying the base cartridge in SFRA?",
+        "options": [
+            "Copy the base controller into your cartridge and modify it.",
+            "Create a controller with the same name and use server.extend(module.superModule).",
+            "Use the `server.replace()` method to overwrite the base route.",
+            "Use `require('app_storefront_base/cartridge/controllers/...')` directly."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Trong SFRA, server.extend(module.superModule) cho phép kế thừa các route hiện có từ cartridge nằm sau trong cartridge path.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Keyword: Extend Controller, superModule.",
+        "answer_fixed": true
+    },
+    {
+        "id": 2,
+        "source": "Questions_20260403.md",
+        "question": "In a middleware chain, what happens if you call res.render() and then next()?",
+        "options": [
+            "The template renders twice.",
+            "An error occurs, and the request fails.",
+            "The template renders, and the tiếp theo middleware vẫn thực thi.",
+            "The `next()` call is ignored because the response was already assigned."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "res.render() chỉ gán template và viewData vào response object, việc thực thi tiếp theo middleware qua next() vẫn diễn ra bình thường cho đến khi luồng kết thúc.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Middleware chain xử lý tuần tự trừ khi có lỗi hoặc res.print() sớm.",
+        "answer_fixed": true
+    },
+    {
+        "id": 3,
+        "source": "Questions_20260403.md",
+        "question": "Which middleware functions are required to enable CSRF protection on a specific route pair in SFRA?",
+        "options": [
+            "`csrfProtection.generateToken` for GET and `csrfProtection.validateRequest` for POST.",
+            "`csrfProtection.validateAjaxRequest` on all routes.",
+            "CSRF protection is automatically enabled, no middleware needed.",
+            "Use `server.secure()` middleware on all routes."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. `csrfProtection.generateToken` for GET and `csrfProtection.validateRequest` for POST.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 4,
+        "source": "Caching",
+        "question": "How do you prevent a specific Controller route from being cached at the web-tier?",
+        "options": [
+            "Use `cache.applyDefaultCache` middleware.",
+            "Set `res.cacheExpiration(0)` in the controller route.",
+            "Use `<iscache status='off' />` in the ISML template.",
+            "Disable the 'Enable Page Cache' preference in Business Manager."
+        ],
+        "answer": [
+            "B"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "Để tắt cache cho một route cụ thể trong SFRA, cách chuẩn nhất là đặt thời gian hết hạn cache bằng 0 thông qua đối tượng response (res).",
+        "tip": "Tắt cache route -> 'cacheExpiration(0)'. Tắt cache template -> 'iscache status=off'.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 5,
+        "source": "Questions_20260403.md",
+        "question": "If a site's cartridge path is 'plugin_wishlist:app_custom:app_storefront_base', which 'ProductModel.js' is used if it exists in all three?",
+        "options": [
+            "All three are merged automatically.",
+            "The one in app_storefront_base.",
+            "The one in plugin_wishlist (first in path wins).",
+            "The one closest to the end of the cartridge path."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: C. Rebuild cache or index",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
+        "id": 6,
+        "source": "Questions_20260403.md",
+        "question": "How can you pass data from a Controller to an ISML template in SFRA?",
+        "options": [
+            "Pass a JSON object as the second argument to res.render('templateName', { data: value }).",
+            "Use pdict to set variables in the controller.",
+            "Assign data to session.custom and access it in template.",
+            "Use global variables defined at the top of controller."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Pass a JSON object as the second argument to res.render('templateName', { data: value }).",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 7,
+        "source": "Questions_20260403.md",
+        "question": "What is the primary difference between `server.get()` and `server.append()` in SFRA?",
+        "options": [
+            "`server.get` defines a new route; `server.append` adds middleware to the end of an existing route.",
+            "`server.get` handles GET requests; `server.append` handles all HTTP methods.",
+            "`server.append` replaces the route entirely.",
+            "They are aliases for the same function."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. `server.get` defines a new route; `server.append` adds middleware to the end of an existing route.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 8,
+        "source": "Questions_20260403.md",
+        "question": "How do you securely access HTTP Cookies in a B2C Script?",
+        "options": [
+            "Via `request.httpCookies`.",
+            "Via `session.getCookies()`.",
+            "Via `response.cookies`.",
+            "Using `document.cookie` in B2C Script."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Via `request.httpCookies`.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 9,
+        "source": "Questions_20260403.md",
+        "question": "Why is it dangerous to store large objects in session.custom?",
+        "options": [
+            "It increases the session size, degrading performance due to serialization overhead.",
+            "It exposes data to XSS attacks.",
+            "It violates Object.MaxCustomAttributes quota.",
+            "It disables page caching permanently."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. It increases the session size, degrading performance due to serialization overhead.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 10,
+        "source": "Questions_20260403.md",
+        "question": "How do you trigger a 410 (Gone) status code for a discontinued product?",
+        "options": [
+            "Use <isredirect url='410'> in the ISML template.",
+            "Throw a new Error(410).",
+            "res.setStatusCode(410).",
+            "res.redirect('410')."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: A. res.setStatusCode(410).",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 11,
+        "source": "Questions_20260403.md",
+        "question": "What is the primary constraint regarding res.viewData in SFRA?",
+        "options": [
+            "It is a standard JS object, but it must be kept lean to avoid memory overhead during template rendering.",
+            "It is read-only and cannot be modified by middleware.",
+            "It can only hold strings and numbers, not objects.",
+            "It automatically persists data to the database."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. It is a standard JS object, but it must be kept lean to avoid memory overhead during template rendering.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 12,
+        "source": "Questions_20260403.md",
+        "question": "How do you handle multi-language support for error messages generated in a Controller?",
+        "options": [
+            "Use `dw.web.Resource.msg('error.key', 'bundle', null)`.",
+            "Create separate controller files for each language.",
+            "Use `session.getLocale().translate('error.key')`.",
+            "Hardcode translations in a JSON object."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Use `dw.web.Resource.msg('error.key', 'bundle', null)`.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 13,
+        "source": "Questions_20260403.md",
+        "question": "Which SFRA object is typically responsible for generating the 'Breadcrumbs' logic?",
+        "options": [
+            "The Site Preferences.",
+            "The Product or Search model/decorator.",
+            "The URLUtils class.",
+            "The session.custom object."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Correct answer: A. The Product or Search model/decorator.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 14,
+        "source": "Questions_20260403.md",
+        "question": "How can a developer detect if the current request is coming from a 'Search Engine Bot'?",
+        "options": [
+            "Check `session.isBot`.",
+            "Check `request.httpUserAgent`.",
+            "Check `request.httpMethod === 'BOT'`.",
+            "Use `dw.system.Site.isCrawler()`."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Correct answer: A. Check `request.httpUserAgent`.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 15,
+        "source": "Questions_20260403.md",
+        "question": "How do you execute a redirect to the Home Page from within an SFRA Controller?",
+        "options": [
+            "`server.route('Home-Show')`.",
+            "`res.redirect(URLUtils.url('Home-Show'))`.",
+            "`res.render('Home-Show')`.",
+            "`window.location.href = '/'`."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Correct answer: A. `res.redirect(URLUtils.url('Home-Show'))`.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 16,
+        "source": "Questions_20260403.md",
+        "question": "What is the strict platform limit for Script.MaxCallStackDepth?",
+        "options": [
+            "500",
+            "50",
+            "100",
+            "Unlimited"
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: C. Rebuild cache or index",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
+        "id": 17,
+        "source": "Questions_20260403.md",
+        "question": "How should a developer query for Custom Objects to avoid hitting performance bottlenecks?",
+        "options": [
+            "Use `CustomObjectMgr.queryCustomObjects` with a specific indexed attribute in the query string.",
+            "Use `CustomObjectMgr.getAllCustomObjects()` and filter via a JavaScript loop.",
+            "Export all Custom Objects to XML and parse them.",
+            "Use direct SQL queries."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Use `CustomObjectMgr.queryCustomObjects` with a specific indexed attribute in the query string.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 18,
+        "source": "Questions_20260403.md",
+        "question": "What happens if a developer exceeds the Object.MaxCustomAttributes quota?",
+        "options": [
+            "The cartridge will fail to upload.",
+            "Old attributes are automatically deleted to make room.",
+            "The storefront will throw a 500 Error for all users.",
+            "They cannot create new attribute definitions in Business Manager for that object type."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Correct answer: A. They cannot create new attribute definitions in Business Manager for that object type.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 19,
+        "source": "Questions_20260403.md",
+        "question": "If a custom requirement dictates storing an Array of complex objects on a Customer Profile, what is the best practice?",
+        "options": [
+            "Stringify the array to JSON and store it in a 'Text' or 'Long String' attribute.",
+            "Create multiple custom objects for each array element.",
+            "Store each object as a separate attribute (e.g., attr1, attr2).",
+            "Use session.custom to store the array permanently."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Stringify the array to JSON and store it in a 'Text' or 'Long String' attribute.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 20,
+        "source": "Questions_20260403.md",
+        "question": "What is the purpose of `dw.system.Transaction.begin()`?",
+        "options": [
+            "To begin rendering the ISML template.",
+            "To start a new HTTP request.",
+            "To manually start a database transaction when explicit control is needed.",
+            "To initialize a Service Framework call."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: A. To manually start a database transaction when explicit control is needed.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 21,
+        "source": "Questions_20260403.md",
+        "question": "How many price books can be active for a single site at once?",
+        "options": [
+            "A maximum of two: one regular and one sale.",
+            "Only one active price book is allowed globally.",
+            "Multiple, and they are evaluated based on the assigned priority in Business Manager.",
+            "Only one per currency."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: A. Multiple, and they are evaluated based on the assigned priority in Business Manager.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 22,
+        "source": "Questions_20260403.md",
+        "question": "What is the technical difference between a 'System Quota' and a 'Service Limit'?",
+        "options": [
+            "They are identical terms for the same concept.",
+            "Quotas restrict database size; Limits restrict code length.",
+            "Quotas apply to Sandbox; Limits apply to Production.",
+            "Quotas are hard platform-enforced limits; Service Limits (like API timeouts) can sometimes be configured."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Correct answer: A. Quotas are hard platform-enforced limits; Service Limits (like API timeouts) can sometimes be configured.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 23,
+        "source": "Questions_20260403.md",
+        "question": "How do you retrieve a site preference named 'myConfig' via script?",
+        "options": [
+            "`session.custom.myConfig`",
+            "`request.getPreference('myConfig')`",
+            "`Site.preferences.myConfig`",
+            "`dw.system.Site.current.getCustomPreferenceValue('myConfig')`"
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Correct answer: D. `dw.system.Site.current.getCustomPreferenceValue('myConfig')`",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
+        "id": 24,
+        "source": "Questions_20260403.md",
+        "question": "What is the maximum length of a standard 'String' attribute in B2C Commerce?",
+        "options": [
+            "255 characters.",
+            "2,000 characters.",
+            "4,000 characters.",
+            "Unlimited."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: C. Rebuild cache or index",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
+        "id": 25,
+        "source": "Questions_20260403.md",
+        "question": "How do you programmatically delete a persistent cookie from the user's browser?",
+        "options": [
+            "Use `dw.system.Session.clearCookies()`.",
+            "Set the cookie value to null.",
+            "Call `request.removeCookie('name')`.",
+            "Set its max age to 0 and add it to the response object."
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Correct answer: A. Set its max age to 0 and add it to the response object.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 26,
+        "source": "Questions_20260403.md",
+        "question": "Why is it highly recommended to use LocalServiceRegistry over `dw.net.HTTPClient`?",
+        "options": [
+            "`HTTPClient` is blocked on Production environments.",
+            "LocalServiceRegistry provides integrated logging, rate monitoring, and circuit breakers.",
+            "`HTTPClient` cannot make HTTPS requests.",
+            "`LocalServiceRegistry` executes significantly faster."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Correct answer: A. LocalServiceRegistry provides integrated logging, rate monitoring, and circuit breakers.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 27,
+        "source": "Questions_20260403.md",
+        "question": "What behavior does the api.MaxObjectCount quota restrict?",
+        "options": [
+            "It limits the total number of items a customer can have in their cart.",
+            "It limits the number of persistent objects (like products or orders) instantiated in a single request.",
+            "It limits the number of products returned in a search result.",
+            "It limits how many Custom Object definitions you can create."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Correct answer: A. It limits the number of persistent objects (like products or orders) instantiated in a single request.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
     },
     {
         "id": 1,
@@ -5206,6 +5721,27 @@
         "answer_fixed": true
     },
     {
+        "id": 6,
+        "source": "b2c_dev_exam_set13.md",
+        "question": "Why does cartridge order matter? (Select one)",
+        "options": [
+            "It toggles CSRF on/off",
+            "Left-to-right precedence decides which controller/template/script resolves",
+            "It sets OCAPI Data permissions",
+            "It controls profiler availability"
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: C. It sets OCAPI Data permissions",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
         "id": 7,
         "source": "b2c_dev_exam_set13.md",
         "question": "Where is the active code version set? (Select one)",
@@ -6017,6 +6553,28 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 45,
+        "source": "b2c_dev_exam_set13.md",
+        "question": "To write to a custom object via Data API, you need: (Select two)",
+        "options": [
+            "ocapi.json write with write_attributes",
+            "Client credentials mapped",
+            "A new code version",
+            "Search refinements"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] ocapi.json write with write_attributes [B] Client credentials mapped",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
         "id": 46,
         "source": "b2c_dev_exam_set13.md",
         "question": "Two job steps update the same object set. Best approach is: (Select one)",
@@ -6057,6 +6615,49 @@
         "confidence": 0.65,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
+    },
+    {
+        "id": 48,
+        "source": "b2c_dev_exam_set13.md",
+        "question": "Shop API varies by price group and locale. Safe caching: (Select one)",
+        "options": [
+            "No cache or cache with appropriate vary keys",
+            "Global cache only",
+            "CDN no-vary",
+            "Response cache blindly"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. No cache or cache with appropriate vary keys",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 49,
+        "source": "b2c_dev_exam_set13.md",
+        "question": "Reduce PDP TTFB by: (Select two)",
+        "options": [
+            "Precompute heavy fields in decorators",
+            "Cache static fragments (iscache) with relevant vary keys",
+            "Disable all cache",
+            "Force OCAPI on all pages"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Precompute heavy fields in decorators [B] Cache static fragments (iscache) with relevant vary keys",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
     },
     {
         "id": 50,
@@ -7638,6 +8239,27 @@
         "answer_fixed": true
     },
     {
+        "id": 4,
+        "source": "b2c_dev_exam_set9.md",
+        "question": "Why does cartridge order matter? (Select one)",
+        "options": [
+            "It controls ISML syntax",
+            "It determines resolution precedence for controllers/templates/scripts (left‑to‑right)",
+            "It sets OCAPI quotas",
+            "It changes Business Manager roles"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. It controls ISML syntax",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
         "id": 5,
         "source": "b2c_dev_exam_set9.md",
         "question": "After changing the site’s referenced code version, you still observe old templates. Which two actions are recommended first? (Select two)",
@@ -7847,6 +8469,27 @@
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module."
     },
     {
+        "id": 15,
+        "source": "b2c_dev_exam_set9.md",
+        "question": "Where are storefront search refinements (facets) configured? (Select one)",
+        "options": [
+            "Merchant Tools > Search > Search Refinements",
+            "Merchant Tools > SEO > URL Rules",
+            "Administration > Sites",
+            "Content > Assets"
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: C. Administration > Sites",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
         "id": 16,
         "source": "b2c_dev_exam_set9.md",
         "question": "A one‑way synonym is needed (“sneakers” → “running shoes,” but not vice versa). Where do you configure it? (Select one)",
@@ -7883,6 +8526,27 @@
         ],
         "explanation": "Correct answer: A, D. [A] Product model decorators/factory (to expose data) [D] ocapi.json",
         "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
+        "id": 18,
+        "source": "b2c_dev_exam_set9.md",
+        "question": "Where do you configure log categories and appenders? (Select one)",
+        "options": [
+            "BM > Administration > Operations > Logging",
+            "Code Versions",
+            "Page Designer",
+            "ocapi.json"
+        ],
+        "answer": [
+            "D"
+        ],
+        "explanation": "Correct answer: D. ocapi.json",
+        "type": "single",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -8296,6 +8960,28 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 38,
+        "source": "b2c_dev_exam_set9.md",
+        "question": "A nightly job imports inventory and reindexes search. Which two steps are typical? (Select two)",
+        "options": [
+            "Script step to import inventory",
+            "System step to trigger delta/full indexing",
+            "Disable CSRF",
+            "Rename the code version"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Script step to import inventory [B] System step to trigger delta/full indexing",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
         "id": 39,
         "source": "b2c_dev_exam_set9.md",
         "question": "Which inbound folders are commonly used for imports? (Select two)",
@@ -8420,6 +9106,28 @@
         ],
         "explanation": "Correct answer: A. Delta reindex after each import",
         "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 45,
+        "source": "b2c_dev_exam_set9.md",
+        "question": "To write to a custom object via Data API, you need: (Select two)",
+        "options": [
+            "ocapi.json write permissions and write_attributes for those fields",
+            "Client credentials mapped to that ocapi.json setting",
+            "A new code version",
+            "Search refinements"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] ocapi.json write permissions and write_attributes for those fields [B] Client credentials mapped to that ocapi.json setting",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -8881,6 +9589,27 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 7,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "Where do you select the active code version? (Select one)",
+        "options": [
+            "BM > Administration > Site Development > Code Versions",
+            "BM > Merchant Tools > Search",
+            "BM > Page Designer",
+            "BM > SEO"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. BM > Administration > Site Development > Code Versions",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
         "id": 8,
         "source": "b2c_dev_exam_set11.md",
         "question": "What does dw.json configure? (Select one)",
@@ -9176,6 +9905,27 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 22,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "Production logging best practice is: (Select one)",
+        "options": [
+            "Logger with categories at INFO/WARN/ERROR; DEBUG for targeted troubleshooting",
+            "System.out.println everywhere",
+            "Always DEBUG",
+            "Disable logging"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Logger with categories at INFO/WARN/ERROR; DEBUG for targeted troubleshooting",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
         "id": 23,
         "source": "b2c_dev_exam_set11.md",
         "question": "Site default currency/taxation is configured at: (Select one)",
@@ -9232,6 +9982,27 @@
             "A"
         ],
         "explanation": "Correct answer: A. Thin controllers; push domain logic to helpers/decorators/factories",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 26,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "Directive to cache template fragments: (Select one)",
+        "options": [
+            "iscache",
+            "isif",
+            "isloop",
+            "isdecorate"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. iscache",
         "type": "single",
         "needs_review": false,
         "ai_inferred": true,
@@ -9520,6 +10291,28 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 42,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "Rotate a service credential without downtime by: (Select two)",
+        "options": [
+            "Adding new credential/profile and cutting over",
+            "Hardcoding secret",
+            "Supporting overlapping keys if allowed",
+            "Stopping traffic"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Adding new credential/profile and cutting over [B] Hardcoding secret",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
         "id": 43,
         "source": "b2c_dev_exam_set11.md",
         "question": "What are two key components of a robust synchronous integration in B2C Commerce?",
@@ -9626,6 +10419,27 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 48,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "Shop API varies by price group and locale. Safe caching: (Select one)",
+        "options": [
+            "No cache or cache with proper vary keys",
+            "Global cache",
+            "CDN no-vary",
+            "Response cache only"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. No cache or cache with proper vary keys",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
         "id": 49,
         "source": "b2c_dev_exam_set11.md",
         "question": "Reduce PDP TTFB via: (Select two)",
@@ -9662,6 +10476,28 @@
             "B"
         ],
         "explanation": "Correct answer: A, B. [A] Batch/cache calls [B] Compute offline via jobs and decorate from storage",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 51,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "Stale content persists post-deploy. Likely actions: (Select two)",
+        "options": [
+            "Clear application cache",
+            "Invalidate iscache fragments",
+            "Rebuild all indexes per request",
+            "Rename code version"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache fragments",
         "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
@@ -9758,6 +10594,51 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 56,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "PDP slowed after release. Which three diagnostics help? (Select three)",
+        "options": [
+            "Compare profiler traces before/after",
+            "Add targeted timing logs",
+            "Diff services/decorators/hooks changes",
+            "Disable logs permanently"
+        ],
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "Correct answer: A, B, C. [A] Compare profiler traces before/after [B] Add targeted timing logs [C] Diff services/decorators/hooks changes",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
+        "id": 57,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "Lower ISML CPU by: (Select two)",
+        "options": [
+            "Precompute in helpers/decorators",
+            "Cache static fragments",
+            "Add HTTP calls in templates",
+            "Heavy loops in ISML"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Precompute in helpers/decorators [B] Cache static fragments",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
         "id": 58,
         "source": "b2c_dev_exam_set11.md",
         "question": "PD component shows wrong currency when cached. Fix: (Select one)",
@@ -9777,6 +10658,49 @@
         "confidence": 0.7,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed": true
+    },
+    {
+        "id": 59,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "Prevent duplicate POST submissions: (Select two)",
+        "options": [
+            "Idempotency keys with server-side dedupe",
+            "Disable submit button after click",
+            "Use GET",
+            "Disable CSRF"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Idempotency keys with server-side dedupe [B] Disable submit button after click",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 60,
+        "source": "b2c_dev_exam_set11.md",
+        "question": "Catalog import and delta index conflict. Remedy: (Select one)",
+        "options": [
+            "Coordinate schedules with locks and retries/backoff",
+            "Disable indexing",
+            "Add DEBUG logs",
+            "Change code version"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Coordinate schedules with locks and retries/backoff",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
     },
     {
         "id": 1,
@@ -10138,6 +11062,27 @@
         "answer_fixed": true
     },
     {
+        "id": 18,
+        "source": "b2c_dev_exam_set14.md",
+        "question": "Where are log categories and appenders configured? (Select one)",
+        "options": [
+            "BM > Administration > Operations > Logging",
+            "ocapi.json",
+            "services.json",
+            "templates/resources"
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Correct answer: B. ocapi.json",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
         "id": 19,
         "source": "b2c_dev_exam_set14.md",
         "question": "A merchandiser wants component-based pages. Use: (Select one)",
@@ -10309,6 +11254,49 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 27,
+        "source": "b2c_dev_exam_set14.md",
+        "question": "Proper CSRF for forms requires: (Select one)",
+        "options": [
+            "Generate token on GET; validate on POST using csrfProtection",
+            "HTTPS only",
+            "Not needed in SFRA",
+            "Site preference only"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Generate token on GET; validate on POST using csrfProtection",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 28,
+        "source": "b2c_dev_exam_set14.md",
+        "question": "For a JSON route, which two are correct? (Select two)",
+        "options": [
+            "Set Content-Type to application/json",
+            "Use res.json or write JSON to response",
+            "Render ISML then convert to JSON",
+            "Disable caching globally"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Set Content-Type to application/json [B] Use res.json or write JSON to response",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
         "id": 29,
         "source": "b2c_dev_exam_set14.md",
         "question": "Change pricing behavior without editing base controllers by: (Select one)",
@@ -10387,6 +11375,27 @@
             "A"
         ],
         "explanation": "Correct answer: A. Add vary keys (basket/promo/customer) or disable include cache",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 33,
+        "source": "b2c_dev_exam_set14.md",
+        "question": "For personalized Shop API responses, safe caching is: (Select one)",
+        "options": [
+            "No cache, or cache with vary (customer group/locale/currency)",
+            "Global cache only",
+            "CDN cache with no vary",
+            "Response cache blindly"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. No cache, or cache with vary (customer group/locale/currency)",
         "type": "single",
         "needs_review": false,
         "ai_inferred": true,
@@ -10546,6 +11555,72 @@
         "answer_fixed": true
     },
     {
+        "id": 41,
+        "source": "b2c_dev_exam_set14.md",
+        "question": "Least-privilege Data API for orders should: (Select two)",
+        "options": [
+            "Restrict read_attributes to necessary fields",
+            "Use dedicated client credentials per integration",
+            "Share one global client",
+            "Expose all attributes"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Restrict read_attributes to necessary fields [B] Use dedicated client credentials per integration",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 42,
+        "source": "b2c_dev_exam_set14.md",
+        "question": "Zero-downtime credential rotation should: (Select two)",
+        "options": [
+            "Introduce a new credential/profile and cut over",
+            "Hardcode the secret in code",
+            "Support overlapping keys if upstream allows",
+            "Stop traffic"
+        ],
+        "answer": [
+            "A",
+            "C"
+        ],
+        "explanation": "Correct answer: A, C. [A] Introduce a new credential/profile and cut over [C] Support overlapping keys if upstream allows",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 43,
+        "source": "b2c_dev_exam_set14.md",
+        "question": "Robust synchronous integration includes: (Select two)",
+        "options": [
+            "Short timeouts and circuit breaker",
+            "Retries with backoff for transient errors",
+            "Always log full payloads",
+            "Never cache"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Short timeouts and circuit breaker [B] Retries with backoff for transient errors",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
         "id": 44,
         "source": "b2c_dev_exam_set14.md",
         "question": "Frequent product delta imports. Best indexing: (Select one)",
@@ -10565,6 +11640,28 @@
         "confidence": 0.65,
         "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
         "answer_fixed_v2": true
+    },
+    {
+        "id": 45,
+        "source": "b2c_dev_exam_set14.md",
+        "question": "To write to a custom object via Data API, you need: (Select two)",
+        "options": [
+            "ocapi.json write with write_attributes",
+            "Client credentials mapped to that ocapi.json setting",
+            "A new code version",
+            "Search refinements"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] ocapi.json write with write_attributes [B] Client credentials mapped to that ocapi.json setting",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
     },
     {
         "id": 46,
@@ -10601,6 +11698,27 @@
             "A"
         ],
         "explanation": "Correct answer: A. Redacting/masking tokens in parser; avoid logging bodies unless masked",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 48,
+        "source": "b2c_dev_exam_set14.md",
+        "question": "Shop API varies by price group and locale. Safe caching: (Select one)",
+        "options": [
+            "No cache or cache with appropriate vary keys",
+            "Global cache only",
+            "CDN no-vary",
+            "Response cache blindly"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. No cache or cache with appropriate vary keys",
         "type": "single",
         "needs_review": false,
         "ai_inferred": true,
@@ -12278,6 +13396,47 @@
         "answer_fixed": true
     },
     {
+        "id": 7,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "Where is the active code version selected? (Select one)",
+        "options": [
+            "BM > Administration > Site Development > Code Versions",
+            "BM > Merchant Tools > SEO",
+            "BM > Content > Assets",
+            "BM > Services"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. BM > Administration > Site Development > Code Versions",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 8,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "What does dw.json configure? (Select one)",
+        "options": [
+            "OCAPI Shop permissions",
+            "IDE/WebDAV connection (hostname, username, code version)",
+            "Page Designer permissions",
+            "Search synonyms"
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Đáp án đúng là B. Lựa chọn này phù hợp với nguyên tắc chuẩn của Salesforce B2C Commerce / SFRA / Business Manager.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.95,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module."
+    },
+    {
         "id": 9,
         "source": "b2c_dev_exam_set10.md",
         "question": "A stakeholder requests different cartridge paths per locale within one site. Correct guidance? (Select one)",
@@ -12553,6 +13712,27 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 22,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "Production logging best practice: (Select one)",
+        "options": [
+            "Logger with categories at INFO/WARN/ERROR; DEBUG sparingly for targeted troubleshooting",
+            "System.out.println",
+            "Everything at DEBUG",
+            "Disable logs"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Logger with categories at INFO/WARN/ERROR; DEBUG sparingly for targeted troubleshooting",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
         "id": 23,
         "source": "b2c_dev_exam_set10.md",
         "question": "Where do you configure the site default currency and taxation type? (Select one)",
@@ -12609,6 +13789,27 @@
             "A"
         ],
         "explanation": "Correct answer: A. Thin controllers; business logic in helpers/decorators/factories",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 26,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "Which directive enables cacheable template fragments? (Select one)",
+        "options": [
+            "iscache",
+            "isif",
+            "isloop",
+            "isdecorate"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. iscache",
         "type": "single",
         "needs_review": false,
         "ai_inferred": true,
@@ -12703,6 +13904,28 @@
         "answer_fixed": true
     },
     {
+        "id": 31,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "Localize UI strings using: (Select two)",
+        "options": [
+            "templates/resources/*.properties",
+            "Resource.msg/Resource.msgf",
+            "ocapi.json",
+            "services.json"
+        ],
+        "answer": [
+            "B",
+            "C"
+        ],
+        "explanation": "Correct answer: B, C. [B] Resource.msg/Resource.msgf [C] ocapi.json",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
         "id": 32,
         "source": "b2c_dev_exam_set10.md",
         "question": "A remote include shows stale promotion data. How to fix? (Select one)",
@@ -12716,6 +13939,27 @@
             "A"
         ],
         "explanation": "Correct answer: A. Add vary keys for basket/promo/customer context or disable cache for the include",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 33,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "Caching a personalized Shop API response safely requires: (Select one)",
+        "options": [
+            "No cache, or cache with vary on customer group/locale/currency",
+            "Global cache with no vary",
+            "CDN cache only",
+            "Response cache only"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. No cache, or cache with vary on customer group/locale/currency",
         "type": "single",
         "needs_review": false,
         "ai_inferred": true,
@@ -12810,6 +14054,50 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 38,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "A nightly job imports inventory and reindexes search. Which two steps are typical? (Select two)",
+        "options": [
+            "Script step: import inventory",
+            "System step: trigger delta/full index",
+            "Disable logs",
+            "Rename code version"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Script step: import inventory [B] System step: trigger delta/full index",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
+        "id": 39,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "Which inbound folders are commonly used for imports? (Select two)",
+        "options": [
+            "/impex/src/",
+            "/impex/src/instance/",
+            "/versioned/cartridges/",
+            "/static/default/"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] /impex/src/ [B] /impex/src/instance/",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
         "id": 40,
         "source": "b2c_dev_exam_set10.md",
         "question": "When an import job intermittently fails due to file locks, what two mitigations help? (Select two)",
@@ -12847,6 +14135,71 @@
         ],
         "explanation": "Correct answer: A, B. [A] Restrict read_attributes to only required fields [B] Dedicated client credentials per integration",
         "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 42,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "To rotate a service credential without downtime, which two steps help? (Select two)",
+        "options": [
+            "Add a new credential/profile and cut over",
+            "Hardcode the secret in code",
+            "Support overlapping keys if upstream allows",
+            "Stop traffic"
+        ],
+        "answer": [
+            "A",
+            "C"
+        ],
+        "explanation": "Correct answer: A, C. [A] Add a new credential/profile and cut over [C] Support overlapping keys if upstream allows",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 43,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "A robust synchronous integration should include: (Select two)",
+        "options": [
+            "Short timeouts and circuit breaker",
+            "Retries with exponential backoff for transient failures",
+            "Always log full payloads",
+            "Never cache anything"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Short timeouts and circuit breaker [B] Retries with exponential backoff for transient failures",
+        "type": "multiple",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.65,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 44,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "Product deltas arrive hourly. Which indexing policy is most efficient? (Select one)",
+        "options": [
+            "Delta index after each import",
+            "Full index hourly",
+            "Weekly index",
+            "No index needed"
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Correct answer: A. Delta index after each import",
+        "type": "single",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.65,
@@ -13152,6 +14505,28 @@
         ],
         "explanation": "Correct answer: B. Using ocapi.json",
         "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
+        "answer_fixed": true
+    },
+    {
+        "id": 59,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "Prevent duplicate POST submissions: (Select two)",
+        "options": [
+            "Idempotency keys and server-side dedupe",
+            "Disable submit button client-side after click",
+            "Use GET to avoid CSRF",
+            "Disable CSRF"
+        ],
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "Correct answer: A, B. [A] Idempotency keys and server-side dedupe [B] Disable submit button client-side after click",
+        "type": "multiple",
         "needs_review": false,
         "ai_inferred": true,
         "confidence": 0.7,
@@ -18410,6 +19785,80 @@
         "ai_inferred": false
     },
     {
+        "id": 1,
+        "source": "SFRA Architecture",
+        "question": "How do you extend a Controller without modifying the base cartridge in SFRA?",
+        "options": [
+            "Copy the base controller into your cartridge and modify it.",
+            "Create a controller with the same name and use server.extend(module.superModule).",
+            "Use the `server.replace()` method to overwrite the base route.",
+            "Use `require('app_storefront_base/...')` directly in the view."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "SFRA sử dụng cơ chế kế thừa thông qua module.superModule. Việc dùng server.extend cho phép bạn thêm logic (append/prepend) mà không làm mất code gốc.",
+        "tip": "Cứ thấy 'Extend Controller' -> Tìm 'superModule'. Đừng bao giờ chọn 'Copy file'."
+    },
+    {
+        "id": 2,
+        "source": "Questions_20260403.md",
+        "question": "In a middleware chain, what happens if you call res.render() and then next()?",
+        "options": [
+            "The template renders twice.",
+            "An error occurs, and the request fails.",
+            "The template renders, and the next middleware executes normally.",
+            "The `next()` call is silently ignored."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "res.render() chỉ thiết lập viewData và template, luồng middleware vẫn tiếp tục cho đến khi kết thúc chuỗi hoặc có phản hồi cuối cùng.",
+        "tip": "render() không dừng luồng. next() sẽ chạy middleware tiếp theo. Chỉ ngắt luồng khi ném lỗi hoặc không gọi next()."
+    },
+    {
+        "id": 3,
+        "source": "Questions_20260403.md",
+        "question": "Which middleware functions are required to enable CSRF protection on a specific route pair in SFRA?",
+        "options": [
+            "`csrfProtection.validateAjaxRequest` on all routes.",
+            "`csrfProtection.generateToken` for GET and `csrfProtection.validateRequest` for POST.",
+            "`server.middleware.csrf` on both GET and POST routes.",
+            "`security.enableCSRF()` on the POST route."
+        ],
+        "answer": [
+            "B"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "explanation": "Quy trình CSRF: GET sinh ra Token -> POST kiểm tra Token đó.",
+        "tip": "CSRF: Luôn chọn cặp 'generateToken' cho GET và 'validateRequest' cho POST.",
+        "answer_fixed": true
+    },
+    {
+        "id": 5,
+        "source": "Questions_20260403.md",
+        "question": "If a site's cartridge path is 'plugin_wishlist:app_custom:app_storefront_base', which 'ProductModel.js' is used if it exists in all three?",
+        "options": [
+            "All three are merged automatically.",
+            "The one in app_storefront_base.",
+            "The one in plugin_wishlist.",
+            "The one in app_custom."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: C. The one in plugin_wishlist.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Cartridge Path Precedence: Trái sang Phải. Thằng đầu tiên (leftmost) luôn thắng.",
+        "answer_fixed": true
+    },
+    {
         "id": 6,
         "source": "Questions_20260403.md",
         "question": "In SFRA, what is the standard method for passing data from a Controller to an ISML template for rendering?",
@@ -18448,6 +19897,43 @@
         "ai_inferred": false,
         "confidence": 1.0,
         "tip": "Extend Route -> Luôn chọn 'append' (thêm vào cuối) hoặc 'prepend' (thêm vào đầu). New Route -> Chọn 'server.get' hoặc 'server.post'. Hãy nhớ: 'append' không thay thế code cũ, nó chỉ chạy tiếp nối."
+    },
+    {
+        "id": 8,
+        "source": "Questions_20260403.md",
+        "question": "How do you securely access HTTP Cookies in a B2C Script?",
+        "options": [
+            "Via `response.cookies`.",
+            "Via `session.getCookies()`.",
+            "Via `request.httpCookies`.",
+            "Using `document.cookie`."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Correct answer: C. Via `request.httpCookies`.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "tip": "Server-side Cookie -> Dùng request.httpCookies. document.cookie chỉ dùng ở phía Client (Browser).",
+        "answer_fixed": true
+    },
+    {
+        "id": 9,
+        "source": "Performance",
+        "question": "Why is it dangerous to store large objects in session.custom?",
+        "options": [
+            "It exposes data to XSS attacks.",
+            "It increases session size, degrading performance due to serialization overhead on every request.",
+            "It violates the api.MaxObjectCount quota.",
+            "It prevents the user from logging out."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "session.custom được lưu trữ trong cookie và được đồng bộ (serialize/deserialize) trong mọi request. Đối tượng quá lớn sẽ làm chậm tốc độ phản hồi của website.",
+        "tip": "Lỗi Session -> Luôn liên quan đến 'Serialization' hoặc 'Performance'."
     },
     {
         "id": 10,
@@ -18770,6 +20256,25 @@
         "tip": "api.MaxObjectCount -> Luôn liên quan đến 'Instantiated Objects' và 'In a single request'. Hãy nhớ: Đây là giới hạn về bộ nhớ tạm thời khi xử lý, không phải giới hạn về tổng số bản ghi trong Database."
     },
     {
+        "id": 28,
+        "source": "Questions_20260403.md",
+        "question": "How can a developer best avoid database 'Deadlocks' in high-volume custom scripts?",
+        "options": [
+            "Disable the database locking mechanism in Site Preferences.",
+            "Wrap the entire Job in a single massive Transaction.",
+            "Ensure all scripts access and lock objects in the same order and keep transactions as short as possible.",
+            "Increase the number of application server instances to spread the load."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Để tránh Deadlock (khóa chết), quy tắc vàng là luôn truy cập và khóa các đối tượng theo một thứ tự cố định (ví dụ: luôn khóa Order trước rồi mới đến Custom Object) và đảm bảo transaction kết thúc nhanh nhất có thể.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed": true,
+        "tip": "Deadlock -> Luôn chọn 'Access in same order' và 'Keep transactions short'."
+    },
+    {
         "id": 30,
         "source": "Questions_20260403.md",
         "question": "How can a developer programmatically trigger a full rebuild of the Product Search Index from within a Storefront Controller script?",
@@ -18788,6 +20293,25 @@
         "ai_inferred": false,
         "confidence": 1.0,
         "tip": "Search Index Rebuild -> Luôn là 'Job' hoặc 'Business Manager'. Không bao giờ có chuyện gọi trực tiếp từ Controller (Script). Hãy nhớ: Controller chỉ dùng để hiển thị dữ liệu (Read), không dùng cho các tác vụ quản trị nặng (Admin tasks)."
+    },
+    {
+        "id": 31,
+        "source": "Questions_20260403.md",
+        "question": "In the Service Framework registry, what is the exact purpose of the 'createRequest' callback?",
+        "options": [
+            "It is where you define the URL path, headers, and request body for the outgoing call.",
+            "It handles the automatic retry logic for failed requests.",
+            "It parses the raw HTTP response into a JavaScript object.",
+            "It is used to configure the Circuit Breaker thresholds."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Hàm createRequest là bước đầu tiên trong Service Framework, dùng để thiết lập các thông số cần thiết (URL, header, payload) trước khi thực hiện gọi API.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed_v2": true,
+        "tip": "Vòng đời Service: createRequest (Chuẩn bị) -> execute (Gửi) -> parseResponse (Xử lý kết quả)."
     },
     {
         "id": 32,
@@ -18911,6 +20435,24 @@
         "tip": "Local Include -> Cùng Thread, cùng Cache Policy. Remote Include -> Khác Thread, có Cache Policy riêng. Hãy chọn 'D' nếu đề bài nhắc đến việc dùng chung tài nguyên với trang cha."
     },
     {
+        "id": 44,
+        "source": "Questions_20260403.md",
+        "question": "How do you implement a Webhook listener in B2C Commerce to receive updates from an external ERP?",
+        "options": [
+            "Register a new Hook in hooks.json pointing to an external URL.",
+            "Create a public Controller route that parses the incoming JSON payload and triggers logic based on the data.",
+            "Use the 'WebDAV' protocol to receive files directly into the ERP folder.",
+            "Webhooks are not supported; you must poll the external system using a Job."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Trong SFCC, để nhận Webhook, bạn tạo một Controller route (ví dụ: `Webhook-Notify`). Hệ thống bên ngoài sẽ gọi vào URL này qua POST để gửi dữ liệu.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed_v2": true
+    },
+    {
         "id": 45,
         "source": "Questions_20260403.md",
         "question": "When debugging site performance, what is the primary benefit of using the 'Service Profiling' tool in Business Manager?",
@@ -19032,6 +20574,24 @@
         "answer_fixed_v2": true
     },
     {
+        "id": 53,
+        "source": "Questions_20260403.md",
+        "question": "How is an XML 'Sitemap' generated for search engines in B2C Commerce?",
+        "options": [
+            "A developer must write a custom script using XMLStreamWriter.",
+            "It is generated automatically on a schedule via the Sitemap Job configuration in Merchant Tools.",
+            "It is created manually by exporting the Product Catalog and renaming the file.",
+            "Google automatically generates it by crawling the storefront home page."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "B2C Commerce có sẵn tính năng tạo Sitemap. Bạn chỉ cần cấu hình tần suất và nội dung trong Merchant Tools > SEO > Sitemaps, hệ thống sẽ chạy Job tự động.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed_v2": true
+    },
+    {
         "id": 54,
         "source": "Questions_20260403.md",
         "question": "What is the standard architectural pattern for implementing 'Infinite Scroll' on a Product Listing Page (PLP) in SFRA?",
@@ -19072,6 +20632,25 @@
         "tip": "Unit Test + Wrapper/Mock -> Luôn nhằm mục đích 'Simulate' (mô phỏng) và 'Isolation' (cô lập) code khỏi Platform API/Database."
     },
     {
+        "id": 56,
+        "source": "Questions_20260403.md",
+        "question": "How do you ensure 'Thread Safety' when writing a complex background Job?",
+        "options": [
+            "Wrap all code in a single transaction.",
+            "Avoid using globally scoped variables that might be read or modified unpredictably by parallel executing threads.",
+            "Always use 'require' inside the loop to ensure fresh instances of modules.",
+            "The platform handles all thread safety automatically for custom scripts."
+        ],
+        "answer": [
+            "B"
+        ],
+        "explanation": "Khi chạy Job song song (Parallel), việc dùng biến Global có thể dẫn đến việc các thread ghi đè dữ liệu của nhau. Phải sử dụng biến cục bộ (Local scope) để đảm bảo an toàn.",
+        "type": "single",
+        "needs_review": false,
+        "answer_fixed": true,
+        "tip": "Thread Safety -> Tuyệt đối không dùng 'Global variables'. Phải dùng biến cục bộ (local scope)."
+    },
+    {
         "id": 57,
         "source": "Questions_20260403.md",
         "question": "Which B2C Script API class is the primary engine for executing search queries, sorting, and facet filtering on the storefront?",
@@ -19090,6 +20669,24 @@
         "ai_inferred": false,
         "confidence": 1.0,
         "tip": "Search Engine/Facets trên Storefront -> Luôn là 'ProductSearchModel'. 'ProductMgr' chỉ dùng để lấy một sản phẩm cụ thể qua ID, không dùng để tìm kiếm hàng loạt theo bộ lọc.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 59,
+        "source": "Questions_20260403.md",
+        "question": "What is the function of a 'Custom Cache Key' when dealing with Remote Includes?",
+        "options": [
+            "It forces the browser to ignore the local cache.",
+            "It encrypts the cache file on the server.",
+            "It is a URL parameter added to ensure different contextual versions of a component are cached separately (e.g., ?currency=EUR).",
+            "It identifies the specific code version used to render the template."
+        ],
+        "answer": [
+            "C"
+        ],
+        "explanation": "Custom Cache Key giúp tách biệt cache cho các ngữ cảnh khác nhau. Ví dụ: Mini-cart cần cache riêng cho từng khách hàng hoặc từng loại tiền tệ.",
+        "type": "single",
+        "needs_review": false,
         "answer_fixed_v2": true
     },
     {
@@ -19112,6 +20709,27 @@
         "confidence": 1.0,
         "tip": "Global Error/Unhandled Exception -> Luôn xử lý tại 'Error.js' Controller. Đây là 'tuyến phòng thủ cuối cùng' của SFRA trước khi người dùng thấy màn hình trắng hoặc lỗi mặc định của server.",
         "answer_fixed": true
+    },
+    {
+        "id": 61,
+        "source": "Questions_20260403.md",
+        "question": "A developer needs to implement a custom 'Inventory Reservation' system using Custom Objects. To prevent race conditions where two customers claim the last item simultaneously, which approach is mandatory?",
+        "options": [
+            "Wrap the update in a Transaction and use the 'locking' parameter (true) in the getCustomObject or query call.",
+            "Use optimistic locking by manually comparing a version field before each update.",
+            "Rely on standard database unique constraints to prevent duplicate reservation entries.",
+            "Implement client-side JavaScript validation to disable the purchase button once inventory is low."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Trong B2C Commerce, để ngăn chặn tình trạng hai tiến trình cùng sửa đổi một bản ghi đồng thời (Race Condition), bạn phải sử dụng 'Pessimistic Locking'. Điều này thực hiện bằng cách bọc code trong Transaction và truyền tham số 'true' vào các hàm lấy đối tượng (như getCustomObject). Khi đó, hệ thống sẽ khóa bản ghi này cho đến khi giao dịch kết thúc, buộc các tiến trình khác phải chờ.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Race Condition/Simultaneously/Reservation -> Từ khóa cứu mạng là 'Transaction' + 'Locking parameter'. Lưu ý: Platform mặc định không tự khóa đối tượng trừ khi bạn yêu cầu.",
+        "answer_fixed_v2": true
     },
     {
         "id": 63,
@@ -19216,6 +20834,132 @@
         "ai_inferred": false,
         "confidence": 1.0,
         "tip": "Mock Mode -> Chạy hàm 'mockFull'. Hãy nhớ: Mock không gửi request đi, nó chỉ lấy kết quả 'giả' bạn viết sẵn trong code.",
+        "answer_fixed": true
+    },
+    {
+        "id": 69,
+        "source": "Questions_20260403.md",
+        "question": "Why would a developer use 'dw.system.Logger.getRootLogger()' instead of 'dw.system.Logger.getLogger('name')'?",
+        "options": [
+            "To ensure logs are sent to an external syslog server automatically.",
+            "To capture all log statements across the entire system regardless of the category.",
+            "To filter logs to only show errors and warnings.",
+            "To improve logging performance by using a single logger instance."
+        ],
+        "answer": [
+            "B"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "Root Logger là logger cấp cao nhất, nó ghi nhận mọi thông tin log mà không bị giới hạn bởi các category cụ thể được định nghĩa trong Business Manager.",
+        "tip": "Root Logger = 'Cái rây' lớn nhất. Dùng khi muốn bắt mọi thứ đang diễn ra trong hệ thống mà không quan tâm phân loại.",
+        "answer_fixed": true
+    },
+    {
+        "id": 70,
+        "source": "Questions_20260403.md",
+        "question": "What is the impact of setting 'pdict.cacheTag = true' in an SFRA controller?",
+        "options": [
+            "It invalidates the cache for all users globally.",
+            "It automatically adds the product ID to the cache key.",
+            "It is not a standard SFRA feature; caching is controlled via the 'res' object.",
+            "It enables browser-side caching only."
+        ],
+        "answer": [
+            "C"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "Trong SFRA, việc quản lý cache đã được chuyển sang đối tượng middleware 'res' (ví dụ: res.cacheExpiration). 'pdict.cacheTag' là một tàn dư hoặc tính năng không chính thống của bộ máy Pipeline cũ.",
+        "tip": "SFRA Cache -> Luôn tìm đối tượng 'res'. Mọi thứ liên quan đến pdict.cache... thường là 'bẫy' từ thời SiteGenesis.",
+        "answer_fixed": true
+    },
+    {
+        "id": 71,
+        "source": "Questions_20260403.md",
+        "question": "When developing a 'Scripted' Job Step, what is the purpose of the 'steptypes.json' file?",
+        "options": [
+            "To compile the JavaScript code into optimized machine code.",
+            "To define the sequence in which different jobs are executed.",
+            "To register the custom step and define its input/output parameters for Business Manager.",
+            "To store job execution logs and audit trails."
+        ],
+        "answer": [
+            "C"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "steptypes.json đóng vai trò như một bản khai báo (manifest) để Business Manager biết Job Step đó có những đầu vào (input) nào để người dùng có thể cấu hình trong giao diện.",
+        "tip": "Job Parameter -> Phải nằm trong 'steptypes.json'. Đây là cầu nối giữa Code và UI của Business Manager.",
+        "answer_fixed": true
+    },
+    {
+        "id": 72,
+        "source": "Questions_20260403.md",
+        "question": "If a developer uses 'URLUtils.staticURL()' to link to an image, when will that link be updated in the user's browser?",
+        "options": [
+            "Every time the user clears their browser cookies.",
+            "When the Search Index is rebuilt.",
+            "Only when the cartridge containing the asset is uploaded with a new version string.",
+            "Every time the user visits the page (no caching)."
+        ],
+        "answer": [
+            "C"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "staticURL tạo ra đường dẫn chứa version của code. Trình duyệt dựa vào version này để quyết định tải mới hay dùng bản cũ trong cache.",
+        "tip": "staticURL = Caching vĩnh viễn cho đến khi đổi Code Version. Muốn đổi ảnh ngay? -> Đổi Code Version.",
+        "answer_fixed": true
+    },
+    {
+        "id": 19,
+        "source": "Questions_20260403.md",
+        "question": "If a custom requirement dictates storing an Array of complex objects on a Customer Profile, what is the best practice?",
+        "options": [
+            "Stringify the array to JSON and store it in a 'Text' or 'Long String' attribute.",
+            "Create multiple custom objects for each array element.",
+            "Store each object as a separate attribute (e.g., attr1, attr2).",
+            "Use session.custom to store the array permanently."
+        ],
+        "answer": [
+            "A"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "Vì System Object không hỗ trợ mảng phức tạp, cách duy nhất để lưu trữ lâu dài là biến chúng thành chuỗi JSON và lưu vào thuộc tính String.",
+        "tip": "Complex Data + Profile -> Giải pháp luôn là JSON.stringify vào một 'Long String'.",
+        "answer_fixed_v2": true
+    },
+    {
+        "id": 24,
+        "source": "Questions_20260403.md",
+        "question": "What is the maximum length of a standard 'String' attribute in B2C Commerce?",
+        "options": [
+            "255 characters.",
+            "2,000 characters.",
+            "4,000 characters.",
+            "Unlimited."
+        ],
+        "answer": [
+            "C"
+        ],
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "explanation": "Đây là giới hạn vật lý của platform cho kiểu dữ liệu String. Nếu vượt quá, dữ liệu sẽ bị cắt cụt.",
+        "tip": "Ghi nhớ con số 4000. Nếu đề bài nói cần lưu nhiều hơn -> Phải dùng kiểu 'Text'.",
         "answer_fixed": true
     },
     {
