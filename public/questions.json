@@ -13050,134 +13050,128 @@
     {
         "id": 54,
         "source": "b2c_dev_exam_set10.md",
-        "question": "New locale shows English strings. Which two fixes apply? (Select two)",
+        "question": "A developer adds a new locale to a site, but the storefront still displays English strings for most labels. Which two actions are required to fix this? (Select two)",
         "options": [
-            "Add locale-specific properties under templates/resources",
-            "Use Resource.msg/Resource.msgf helpers",
-            "Update ocapi.json",
-            "Switch code version"
+            "Create and upload locale-specific '.properties' files within the 'templates/resources' folder of the cartridge.",
+            "Ensure all storefront labels are retrieved using 'Resource.msg()' or 'Resource.msgf()' helper methods.",
+            "Add the new locale identifier to the 'ocapi.json' configuration file to enable translation routing.",
+            "Switch to a new code version to trigger a re-indexing of the resource bundle files."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Add locale-specific properties under templates/resources [B] Use Resource.msg/Resource.msgf helpers",
+        "explanation": "Để hiển thị đa ngôn ngữ: 1. Bạn cần có 'nguyên liệu' là các tệp .properties (ví dụ: login_fr.properties cho tiếng Pháp). 2. Bạn cần 'công cụ' để lấy nguyên liệu đó là hàm Resource.msg(). Nếu bạn hardcode chữ tiếng Anh trong ISML hoặc thiếu tệp .properties cho locale mới, hệ thống sẽ tự động dùng tệp mặc định (thường là tiếng Anh).",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Localization Issue -> Luôn kiểm tra '.properties' files và hàm 'Resource.msg'. Hãy nhớ cơ chế 'Fallback': Nếu không tìm thấy bản dịch cho locale cụ thể, hệ thống sẽ luôn quay về hiển thị tệp mặc định (Default/English)."
     },
     {
         "id": 55,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A route frequently times out on a downstream service. Which three techniques are best practice? (Select three)",
+        "question": "A specific route frequently times out due to a slow downstream service. Which three techniques are considered best practices for handling this within the B2C Commerce Service Framework? (Select three)",
         "options": [
-            "Short timeouts (fail fast)",
-            "Retries with backoff",
-            "Circuit breaker",
-            "Increase synchronous calls"
+            "Implement short timeouts to 'Fail Fast' and release server threads quickly.",
+            "Configure 'Retries with Exponential Backoff' to handle transient network issues.",
+            "Enable the 'Circuit Breaker' to prevent the system from repeatedly calling a failing service.",
+            "Increase the number of synchronous calls to ensure data consistency despite the slowness."
         ],
         "answer": [
             "A",
             "B",
             "C"
         ],
-        "explanation": "Correct answer: A, B, C. [A] Short timeouts (fail fast) [B] Retries with backoff [C] Circuit breaker",
+        "explanation": "Để bảo vệ hệ thống: 1. 'Fail Fast' giúp giải phóng tài nguyên server ngay khi service đối tác chậm quá mức cho phép. 2. 'Retry with backoff' giúp tự phục hồi nếu đó chỉ là lỗi mạng tạm thời. 3. 'Circuit Breaker' sẽ 'ngắt mạch' hoàn toàn nếu service đối tác sập lâu dài, giúp trang web của bạn không bị treo luồng (thread) và vẫn phục vụ được các tính năng khác cho khách hàng.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Service Resilience -> Luôn là bộ ba: Timeout, Retry và Circuit Breaker. Hãy nhớ: Càng gặp service chậm, càng phải hạn chế gọi đồng bộ (Synchronous) để tránh làm nghẽn toàn bộ hệ thống."
     },
     {
         "id": 56,
         "source": "b2c_dev_exam_set10.md",
-        "question": "After a release, PDP TTFB increased by 250ms. Which three diagnostics help? (Select three)",
+        "question": "Immediately after a code release, the Time to First Byte (TTFB) on the Product Detail Page (PDP) increased by 250ms. Which three diagnostic actions will help identify the root cause? (Select three)",
         "options": [
-            "Compare profiler traces before/after",
-            "Add targeted timing logs around suspect blocks",
-            "Diff services/decorators/hooks changes",
-            "Disable logs permanently"
+            "Compare 'Pipeline Profiler' or 'Script Profiler' traces from before and after the release.",
+            "Insert targeted timing logs (using 'dw.system.Logger') around suspect code blocks or external service calls.",
+            "Review and 'Diff' recent changes in Services, Decorators, and Hooks within the release branch.",
+            "Disable all system and custom logging permanently to free up CPU cycles for page rendering."
         ],
         "answer": [
             "A",
             "B",
             "C"
         ],
-        "explanation": "Correct answer: A, B, C. [A] Compare profiler traces before/after [B] Add targeted timing logs around suspect blocks [C] Diff services/decorators/hooks changes",
+        "explanation": "Để tìm nguyên nhân tăng TTFB: 1. Profiler sẽ chỉ ra hàm nào đang chạy lâu hơn bình thường; 2. Timing logs giúp đo đạc chính xác thời gian phản hồi của API bên thứ ba; 3. Kiểm tra code thay đổi (Diff) giúp thu hẹp phạm vi nghi ngờ vào các Services hoặc Decorators mới được cập nhật.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "TTFB Issue -> Luôn là lỗi Server-side. Hãy sử dụng bộ ba: Profiler (Soi code), Timing Logs (Đo thời gian), và Code Diff (So sánh thay đổi). Hãy nhớ: TTFB không liên quan đến mạng của người dùng hay kích thước file ảnh."
     },
     {
         "id": 57,
         "source": "b2c_dev_exam_set10.md",
-        "question": "To reduce ISML template CPU time, which two help? (Select two)",
+        "question": "Which two approaches are highly effective at reducing the CPU processing time of ISML templates?",
         "options": [
-            "Precompute data in helpers/decorators; pass view-ready data",
-            "Cache static fragments with iscache",
-            "Add HTTP calls in templates",
-            "Heavy loops in ISML"
+            "Precompute complex logic in Helpers or Decorators and pass 'view-ready' data to the template.",
+            "Implement fragment caching for static or semi-static parts of the page using the '<iscache>' tag.",
+            "Perform external API calls directly within the ISML template using script tags to save controller execution time.",
+            "Move heavy business logic and nested loops from JavaScript Controllers into the ISML template for faster rendering."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Precompute data in helpers/decorators; pass view-ready data [B] Cache static fragments with iscache",
+        "explanation": "Để tối ưu CPU time cho ISML: 1. Decorators/Helpers giúp xử lý dữ liệu ở tầng JavaScript (nhanh hơn và dễ debug hơn), ISML chỉ việc in ra. 2. '<iscache>' giúp lưu lại bản HTML đã render, server không cần chạy lại code ISML cho các request sau, giúp giảm tải CPU tuyệt đối cho các thành phần tĩnh.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "ISML Performance -> 'Logic-less templates' là chìa khóa. Luôn chọn: 1. Đẩy logic ra khỏi ISML (A) và 2. Sử dụng Caching (B). Hãy nhớ: ISML chỉ nên dùng để hiển thị dữ liệu."
     },
     {
         "id": 58,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A PD component shows wrong currency when cached. Fix by: (Select one)",
+        "question": "A Page Designer (PD) component displays the wrong currency for some users due to caching. What is the correct way to fix this issue?",
         "options": [
-            "Adding vary-by-currency on the cached fragment",
-            "Using ocapi.json",
-            "Disabling CSRF",
-            "Rebuilding catalog"
-        ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Correct answer: B. Using ocapi.json",
-        "type": "single",
-        "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
-    },
-    {
-        "id": 60,
-        "source": "b2c_dev_exam_set10.md",
-        "question": "Catalog import and delta reindex sometimes overlap and fail. Best remedy: (Select one)",
-        "options": [
-            "Coordinate schedules with locking and add retries/backoff",
-            "Disable indexing",
-            "Add DEBUG logs",
-            "Change code version"
+            "Configure the component's cache settings to include 'vary-by-currency'.",
+            "Update the 'ocapi.json' settings to allow currency-specific data fetching.",
+            "Disable CSRF (Cross-Site Request Forgery) protection for the component's route.",
+            "Rebuild the Catalog to ensure price-books are correctly associated with currencies."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Coordinate schedules with locking and add retries/backoff",
+        "explanation": "Khi một thành phần (component) được cache, Salesforce sẽ lưu lại kết quả render của nó để phục vụ cho các người dùng tiếp theo. Nếu thành phần đó chứa thông tin tiền tệ (như giá sản phẩm), bạn phải báo cho hệ thống biết rằng cần lưu các bản cache riêng biệt cho từng loại tiền tệ (USD, VND, EUR). Kỹ thuật này gọi là 'Vary-by-currency'. Nếu không, người dùng dùng EUR có thể nhìn thấy bản cache giá USD của người dùng trước đó.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Cache Content Issue -> Luôn tìm các giải pháp 'Vary-by'. Các tiêu chí phổ biến: Currency (tiền tệ), Price Promotion (khuyến mãi), hoặc Customer Group (nhóm khách hàng)."
+    },
+    {
+        "id": 60,
+        "source": "b2c_dev_exam_set10.md",
+        "question": "A developer notices that Catalog Import jobs and Delta Reindexing processes occasionally overlap, leading to job failures. What is the best remedy to resolve this contention?",
+        "options": [
+            "Coordinate job schedules using the 'Locking' mechanism and implement retry/backoff logic.",
+            "Disable the Delta Reindexing feature entirely to prevent overlaps with imports.",
+            "Add extensive DEBUG logs to both processes to identify the exact millisecond of failure.",
+            "Switch to a new code version to reset the internal system timers for indexing."
+        ],
+        "answer": [
+            "A"
+        ],
+        "explanation": "Trong Salesforce B2C Commerce, cả Catalog Import và Indexing đều tác động lên cùng một cơ sở dữ liệu Search. Để tránh xung đột (Contention), lập trình viên nên: 1. Sử dụng tính năng 'Job Locking' để ngăn hai Job chạy cùng lúc; 2. Thiết lập 'Retry' để nếu một Job bị khóa bởi Job kia, nó sẽ tự động thử lại sau vài phút thay vì báo lỗi thất bại ngay lập tức.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Job Contention/Overlap -> Luôn chọn 'Locking' và 'Scheduling/Retry'. Hãy nhớ: Tuyệt đối không tắt Indexing (B) vì sẽ làm hỏng chức năng tìm kiếm của khách hàng."
     },
     {
         "id": 61,
@@ -13198,44 +13192,44 @@
     {
         "id": 73,
         "set": "Understand Event-Driven Software Architecture",
-        "question": "What are some benefits of an event-driven software architecture?",
-        "type": "single",
+        "question": "What is a primary benefit of implementing an event-driven software architecture?",
         "options": [
-            "It decouples event producers from channels.",
-            "It decouples event producers from event consumers, which have several dependencies on each other.",
-            "It simplifies communication between producers and consumers by requiring the writing of complex logic.",
-            "It enables the broadcasting of news messages.",
-            "It simplifies communication by decoupling event producers from event consumers."
+            "It strictly couples event producers to specific communication channels for security.",
+            "It increases the direct dependencies between producers and consumers to ensure data delivery.",
+            "It simplifies system maintenance by requiring consumers to handle complex routing logic.",
+            "It is used primarily for the synchronous broadcasting of real-time news messages.",
+            "It simplifies communication and scaling by decoupling event producers from event consumers."
         ],
         "answer": [
             "E"
         ],
-        "explanation": "Correct answer: E. It simplifies communication by decoupling event producers from event consumers.",
-        "tip": "",
-        "source": "QA_1.html",
-        "confidence": 0.95,
-        "ai_inferred": false
+        "explanation": "Lợi ích lớn nhất của kiến trúc hướng sự kiện là tính 'phi tập trung'. Người tạo sự kiện (Producer) không cần biết ai sẽ nhận dữ liệu, và người nhận (Consumer) cũng không cần biết dữ liệu đến từ đâu. Sự tách biệt này cho phép các thành phần của hệ thống phát triển, thay đổi và mở rộng một cách độc lập mà không làm ảnh hưởng đến nhau.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Event-Driven -> Keyword luôn là 'Decoupling' (Tách biệt) và 'Asynchronous' (Bất đồng bộ). Nếu thấy đáp án nào nói về việc tăng 'dependency' (phụ thuộc) hoặc 'coupling' (kết nối chặt), đó chắc chắn là đáp án sai."
     },
     {
         "id": 74,
         "set": "Understand Event-Driven Software Architecture",
-        "question": "What are some characteristics of a platform event message?",
-        "type": "single",
+        "question": "Which of the following describes the key characteristics of a Salesforce Platform Event message?",
         "options": [
-            "It is similar to a Salesforce object record, it is not viewable in the user interface, and it can't be edited or deleted.",
-            "It is an object, it can't be edited or deleted, and it is viewable in the user interface.",
-            "It is a Salesforce object record, it is not viewable in the user interface, and it can be edited but not deleted.",
-            "It is a one-of-a-kind custom object record!",
-            "It is similar to a Salesforce object record, it is not viewable in the user interface, and it can't be edited, but it can be deleted."
+            "It has a structure similar to a Salesforce object record, it is not viewable in the Salesforce user interface, and it cannot be edited or deleted once published.",
+            "It functions as a standard object, it is viewable within the Salesforce UI (Tab), and it cannot be edited but can be deleted by administrators.",
+            "It is a specialized Salesforce record that is not viewable in the UI, but it allows for field updates (editing) while prohibiting deletion.",
+            "It is a unique type of custom object that remains permanently in the database and is accessible via standard Reports.",
+            "It is similar to a Salesforce record, hidden from the UI, and while it cannot be edited, it can be manually deleted to free up storage."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. It is similar to a Salesforce object record, it is not viewable in the user interface, and it can't be edited or deleted.",
-        "tip": "",
-        "source": "QA_1.html",
-        "confidence": 0.95,
-        "ai_inferred": false
+        "explanation": "Platform Events tuân theo mô hình 'Publish-Subscribe'. Khi một sự kiện được đẩy đi (Publish), nó trở thành một thông điệp bất biến (Immutable). Bạn không thể quay lại sửa đổi một sự kiện đã xảy ra trong quá khứ, và vì nó không phải là dữ liệu lưu trữ lâu dài nên nó không xuất hiện trên giao diện người dùng (UI) như Page Layout hay List View.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Platform Event -> Hãy nhớ bộ ba: 1. Immutable (Không sửa/xóa); 2. Hidden (Không hiện trên UI); 3. Transient (Tạm thời - biến mất sau thời gian lưu giữ mặc định)."
     },
     {
         "id": 75,
