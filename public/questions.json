@@ -11915,1050 +11915,1006 @@
     {
         "id": 50,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "You discover double JSON serialization (stringified strings) in your API output. What is the clean fix?",
+        "question": "You discover 'double JSON serialization' (where the API response is a stringified string containing escaped characters) in your custom controller output. What is the correct fix?",
         "options": [
-            "Ensure the controller passes a plain JavaScript object to res.json() once.",
-            "Use JSON.parse() twice on the client side.",
-            "Change the cartridge path to prioritize the base cartridge.",
-            "Enable 'Legacy JSON Mode' in Business Manager site settings."
+            "Ensure the controller passes a plain JavaScript object directly to 'res.json()', allowing the middleware to handle serialization once.",
+            "Implement a 'JSON.parse()' call twice on the client-side JavaScript to decode the nested string.",
+            "Change the site's Cartridge Path to prioritize the base SFRA cartridge, which has better JSON handling.",
+            "Enable 'Legacy JSON Mode' in the Business Manager Site Preferences to auto-fix serialization issues."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Hàm res.json() của SFRA đã tự động stringify object. Nếu bạn tự stringify trước khi truyền vào, dữ liệu sẽ bị mã hóa 2 lần.",
+        "explanation": "Trong SFRA, phương thức 'res.json(obj)' được thiết kế để nhận một Plain JavaScript Object. Nó sẽ tự động thực hiện 'JSON.stringify()' và thiết lập Header 'Content-Type: application/json'. Nếu bạn tự gọi 'JSON.stringify()' trước khi truyền vào res.json(), dữ liệu sẽ bị biến thành một chuỗi JSON nằm bên trong một chuỗi JSON khác.",
         "type": "single",
         "needs_review": false,
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Double Serialization -> Luôn do gọi JSON.stringify() quá nhiều lần. Hãy nhớ: res.json() là điểm cuối của chuỗi xử lý, nó sẽ lo phần biến Object thành String cho bạn."
     },
     {
         "id": 51,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "Profiler shows 40% of time in a synchronous service call on each tile of a product list. Which two remedies help? (Select two)",
+        "question": "The Pipeline Profiler reveals that 40% of the total request time is spent on a synchronous service call executed within each product tile of a search result page (PLP). Which two remedies are most effective for improving performance?",
         "options": [
-            "Aggregate calls: one request for many items or cache results",
-            "Increase log level to TRACE",
-            "Remove the call or precompute data offline via jobs and decorate from storage",
-            "Use more remote includes"
+            "Aggregate the service calls into a single batch request for all items, or implement a robust caching strategy for the service results.",
+            "Increase the service log level to 'TRACE' to better understand why each individual call is taking so long.",
+            "Eliminate the real-time call by precomputing the data offline via a Job and storing it in a custom attribute to be decorated directly from the database.",
+            "Replace the direct service call with more 'Remote Includes' for each product tile to offload the processing."
         ],
         "answer": [
             "A",
             "C"
         ],
-        "explanation": "Correct answer: A, C. [A] Aggregate calls: one request for many items or cache results [C] Remove the call or precompute data offline via jobs and decorate from storage",
+        "explanation": "Chiến thuật tối ưu: 1. Aggregation (A): Thay vì gọi 24 lần cho 24 sản phẩm, hãy gọi 1 lần lấy dữ liệu cho cả 24 sản phẩm (Batching). 2. Precomputation (C): Chuyển logic từ 'Runtime' (khi khách đang đợi) sang 'Background' (chạy Job định kỳ). Dữ liệu có sẵn trong DB sẽ giúp trang load cực nhanh. Việc tăng log (B) chỉ làm trang chậm thêm, và Remote Includes (D) thực chất vẫn tạo ra từng đó request, không giải quyết được tổng thời gian chờ.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Service Call in Loop -> Luôn giải quyết bằng 'Batching' (Gom nhóm) hoặc 'Precomputation' (Tính toán trước). Hãy nhớ: Đồng bộ (Synchronous) và Vòng lặp (Loop) là kẻ thù của TTFB."
     },
     {
         "id": 52,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "Stale template content persists despite cache clears. Which two lesser-known causes exist? (Select two)",
+        "question": "Despite performing a full cache clear in Business Manager, stale template content persists on the storefront. Which two lesser-known causes are most likely responsible for this behavior?",
         "options": [
-            "A remote include has its own cache not invalidated",
-            "CDN edge cache still serving old variant",
-            "Wrong ocapi.json client name",
-            "Logger buffering"
+            "A 'Remote Include' (isinclude url) has its own independent cache partition that was not invalidated by the primary page clear.",
+            "The CDN (Content Delivery Network) edge cache is still serving an old variant of the page, independent of the origin server's cache state.",
+            "The 'ocapi.json' configuration contains a mismatched client name, preventing cache invalidation signals from reaching the server.",
+            "System logs are being buffered in memory, causing a delay in the visual update of the template content."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] A remote include has its own cache not invalidated [B] CDN edge cache still serving old variant",
+        "explanation": "1. Remote Includes (A): Khi sử dụng <isinclude url='...' />, phần nội dung đó được xử lý như một request riêng biệt với cấu hình cache riêng. Nếu request cha bị xóa cache nhưng request con vẫn còn hạn, nội dung cũ vẫn hiện ra. 2. CDN Edge (B): CDN nằm ngoài server Salesforce. Lệnh 'Clear Cache' trong BM đôi khi chỉ xóa cache tại 'Origin' (Salesforce), trong khi các máy chủ CDN toàn cầu vẫn giữ bản copy cũ cho đến khi hết TTL hoặc bị xóa thủ công (Purge).",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Stale content after BM Clear -> Kiểm tra 'Remote Includes' và 'CDN Purge'. Hãy nhớ: Cache không chỉ nằm ở một chỗ; nó là một chuỗi từ Server đến tận trình duyệt của khách hàng."
     },
     {
         "id": 53,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "A job fails only when catalog import and search delta reindex overlap. What’s the best mitigation? (Select one)",
+        "question": "A background Job fails consistently when the 'Catalog Import' job and the 'Search Delta Reindexing' job overlap in their execution time. What is the best mitigation strategy to ensure data consistency and job success?",
         "options": [
-            "Disable delta indexing",
-            "Introduce job schedule coordination and lock mechanism; ensure order of operations",
-            "Increase retries to 100",
-            "Turn off logs"
+            "Permanently disable 'Search Delta Indexing' to prevent any future resource contention.",
+            "Implement job schedule coordination and a locking mechanism to ensure the correct order of operations (e.g., Import finishes before Reindex starts).",
+            "Increase the job retry limit to a high number (e.g., 100) to ensure the job eventually succeeds by chance.",
+            "Turn off system logs for both jobs to reduce the I/O load on the database during the overlap."
         ],
         "answer": [
-            "A"
+            "B"
         ],
-        "explanation": "Correct answer: A. Disable delta indexing",
+        "explanation": "Khi nhiều job cùng thao tác trên Catalog, hệ thống sẽ kích hoạt cơ chế khóa (locking) để tránh hỏng dữ liệu. Nếu Catalog đang được Import, Search Index không thể đọc được dữ liệu toàn vẹn. Giải pháp chuẩn là điều phối lịch trình (Job Sequencing): Sử dụng Job Steps hoặc Job Flows để đảm bảo Job B chỉ chạy khi Job A đã thành công.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Job Conflict -> Luôn giải quyết bằng 'Job Sequencing' (Thứ tự thực thi) hoặc 'Exclusivity' (Loại trừ lẫn nhau). Đừng bao giờ tắt tính năng cốt lõi (A) hay kỳ vọng vào việc thử lại vô hạn (C)."
     },
     {
         "id": 54,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "You need to diagnose a memory spike during peak hours. Which two tools/approaches are relevant? (Select two)",
+        "question": "A site experiences a significant memory spike during peak hours, leading to performance degradation. Which two approaches are most effective for diagnosing the root cause within the Salesforce B2C Commerce environment?",
         "options": [
-            "Analyze BM Profiler data and request logs for allocation hotspots",
-            "Add heap dumps via platform APIs",
-            "Add targeted logging and correlate with service latencies",
-            "Use ISML to render diagnostics to shoppers"
+            "Analyze Business Manager Pipeline Profiler data and request logs to identify allocation hotspots or high-memory routes.",
+            "Generate and download full JVM heap dumps using platform-provided APIs for offline analysis in tools like MAT.",
+            "Implement targeted logging to monitor object creation and correlate these spikes with external service latencies or large data payloads.",
+            "Create a diagnostic ISML template that renders real-time system memory statistics to the storefront for shoppers to report."
         ],
         "answer": [
             "A",
             "C"
         ],
-        "explanation": "Correct answer: A, C. [A] Analyze BM Profiler data and request logs for allocation hotspots [C] Add targeted logging and correlate with service latencies",
+        "explanation": "1. Profiler (A) giúp xác định những Controller/Script nào đang chạy nhiều nhất hoặc tốn thời gian nhất, thường liên quan đến việc xử lý dữ liệu lớn trong RAM. 2. Targeted Logging (C) giúp bạn kiểm tra giả thuyết: liệu có phải do một Service trả về file XML/JSON quá lớn dẫn đến tràn bộ nhớ (Heap overflow) hay không. Lưu ý: Salesforce không cung cấp quyền tạo Heap dump (B) cho nhà phát triển để đảm bảo bảo mật hạ tầng.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Memory Diagnosis -> Keyword: 'Profiler' và 'Correlate with Services'. Hãy nhớ: Bạn không thể can thiệp vào tầng JVM, vì vậy hãy tập trung vào code logic và dữ liệu đầu vào (Payloads)."
     },
     {
         "id": 55,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "The site occasionally returns 503 from a downstream service chain. Which three resilience techniques are most effective? (Select three)",
+        "question": "A storefront occasionally receives 503 errors from a downstream third-party service. Which three resilience techniques are most effective in the Service Framework to protect the customer experience and system stability?",
         "options": [
-            "Circuit breaker to shed failing dependency",
-            "Exponential backoff retries with jitter for transient failures",
-            "Graceful degradation (serve cached/placeholder content)",
-            "Add synchronous retries inside ISML"
+            "Enable the 'Circuit Breaker' to automatically stop calls to the failing service for a set period.",
+            "Implement 'Exponential Backoff' retries with jitter to handle transient network failures without overwhelming the service.",
+            "Design 'Graceful Degradation' strategies, such as displaying cached data or placeholder content when the service is down.",
+            "Add synchronous retry logic directly inside the ISML templates to ensure the data eventually renders."
         ],
         "answer": [
             "A",
             "B",
             "C"
         ],
-        "explanation": "Correct answer: A, B, C. [A] Circuit breaker to shed failing dependency [B] Exponential backoff retries with jitter for transient failures [C] Graceful degradation (serve cached/placeholder content)",
+        "explanation": "1. Circuit Breaker (A) ngăn chặn việc chờ đợi vô ích khi dịch vụ đã hỏng hoàn toàn. 2. Exponential Backoff (B) giúp thử lại một cách thông minh, tránh tạo ra 'cơn bão' request khi dịch vụ vừa hồi phục. 3. Graceful Degradation (C) đảm bảo khách vẫn có thể mua sắm (ví dụ: hiện giá cũ thay vì báo lỗi trang). Việc retry trong ISML (D) là cực kỳ nguy hiểm vì nó làm tăng thời gian render trang và gây nghẽn luồng xử lý của server.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Service Resilience -> Luôn là Circuit Breaker, Retries, và Fallback/Degradation. Tuyệt đối không bao giờ thực hiện logic xử lý nặng hoặc retry bên trong file ISML."
     },
     {
         "id": 56,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "A controller endpoint must stream a CSV export of orders for one tenant while preventing cross-tenant leaks. Which two safeguards are required? (Select two)",
+        "question": "A custom controller endpoint is designed to stream a CSV export of order data. Which two safeguards must be implemented to ensure data security (preventing cross-site leaks) and correct file handling?",
         "options": [
-            "Tenant scoping on queries and authorization checks",
-            "Caching without vary to increase speed",
-            "Content-Disposition and CSV headers; stream output",
-            "Use GET to skip CSRF"
+            "Enforce strict site-scoping on database queries and perform explicit authorization checks for the requesting user.",
+            "Enable caching without any 'vary-by' parameters to maximize the speed of large data exports.",
+            "Set the 'Content-Disposition' and 'Content-Type' CSV headers, and stream the output directly to the response.",
+            "Use the GET method exclusively to bypass CSRF (Cross-Site Request Forgery) protection for easier access."
         ],
         "answer": [
             "A",
             "C"
         ],
-        "explanation": "Correct answer: A, C. [A] Tenant scoping on queries and authorization checks [C] Content-Disposition and CSV headers; stream output",
+        "explanation": "1. Site-scoping (A): Trong môi trường multi-site, bạn phải đảm bảo query chỉ lấy đơn hàng của Site hiện tại (dw.order.OrderMgr.searchOrders). 2. Headers & Streaming (C): Content-Disposition giúp trình duyệt hiểu đây là file tải về (download), và Streaming giúp gửi dữ liệu theo từng phần, tránh lỗi tràn bộ nhớ (Out of Memory) khi xuất hàng ngàn đơn hàng.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Data Export Security -> Keyword: 'Site-scoping' (bảo mật dữ liệu) và 'Headers/Streaming' (định dạng file và hiệu năng). Tuyệt đối không cache dữ liệu nhạy cảm (B) và không bỏ qua CSRF (D)."
     },
     {
         "id": 57,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "A Page Designer component shows wrong currency on cache hits. Which root cause is most likely? (Select one)",
+        "question": "A Page Designer component is displaying the incorrect currency symbol only when the page is served from the cache (cache hits). Which root cause is most likely?",
         "options": [
-            "Missing vary-by-currency on the cached fragment",
-            "Wrong ocapi.data permissions",
-            "Controller name collision",
-            "No CDN"
+            "The cached fragment is missing a 'vary-by' configuration for currency, causing the same cache to be served to all users regardless of their session currency.",
+            "The 'ocapi.data' permissions are incorrectly configured, preventing the component from fetching the correct site currency.",
+            "There is a controller name collision between the Page Designer system cartridges and custom cartridges.",
+            "The site has no CDN (Content Delivery Network) enabled, leading to inconsistent caching of localized content."
         ],
         "answer": [
-            "B"
+            "A"
         ],
-        "explanation": "Correct answer: B. Wrong ocapi.data permissions",
+        "explanation": "Khi sử dụng thẻ <iscache>, bạn phải chỉ định các yếu tố làm thay đổi nội dung (Vary-by). Nếu trang web hỗ trợ nhiều loại tiền tệ nhưng bạn không cấu hình 'vary-by' cho currency, hệ thống sẽ lưu bản cache của người dùng đầu tiên (ví dụ: USD) và trả về cho tất cả người dùng sau đó (kể cả người dùng EUR), dẫn đến hiển thị sai lệch.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Wrong data on Cache Hit -> Luôn là lỗi 'Vary-by' (thiếu phân vùng cache). Hãy nhớ: Cache phải được phân biệt theo ngữ cảnh của người dùng (Currency, Source Code, User Group)."
     },
     {
         "id": 58,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "An integration needs at-least-once delivery semantics for outbound events. Which approach is best? (Select one)",
+        "question": "An integration requires 'at-least-once' delivery semantics for outbound events (e.g., sending order data to an external ERP). Which approach is best to ensure reliability and data integrity?",
         "options": [
-            "Fire-and-forget synchronous POSTs",
-            "Queue events with IDs, retry on failure with dedupe on consumer side",
-            "Log-only and reprocess manually",
-            "Use templates/resources"
+            "Use fire-and-forget synchronous POST requests with no retry logic.",
+            "Store events in a queue/custom object with unique IDs, retry on failure, and implement deduplication on the consumer side.",
+            "Log events to a system log file and rely on manual reprocessing in case of errors.",
+            "Pass event data through Resource Bundle templates to ensure delivery."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Correct answer: B. Queue events with IDs, retry on failure with dedupe on consumer side",
+        "explanation": "Để đạt được 'at-least-once delivery': 1. Phải có cơ chế lưu trữ (Queue) để không mất dữ liệu khi crash. 2. Phải có cơ chế Retry để gửi lại khi thất bại. 3. Vì việc gửi lại có thể gây trùng lặp, phía nhận (Consumer) cần ID duy nhất để loại bỏ dữ liệu trùng (Deduplication).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "At-least-once delivery -> Cần: Persistence (Lưu trữ) + Retry (Thử lại) + Idempotency (Khử trùng ở phía nhận). Đừng bao giờ tin tưởng vào một lần gửi duy nhất (Fire-and-forget)."
     },
     {
         "id": 59,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "The storefront performs excessive DDoS-like traffic to your service due to a client bug. Which two mitigations help quickly? (Select two)",
+        "question": "A bug in the client-side JavaScript is causing the storefront to send excessive, DDoS-like traffic to a specific backend service. Which two mitigations provide the quickest relief to the server and the service provider?",
         "options": [
-            "Rate-limit/throttle at the Service Framework or edge",
-            "Increase timeouts",
-            "Cache negative responses appropriately (with short TTL)",
-            "Disable logs"
+            "Implement rate-limiting or throttling within the Service Framework configuration or at the CDN edge.",
+            "Increase the service timeout settings to allow more time for the backend to process the surge of requests.",
+            "Cache negative responses (e.g., error responses) appropriately with a short Time-To-Live (TTL).",
+            "Disable all application logs to reduce Disk I/O overhead during the traffic spike."
         ],
         "answer": [
             "A",
             "C"
         ],
-        "explanation": "Correct answer: A, C. [A] Rate-limit/throttle at the Service Framework or edge [C] Cache negative responses appropriately (with short TTL)",
+        "explanation": "Để giảm tải ngay lập tức: 1. Throttling (A) giúp giới hạn số lượng request được phép đi qua trong một khoảng thời gian, ngăn chặn việc làm tràn ngập hệ thống. 2. Caching negative responses (C) giúp server không phải thực hiện lại các yêu cầu bị lỗi liên tục; thay vào đó, nó trả về kết quả lỗi ngay từ cache, giúp giảm tải cực lớn cho backend.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "DDoS/Excessive Traffic Mitigation -> Nghĩ đến việc 'Chặn' (Throttling) và 'Lưu đệm' (Caching). Đừng bao giờ tăng timeout (B) vì nó sẽ làm cạn kiệt Worker Threads nhanh hơn."
     },
     {
         "id": 60,
         "source": "b2c_dev_exam_set3_hard.md",
-        "question": "A regression reduced PDP TTFB by 300ms. You must isolate the cause. Which three steps are effective? (Select three)",
+        "question": "A recent deployment caused a performance regression, increasing the Time To First Byte (TTFB) on the Product Detail Page (PDP) by 300ms. Which three steps are most effective for isolating the cause of this delay?",
         "options": [
-            "Compare profiler traces before/after by route",
-            "Diff code between versions and examine changed services/decorators",
-            "Clear all caches and assume it’s fixed",
-            "Add targeted timers/logs around suspect blocks to measure deltas"
+            "Use the Pipeline Profiler to compare traces before and after the deployment, focusing on the specific Controller route.",
+            "Perform a 'code diff' between the new and old versions to identify changes in Services, Decorators, or Models.",
+            "Clear all storefront caches and assume the issue is resolved once the cache is rebuilt.",
+            "Inject targeted timers or custom logs around suspected code blocks to measure specific execution deltas."
         ],
         "answer": [
             "A",
             "B",
             "D"
         ],
-        "explanation": "Correct answer: A, B, D. [A] Compare profiler traces before/after by route [B] Diff code between versions and examine changed services/decorators [D] Add targeted timers/logs around suspect blocks to measure deltas",
+        "explanation": "Để cô lập lỗi hiệu năng: 1. Profiler (A) cung cấp cái nhìn tổng quan về thời gian thực thi của từng hàm. 2. Code Diff (B) giúp khoanh vùng những thay đổi logic có khả năng gây chậm (như gọi thêm Service đồng bộ). 3. Manual Timers (D) giúp đo đạc chính xác tại những đoạn code nghi vấn mà Profiler có thể chưa chỉ rõ. Việc xóa cache (C) không giúp tìm ra nguyên nhân gốc rễ (Root Cause).",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Performance Troubleshooting -> Pipeline Profiler, Code Diff, và Targeted Logging là bộ ba vũ khí không thể thiếu. Hãy nhớ: TTFB tăng thường do logic server (Controller/Service) chứ không phải do file tĩnh (CSS/JS)."
     },
     {
         "id": 1,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A new custom controller was uploaded but returns 404. What is the most likely issue? (Select one)",
+        "question": "A developer has successfully uploaded a new custom Controller to the active code version, but attempting to access its URL results in a 404 Not Found error. What is the most likely cause?",
         "options": [
-            "Missing reindex",
-            "Cartridge not added to the site’s cartridge path",
-            "Missing Page Designer component",
-            "Wrong locale"
+            "The search index has not been rebuilt since the new controller was uploaded.",
+            "The cartridge containing the new controller has not been added to the Site's Cartridge Path.",
+            "The controller is missing a corresponding Page Designer component definition.",
+            "The request was made using the wrong locale, causing the route to be ignored."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Correct answer: B. Cartridge not added to the site’s cartridge path",
+        "explanation": "Việc upload code lên server (qua WebDAV) chỉ là bước đưa file vào ổ cứng của server. Để Salesforce thực sự sử dụng code đó cho một Site cụ thể, bạn phải 'đăng ký' cartridge chứa code vào 'Cartridge Path' của Site đó trong Business Manager. Nếu thiếu bước này, server sẽ coi như route đó không tồn tại và trả về lỗi 404.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "New Code + 404 Error -> Hãy kiểm tra ngay 'Cartridge Path' trong Business Manager. Code chỉ 'sống' khi nó nằm trong danh sách thực thi của Site."
     },
     {
         "id": 2,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Where must cartridge code be uploaded for a specific code version? (Select one)",
+        "question": "When uploading custom code via WebDAV to a specific code version on a Salesforce B2C Commerce instance, what is the correct destination directory path?",
         "options": [
-            "/impex/src/",
-            "/versioned/cartridges/<code-version>/cartridges",
-            "/static/default/",
-            "/impex/exports/"
+            "The root '/impex/src/' directory used for data import files.",
+            "The specific '/versioned/cartridges/<code-version>/' directory (or cartridges folder within it).",
+            "The '/static/default/' folder used for globally shared static assets.",
+            "The '/impex/exports/' directory used for generated data export files."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Correct answer: B. /versioned/cartridges/<code-version>/cartridges",
+        "explanation": "Trên server Salesforce B2C Commerce, mỗi phiên bản code (Code Version) có một không gian lưu trữ riêng biệt. Để server nhận diện và thực thi code, các cartridges phải được upload vào đúng thư mục có tên tương ứng với Code Version đó trong thư mục gốc 'Cartridges'. Nếu bạn upload nhầm vào '/impex', hệ thống sẽ chỉ coi đó là dữ liệu thô và không thể chạy được code.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Code Upload Path -> Luôn bắt đầu bằng '/cartridges' hoặc nằm trong cấu trúc '/versioned/'. Hãy nhớ: Thư mục '/impex' chỉ dành cho dữ liệu (XML, CSV), không dành cho mã nguồn (JS, ISML, DS)."
     },
     {
         "id": 3,
         "source": "b2c_dev_exam_set10.md",
-        "question": "You need to override app_storefront_base PDP template. Which two conditions are required? (Select two)",
+        "question": "A developer needs to override the default Product Detail Page (PDP) template provided by 'app_storefront_base'. Which two conditions must be met for the platform to recognize and use the custom template?",
         "options": [
-            "The override must be placed at the same relative path/name",
-            "The override must be registered in ocapi.json",
-            "The custom cartridge must be before app_storefront_base in the path",
-            "The template must be in /impex/src/templates"
+            "The custom template must be placed in the same relative folder path and have the exact same file name as the original (e.g., 'cartridge/templates/default/product/productDetails.isml').",
+            "The custom template override must be explicitly registered within the site's 'ocapi.json' configuration file.",
+            "The custom cartridge containing the new template must be positioned to the left of 'app_storefront_base' in the site's cartridge path.",
+            "The custom template must be uploaded to the '/impex/src/templates' directory on the server via WebDAV."
         ],
         "answer": [
             "A",
-            "B"
+            "C"
         ],
-        "explanation": "Correct answer: A, B. [A] The override must be placed at the same relative path/name [B] The override must be registered in ocapi.json",
+        "explanation": "Cơ chế override của SFRA dựa trên hai nguyên tắc: 1. Tính tương đương về đường dẫn (A): Hệ thống tìm file theo đường dẫn tương đối, nên bạn phải đặt đúng chỗ. 2. Thứ tự ưu tiên (C): Hệ thống quét từ trái sang phải trong Cartridge Path, nên cartridge chứa code tùy chỉnh phải đứng trước (bên trái) cartridge gốc thì nó mới được chọn để thực thi.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Template Overriding -> Quy tắc 1: Đúng đường dẫn (Relative Path). Quy tắc 2: Đứng trước trong Cartridge Path (Leftmost). Hãy nhớ: ocapi.json chỉ dành cho API, không dành cho việc render giao diện ISML."
     },
     {
         "id": 4,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Which is true about code versions? (Select one)",
+        "question": "Which statement is true regarding how Code Versions are managed across multiple sites on a single Salesforce B2C Commerce instance?",
         "options": [
-            "A single global code version is enforced for all sites",
-            "Each site independently references a code version in Settings",
-            "Code versions are inferred from ocapi.json",
-            "The Organization-level setting overrides site-level"
+            "A single global code version is strictly enforced and shared by all sites on the instance.",
+            "Each site can independently reference a specific code version through its individual Site Settings.",
+            "Code versions are automatically inferred and activated based on the 'ocapi.json' configuration.",
+            "An Organization-level code version setting always overrides any site-specific configurations."
         ],
         "answer": [
-            "C"
+            "B"
         ],
-        "explanation": "Correct answer: C. Code versions are inferred from ocapi.json",
+        "explanation": "Tính linh hoạt của Salesforce cho phép bạn chạy nhiều phiên bản code khác nhau trên cùng một server. Ví dụ: Site A (thị trường Mỹ) có thể chạy bản 'v1_stable', trong khi Site B (thị trường Pháp) đang chạy bản 'v2_beta' để thử nghiệm tính năng mới. Mỗi Site sẽ tự chọn phiên bản code mà nó muốn sử dụng trong mục 'Site Settings'.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Code Version Assignment -> Cấp độ Site (Site-level). Hãy nhớ: Một Instance có thể có nhiều Code Versions, và mỗi Site có quyền chọn 1 phiên bản cho riêng mình."
     },
     {
         "id": 5,
         "source": "b2c_dev_exam_set10.md",
-        "question": "After switching the referenced code version, the storefront still renders old content. Which two steps help? (Select two)",
+        "question": "After activating a new code version in Business Manager, the storefront continues to display old content and layouts. Which two steps are most effective for resolving this issue?",
         "options": [
-            "Clear application cache",
-            "Invalidate iscache fragments for affected templates",
-            "Rebuild search every request",
-            "Change the cartridge id"
+            "Clear the application cache (e.g., Page Cache) via Business Manager to force a fresh render of the pages.",
+            "Invalidate or clear 'iscache' fragments specifically for the affected templates or page sections.",
+            "Configure the system to rebuild the search index automatically with every incoming customer request.",
+            "Manually change the internal cartridge IDs within the 'package.json' files to force a system reboot."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate iscache fragments for affected templates",
+        "explanation": "Khi thay đổi code, nội dung cũ vẫn hiển thị thường do 2 cấp độ cache: 1. Page Cache (Lưu toàn bộ trang HTML). 2. iscache fragments (Lưu các phần nhỏ của trang như Header/Footer). Việc xóa Page Cache (A) và Invalidate iscache (B) sẽ xóa bỏ các bản lưu cũ này, buộc server phải chạy lại mã nguồn mới để tạo ra nội dung mới.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Stale Content after Deployment -> Luôn nghĩ đến Cache. Keyword: 'Clear Cache' và 'Invalidate iscache'. Hãy nhớ: Code mới chỉ chạy khi bản Cache cũ bị xóa bỏ."
     },
     {
         "id": 6,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Why does cartridge order matter in SFRA? (Select one)",
+        "question": "Why is the order of cartridges in the Site's Cartridge Path critical in Salesforce B2C Commerce (SFRA)?",
         "options": [
-            "Determines which translation files load",
-            "Determines left-to-right resolution precedence for controllers/templates/scripts",
-            "Determines OCAPI client throttling",
-            "Determines CDN header behavior"
+            "It determines the priority of localized translation (.properties) files during the build process.",
+            "It determines the left-to-right resolution precedence for Controllers, ISML Templates, and Scripts.",
+            "It determines the OCAPI client throttling limits and request prioritization for the site.",
+            "It determines how the CDN (Content Delivery Network) manages caching headers for static assets."
         ],
         "answer": [
-            "C"
+            "B"
         ],
-        "explanation": "Correct answer: C. Determines OCAPI client throttling",
+        "explanation": "Cơ chế Cartridge Path hoạt động theo nguyên tắc 'Người đến trước được ưu tiên' (First-in-path wins). Khi hệ thống tìm kiếm một Controller, Template hoặc Script, nó sẽ quét danh sách cartridges từ trái sang phải. Nó sẽ thực thi bản cài đặt đầu tiên mà nó tìm thấy. Điều này cho phép lập trình viên ghi đè (override) các tính năng mặc định bằng cách đặt các cartridge tùy chỉnh ở phía bên trái của các cartridge hệ thống (như app_storefront_base).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Cartridge Order -> Left-to-Right Precedence. Hãy nhớ: Muốn ghi đè code của SFRA? Hãy đặt cartridge của bạn lên ĐẦU danh sách (phía bên trái nhất)."
     },
     {
         "id": 9,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A stakeholder requests different cartridge paths per locale within one site. Correct guidance? (Select one)",
+        "question": "A stakeholder requests that a single site use different 'Cartridge Paths' based on the customer's selected locale (e.g., a different path for 'fr_FR' vs 'en_US'). What is the correct guidance to provide?",
         "options": [
-            "Supported via site preferences",
-            "Not supported; use a single site-level path and handle locale in code/templates",
-            "Supported via ocapi.json",
-            "Supported via services.json"
+            "This is natively supported through 'Site Preferences' in Business Manager.",
+            "This is not supported; use a single site-level cartridge path and handle locale-specific logic within code, templates, or resource bundles.",
+            "This is supported by defining locale-specific overrides within the 'ocapi.json' configuration file.",
+            "This is supported via 'services.json' by mapping different cartridges to specific locale-based service profiles."
         ],
         "answer": [
-            "C"
+            "B"
         ],
-        "explanation": "Correct answer: C. Supported via ocapi.json",
+        "explanation": "Trong Salesforce B2C Commerce, Cartridge Path được áp dụng cho toàn bộ Site. Bạn không thể thay đổi danh sách cartridge dựa trên ngôn ngữ của người dùng. Để xử lý sự khác biệt giữa các quốc gia (như định dạng tiền tệ, nội dung văn bản), bạn nên sử dụng 'Resource Bundles' (.properties), logic trong Controller, hoặc cấu hình 'Localizable Attributes' trong Business Manager.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Cartridge Path -> Cấp độ Site (One path per Site). Để xử lý đa ngôn ngữ -> Nghĩ đến Localization (Locale-specific resources) chứ không phải thay đổi cấu hình hệ thống."
     },
     {
         "id": 10,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Which artifact inside a cartridge defines cartridge metadata like id/description? (Select one)",
+        "question": "Which file within a cartridge is typically used to define localized display information or metadata-like properties (e.g., name, description) for specific components or the cartridge itself in Business Manager?",
         "options": [
-            "templates/resources/*.properties",
-            "app_*.properties",
-            "ocapi.json",
-            "services.json"
+            "Resource properties files (e.g., 'cartridge.properties' or 'app.properties') inside 'templates/resources/'.",
+            "The 'package.json' file located at the root of the cartridge folder.",
+            "The 'ocapi.json' configuration file used for API resource permissions.",
+            "The 'services.json' file used to define external service integrations."
         ],
         "answer": [
-            "C"
+            "A"
         ],
-        "explanation": "Correct answer: C. ocapi.json",
+        "explanation": "Mặc dù 'package.json' chứa thông tin kỹ thuật, nhưng để Business Manager hiển thị thông tin metadata (như tên cartridge) một cách thân thiện hoặc đa ngôn ngữ, Salesforce sử dụng các file '.properties' trong thư mục 'templates/resources/'. Lưu ý: 'ocapi.json' (đáp án cũ của bạn) hoàn toàn không liên quan đến việc định nghĩa metadata cho cartridge.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 0.9,
+        "tip": "Cartridge Metadata/Display -> Nghĩ đến Resource Bundles (.properties). Hãy nhớ: ocapi.json CHỈ dành cho quyền truy cập API (Data/Shop API)."
     },
     {
         "id": 11,
         "source": "b2c_dev_exam_set10.md",
-        "question": "You must enforce HTTPS on sensitive routes. What should you use? (Select one)",
+        "question": "A developer needs to ensure that specific sensitive routes, such as the 'Checkout-Begin' or 'Account-Show', are always accessed via a secure HTTPS connection. What is the best practice to enforce this in SFRA?",
         "options": [
-            "server.middleware.https",
-            "ocapi.json",
-            "Page Designer policy",
-            "services.json"
+            "Apply the 'server.middleware.https' middleware to the specific routes in the Controller.",
+            "Configure the secure communication requirements within the 'ocapi.json' file for each site.",
+            "Set a global 'HTTPS Only' policy within the Page Designer settings for all storefront pages.",
+            "Define the mandatory security protocol for each external integration in the 'services.json' configuration."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Đáp án đúng là A. Lựa chọn này phù hợp với nguyên tắc chuẩn của Salesforce B2C Commerce / SFRA / Business Manager.",
+        "explanation": "Trong SFRA, Middleware đóng vai trò là các lớp kiểm tra trước khi thực thi logic chính của Route. 'server.middleware.https' sẽ kiểm tra giao thức của yêu cầu; nếu người dùng truy cập bằng HTTP, nó sẽ tự động chuyển hướng (redirect) họ sang HTTPS để đảm bảo an toàn dữ liệu.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.88,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module."
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Enforce HTTPS -> Luôn tìm đáp án liên quan đến 'Middleware'. Hãy nhớ: Middleware là cách SFRA xử lý các tác vụ xuyên suốt (cross-cutting concerns) như bảo mật và kiểm tra quyền truy cập."
     },
     {
         "id": 12,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Two cartridges define the same controller route. Which implementation runs? (Select one)",
+        "question": "If the same Controller Route (e.g., 'Home-Show') is defined in two different cartridges within the same Site's Cartridge Path, which implementation will the platform execute?",
         "options": [
-            "The newer file by timestamp",
-            "The implementation in the leftmost cartridge in the site path",
-            "The rightmost cartridge in the site path",
-            "The platform throws an error"
+            "The implementation found in the newest cartridge based on the file's upload timestamp.",
+            "The implementation found in the leftmost cartridge (the one listed earliest) in the site's cartridge path.",
+            "The implementation found in the rightmost cartridge (the one listed last) in the site's cartridge path.",
+            "The platform will throw a 'Controller Conflict Error' and fail to render the page."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Correct answer: B. The implementation in the leftmost cartridge in the site path",
+        "explanation": "Cơ chế 'Cartridge Path' hoạt động theo nguyên tắc ưu tiên từ trái sang phải. Khi một yêu cầu được gửi đến, hệ thống sẽ quét danh sách cartridges theo thứ tự đã cấu hình. Nó sẽ thực thi code tại cartridge đầu tiên mà nó tìm thấy có chứa route đó. Đây chính là cơ chế cho phép các lập trình viên 'ghi đè' (override) code của SFRA base bằng cách đặt cartridge tùy chỉnh lên phía trước (bên trái).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Cartridge Path Order -> Luôn là 'Leftmost Wins'. Hãy tưởng tượng nó như một danh sách ưu tiên: ai đứng trước thì được nói trước."
     },
     {
         "id": 13,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Where can you import catalogs and inventory? (Select one)",
+        "question": "Where in Business Manager can a developer or merchandiser manually import product catalogs and inventory XML files?",
         "options": [
-            "BM > Administration > Logs",
-            "BM > Merchant Tools > Site Import & Export",
-            "BM > SEO",
-            "BM > Services"
+            "Merchant Tools > Content > Import & Export (or Site Import & Export)",
+            "Administration > Operations > System Logs",
+            "Merchant Tools > Search > Search Refinements",
+            "Administration > Site Development > Service Framework"
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. BM > Administration > Logs",
+        "explanation": "Việc nhập dữ liệu (Import) cho các đối tượng như Catalog, Price Books, và Inventory luôn nằm trong mục Merchant Tools. Cụ thể: 1. Catalog/Price Books nằm ở 'Merchant Tools > Products and Catalogs > Import & Export'. 2. Inventory nằm ở 'Merchant Tools > Inventory > Import & Export'. Đáp án A là lựa chọn gần nhất phản ánh khu vực quản lý dữ liệu này.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Data Import -> Luôn tìm trong 'Merchant Tools'. Hãy nhớ: 'Site Import & Export' thường dùng để import toàn bộ cấu hình site (mọi thứ), còn các bản tin lẻ như Catalog hay Inventory sẽ có mục Import riêng trong module tương ứng của chúng."
     },
     {
         "id": 14,
         "source": "b2c_dev_exam_set10.md",
-        "question": "To make a product attribute searchable, which two are required? (Select two)",
+        "question": "A developer needs to ensure that a custom product attribute (e.g., 'Color' or 'Material') is indexed and searchable by the storefront search engine. Which two steps are required?",
         "options": [
-            "Mark the attribute as searchable",
-            "Add the attribute to Page Designer",
-            "Rebuild the search index",
-            "Add it to ocapi.json read_attributes"
+            "Go to the 'Product' System Object Definition and mark the specific attribute as 'Searchable'.",
+            "Assign the attribute to a specific Page Designer component to enable its visibility.",
+            "Perform a full 'Search Reindex' in Business Manager to include the attribute in the search index.",
+            "Add the attribute to the 'read_attributes' list in the 'ocapi.json' configuration file."
         ],
         "answer": [
             "A",
-            "D"
+            "C"
         ],
-        "explanation": "Correct answer: A, D. [A] Mark the attribute as searchable [D] Add it to ocapi.json read_attributes",
+        "explanation": "Quy trình chuẩn để đưa một thuộc tính vào bộ máy tìm kiếm: 1. Đánh dấu thuộc tính là 'Searchable' trong System Object Definitions để hệ thống biết nó cần được lập chỉ mục. 2. Chạy 'Search Reindex' để bộ máy tìm kiếm quét lại database và tạo ra các bản ghi chỉ mục mới chứa giá trị của thuộc tính này. Nếu không reindex, dù đã đánh dấu searchable, khách hàng vẫn không thể tìm thấy sản phẩm qua thuộc tính đó.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.85,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module."
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Searchable Attribute -> Luôn đi kèm với cặp bài trùng: 'Mark Searchable' và 'Reindex'. Hãy nhớ: Reindex là bước biến cấu hình thành kết quả thực tế."
     },
     {
         "id": 15,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Where are storefront search refinements configured? (Select one)",
+        "question": "Where are storefront search refinements (the filters like color, size, and price displayed on product listing pages) configured in Business Manager?",
         "options": [
             "Merchant Tools > Search > Search Refinements",
             "Merchant Tools > SEO > URL Rules",
-            "Administration > Sites",
-            "Content > Assets"
+            "Administration > Sites > Manage Sites",
+            "Merchant Tools > Content > Library > Assets"
         ],
         "answer": [
-            "C"
+            "A"
         ],
-        "explanation": "Correct answer: C. Administration > Sites",
+        "explanation": "Search Refinements là tính năng cho phép khách hàng thu hẹp kết quả tìm kiếm. Vì đây là một phần của việc quản lý dữ liệu bán hàng và trải nghiệm khách hàng, nó nằm trong mục 'Merchant Tools > Search'. Tại đây, bạn có thể cấu hình bộ lọc dựa trên thuộc tính sản phẩm (Attributes), giá (Price), hoặc phân loại (Category).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Search Filters/Refinements -> Luôn nằm trong 'Merchant Tools > Search'. Hãy nhớ: 'Administration' chỉ dùng cho cấu hình hệ thống kỹ thuật, không dùng cho logic bán hàng."
     },
     {
         "id": 16,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A one-way synonym “parka → winter coat” is required. Where is it configured? (Select one)",
+        "question": "A marketer needs to configure a one-way synonym where searching for 'parka' should return 'winter coat', but searching for 'winter coat' should NOT necessarily prioritize 'parka'. Where is this configured in Business Manager?",
         "options": [
-            "SEO > Redirects",
-            "Search > Dictionaries (one-way)",
-            "Search > Search Refinements",
-            "Site Preferences"
+            "Merchant Tools > SEO > URL Redirects",
+            "Merchant Tools > Search > Search Dictionaries > Synonyms",
+            "Merchant Tools > Search > Search Refinements",
+            "Administration > Site Development > Site Preferences"
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Correct answer: B. Search > Dictionaries (one-way)",
+        "explanation": "Trong Salesforce B2C Commerce, Synonyms được quản lý trong 'Search Dictionaries'. Bạn có thể cấu hình 'Two-way' (A tương đương B) hoặc 'One-way' (A chỉ về B). Với yêu cầu 'parka → winter coat', đây là One-way synonym, giúp mở rộng kết quả tìm kiếm cho từ khóa cụ thể mà không làm ảnh hưởng đến chiều ngược lại.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Synonyms -> Luôn nằm trong 'Merchant Tools > Search > Search Dictionaries'. Hãy nhớ: Sau khi thêm từ đồng nghĩa, bạn phải Reindex bộ từ điển (Dictionaries) thì thay đổi mới có hiệu lực."
     },
     {
         "id": 17,
         "source": "b2c_dev_exam_set10.md",
-        "question": "To show a new PDP attribute value, which two updates are typical? (Select two)",
+        "question": "A developer needs to display a new custom product attribute (e.g., 'Fabric Care Instructions') on the Product Detail Page (PDP). Which two updates are typically required in an SFRA-based site?",
         "options": [
-            "Product model decorators/factory to expose data",
-            "PDP ISML template to render",
-            "ocapi.json",
-            "services.json"
+            "Modify the Product Model using Decorators or a Factory to expose the new attribute data.",
+            "Update the relevant ISML template (e.g., 'productDetails.isml') to render the attribute value on the storefront.",
+            "Add the attribute to the 'ocapi.json' configuration to enable storefront rendering.",
+            "Configure the attribute within 'services.json' to ensure it is available for the template context."
         ],
         "answer": [
             "A",
-            "C"
+            "B"
         ],
-        "explanation": "Correct answer: A, C. [A] Product model decorators/factory to expose data [C] ocapi.json",
+        "explanation": "Trong SFRA: 1. Decorators chịu trách nhiệm 'trang trí' thêm dữ liệu vào Object trước khi gửi ra View (giúp code sạch và dễ quản lý). 2. ISML là file HTML mở rộng, nơi bạn sử dụng cú pháp '${...}' để hiển thị dữ liệu đã được Decorator chuẩn bị sẵn. OCAPI (C) không liên quan đến việc render trang ISML truyền thống.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Display on PDP -> Nghĩ ngay đến MVC: Model (Decorator) + View (ISML). Hãy nhớ: Decorator là nơi biến 'dữ liệu thô' từ Database thành 'dữ liệu đẹp' để hiển thị."
     },
     {
         "id": 18,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Where are Logger categories and appenders configured? (Select one)",
+        "question": "Where are custom Logger categories and their corresponding log levels (Appenders) configured in Business Manager?",
         "options": [
-            "BM > Administration > Operations > Logging",
-            "ocapi.json",
-            "services.json",
-            "dw.json"
+            "Administration > Operations > Logging",
+            "Merchant Tools > Site Development > OCAPI Settings (ocapi.json)",
+            "Merchant Tools > Site Development > Service Framework (services.json)",
+            "Administration > Site Development > Development Setup (dw.json)"
         ],
         "answer": [
-            "B"
+            "A"
         ],
-        "explanation": "Correct answer: B. ocapi.json",
+        "explanation": "Logging là một phần của quản trị vận hành (Operations). Trong mục 'Administration > Operations > Logging', bạn có thể tạo các danh mục log tùy chỉnh (Custom Log Categories), gán chúng cho các file cụ thể và quyết định mức độ chi tiết của log (như DEBUG, INFO, WARN, ERROR).",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Logging Configuration -> Luôn nằm trong 'Administration > Operations'. Hãy nhớ: ocapi.json chỉ dành cho phân quyền API, không quản lý hệ thống log của server."
     },
     {
         "id": 19,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A marketer wants to assemble new landing pages with components. Which feature should be used? (Select one)",
+        "question": "A marketer wants to assemble new landing pages using pre-built components without needing deep technical knowledge. Which Salesforce B2C Commerce feature should be used?",
         "options": [
             "Page Designer",
             "URL Rules",
-            "OCAPI Shop",
-            "Services"
+            "OCAPI Shop API",
+            "Service Framework"
         ],
         "answer": [
-            "C"
+            "A"
         ],
-        "explanation": "Correct answer: C. OCAPI Shop",
+        "explanation": "Page Designer là công cụ thiết kế trực quan cho phép Marketers tạo ra các trang trải nghiệm (Landing Pages, Homepage) bằng cách kéo-thả các components (như banner, carousel, product grid). Developer chịu trách nhiệm lập trình các 'Component Types', còn Marketer sẽ sử dụng chúng để 'assemble' trang web.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Marketer + Assemble + Components -> Đáp án luôn luôn là Page Designer. Đừng nhầm với OCAPI (dành cho headless/integration) hay Services (dành cho kết nối API bên thứ ba)."
     },
     {
         "id": 20,
         "source": "b2c_dev_exam_set10.md",
-        "question": "After enabling a new locale, search returns fewer results. Which two are likely? (Select two)",
+        "question": "After enabling a new locale for a site, a developer notices that search results return significantly fewer products than the default locale. Which two are the most likely causes? (Select two)",
         "options": [
-            "Missing localized values for searchable attributes",
-            "Forgot to reindex after data change",
-            "Missing cspTrustedSite",
-            "Wrong code version active"
+            "The searchable attributes (e.g., product name, description) lack localized values for the new locale.",
+            "The developer forgot to trigger a full Search Reindex after updating the localized data.",
+            "The 'cspTrustedSite' settings are missing for the new locale, blocking the search service.",
+            "An incorrect code version is active, preventing the search logic from executing for the new locale."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Missing localized values for searchable attributes [B] Forgot to reindex after data change",
+        "explanation": "Trong Salesforce, thuộc tính sản phẩm có thể được bản địa hóa (Localized). 1. Nếu tên sản phẩm ở tiếng Pháp bị để trống, bộ máy tìm kiếm sẽ không có dữ liệu để đối chiếu khi khách hàng tìm bằng tiếng Pháp. 2. Ngay cả khi đã điền dữ liệu, bạn vẫn phải Reindex để bộ máy tìm kiếm cập nhật chỉ mục cho ngôn ngữ mới này.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Search Results Issue -> Luôn kiểm tra 2 thứ: 1. Dữ liệu (Attributes) và 2. Chỉ mục (Reindexing). Hãy nhớ: Reindex là bước bắt buộc sau bất kỳ thay đổi lớn nào về cấu hình Search."
     },
     {
         "id": 21,
         "source": "b2c_dev_exam_set10.md",
-        "question": "To allow an integration to access a custom object via OCAPI Data, which two steps are required? (Select two)",
+        "question": "To allow an external integration to access and modify a 'Custom Object' via the OCAPI Data API, which two steps must be completed in Business Manager?",
         "options": [
-            "ocapi.json with read/write and attribute lists",
-            "OCAPI client credentials mapped to that setting",
-            "New code version",
-            "New Page Designer page type"
+            "Configure 'ocapi.json' with the appropriate 'read/write' permissions and list the specific 'allowed_attributes'.",
+            "Map the specific 'Client Credentials' (Client ID) to the OCAPI Data API settings for that site.",
+            "Activate a new code version that defines the Custom Object's structure in the cartridge metadata.",
+            "Create a new 'Page Designer' page type to expose the Custom Object data to the external service."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] ocapi.json with read/write and attribute lists [B] OCAPI client credentials mapped to that setting",
+        "explanation": "Quy trình thiết lập OCAPI chuẩn: Bước 1 là khai báo Client ID trong BM để hệ thống nhận diện ứng dụng. Bước 2 là định nghĩa quyền hạn (Read/Write) và các trường dữ liệu (attributes) trong file cấu hình JSON tại 'OCAPI Settings'.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Data API Access -> Keyword: 'ocapi.json', 'Client ID', 'Read/Write permissions'. Page Designer không bao giờ được dùng để quản lý truy cập API."
     },
     {
         "id": 23,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Where do you configure the site default currency and taxation type? (Select one)",
+        "question": "Where is the correct location in Business Manager to configure the site's default currency and its taxation type (Net vs. Gross)?",
         "options": [
-            "Administration > Sites > Manage Sites > [Site] > Settings",
-            "Merchant Tools > Search",
-            "Merchant Tools > SEO",
-            "Administration > Roles"
+            "Administration > Sites > Manage Sites > [Select your Site] > Settings tab.",
+            "Merchant Tools > Search > Search Indexes > Site Settings.",
+            "Merchant Tools > SEO > URL Rules > Localization Settings.",
+            "Administration > Organization > Roles & Permissions > Global Settings."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Administration > Sites > Manage Sites > [Site] > Settings",
+        "explanation": "Các cài đặt cốt lõi của một Site (như Tiền tệ mặc định, Loại thuế, múi giờ) luôn nằm trong mục quản trị Site cấp cao: 'Administration > Sites > Manage Sites'. Đây là những cấu hình nền tảng ảnh hưởng đến toàn bộ các Module khác như Pricing và Promotion.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Site-level Settings -> Hãy tìm đường dẫn bắt đầu bằng 'Administration > Sites'. Đây là nơi cấu hình những thứ 'không thay đổi' thường xuyên như Đơn vị tiền tệ và Thuế."
     },
     {
         "id": 24,
         "source": "b2c_dev_exam_set10.md",
-        "question": "To change availability label copy, which two places are typical? (Select two)",
+        "question": "A developer needs to change the text for an 'Availability' label (e.g., changing 'In Stock' to 'Available Now'). Which two places are the most typical for making this change?",
         "options": [
-            "templates/resources/*.properties",
-            "ISML templates rendering the label",
-            "ocapi.json",
-            "dw.json"
+            "The resource properties files (e.g., 'product.properties') located in 'templates/resources/'.",
+            "The ISML templates that use 'Resource.msg()' to render the availability label.",
+            "The 'ocapi.json' configuration file within the site's cartridge path.",
+            "The 'dw.json' project configuration file used for sandbox authentication."
         ],
         "answer": [
             "A",
-            "C"
+            "B"
         ],
-        "explanation": "Correct answer: A, C. [A] templates/resources/*.properties [C] ocapi.json",
+        "explanation": "Để thay đổi nội dung văn bản trên Storefront: 1. File '.properties' là nơi chứa nội dung thực sự (nguyên liệu). 2. ISML template là nơi chứa hàm gọi nội dung đó (Resource.msg). Mặc dù bạn có thể hardcode trực tiếp vào ISML (B), nhưng cách tốt nhất vẫn là quản lý qua Resource Bundle (A) để hỗ trợ đa ngôn ngữ.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Label/Text Change -> Luôn nghĩ đến Resource Bundles (.properties). Hãy nhớ: ocapi.json chỉ cấu hình quyền truy cập API, không chứa nội dung hiển thị của giao diện người dùng."
     },
     {
         "id": 25,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Maintainable controller design includes: (Select one)",
+        "question": "What is considered a best practice for maintainable Controller design in SFRA?",
         "options": [
-            "Thin controllers; business logic in helpers/decorators/factories",
-            "ISML templates contain business logic",
-            "Controllers contain all logic",
-            "Avoid services entirely"
+            "Keep Controllers 'thin' by moving business logic into Helpers, Decorators, Models, or Factories.",
+            "Embed business logic directly within ISML templates to reduce the number of required JavaScript files.",
+            "Ensure Controllers contain all business logic to provide a single point of reference for each route.",
+            "Avoid using external Services and Helpers to minimize dependencies and improve execution speed."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Thin controllers; business logic in helpers/decorators/factories",
+        "explanation": "Trong SFRA, Controller chỉ nên đóng vai trò 'điều phối viên' (Orchestrator): nhận yêu cầu, gọi các lớp xử lý dữ liệu và trả về kết quả. Việc đẩy logic vào các thành phần như Helpers hay Decorators giúp mã nguồn dễ tái sử dụng, dễ kiểm thử (Unit Test) và cho phép nhiều người cùng làm việc trên một tính năng mà không gây xung đột code.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Maintainable Design -> Keyword là 'Thin Controllers'. Hãy nhớ: Controller chỉ làm nhiệm vụ điều hướng, còn 'não bộ' xử lý logic phải nằm ở các file JavaScript riêng biệt (Helpers/Models)."
     },
     {
         "id": 27,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Proper CSRF handling for forms requires: (Select one)",
+        "question": "What is the standard procedure for handling CSRF (Cross-Site Request Forgery) protection in SFRA forms?",
         "options": [
-            "Generate token on GET and validate on POST via csrfProtection",
-            "HTTPS alone",
-            "No CSRF in SFRA",
-            "Site preference only"
+            "Generate a unique token during the 'GET' request to display the form and validate it during the 'POST' submission using the 'csrfProtection' middleware.",
+            "Ensure the site is running exclusively on HTTPS, as encryption automatically prevents all CSRF-based attacks.",
+            "Rely on the fact that SFRA does not require explicit CSRF handling because it is built into the underlying web tier.",
+            "Enable a global 'Site Preference' in Business Manager to activate automatic CSRF token injection for all storefront templates."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Generate token on GET and validate on POST via csrfProtection",
+        "explanation": "Quy trình chuẩn trong SFRA gồm 2 bước: 1. Khi người dùng load trang (GET), hàm 'csrfProtection.generateToken' tạo ra một mã định danh duy nhất. 2. Khi người dùng submit form (POST), middleware 'csrfProtection.validateRequest' sẽ kiểm tra xem mã đó có khớp không. Nếu kẻ tấn công gửi một request giả mạo từ trang web khác, họ sẽ không có mã token này và server sẽ từ chối giao dịch.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "CSRF Protection -> Quy trình luôn là: Generate (GET) -> Validate (POST). Hãy nhớ: HTTPS chỉ bảo vệ dữ liệu khỏi bị nhìn trộm, chứ không ngăn được việc giả mạo request từ một trang web độc hại."
     },
     {
         "id": 28,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A route returns JSON. What two actions are correct? (Select two)",
+        "question": "A developer is creating a custom Route in a Controller that must return data in JSON format. Which two actions are required to ensure the response is correctly handled?",
         "options": [
-            "Set Content-Type to application/json",
-            "Use res.json or write JSON",
-            "Render ISML then parse to JSON",
-            "Disable caching globally"
+            "Set the 'Content-Type' header of the response to 'application/json'.",
+            "Use the 'res.json()' method or write the stringified JSON directly to the response output stream.",
+            "Render an ISML template and then use a client-side script to parse the HTML back into a JSON object.",
+            "Disable caching globally for the entire site to prevent JSON data from being stored in the browser."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Set Content-Type to application/json [B] Use res.json or write JSON",
+        "explanation": "Để trả về JSON chuẩn: 1. Header 'Content-Type' thông báo cho trình duyệt biết đây là dữ liệu cấu trúc, không phải văn bản thuần túy. 2. Hàm 'res.json()' của SFRA tự động hóa việc chuyển đổi đối tượng JavaScript thành chuỗi JSON và gửi đi. Việc sử dụng ISML để tạo JSON (C) là không hiệu quả và dễ gây lỗi định dạng.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "JSON Response -> Luôn đi kèm với 'res.json()' và header 'application/json'. Hãy nhớ: Trình duyệt dựa vào Content-Type để quyết định cách xử lý dữ liệu nhận được."
     },
     {
         "id": 29,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Customize pricing behavior without editing base controllers using: (Select one)",
+        "question": "A developer needs to customize the pricing logic (e.g., custom tax calculation or dynamic pricing) without modifying the base SFRA controllers. What is the best practice for this?",
         "options": [
-            "Hook extension points (pricing/tax)",
-            "Page Designer",
-            "URL Rules",
-            "Site preference only"
+            "Use 'Hook Extension Points' defined in the 'hooks.json' file (e.g., dw.ocapi.shop.basket.calculate).",
+            "Override the behavior by creating a new 'Page Designer' component for price display.",
+            "Configure custom 'URL Rules' to redirect pricing requests to a specialized cartridge.",
+            "Modify 'Site Preferences' to toggle between different hardcoded pricing algorithms."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Hook extension points (pricing/tax)",
+        "explanation": "Trong Salesforce B2C Commerce, 'Hooks' là các điểm nối (extension points) cho phép bạn chèn logic tùy chỉnh vào quy trình chuẩn của hệ thống (như tính thuế, tính giá, hoặc thanh toán). Bằng cách khai báo hook trong 'hooks.json', bạn có thể thay đổi hành vi của hệ thống mà không cần sửa một dòng code nào trong các Controller gốc của SFRA, giúp việc bảo trì và nâng cấp dễ dàng hơn nhiều.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Customize without Editing Base -> Keyword luôn là 'Hooks'. Hãy nhớ: Controller dùng để điều hướng, nhưng Hook mới là nơi xử lý logic nghiệp vụ sâu (Business Logic) mà hệ thống đã chừa sẵn chỗ cho bạn."
     },
     {
         "id": 30,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A PLP performs synchronous HTTP per product tile. Which two help? (Select two)",
+        "question": "A Product Listing Page (PLP) is performing a synchronous HTTP service call for every individual product tile displayed, causing severe performance degradation. Which two actions should the developer take? (Select two)",
         "options": [
-            "Use Service Framework with timeouts and circuit breaker",
-            "Batch/cache to avoid N+1 calls",
-            "Move calls into ISML",
-            "Use System.out.println for timing"
+            "Implement the calls using the Service Framework to leverage built-in timeouts and the circuit breaker mechanism.",
+            "Refactor the logic to batch requests or cache the service responses to avoid 'N+1' service calls.",
+            "Move the service call logic directly into the ISML template to allow parallel rendering of product tiles.",
+            "Use 'System.out.println' statements within the loop to monitor the execution time of each service call."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Use Service Framework with timeouts and circuit breaker [B] Batch/cache to avoid N+1 calls",
+        "explanation": "Vấn đề N+1 xảy ra khi bạn lặp qua N sản phẩm và thực hiện N cuộc gọi API. Để khắc phục: 1. Batching giúp gộp nhiều yêu cầu vào 1 cuộc gọi duy nhất hoặc dùng Cache để không phải gọi lại API cho các sản phẩm đã biết. 2. Service Framework cung cấp Circuit Breaker để 'ngắt mạch' nếu dịch vụ bên thứ ba bị chậm, ngăn chặn việc toàn bộ trang PLP bị treo chờ phản hồi.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Performance on Loops -> Luôn tránh gọi Service bên trong vòng lặp (Loop). Keyword: Batching, Caching, và Circuit Breaker."
     },
     {
         "id": 32,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A remote include shows stale promotion data. How to fix? (Select one)",
+        "question": "A 'Remote Include' used for displaying promotional banners is showing stale data to customers. What is the correct way to fix this caching issue?",
         "options": [
-            "Add vary keys for basket/promo/customer context or disable cache for the include",
-            "Disable all caching",
-            "Change code version",
-            "Switch to GET"
+            "Add appropriate 'Vary-by' keys (e.g., promotion, customer group) to the include's cache configuration or disable caching for that specific include.",
+            "Disable all storefront caching globally to ensure all promotional data is always fetched in real-time.",
+            "Update the active code version to clear all existing fragment caches and force a template re-render.",
+            "Change the Remote Include call from a 'POST' to a 'GET' method to bypass the internal cache manager."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Add vary keys for basket/promo/customer context or disable cache for the include",
+        "explanation": "Remote Includes thường được dùng cho các nội dung động. Nếu dữ liệu khuyến mãi bị cũ (stale), đó là do bản cache đang được dùng chung cho quá nhiều người. Bạn cần thêm 'Vary-by' để hệ thống tạo ra các bản cache riêng cho từng nhóm khách hàng/khuyến mãi, hoặc tắt hẳn cache của phần include này (thường dùng cho giỏ hàng hoặc thông tin cá nhân) để nó luôn được load mới.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Remote Include Cache -> Nếu dữ liệu mang tính cá nhân hoặc thay đổi theo điều kiện (Promotion) -> Luôn sử dụng 'Vary-by' hoặc 'No Cache'. Đây là cách duy nhất để tránh việc khách hàng thấy khuyến mãi mà họ không được hưởng."
     },
     {
         "id": 34,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A service returns HTTP 200 with an error payload. Correct handling is: (Select one)",
+        "question": "A third-party service returns an HTTP 200 OK status, but the response body contains an 'error' field indicating the operation failed. What is the correct way to handle this in the Service Framework?",
         "options": [
-            "Treat as success and continue",
-            "Parse application-level status and fail appropriately",
-            "Rely only on timeout",
-            "Retry forever"
+            "Treat the response as a success because the HTTP status code is 200 and continue the execution flow.",
+            "Parse the response body to check for application-level error codes and trigger a service failure if necessary.",
+            "Rely solely on the service timeout settings to catch this type of failure in the background.",
+            "Automatically retry the service call indefinitely until the 'error' field is no longer present in the payload."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Correct answer: B. Parse application-level status and fail appropriately",
+        "explanation": "Trong lập trình tích hợp, mã HTTP 200 chỉ có nghĩa là 'đường truyền ổn định'. Nhiều API vẫn trả về 200 ngay cả khi gặp lỗi logic (ví dụ: Sai mã token, không tìm thấy ID). Bạn phải luôn phân tích nội dung (JSON/XML) trong hàm 'parseResponse' để xác định trạng thái thực sự của giao dịch trước khi trả kết quả về cho Controller.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Service Handling -> HTTP Status != Application Status. Hãy nhớ: Luôn đọc nội dung Body để xác định thành công hay thất bại thực sự. Một kết quả '200 OK' vẫn có thể chứa thông tin 'Giao dịch bị từ chối'."
     },
     {
         "id": 35,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Storing PII from a form requires which two? (Select two)",
+        "question": "When designing a feature to collect and store Personally Identifiable Information (PII) from a storefront form, which two security practices are essential?",
         "options": [
-            "Minimize/encrypt sensitive fields where possible",
-            "Restrict OCAPI Data access to least privilege",
-            "Log raw PII for troubleshooting",
-            "Use GET to avoid CSRF"
+            "Minimize the collection of sensitive fields and ensure encryption is applied where the platform allows.",
+            "Configure OCAPI Data API permissions following the 'Principle of Least Privilege' for any integration accessing this data.",
+            "Log the raw PII data in the system logs to facilitate rapid troubleshooting of form submission issues.",
+            "Use the HTTP 'GET' method for the form submission to bypass CSRF (Cross-Site Request Forgery) protection requirements."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Minimize/encrypt sensitive fields where possible [B] Restrict OCAPI Data access to least privilege",
+        "explanation": "Bảo mật PII yêu cầu: 1. Chỉ thu thập những gì thực sự cần thiết (Data Minimization) và bảo vệ dữ liệu bằng mã hóa. 2. Kiểm soát chặt chẽ quyền truy cập qua API (OCAPI); không để một Client ID có quyền đọc toàn bộ dữ liệu nếu họ chỉ cần một phần nhỏ. Tuyệt đối không bao giờ log dữ liệu nhạy cảm ở dạng văn bản thuần túy (Raw) vì lý do bảo mật.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "PII Security -> Keyword là 'Minimize', 'Encrypt' và 'Least Privilege'. Hãy nhớ: 'Log raw data' và dùng 'GET' cho dữ liệu nhạy cảm là hai lỗi bảo mật nghiêm trọng nhất (Security Anti-patterns)."
     },
     {
         "id": 36,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A controller must stream a large CSV. Best approach: (Select one)",
+        "question": "A developer needs to generate and export a very large CSV file via a Controller. What is the best architectural approach to avoid memory issues?",
         "options": [
-            "Stream incrementally with appropriate headers",
-            "Build entire CSV in memory then send",
-            "Use ISML to render CSV",
-            "Print to System.out"
+            "Stream the CSV content incrementally to the response and set appropriate HTTP headers (Content-Type: text/csv).",
+            "Assemble the entire CSV string in a single memory variable before sending it to the client.",
+            "Utilize an ISML template to iterate through the data and render the CSV rows.",
+            "Print the CSV data to 'System.out' to bypass the standard response buffer limits."
         ],
         "answer": [
-            "C"
+            "A"
         ],
-        "explanation": "Correct answer: C. Use ISML to render CSV",
+        "explanation": "Khi xuất dữ liệu khổng lồ, việc giữ toàn bộ nội dung trong RAM (dù là qua biến String hay qua Buffer của ISML) sẽ gây ra lỗi Out of Memory. Kỹ thuật 'Streaming' cho phép server ghi từng dòng dữ liệu trực tiếp vào luồng phản hồi (Response Stream). RAM chỉ cần xử lý một lượng nhỏ dữ liệu tại một thời điểm, giúp hệ thống vận hành ổn định bất kể kích thước file.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Large File Export -> Luôn chọn 'Streaming'. Hãy nhớ: ISML không được thiết kế để xử lý dữ liệu lớn (Bulk data) vì cơ chế tự động buffering của nó."
     },
     {
         "id": 37,
         "source": "b2c_dev_exam_set10.md",
-        "question": "To allow baskets via OCAPI Shop, which two are required? (Select two)",
+        "question": "Which two configurations are mandatory to enable the creation and management of baskets via the OCAPI Shop API?",
         "options": [
-            "ocapi.json Shop permissions with allowed attributes",
-            "Map a client ID/secret to that setting",
-            "Create a new code version",
-            "Add a Page Designer component"
+            "Define 'Shop API' resource permissions in 'ocapi.json' and specify 'allowed_attributes' for the basket resource.",
+            "Map a valid 'Client ID' (and optionally a secret) to the OCAPI settings for the specific site.",
+            "Generate and activate a new code version containing the 'Cart-Create' controller logic.",
+            "Include a specific 'Page Designer' component on the site to initialize the remote basket session."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] ocapi.json Shop permissions with allowed attributes [B] Map a client ID/secret to that setting",
+        "explanation": "Để sử dụng OCAPI: 1. Hệ thống cần định danh ứng dụng qua 'Client ID' (Xác thực). 2. Bạn phải cấu hình file JSON tại 'OCAPI Settings' để cấp quyền 'write' cho tài nguyên '/baskets' và liệt kê các trường dữ liệu mà ứng dụng được phép gửi lên. Nếu thiếu một trong hai, mọi yêu cầu từ bên ngoài sẽ bị hệ thống từ chối (401 hoặc 403).",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "OCAPI Configuration -> Keyword luôn là 'Client ID' và 'Resource Permissions'. Hãy nhớ: OCAPI là API hệ thống, nó hoạt động độc lập với 'Code Version' hay các UI components như 'Page Designer'."
     },
     {
         "id": 40,
         "source": "b2c_dev_exam_set10.md",
-        "question": "When an import job intermittently fails due to file locks, what two mitigations help? (Select two)",
+        "question": "A developer notices that an automated Import Job intermittently fails because the required input file is locked by another process. Which two mitigations are best practices to resolve this issue? (Select two)",
         "options": [
-            "Retry with exponential backoff",
-            "Coordinate schedules/locks to avoid overlap",
-            "Add TRACE logs only",
-            "Run the job from controllers"
+            "Configure the job step to 'Retry' with an 'Exponential Backoff' strategy.",
+            "Coordinate the execution schedules or use 'Job Locking' to prevent overlapping processes from accessing the same file.",
+            "Change the log level to 'TRACE' to monitor the exact microsecond the file lock occurs.",
+            "Refactor the import logic to be triggered directly from a Storefront Controller instead of a background Job."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Retry with exponential backoff [B] Coordinate schedules/locks to avoid overlap",
+        "explanation": "Để xử lý lỗi khóa file: 1. 'Coordinate schedules' đảm bảo các Job không tranh chấp tài nguyên cùng lúc. 2. 'Retry with backoff' giúp hệ thống tự phục hồi; nếu file đang bị khóa, Job sẽ đợi một khoảng thời gian tăng dần rồi thử lại, thay vì báo lỗi thất bại ngay lập tức.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "File/Resource Locking -> Keyword luôn là 'Retry' và 'Scheduling/Overlap'. Hãy nhớ: Tránh chạy các tiến trình nặng từ Controller (D) vì sẽ làm treo giao diện người dùng."
     },
     {
         "id": 41,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Least-privilege OCAPI Data access for orders should include: (Select two)",
+        "question": "Which two practices follow the 'Principle of Least Privilege' when configuring OCAPI Data API access for Order resources?",
         "options": [
-            "Restrict read_attributes to only required fields",
-            "Dedicated client credentials per integration",
-            "One client shared by all partners",
-            "Expose all fields to simplify mapping"
+            "Restrict the 'read_attributes' configuration to only the specific fields required by the integration.",
+            "Assign dedicated 'Client Credentials' (Client ID) for each unique integration or partner.",
+            "Use a single, shared 'Client ID' for all external partners to simplify credential management.",
+            "Expose all available 'Order' fields by default to prevent future data mapping errors."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Restrict read_attributes to only required fields [B] Dedicated client credentials per integration",
+        "explanation": "Nguyên tắc 'Quyền hạn tối thiểu' yêu cầu: 1. Chỉ cho phép truy cập những dữ liệu thực sự cần thiết (ví dụ: nếu chỉ cần lấy mã đơn hàng thì không nên cho phép đọc số điện thoại khách hàng). 2. Mỗi đối tác phải dùng một Client ID riêng để nếu một bên bị rò rỉ thông tin, bạn có thể vô hiệu hóa ngay lập tức mà không ảnh hưởng đến các đối tác khác.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Least Privilege -> Keyword là 'Restrict' (Hạn chế) và 'Dedicated' (Dành riêng). Hãy tránh xa bất kỳ đáp án nào có từ 'Shared' (Dùng chung) hoặc 'Expose all' (Công khai tất cả)."
     },
     {
         "id": 45,
         "source": "b2c_dev_exam_set10.md",
-        "question": "To write to a custom object via Data API you need: (Select two)",
+        "question": "Which two requirements must be met to allow an external application to write data to a 'Custom Object' via the Salesforce B2C Commerce Data API?",
         "options": [
-            "ocapi.json write permissions and write_attributes for fields",
-            "Client credentials mapped to that ocapi.json setting",
-            "A new code version",
-            "Search refinements"
+            "Configure the 'ocapi.json' Data API settings with explicit 'write' permissions and 'write_attributes' for the required fields.",
+            "Map valid 'Client Credentials' (Client ID) to the specific Data API configuration in Business Manager.",
+            "Activate a new code version that includes the specific Custom Object definition in its metadata.",
+            "Configure 'Search Refinements' for the Custom Object to make it accessible via API queries."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] ocapi.json write permissions and write_attributes for fields [B] Client credentials mapped to that ocapi.json setting",
+        "explanation": "Để ghi dữ liệu qua Data API: 1. Hệ thống cần biết 'Client ID' nào đang thực hiện yêu cầu (Xác thực). 2. Trong file cấu hình OCAPI tại 'Administration > Site Development > OCAPI Settings', bạn phải cấp quyền 'write' cho tài nguyên Custom Object và liệt kê rõ các thuộc tính (write_attributes) mà Client đó được phép thay đổi.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Data API Write -> Luôn yêu cầu 'Client ID' và 'Resource Permissions' (write/write_attributes). Hãy nhớ: Data API dùng cho quản trị, Shop API dùng cho trải nghiệm khách hàng."
     },
     {
         "id": 46,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Two job steps update the same records and collide. The best remedy is: (Select one)",
+        "question": "Two different Job Steps are configured to update the same set of records simultaneously, leading to data collisions and failures. What is the best remedy for this situation?",
         "options": [
-            "Locking/serialization or mutually exclusive windows",
-            "Disable logs",
-            "Remote includes",
-            "Global cache"
+            "Implement a 'Locking' mechanism or schedule the steps in mutually exclusive time windows (Serialization).",
+            "Disable system logs for both job steps to reduce the I/O overhead and prevent collision timeouts.",
+            "Refactor the job logic to use 'Remote Includes' for dynamic data fetching during the update process.",
+            "Enable 'Global Cache' to allow both job steps to read and write from a shared memory buffer."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Locking/serialization or mutually exclusive windows",
+        "explanation": "Để tránh xung đột dữ liệu, bạn cần đảm bảo tính 'tuần tự' (Serialization). Cách đơn giản nhất là sắp xếp lịch chạy sao cho Job B chỉ bắt đầu sau khi Job A đã kết thúc (Mutually exclusive windows). Ngoài ra, bạn có thể sử dụng cơ chế 'Job Locking' trong Salesforce B2C Commerce để một tiến trình phải đợi tiến trình kia giải phóng tài nguyên trước khi bắt đầu.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Job Collision -> Luôn chọn 'Locking' hoặc 'Scheduling/Serialization'. Hãy nhớ: Trong Salesforce, tài nguyên database thường bị khóa ở cấp độ Object hoặc File để tránh hỏng dữ liệu."
     },
     {
         "id": 47,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Prevent sensitive token leakage from services logs by: (Select one)",
+        "question": "To prevent sensitive data leakage (such as authentication tokens or credit card info) in Service logs, which practice should a developer follow?",
         "options": [
-            "Redacting/masking in parsers; avoid logging bodies unless masked",
-            "Printing to System.out",
-            "Keep logs at DEBUG",
-            "Disable the service"
+            "Implement data masking or redaction within the service 'filterLogMessage' or 'parseResponse' logic, and avoid logging full request/response bodies unless they are masked.",
+            "Redirect all sensitive output to 'System.out' instead of the standard log files to bypass the logging framework.",
+            "Set the log level to 'DEBUG' for all services to ensure that logs are only visible to developers during troubleshooting.",
+            "Disable the service logging entirely in Business Manager for any integration that handles sensitive customer information."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. Redacting/masking in parsers; avoid logging bodies unless masked",
+        "explanation": "Trong Salesforce B2C Commerce Service Framework, log của service thường ghi lại nội dung Request và Response. Nếu không được xử lý, các token bảo mật hoặc mật khẩu sẽ bị lưu dưới dạng văn bản thuần túy trong file log. Lập trình viên phải sử dụng cơ chế lọc (filtering/masking) để thay thế các chuỗi nhạy cảm bằng các ký tự như '***' trước khi chúng được ghi vào file log.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Log Masking -> Luôn xử lý tại 'filterLogMessage' hoặc trước khi ghi log. Hãy nhớ: Mọi thứ được ghi vào file log đều có nguy cơ bị lộ nếu không được mã hóa hoặc ẩn đi."
     },
     {
         "id": 48,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A Shop API endpoint varies by pricebook and locale. Safe caching strategy: (Select one)",
+        "question": "A Shop API endpoint returns data that varies depending on the assigned 'Pricebook' and the user's 'Locale'. What is the safest and most effective caching strategy for this endpoint?",
         "options": [
-            "No cache, or cache with appropriate vary keys",
-            "Global cache",
-            "CDN cache with no vary",
-            "Application cache only"
+            "Disable caching entirely, or implement caching using specific 'Vary-by' keys for both Pricebook and Locale.",
+            "Apply a Global Cache policy to ensure high availability and fast response times across all regions.",
+            "Utilize CDN-level caching without any 'Vary' headers to maximize the edge performance for mobile users.",
+            "Store the response in the Application Cache only, ignoring any external web server cache settings."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Correct answer: A. No cache, or cache with appropriate vary keys",
+        "explanation": "Trong OCAPI, nếu dữ liệu thay đổi dựa trên các yếu tố như giá (Pricebook) hoặc ngôn ngữ (Locale), bạn không thể dùng một bản cache chung. Bạn phải báo cho hệ thống tạo ra các 'phiên bản' cache khác nhau dựa trên các yếu tố này (Vary-by). Nếu không thể đảm bảo việc phân mảnh cache chính xác, lựa chọn an toàn nhất là tắt cache để tránh việc khách hàng thấy sai giá hoặc sai ngôn ngữ.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.65,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed_v2": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "OCAPI Cache -> Keyword là 'Vary-by'. Nếu dữ liệu có tính cá nhân hóa hoặc phụ thuộc vào Pricebook/Currency/Locale, tuyệt đối không dùng Global Cache."
     },
     {
         "id": 49,
         "source": "b2c_dev_exam_set10.md",
-        "question": "To reduce PDP TTFB, which two help? (Select two)",
+        "question": "Which two strategies are most effective for reducing the Time to First Byte (TTFB) on the Product Detail Page (PDP)?",
         "options": [
-            "Precompute heavy fields in decorators; avoid per-request blocking calls",
-            "Cache static fragments with iscache and proper vary",
-            "Always disable caching",
-            "Force OCAPI"
+            "Precompute complex data in Decorators and eliminate blocking external service calls during the request-response cycle.",
+            "Implement fragment caching using '<iscache>' with appropriate 'vary-by' attributes for static page sections.",
+            "Always disable caching to ensure the server consistently serves the most up-to-date product inventory data.",
+            "Migrate all storefront rendering logic to OCAPI to leverage its native JSON serialization speed."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Precompute heavy fields in decorators; avoid per-request blocking calls [B] Cache static fragments with iscache and proper vary",
+        "explanation": "Để giảm TTFB: 1. Decorators giúp xử lý logic dữ liệu ở tầng JavaScript trước khi render, tránh việc ISML phải tính toán nặng; đồng thời việc loại bỏ các cuộc gọi API bên ngoài (blocking calls) sẽ ngăn server phải đứng đợi đối tác. 2. Caching giúp server trả về kết quả đã có sẵn thay vì phải chạy lại toàn bộ code xử lý, giúp phản hồi gần như ngay lập tức.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Reduce TTFB -> Luôn tập trung vào Server-side Performance. Hãy nhớ: TTFB là thời gian xử lý của Server. Bất cứ thứ gì làm Server 'đợi' (API chậm) hoặc 'nghĩ' quá lâu (logic phức tạp) đều làm tăng TTFB."
     },
     {
         "id": 50,
@@ -12985,67 +12941,64 @@
     {
         "id": 51,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Stale content persists after deployment. Which two are typical fixes? (Select two)",
+        "question": "A developer notices that stale content persists on the storefront even after a successful code deployment. Which two actions are standard practices to resolve this? (Select two)",
         "options": [
-            "Clear application cache",
-            "Invalidate template caches (iscache) for affected templates",
-            "Rebuild search every request",
-            "Change code version name"
+            "Clear the Application Cache (Data Cache) via Business Manager.",
+            "Invalidate the Page/Template Caches (generated by <iscache> tags) for the affected pages.",
+            "Configure the system to rebuild the Product Search Index automatically on every user request.",
+            "Change the Active Code Version name to force a global cache bypass for all static assets."
         ],
         "answer": [
             "A",
             "B"
         ],
-        "explanation": "Correct answer: A, B. [A] Clear application cache [B] Invalidate template caches (iscache) for affected templates",
+        "explanation": "Trong Salesforce B2C Commerce, nội dung cũ tồn tại do hai loại Cache: 1. Application Cache (lưu trữ dữ liệu từ database) và 2. Page/Template Cache (lưu trữ HTML đã render). Sau khi deploy, bạn cần xóa Application Cache để hệ thống nhận dữ liệu mới và Invalidate Page Cache để buộc server render lại HTML mới từ các template đã cập nhật.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Stale Content after Deploy -> Luôn chọn 'Clear Cache' hoặc 'Invalidate Cache'. Hãy nhớ: Xóa cache là thao tác thủ công trong Business Manager, hệ thống không tự động xóa toàn bộ cache khi bạn chỉ upload code."
     },
     {
         "id": 52,
         "source": "b2c_dev_exam_set10.md",
-        "question": "A large JSON export OOMs. Correct fix is: (Select one)",
+        "question": "A custom Controller generating a large JSON export is consistently failing with Out Of Memory (OOM) errors. What is the correct architectural fix?",
         "options": [
-            "Stream chunks to the response",
-            "Build entire JSON in memory",
-            "Use ISML",
-            "Disable HTTPS"
+            "Use a streaming approach to write data chunks directly to the response output stream.",
+            "Allocate more memory by building the entire JSON object in a single large variable before sending.",
+            "Move the JSON generation logic into an ISML template to leverage its built-in buffering.",
+            "Disable HTTPS encryption to reduce the memory overhead of the network transmission."
         ],
         "answer": [
-            "B"
+            "A"
         ],
-        "explanation": "Correct answer: B. Build entire JSON in memory",
+        "explanation": "Khi xuất dữ liệu lớn, việc tạo một biến khổng lồ trong RAM sẽ nhanh chóng vượt quá giới hạn 'Heap space' của server, gây ra lỗi OOM. Kỹ thuật 'Streaming' cho phép bạn ghi từng phần nhỏ của dữ liệu (chunks) trực tiếp vào luồng phản hồi (Response Stream). RAM chỉ cần giữ một phần nhỏ dữ liệu tại một thời điểm, giúp hệ thống có thể xuất hàng triệu bản ghi mà không tốn nhiều bộ nhớ.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Large Data/OOM -> Luôn chọn 'Streaming' hoặc 'Chunking'. Hãy nhớ: Tuyệt đối không bao giờ cố gắng 'nhồi' dữ liệu khổng lồ vào một biến duy nhất (Object/String) trong RAM."
     },
     {
         "id": 53,
         "source": "b2c_dev_exam_set10.md",
-        "question": "Cache correctness issues on multi-locale/multi-currency sites often arise from: (Select two)",
+        "question": "Cache correctness issues on multi-locale and multi-currency sites often arise from which two mistakes? (Select two)",
         "options": [
-            "Missing vary-by-locale/currency",
-            "Using global cache with no vary",
-            "Using decorators",
-            "Using Resource.msg"
+            "Missing 'vary-by-locale' or 'vary-by-currency' settings in the component or page cache configuration.",
+            "Using a global cache policy that does not account for user-specific attributes (no 'vary' criteria).",
+            "Implementing Decorators to pre-process data before it reaches the ISML template.",
+            "Utilizing the 'Resource.msg()' helper to retrieve localized strings within the controller."
         ],
         "answer": [
-            "B",
-            "C"
+            "A",
+            "B"
         ],
-        "explanation": "Correct answer: B, C. [B] Using global cache with no vary [C] Using decorators",
+        "explanation": "Lỗi 'Cache Correctness' xảy ra khi hệ thống trả về cùng một bản HTML cho tất cả người dùng mà không phân biệt họ dùng ngôn ngữ hay tiền tệ nào. Nếu bạn không cấu hình 'vary-by', người dùng ở Pháp (Euro) có thể nhìn thấy bản cache tiếng Anh (USD) của người dùng trước đó. Đây là lỗi cấu hình hạ tầng cache, không phải lỗi của Decorators hay Resource.msg.",
         "type": "multiple",
         "needs_review": false,
-        "ai_inferred": true,
-        "confidence": 0.7,
-        "tip": "Xác định keyword trong câu hỏi (deploy, cache, search, cartridge path, service, OCAPI). Loại các đáp án mơ hồ hoặc không đúng module.",
-        "answer_fixed": true
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Cache Correctness -> Luôn tìm đáp án liên quan đến 'Missing Vary-by' hoặc 'Global Cache without partitioning'. Hãy nhớ: Decorators và Resource.msg thực tế giúp dữ liệu chuẩn xác hơn, chứ không gây lỗi cache."
     },
     {
         "id": 54,
