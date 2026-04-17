@@ -248,9 +248,7 @@ export function ExamProvider({ children }) {
 
     // Save wrong IDs
     useEffect(() => {
-        if (state.wrongQuestionIds.length > 0) {
-            localStorage.setItem('sfcc_wrong_ids', JSON.stringify(state.wrongQuestionIds));
-        }
+        localStorage.setItem('sfcc_wrong_ids', JSON.stringify(state.wrongQuestionIds));
     }, [state.wrongQuestionIds]);
 
     // Theme management

@@ -82,8 +82,9 @@ export function selectQuestions(allQuestions, mode, options = {}) {
         pool = pool.filter(q => topics.includes(q.source));
     }
 
-    if (mode === 'retry' && wrongIds.length > 0) {
-        pool = pool.filter(q => wrongIds.includes(q.id));
+    if (mode === 'retry') {
+        const wrongIdsSet = new Set((wrongIds || []).map(id => String(id)));
+        pool = pool.filter(q => wrongIdsSet.has(String(q.id)));
     }
 
     pool = shuffleArray(pool);

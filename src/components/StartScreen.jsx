@@ -5,7 +5,7 @@ import ThemeToggle from './ThemeToggle';
 
 export default function StartScreen() {
     const { state, dispatch } = useExam();
-    const [mode, setMode] = useState('full');
+    const [mode, setMode] = useState(state.mode === 'retry' ? 'retry' : 'full');
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [shuffleQ, setShuffleQ] = useState(true);
     const [shuffleA, setShuffleA] = useState(false);
@@ -48,8 +48,8 @@ export default function StartScreen() {
 
     const maxAvailable = useMemo(() => {
         if (mode === 'retry') {
-            const validIds = state.allQuestions.map(q => q.id);
-            return state.wrongQuestionIds.filter(id => validIds.includes(id)).length;
+            const allIdsSet = new Set(state.allQuestions.map(q => String(q.id)));
+            return (state.wrongQuestionIds || []).filter(id => allIdsSet.has(String(id))).length;
         }
         if (mode === 'topic') {
             if (selectedTopics.length === 0) return state.allQuestions.length;
@@ -65,8 +65,8 @@ export default function StartScreen() {
     }, [mode, questionCount, maxAvailable, state.allQuestions]);
 
     const validRetryCount = useMemo(() => {
-        const validIds = state.allQuestions.map(q => q.id);
-        return state.wrongQuestionIds.filter(id => validIds.includes(id)).length;
+        const allIdsSet = new Set(state.allQuestions.map(q => String(q.id)));
+        return (state.wrongQuestionIds || []).filter(id => allIdsSet.has(String(id))).length;
     }, [state.allQuestions, state.wrongQuestionIds]);
 
     if (state.loading) {
