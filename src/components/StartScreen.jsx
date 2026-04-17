@@ -47,7 +47,10 @@ export default function StartScreen() {
     };
 
     const maxAvailable = useMemo(() => {
-        if (mode === 'retry') return state.wrongQuestionIds.length;
+        if (mode === 'retry') {
+            const validIds = state.allQuestions.map(q => q.id);
+            return state.wrongQuestionIds.filter(id => validIds.includes(id)).length;
+        }
         if (mode === 'topic') {
             if (selectedTopics.length === 0) return state.allQuestions.length;
             return state.allQuestions.filter(q => selectedTopics.includes(q.source)).length;
@@ -57,9 +60,14 @@ export default function StartScreen() {
 
     const estimatedQuestions = useMemo(() => {
         if (mode === 'full') return Math.min(65, state.allQuestions.length);
-        if (mode === 'retry') return state.wrongQuestionIds.length;
+        if (mode === 'retry') return maxAvailable;
         return Math.min(questionCount, maxAvailable);
-    }, [mode, questionCount, maxAvailable, state.allQuestions, state.wrongQuestionIds]);
+    }, [mode, questionCount, maxAvailable, state.allQuestions]);
+
+    const validRetryCount = useMemo(() => {
+        const validIds = state.allQuestions.map(q => q.id);
+        return state.wrongQuestionIds.filter(id => validIds.includes(id)).length;
+    }, [state.allQuestions, state.wrongQuestionIds]);
 
     if (state.loading) {
         return (
@@ -106,14 +114,14 @@ export default function StartScreen() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {[
                             { id: 'full', icon: '📝', title: 'Full Exam', desc: '60 scored + 5 non-scored questions, 105 min' },
-                            { id: 'random', icon: '🎲', title: 'Random 60', desc: 'Random 60 questions from all sets' },
+                            { id: 'random', icon: '🎲', title: 'Random', desc: 'Customizable random questions from all sets' },
                             { id: 'topic', icon: '📚', title: 'Practice by Topic', desc: 'Select specific topic sets' },
-                            { id: 'retry', icon: '🔄', title: 'Review Wrong Answers', desc: `Retry ${state.wrongQuestionIds.length} wrong questions` },
+                            { id: 'retry', icon: '🔄', title: 'Review Wrong Answers', desc: `Retry ${validRetryCount} wrong questions` },
                         ].map(m => (
                             <button
                                 key={m.id}
                                 onClick={() => setMode(m.id)}
-                                disabled={m.id === 'retry' && state.wrongQuestionIds.length === 0}
+                                disabled={m.id === 'retry' && validRetryCount === 0}
                                 className={`p-4 rounded-xl border-2 text-left transition-all duration-200 ${mode === m.id
                                     ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500/30'
                                     : 'border-gray-200 dark:border-white/10 hover:border-primary-300 dark:hover:border-primary-500/30'

@@ -21,9 +21,17 @@ export default function ExamPage() {
         result.timePerQuestion = state.timePerQuestion;
         result.mode = state.mode;
 
+        // Lấy danh sách ID trả lời sai trong lần này
         const wrongIds = result.details.filter(d => !d.isCorrect).map(d => d.id);
+        // Lấy danh sách ID trả lời đúng trong lần này
+        const correctIds = result.details.filter(d => d.isCorrect).map(d => d.id);
+        
         const prevWrongIds = state.wrongQuestionIds || [];
-        const mergedWrongIds = [...new Set([...prevWrongIds, ...wrongIds])];
+        // Loại bỏ các ID đã trả lời đúng ra khỏi danh sách sai cũ
+        const remainingWrongIds = prevWrongIds.filter(id => !correctIds.includes(id));
+        // Merge danh sách cũ (đã lọc) với danh sách sai mới
+        const mergedWrongIds = [...new Set([...remainingWrongIds, ...wrongIds])];
+        
         dispatch({ type: 'SET_WRONG_IDS', payload: mergedWrongIds });
         dispatch({ type: 'SUBMIT_EXAM', payload: result });
     }, [state.questions, state.answers, state.timePerQuestion, state.mode, state.wrongQuestionIds, dispatch]);
