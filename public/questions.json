@@ -1,27 +1,6 @@
 [
     {
         "id": 1,
-        "source": "Questions_20260403.md",
-        "question": "How do you extend a Controller without modifying the base cartridge in SFRA?",
-        "options": [
-            "Copy the base controller into your cartridge and modify it.",
-            "Create a controller with the same name and use server.extend(module.superModule).",
-            "Use the `server.replace()` method to overwrite the base route.",
-            "Use `require('app_storefront_base/cartridge/controllers/...')` directly."
-        ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Trong SFRA, server.extend(module.superModule) cho phép kế thừa các route hiện có từ cartridge nằm sau trong cartridge path.",
-        "type": "single",
-        "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Keyword: Extend Controller, superModule.",
-        "answer_fixed": true
-    },
-    {
-        "id": 1,
         "source": "SFRA Architecture",
         "question": "How do you extend a Controller without modifying the base cartridge in SFRA?",
         "options": [
@@ -381,27 +360,6 @@
         "ai_inferred": true,
         "confidence": 0.7,
         "tip": "If `Object.MaxCustomAttributes` is exceeded you cannot add new attribute definitions for that object type via Business Manager; review and consolidate custom attributes.",
-        "answer_fixed": true
-    },
-    {
-        "id": 19,
-        "source": "Questions_20260403.md",
-        "question": "If a custom requirement dictates storing an Array of complex objects on a Customer Profile, what is the best practice?",
-        "options": [
-            "Stringify the array to JSON and store it in a 'Text' or 'Long String' attribute.",
-            "Create multiple custom objects for each array element.",
-            "Store each object as a separate attribute (e.g., attr1, attr2).",
-            "Use session.custom to store the array permanently."
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "B2C Commerce không hỗ trợ kiểu dữ liệu Array cho Custom Attribute của Profile. Cách tốt nhất là JSON.stringify() mảng đó và lưu vào một String attribute (Text/Long String).",
-        "type": "single",
-        "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Keyword: Array in Profile, JSON Stringify.",
         "answer_fixed": true
     },
     {
@@ -16153,66 +16111,6 @@
         "ai_inferred": false
     },
     {
-        "id": 233,
-        "set": "Explore Meta Tag Rules",
-        "question": "Which of these statements about meta tag rule inheritance is true?",
-        "type": "single",
-        "options": [
-            "Rules at the root category are visible within all child categories.",
-            "Rules follow the product category assignment structure.",
-            "Rules are inherited within the current locale context first.",
-            "A and B",
-            "A and C"
-        ],
-        "answer": [
-            "E"
-        ],
-        "explanation": "Correct answer: E. A and C",
-        "tip": "Mẹo: Quy tắc ở thư mục gốc áp dụng cho các thư mục con và ưu tiên ngữ cảnh locale hiện tại.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 234,
-        "set": "Explore Meta Tag Rules",
-        "question": "True or false: Meta tags tell search engines what a page is all about—and so, they are vital for SEO.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. True",
-        "tip": "Mẹo: Luôn kiểm tra title và meta description cho từng trang để cải thiện SEO.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 235,
-        "set": "Configure Page Meta Tag Rules",
-        "question": "Which of these are basic meta tag settings?",
-        "type": "single",
-        "options": [
-            "Scope",
-            "Assignment",
-            "Location",
-            "A and B",
-            "B and C"
-        ],
-        "answer": [
-            "D"
-        ],
-        "explanation": "Correct answer: D. A and B",
-        "tip": "Mẹo: \"Scope\" xác định phạm vi áp dụng; \"Assignment\" xác định trang hoặc mục được gán.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
         "id": 236,
         "set": "Configure Page Meta Tag Rules",
         "question": "True or false: The benefit of using static and dynamic text in your meta tags is that it increases SEO value across pages, products, and URLs.",
@@ -16226,26 +16124,6 @@
         ],
         "explanation": "Correct answer: A. True",
         "tip": "Mẹo: Kết hợp text tĩnh và biến thể (dynamic) để tối ưu cho từng trang mà vẫn giữ nhất quán.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 237,
-        "set": "Integrate and Check Your Meta Tags",
-        "question": "Where on a storefront page do you add meta tags?",
-        "type": "single",
-        "options": [
-            "Body",
-            "Footer",
-            "Head",
-            "Banner"
-        ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. Head",
-        "tip": "Mẹo: Thêm meta tags vào thẻ \u003chead\u003e để trình duyệt và công cụ tìm kiếm nhận diện chính xác.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -16288,104 +16166,6 @@
         ],
         "explanation": "Correct answer: D. A and B",
         "tip": "Mẹo: Cấu hình trong Business Manager và tối ưu nội dung, thẻ alt giúp SEO on-page.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 242,
-        "set": "Configure Hostname Aliases",
-        "question": "True or false: Hostname alias files include version, settings, and hostName parameters.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. True",
-        "tip": "Mẹo: Kiểm tra các tham số version và hostName khi debug file alias.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 243,
-        "set": "Configure Hostname Mapping Rules",
-        "question": "Why would you add mapping rules to your hostname alias file?",
-        "type": "single",
-        "options": [
-            "To display a list of possible URLs",
-            "To direct shoppers to a specific landing page based on the hostname they type as the URL",
-            "To redirect commonly used hostname to their proper hostname",
-            "A and B",
-            "B and C"
-        ],
-        "answer": [
-            "E"
-        ],
-        "explanation": "Correct answer: E. B and C",
-        "tip": "Mẹo: Dùng mapping rules để chuyển hướng hostname không chuẩn về hostname chính xác hoặc đến landing phù hợp.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 244,
-        "set": "Configure Hostname Mapping Rules",
-        "question": "What JSON syntax areas do you need to check when debugging your hostname alias file?",
-        "type": "single",
-        "options": [
-            "Bold all comments.",
-            "Use colons instead of equal signs when specifying properties.",
-            "Add commas after host entries.",
-            "A and B",
-            "A and C"
-        ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Correct answer: B. Use colons instead of equal signs when specifying properties.",
-        "tip": "Mẹo: Kiểm tra dấu hai chấm và dấu phẩy trong JSON; comments không phải phần của JSON chuẩn.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 245,
-        "set": "Explore SEO URLs",
-        "question": "True or false: Optimizing site URLs for external search engines can greatly improve the shopper experience, search rankings, linking functionality, and site traffic.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. True",
-        "tip": "Mẹo: Thiết kế URL ngắn, rõ ràng và chứa từ khóa sẽ cải thiện trải nghiệm và SEO.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 246,
-        "set": "Explore SEO URLs",
-        "question": "How does Salesforce B2C Commerce handle special characters like the ampersand (&) in URLs?",
-        "type": "single",
-        "options": [
-            "It removes them completely.",
-            "It converts them to underscores (_).",
-            "It replaces them with a hyphen (-).",
-            "It ignores them during URL generation."
-        ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. It replaces them with a hyphen (-).",
-        "tip": "Mẹo: Đặc biệt ký tự và khoảng trắng thường được thay bằng dấu gạch ngang để tạo URL thân thiện.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -16451,24 +16231,6 @@
         "ai_inferred": false
     },
     {
-        "id": 250,
-        "set": "Configure SEO URL Search Refinements",
-        "question": "True or false: Snapshots make it easy to compare changes over time of search refinement values and the corresponding URL mappings for all enabled category and folder search refinements.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. True",
-        "tip": "Mẹo: Tạo snapshot trước khi thay đổi để so sánh và khôi phục nếu cần.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
         "id": 251,
         "set": "Preview and Resolve Conflicts",
         "question": "Which of these help you resolve SEO URL conflicts?",
@@ -16529,27 +16291,6 @@
         "ai_inferred": false
     },
     {
-        "id": 254,
-        "set": "Configure URL Redirects",
-        "question": "Which of these redirect methods is automatic?",
-        "type": "single",
-        "options": [
-            "URL Redirect",
-            "URL archive",
-            "Search refinement redirects",
-            "A and B",
-            "B and C"
-        ],
-        "answer": [
-            "E"
-        ],
-        "explanation": "Correct answer: E. B and C",
-        "tip": "Mẹo: URL archive và search refinement redirects thường tạo tự động bởi hệ thống khi cấu hình phù hợp.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
         "id": 255,
         "set": "Explore XML Sitemaps",
         "question": "A sitemap file contains which of these elements?",
@@ -16566,122 +16307,6 @@
         ],
         "explanation": "Correct answer: C. An entry for each URL asset for the supported site locales",
         "tip": "Mẹo: Sitemap nên liệt kê các URL chính thức cho mọi locale được hỗ trợ để tăng khả năng lập chỉ mục.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 256,
-        "set": "Explore XML Sitemaps",
-        "question": "True or false: B2C Commerce uses the SitemapMgr class to manage and process sitemaps.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. True",
-        "tip": "Mẹo: Nếu cần debug sitemap, kiểm tra lớp SitemapMgr và logs liên quan.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 257,
-        "set": "Generate Sitemaps",
-        "question": "True or false: If your site has 30,000 links and you set the links per sitemap setting to 5,000, B2C Commerce creates 6 sitemap files.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. True",
-        "tip": "Mẹo: Số sitemap = ceil(total links / links per sitemap).",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 258,
-        "set": "Generate Sitemaps",
-        "question": "Which of these attributes are used in a catalog and content import feed?",
-        "type": "single",
-        "options": [
-            "smp-flag",
-            "chg-frequency",
-            "sitemap-priority",
-            "notify-feed"
-        ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. sitemap-priority",
-        "tip": "Mẹo: Sử dụng thuộc tính sitemap-priority để chỉ định ưu tiên URL khi tạo sitemap.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 259,
-        "set": "Notify Search Engines About Your Sitemaps",
-        "question": "True or false: After successfully creating a sitemap, you can submit your sitemap to Google by using Google Search Console.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. True",
-        "tip": "Mẹo: Sau khi submit, theo dõi trạng thái lập chỉ mục trong Google Search Console.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 260,
-        "set": "Notify Search Engines About Your Sitemaps",
-        "question": "Which of these tasks help you add the google-site-verification meta tag for Google site verification?",
-        "type": "single",
-        "options": [
-            "Create a custom site preference for the Google tag.",
-            "Include the Google tag in the storefront application.",
-            "Create a custom variable for the meta tag.",
-            "A and B",
-            "A and C"
-        ],
-        "answer": [
-            "D"
-        ],
-        "explanation": "Correct answer: D. A and B",
-        "tip": "Mẹo: Tạo site preference hoặc chèn thẳng vào storefront để Google xác minh trang nhanh chóng.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 261,
-        "set": "Generate a robots.txt File",
-        "question": "Which of these are included in a robots.txt file?",
-        "type": "single",
-        "options": [
-            "User-agent",
-            "Disallow",
-            "Index",
-            "A and B",
-            "B and C"
-        ],
-        "answer": [
-            "D"
-        ],
-        "explanation": "Correct answer: D. A and B",
-        "tip": "Mẹo: robots.txt dùng directives như User-agent và Disallow; không dùng 'Index' directive.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -16767,26 +16392,6 @@
         "ai_inferred": false
     },
     {
-        "id": 266,
-        "set": "Plan Your Implementation",
-        "question": "After Einstein Product Recommendations are live, what methodology is recommended to ensure the best use of the predictive data?",
-        "type": "single",
-        "options": [
-            "Consistently validating clickstream data using the Agentforce Commerce Recommendation Validator.",
-            "Monitoring the Einstein Dashboard to review attributed revenue relative to overall site revenue.",
-            "Implementing a test-and-learn methodology using an A/B testing tool.",
-            "Conducting routine reviews with the Marketing team to develop new product-centric campaigns."
-        ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. Implementing a test-and-learn methodology using an A/B testing tool.",
-        "tip": "Mẹo: Dùng A/B testing để so sánh hiệu quả các recommenders và tối ưu hoá dần.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
         "id": 267,
         "set": "Develop Feature-Specific Plans",
         "source": "QA_7.html",
@@ -16805,26 +16410,6 @@
         "needs_review": false,
         "answer_fixed": true,
         "tip": "Mẹo: Tắt cache trên các endpoint category/search grid hoặc đảm bảo cache không ngăn chặn dữ liệu cá nhân hóa."
-    },
-    {
-        "id": 268,
-        "set": "Develop Feature-Specific Plans",
-        "question": "After Product Recommendations are live, what is a key post-launch step for a merchandiser?",
-        "type": "single",
-        "options": [
-            "Designing the content slot look and feel.",
-            "Requesting a cache upgrade for category and search grid pages.",
-            "Using preview and the validator tool to check for issues.",
-            "Creating new recommenders in the Configurator."
-        ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. Using preview and the validator tool to check for issues.",
-        "tip": "Mẹo: Sử dụng preview và validator để phát hiện lỗi hiển thị hoặc dữ liệu trước khi rollout rộng.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
     },
     {
         "id": 269,
@@ -16883,46 +16468,6 @@
         ],
         "explanation": "Correct answer: D. It validates recommendation activities on the storefront in real-time.",
         "tip": "Mẹo: Dùng Commerce Insights để kiểm tra và xác thực hoạt động của recommenders trực tiếp trên storefront.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 272,
-        "set": "Use Configurator to Review Data",
-        "question": "Commerce Insights drilldown, which metric detail is provided for a product \"Purchased in Same Basket\"?",
-        "type": "single",
-        "options": [
-            "The total revenue generated by the co-purchased product.",
-            "The average price of the co-purchased product.",
-            "The number of unique shoppers who bought the product together.",
-            "The percent of all key item baskets that contained the specific item."
-        ],
-        "answer": [
-            "D"
-        ],
-        "explanation": "Correct answer: D. The percent of all key item baskets that contained the specific item.",
-        "tip": "Mẹo: Sử dụng phần trăm này để xác định sản phẩm thường mua cùng với mục chính và tối ưu cross-sell.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 273,
-        "set": "Set Up Search Dictionaries",
-        "question": "What is one way Einstein Search Dictionaries adds value compared to standard keyword search?",
-        "type": "single",
-        "options": [
-            "It provides basic search-as-you-type with advanced features.",
-            "It automatically detects relationships between search terms and adds data to existing dictionaries.",
-            "It allows merchants to manually create search dictionaries based on specific data.",
-            "It only uses the site’s data by default."
-        ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Correct answer: B. It automatically detects relationships between search terms and adds data to existing dictionaries.",
-        "tip": "Mẹo: Einstein có thể học mối quan hệ giữa từ khóa để cải thiện gợi ý tìm kiếm tự động.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -17029,24 +16574,6 @@
         "ai_inferred": false
     },
     {
-        "id": 236,
-        "set": "Configure Page Meta Tag Rules",
-        "question": "True or false: The benefit of using static and dynamic text in your meta tags is that it increases SEO value across pages, products, and URLs.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. True",
-        "tip": "Kết hợp văn bản tĩnh và động giúp tối ưu SEO cho nhiều trang, sản phẩm và URL khác nhau.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
         "id": 237,
         "set": "Integrate and Check Your Meta Tags",
         "question": "Where on a storefront page do you add meta tags?",
@@ -17062,27 +16589,6 @@
         ],
         "explanation": "Correct answer: C. Head",
         "tip": "Meta tag nên được thêm vào phần `head` của trang HTML.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 238,
-        "set": "Integrate and Check Your Meta Tags",
-        "question": "Which of these things should you do when checking your final meta tags?",
-        "type": "single",
-        "options": [
-            "Pay attention to headings and how you structure your content.",
-            "Make sure all footers have alt text.",
-            "Use the robot meta tags to guide search engines on how they should access your page.",
-            "A and B",
-            "A and C"
-        ],
-        "answer": [
-            "E"
-        ],
-        "explanation": "Correct answer: E. A and C",
-        "tip": "Kiểm tra cấu trúc tiêu đề (headings) và sử dụng robot meta tag để hướng dẫn công cụ tìm kiếm.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -17225,66 +16731,6 @@
         "ai_inferred": false
     },
     {
-        "id": 247,
-        "set": "Configure SEO URLs",
-        "question": "Which of these do you need to consider when configuring SEO URL rules?",
-        "type": "single",
-        "options": [
-            "If a site has a category depth of more than two or three categories, use category instead of category-path to keep the URLs brief.",
-            "If a site has duplicate category names within different parent categories, such as women > shoes and men > shoes, you can still use category.",
-            "If you use category-path, use a delimiter other than a forward slash.",
-            "A and B",
-            "A and C"
-        ],
-        "answer": [
-            "E"
-        ],
-        "explanation": "Correct answer: E. A and C",
-        "tip": "Chọn `category` để giữ URL ngắn nếu độ sâu quá lớn; nếu dùng `category-path` cân nhắc dấu phân cách phù hợp.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 248,
-        "set": "Configure SEO URLs",
-        "question": "True or false: You need to make sure locales appear in the URLs in a certain way to satisfy country and language-specific customs and requirements.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. True",
-        "tip": "Đảm bảo locale xuất hiện đúng trong URL để phù hợp với quy định và thói quen từng quốc gia/ngôn ngữ.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 249,
-        "set": "Configure SEO URL Search Refinements",
-        "question": "Which of these is a reason for using SEO URL search refinements?",
-        "type": "single",
-        "options": [
-            "To streamline a rule that adds the color search refinement (blue|green) at the end of the URL.",
-            "To control the position of where search refinements are added to the URL.",
-            "To redirect commonly used hostnames to their proper hostname.",
-            "A and B",
-            "B and C"
-        ],
-        "answer": [
-            "D"
-        ],
-        "explanation": "Correct answer: D. A and B",
-        "tip": "Search refinement giúp kiểm soát vị trí và định dạng các tham số lọc (ví dụ màu sắc) trong URL.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
         "id": 250,
         "set": "Configure SEO URL Search Refinements",
         "question": "True or false: Snapshots make it easy to compare changes over time of search refinement values and the corresponding URL mappings for all enabled category and folder search refinements.",
@@ -17298,66 +16744,6 @@
         ],
         "explanation": "Correct answer: A. True",
         "tip": "Snapshot cho phép so sánh lịch sử giá trị refinement và ánh xạ URL theo thời gian.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 251,
-        "set": "Preview and Resolve Conflicts",
-        "question": "Which of these help you resolve SEO URL conflicts?",
-        "type": "single",
-        "options": [
-            "SEO URL redirects",
-            "SEO URL Preview",
-            "SEO URL General tab showing the conflicts",
-            "A and B",
-            "B and C"
-        ],
-        "answer": [
-            "E"
-        ],
-        "explanation": "Correct answer: E. B and C",
-        "tip": "Sử dụng tính năng Preview và tab General để xem và xử lý xung đột URL.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 252,
-        "set": "Preview and Resolve Conflicts",
-        "question": "Which of these reflects how B2C Commerce tracks category, folder, and search refinement SEO URLs?",
-        "type": "single",
-        "options": [
-            "B2C Commerce stores product and content URLs.",
-            "B2C Commerce maintains a directory of category, folder, and search refinement URLs in its database.",
-            "The directory contains a URL endpoint for each category in the site catalog and each folder in the site library for each site locale.",
-            "A and B",
-            "B and C"
-        ],
-        "answer": [
-            "E"
-        ],
-        "explanation": "Correct answer: E. B and C",
-        "tip": "Hệ thống lưu một thư mục/định mục URL cho từng category, folder và refinement theo locale.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 253,
-        "set": "Configure URL Redirects",
-        "question": "True or false: Within a URL Redirect mapping, it’s best practice to define the redirect target as URL directly, to reduce processing time.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Correct answer: B. False",
-        "tip": "Không phải lúc nào cũng tốt nhất chọn mục tiêu là URL tĩnh; đôi khi cần dùng mapping động để duy trì tính chính xác và quản lý.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -17379,27 +16765,6 @@
         ],
         "explanation": "Correct answer: E. B and C",
         "tip": "URL archive và search refinement redirects có thể được tạo tự động; URL Redirect thường là cấu hình thủ công.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 255,
-        "set": "Explore XML Sitemaps",
-        "question": "A sitemap file contains which of these elements?",
-        "type": "single",
-        "options": [
-            "An alternate link to the development instance",
-            "sitemap.pdf",
-            "An entry for each URL asset for the supported site locales",
-            "A and B",
-            "B and C"
-        ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. An entry for each URL asset for the supported site locales",
-        "tip": "Sitemap liệt kê từng URL của site cho các locale được hỗ trợ để công cụ tìm kiếm thu thập dữ liệu.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -17521,86 +16886,6 @@
         "ai_inferred": false
     },
     {
-        "id": 262,
-        "set": "Generate a robots.txt File",
-        "question": "True or false: You need Business Manager to upload a robots.txt file for a B2C Commerce storefront application.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Correct answer: B. False",
-        "tip": "Không nhất thiết phải dùng Business Manager; robots.txt có thể được quản lý qua storefront hoặc cấu hình ứng dụng.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 263,
-        "set": "Get to Know Commerce Cloud Einstein",
-        "question": "Which three types of data does Agentforce Commerce Einstein utilize for its intelligence?",
-        "type": "multiple",
-        "options": [
-            "Historical Customer Demographics, Product Catalog, and Website Traffic",
-            "Clickstream, Orders, and Products",
-            "Product Attributes, Storefront Sessions, and Inventory",
-            "Merchandiser Activity, Promotion Data, and Site Search Terms"
-        ],
-        "answer": [
-            "A",
-            "B",
-            "C"
-        ],
-        "explanation": "Correct answer: A, B, C. [A] Historical Customer Demographics, Product Catalog, and Website Traffic [B] Clickstream, Orders, and Products [C] Product Attributes, Storefront Sessions, and Inventory",
-        "tip": "Einstein sử dụng dữ liệu lịch sử khách hàng, clickstream, đơn hàng, thuộc tính sản phẩm và phiên storefront để dự đoán.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 264,
-        "set": "Get to Know Commerce Cloud Einstein",
-        "question": "What is the primary difference between Einstein Product Recommendations and the Einstein Search features?",
-        "type": "single",
-        "options": [
-            "Product Recommendations are only available on the production instance, while Search features are available on staging.",
-            "Search features provide personalized term completion, while Product Recommendations provide personalized product suggestions.",
-            "Product Recommendations require merchandisers to configure features in Business Manager, while Search features require only an administrator.",
-            "Product Recommendations focus on suggesting specific items, while Search features focus on search term and result optimization."
-        ],
-        "answer": [
-            "D"
-        ],
-        "explanation": "Correct answer: D. Product Recommendations focus on suggesting specific items, while Search features focus on search term and result optimization.",
-        "tip": "Product Recommendations gợi ý sản phẩm; Search features tối ưu truy vấn và kết quả tìm kiếm.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 265,
-        "set": "Plan Your Implementation",
-        "question": "Which set of features can a merchandiser begin configuring and testing with minimal or no development effort shortly after the initial data enablement is complete?",
-        "type": "single",
-        "options": [
-            "Einstein Search Dictionaries, Commerce Insights, and basic Einstein Search Recommendations.",
-            "Einstein Predictive Sort, Einstein Product Recommendations, and Commerce Insights.",
-            "Einstein Search Dictionaries, Einstein Predictive Sort, and Product Recommendations.",
-            "Basic Search Recommendations, Predictive Sort, and Product Recommendations."
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Correct answer: A. Einstein Search Dictionaries, Commerce Insights, and basic Einstein Search Recommendations.",
-        "tip": "Các tính năng này yêu cầu ít hoặc không cần phát triển và có thể cấu hình nhanh sau khi dữ liệu sẵn sàng.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
         "id": 266,
         "set": "Plan Your Implementation",
         "question": "After Einstein Product Recommendations are live, what methodology is recommended to ensure the best use of the predictive data?",
@@ -17621,26 +16906,6 @@
         "ai_inferred": false
     },
     {
-        "id": 267,
-        "set": "Develop Feature-Specific Plans",
-        "source": "QA_7.html",
-        "question": "Which task is a critical prerequisite to ensure that Einstein Predictive Sort works correctly?",
-        "options": [
-            "Ensure the category and search grid requests are NOT cached by the Web-Tier.",
-            "Validate that the request is allowed to be cached with a long TTL.",
-            "Configure a dedicated OCAPI client for Predictive Sort.",
-            "Create a specific Job to update sorting data hourly."
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Predictive Sort dựa trên dữ liệu cá nhân hóa thời gian thực của người dùng. Nếu trang bị cache ở tầng Web (Web-Tier cache), Einstein sẽ không thể thay đổi thứ tự sản phẩm dựa trên từng cá nhân.",
-        "type": "single",
-        "needs_review": false,
-        "answer_fixed": true,
-        "tip": "Tắt cache ở Web-Tier cho các yêu cầu category/search grid để Predictive Sort hoạt động theo thời gian thực."
-    },
-    {
         "id": 268,
         "set": "Develop Feature-Specific Plans",
         "question": "After Product Recommendations are live, what is a key post-launch step for a merchandiser?",
@@ -17656,67 +16921,6 @@
         ],
         "explanation": "Correct answer: C. Using preview and the validator tool to check for issues.",
         "tip": "Sử dụng chế độ preview và công cụ validator để kiểm tra hoạt động khuyến nghị sau khi lên live.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 269,
-        "set": "Deploy Commerce Cloud Einstein",
-        "question": "Which two production instance data feeds must a Agentforce Commerce for B2C administrator execute to enable Einstein on a storefront?",
-        "type": "multiple",
-        "options": [
-            "Storefront Sessions and Product Affinities",
-            "Catalog and Orders",
-            "Inventory and Customer Demographics",
-            "Clickstream and Promotion Data"
-        ],
-        "answer": [
-            "A",
-            "D"
-        ],
-        "explanation": "Correct answer: A, D. [A] Storefront Sessions and Product Affinities [D] Clickstream and Promotion Data",
-        "tip": "Chuẩn bị feed như Storefront Sessions, Product Affinities, Clickstream và Promotion Data để kích hoạt Einstein.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 270,
-        "set": "Deploy Commerce Cloud Einstein",
-        "question": "What is the primary function of enabling browser-based activity tracking for the storefront?",
-        "type": "single",
-        "options": [
-            "To track third-party advertising performance in the Business Manager.",
-            "To ensure all products in the catalog are correctly indexed for search.",
-            "To allow Einstein to respond to shoppers' actions on your site in real-time.",
-            "To send daily order and product feeds to the Einstein Status Dashboard."
-        ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. To allow Einstein to respond to shoppers' actions on your site in real-time.",
-        "tip": "Bật tracking trên trình duyệt để Einstein có dữ liệu thời gian thực cho khuyến nghị và phân tích hành vi.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 271,
-        "set": "Use Configurator to Review Data",
-        "question": "What is a key benefit of using Commerce Insights data for a merchandiser?",
-        "type": "single",
-        "options": [
-            "It functions as a financial reporting tool to calculate attributed revenue.",
-            "It provides the ability to create new product catalog entries.",
-            "It helps configure product bundles, deals, and “complete the look” suggestions.",
-            "It validates recommendation activities on the storefront in real-time."
-        ],
-        "answer": [
-            "D"
-        ],
-        "explanation": "Correct answer: D. It validates recommendation activities on the storefront in real-time.",
-        "tip": "Commerce Insights cung cấp dữ liệu để xác thực hoạt động khuyến nghị và phân tích hiệu suất ngay trên storefront.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -17757,26 +16961,6 @@
         ],
         "explanation": "Correct answer: B. It automatically detects relationships between search terms and adds data to existing dictionaries.",
         "tip": "Einstein Search Dictionaries tự động phát hiện mối quan hệ giữa các từ tìm kiếm và cập nhật dictionary.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 274,
-        "set": "Set Up Search Dictionaries",
-        "question": "Which of the following is a standard search feature in Salesforce Agentforce Commerce for B2C?",
-        "type": "single",
-        "options": [
-            "Predictive Sort",
-            "Search Recommendations",
-            "Keyword Search",
-            "Einstein Search Dictionaries"
-        ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "Correct answer: C. Keyword Search",
-        "tip": "Keyword Search là tính năng tìm kiếm cơ bản tiêu chuẩn trong nền tảng.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -18961,46 +18145,6 @@
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
-    },
-    {
-        "id": 6,
-        "source": "Questions_20260403.md",
-        "question": "In SFRA, what is the standard method for passing data from a Controller to an ISML template for rendering?",
-        "options": [
-            "Pass a JavaScript object as the second argument to 'res.render(templateName, dataObject)'.",
-            "Export the data directly from the controller's module.exports object.",
-            "Use the 'pdict.set(key, value)' method within the controller before calling the response.",
-            "Assign the data to the 'session.custom' object to make it globally available to the template."
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Trong SFRA, lớp 'res' (Response) có phương thức 'render'. Khi bạn truyền một object vào đối số thứ hai, Salesforce sẽ tự động đưa các thuộc tính của object đó vào một biến toàn cục tên là 'pdict' (Pipeline Dictionary) bên trong file ISML. Nhờ đó, bạn có thể truy xuất dữ liệu trong HTML bằng cú pháp '${pdict.data}'.",
-        "type": "single",
-        "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Data Transfer -> Luôn chọn 'res.render' với đối số thứ hai. Hãy nhớ: Trong ISML, mọi dữ liệu được truyền từ Controller đều phải bắt đầu bằng tiền tố 'pdict.'."
-    },
-    {
-        "id": 7,
-        "source": "Questions_20260403.md",
-        "question": "What is the primary technical difference between 'server.get()' and 'server.append()' in the context of SFRA Controller extension?",
-        "options": [
-            "'server.get' defines a brand new route; 'server.append' adds additional middleware logic to the end of an existing route from another cartridge.",
-            "'server.get' is used exclusively for retrieving data (GET requests), while 'server.append' is used for creating new database records.",
-            "'server.get' is designed for standard page loads, whereas 'server.append' is optimized for handling background AJAX requests.",
-            "'server.append' is used to completely overwrite and replace the original route's logic in the cartridge path."
-        ],
-        "answer": [
-            "A"
-        ],
-        "explanation": "Trong SFRA, khi bạn muốn thêm tính năng vào một trang đã có (ví dụ: thêm một ô nhập liệu vào trang Product-Show), bạn dùng 'server.append'. Lệnh này cho phép logic gốc chạy xong, sau đó mới chạy đến code của bạn. Ngược lại, 'server.get' thường dùng khi bạn tạo một URL hoàn toàn mới cho trang web của mình.",
-        "type": "single",
-        "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Extend Route -> Luôn chọn 'append' (thêm vào cuối) hoặc 'prepend' (thêm vào đầu). New Route -> Chọn 'server.get' hoặc 'server.post'. Hãy nhớ: 'append' không thay thế code cũ, nó chỉ chạy tiếp nối."
     },
     {
         "id": 10,
