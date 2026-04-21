@@ -1277,23 +1277,23 @@
     {
         "id": 64,
         "source": "Questions_20260403.md",
-        "question": "Why will 'ProductMgr.queryAllSiteProducts()' followed by converting it to a List fail for 500,000 products?",
+        "question": "An enterprise site has 500,000 active Products. A developer uses 'ProductMgr.queryAllSiteProducts()' and converts it to a List. Why will this fail on a Production instance?",
         "options": [
-            "It violates the 'api.MaxObjectCount' or memory quota by loading too nhiều objects.",
-            "Products cannot be converted to a List.",
-            "It requires a Rebuild Index to work.",
-            "QueryAllSiteProducts only works on Staging, not Production."
+            "It violates the 'Script.MaxMemory' quota by loading all objects into the JVM heap.",
+            "It violates the 'api.MaxObjectCount' quota for persistent objects.",
+            "The 'queryAllSiteProducts' method is deprecated and returns an empty list.",
+            "Product queries are restricted to 10,000 results by the database layer."
         ],
         "answer": [
             "A"
         ],
-        "explanation": "Lấy 500k object vào memory cùng lúc sẽ gây vượt ngưỡng memory quota (Script.MaxMemory) hoặc giới hạn số lượng object trong một request.",
         "type": "single",
         "needs_review": false,
         "ai_inferred": false,
         "confidence": 1.0,
-        "tip": "Luôn dùng SeekableIterator cho dữ liệu lớn, tránh convert sang List.",
-        "answer_fixed": true
+        "answer_fixed": true,
+        "explanation": "ProductMgr.queryAllSiteProducts() returns an iterator, which is memory-efficient. However, converting it into a List forces all 500,000 product objects to be loaded into memory at once, exceeding the Script.MaxMemory quota in SFCC and causing the script to fail.",
+        "tip": "Nếu thấy queryAll + convert to List/Array → nghĩ ngay đến lỗi memory. Iterator thì OK, nhưng load hết vào RAM thì sẽ vượt quota."
     },
     {
         "id": 65,
