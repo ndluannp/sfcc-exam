@@ -16272,24 +16272,6 @@
         "ai_inferred": false
     },
     {
-        "id": 239,
-        "set": "Explore Search Engine Optimization",
-        "question": "True or false: Hostname aliases, SEO URLs, XML sitemaps, and in-storefront search and navigation are B2C Commerce SEO features.",
-        "type": "single",
-        "options": [
-            "True",
-            "False"
-        ],
-        "answer": [
-            "B"
-        ],
-        "explanation": "Correct answer: B. False",
-        "tip": "Mẹo: Một số tính năng (như in-store search) liên quan tới trải nghiệm tìm kiếm nội bộ, không phải trực tiếp là SEO cho công cụ tìm kiếm bên ngoài.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
         "id": 240,
         "set": "Explore Search Engine Optimization",
         "question": "Which of these tasks do you perform to implement meta tags in B2C Commerce?",
@@ -16306,27 +16288,6 @@
         ],
         "explanation": "Correct answer: D. A and B",
         "tip": "Mẹo: Cấu hình trong Business Manager và tối ưu nội dung, thẻ alt giúp SEO on-page.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 241,
-        "set": "Configure Hostname Aliases",
-        "question": "Why is it important to configure the hostname alias for the current instance hostname?",
-        "type": "single",
-        "options": [
-            "To ensure that search engines see the full URL.",
-            "So shoppers get to the storefront without typing the entire URL.",
-            "To restrict the number of shoppers who land on the site.",
-            "To increase the likelihood of shoppers landing on the site.",
-            "B and D"
-        ],
-        "answer": [
-            "E"
-        ],
-        "explanation": "Correct answer: E. B and D",
-        "tip": "Mẹo: Cấu hình hostname alias giúp chuyển hướng người dùng và tăng khả năng tiếp cận site.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
@@ -16989,22 +16950,23 @@
     {
         "id": 275,
         "set": "Set Up Search Recommendations",
-        "question": "Which of the following is a benefit of using Einstein Search Recommendations?",
-        "type": "single",
+        "question": "Which of the following is a key business benefit of implementing Einstein Search Recommendations on a storefront?",
         "options": [
-            "It increases the likelihood of zero search results.",
-            "It lowers the abandonment rate on the search results page.",
-            "It allows for the use of simple search suggestions.",
-            "It only suggests content, not products."
+            "It increases the likelihood of encountering zero search results.",
+            "It significantly lowers the abandonment rate on the search results page by guiding users to relevant items.",
+            "It restricts search suggestions to simple, hardcoded queries only.",
+            "It exclusively suggests non-product content (like FAQ articles) rather than actual products."
         ],
         "answer": [
             "B"
         ],
-        "explanation": "Correct answer: B. It lowers the abandonment rate on the search results page.",
-        "tip": "Mẹo: Einstein Search Recommendations giúp gợi ý chính xác hơn, giảm tỷ lệ bỏ trang khi tìm kiếm.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
+        "explanation": "Einstein Search Recommendations sử dụng dữ liệu hành vi của khách hàng để hiển thị các từ khóa gợi ý và sản phẩm ngay khi họ bắt đầu gõ. Điều này giúp khách hàng tìm thấy thứ họ cần nhanh hơn, từ đó giảm tỷ lệ rời bỏ trang (abandonment rate) và tránh được việc trang tìm kiếm không trả về kết quả nào (zero-result page).",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Search Recommendations -> Tăng trải nghiệm (UX), Giảm rời bỏ (Abandonment), Giảm kết quả trống (Zero Results).",
+        "source": "QA_7.html"
     },
     {
         "id": 233,
@@ -17139,27 +17101,6 @@
         ],
         "explanation": "Correct answer: A. True",
         "tip": "Các tính năng như hostname alias, SEO URL và sitemap đều liên quan đến SEO; tìm kiếm/điều hướng trong storefront cũng ảnh hưởng tới khả năng hiển thị và trải nghiệm người dùng.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
-    },
-    {
-        "id": 240,
-        "set": "Explore Search Engine Optimization",
-        "question": "Which of these tasks do you perform to implement meta tags in B2C Commerce?",
-        "type": "single",
-        "options": [
-            "Configure meta tags in Business Manager.",
-            "Create body text, intra-site links, anchor text, and image <alt> tags.",
-            "Use a text editor to create and manage page meta tags for your storefront products.",
-            "A and B",
-            "B and C"
-        ],
-        "answer": [
-            "D"
-        ],
-        "explanation": "Correct answer: D. A and B",
-        "tip": "Thực hiện cấu hình meta tag trong Business Manager và tối ưu nội dung (heading, link, alt text) trên trang.",
         "source": "QA_7.html",
         "confidence": 0.95,
         "ai_inferred": false
