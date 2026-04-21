@@ -18196,7 +18196,6 @@
         "id": 293,
         "set": "Create and Use Salesforce CMS Content",
         "question": "How can you organize a workspace?",
-        "type": "single",
         "options": [
             "Name and description",
             "Collections and topics",
@@ -18204,13 +18203,14 @@
             "Internal and external"
         ],
         "answer": [
-            "B"
+            "A"
         ],
-        "explanation": "Correct answer: B. Collections and topics",
-        "tip": "Sử dụng Collections và topics để sắp xếp và nhóm nội dung trong workspace.",
-        "source": "QA_7.html",
-        "confidence": 0.95,
-        "ai_inferred": false
+        "explanation": "Khi bạn tạo một CMS Workspace, yêu cầu cơ bản nhất là đặt tên (Name) và nhập mô tả (Description) để giúp quản trị viên dễ dàng nhận diện mục đích của Workspace đó. Tên Workspace là duy nhất, còn mô tả giúp phân loại các Workspace khi tổ chức quản lý nội dung doanh nghiệp.",
+        "type": "single",
+        "needs_review": false,
+        "ai_inferred": false,
+        "confidence": 1.0,
+        "tip": "Workspace Setup -> Name & Description. Đừng nhầm lẫn với việc tổ chức NỘI DUNG (Content) bên trong đó – việc tổ chức nội dung sẽ dùng Collections và Topics."
     },
     {
         "id": 294,
