@@ -8,6 +8,7 @@ export default function ReviewPage() {
     const result = state.result;
     const [filter, setFilter] = useState('all'); // all | wrong | correct
     const [expandedId, setExpandedId] = useState(null);
+    const [expandAll, setExpandAll] = useState(false);
 
     const filtered = useMemo(() => {
         if (!result) return [];
@@ -60,12 +61,25 @@ export default function ReviewPage() {
                             {f.label}
                         </button>
                     ))}
+                    <button
+                        onClick={() => {
+                            setExpandAll(!expandAll);
+                            setExpandedId(null);
+                        }}
+                        className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ml-auto ${
+                            expandAll
+                                ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/25'
+                                : 'bg-gray-100 dark:bg-surface-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-surface-700/80'
+                        }`}
+                    >
+                        {expandAll ? '🔽 Collapse All' : '🔼 Expand All'}
+                    </button>
                 </div>
 
                 {/* Questions */}
                 <div className="space-y-4">
                     {filtered.map((detail, idx) => {
-                        const isExpanded = expandedId === detail.id;
+                        const isExpanded = expandAll || expandedId === detail.id;
                         return (
                             <div
                                 key={detail.id}
