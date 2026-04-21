@@ -22,19 +22,17 @@
         "options": [
             "The template renders twice.",
             "An error occurs, and the request fails.",
-            "The template renders, and the tiếp theo middleware vẫn thực thi.",
-            "The `next()` call is ignored because the response was already assigned."
+            "The template renders, and the next middleware executes normally.",
+            "The `next()` call is silently ignored."
         ],
-        "answer": [
-            "C"
-        ],
-        "explanation": "res.render() chỉ gán template và viewData vào response object, việc thực thi tiếp theo middleware qua next() vẫn diễn ra bình thường cho đến khi luồng kết thúc.",
         "type": "single",
         "needs_review": false,
-        "ai_inferred": false,
-        "confidence": 1.0,
-        "tip": "Middleware chain xử lý tuần tự trừ khi có lỗi hoặc res.print() sớm.",
-        "answer_fixed": true
+        "ai_inferred": true,
+        "confidence": 0.7,
+        "answer_fixed": true,
+        "answer": ["B"],
+        "explanation": "Calling res.render() sends the response to the client and ends the request. If next() is called afterward, the next middleware may attempt to modify or send another response, causing a 'headers already sent' error.",
+        "tip": "Nếu đã res.render() / res.json() → KHÔNG gọi next(). Response chỉ được gửi 1 lần."
     },
     {
         "id": 3,
