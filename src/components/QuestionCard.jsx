@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useExam } from '../contexts/ExamContext';
 import { getTopicName, getLetter } from '../utils/examUtils';
+import { getTranslation } from '../utils/translations';
 
 export default function QuestionCard() {
     const { state, dispatch } = useExam();
@@ -85,6 +86,17 @@ export default function QuestionCard() {
                     </p>
                 )}
             </div>
+
+            {/* Previous incorrect answer if any */}
+            {state.wrongAnswersMap[question.id] && state.wrongAnswersMap[question.id].length > 0 && (
+                <div className="mb-6 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-500/20 text-rose-700 dark:text-rose-400 text-sm flex items-center gap-2 animate-fade-in">
+                    <span>❌</span>
+                    <span>
+                        <strong>{getTranslation(state.language, 'prev_incorrect_label')}:</strong>{' '}
+                        {state.wrongAnswersMap[question.id].join(', ')}
+                    </span>
+                </div>
+            )}
 
             {/* Options - không hiển thị đáp án cho đến khi nộp bài */}
             <div className="space-y-3 mb-6">

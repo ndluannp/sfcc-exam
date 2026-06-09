@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useExam } from '../contexts/ExamContext';
 import { getUniqueTopics, selectQuestions, shuffleArray, shuffleOptions } from '../utils/examUtils';
 import ThemeToggle from './ThemeToggle';
+import { getTranslation } from '../utils/translations';
 
 export default function StartScreen() {
     const { state, dispatch } = useExam();
@@ -36,7 +37,7 @@ export default function StartScreen() {
         }
 
         if (questions.length === 0) {
-            alert('No questions available for this selection');
+            alert(getTranslation(state.language, 'no_questions'));
             return;
         }
 
@@ -84,8 +85,38 @@ export default function StartScreen() {
         <div className="min-h-screen flex items-center justify-center p-4 md:p-8">
             <div className="w-full max-w-4xl">
                 {/* Header */}
-                <div className="flex justify-end mb-6">
-                    <ThemeToggle />
+                <div className="flex justify-between items-center mb-6">
+                    {/* Title left on desktop */}
+                    <div className="hidden md:flex items-center gap-2">
+                        <span className="text-lg font-bold text-gray-800 dark:text-white">☁️ SFCC Developer Exam</span>
+                    </div>
+                    {/* Controls right */}
+                    <div className="flex items-center gap-3 ml-auto">
+                        {/* Language Selector */}
+                        <div className="flex rounded-xl bg-gray-100 dark:bg-surface-800 p-0.5 border border-gray-200 dark:border-white/5 text-xs">
+                            <button
+                                onClick={() => dispatch({ type: 'SET_LANGUAGE', payload: 'en' })}
+                                className={`px-2.5 py-1.5 rounded-lg font-medium transition-all ${
+                                    state.language === 'en'
+                                        ? 'bg-white dark:bg-surface-700 text-gray-800 dark:text-white shadow-sm font-semibold'
+                                        : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                                }`}
+                            >
+                                EN
+                            </button>
+                            <button
+                                onClick={() => dispatch({ type: 'SET_LANGUAGE', payload: 'vi' })}
+                                className={`px-2.5 py-1.5 rounded-lg font-medium transition-all ${
+                                    state.language === 'vi'
+                                        ? 'bg-white dark:bg-surface-700 text-gray-800 dark:text-white shadow-sm font-semibold'
+                                        : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                                }`}
+                            >
+                                VI
+                            </button>
+                        </div>
+                        <ThemeToggle />
+                    </div>
                 </div>
 
                 <div className="text-center mb-10 animate-fade-in">
@@ -93,13 +124,13 @@ export default function StartScreen() {
                         ☁️ Salesforce Certification
                     </div>
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-3">
-                        <span className="gradient-text">B2C Commerce Cloud</span>
+                        <span className="gradient-text">{getTranslation(state.language, 'b2c_title')}</span>
                     </h1>
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-3">
-                        Developer Practice Exam
+                        {getTranslation(state.language, 'practice_exam')}
                     </h2>
                     <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-                        {state.allQuestions.length} questions available · 105 minutes · 65% passing score
+                        {state.allQuestions.length} {getTranslation(state.language, 'questions_available')} · 105 {getTranslation(state.language, 'minutes')} · 65% {getTranslation(state.language, 'passing_score')}
                     </p>
                 </div>
 
@@ -109,14 +140,34 @@ export default function StartScreen() {
                         <svg className="w-5 h-5 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                         </svg>
-                        Exam Mode
+                        {getTranslation(state.language, 'exam_mode')}
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {[
-                            { id: 'full', icon: '📝', title: 'Full Exam', desc: '60 scored + 5 non-scored questions, 105 min' },
-                            { id: 'random', icon: '🎲', title: 'Random', desc: 'Customizable random questions from all sets' },
-                            { id: 'topic', icon: '📚', title: 'Practice by Topic', desc: 'Select specific topic sets' },
-                            { id: 'retry', icon: '🔄', title: 'Review Wrong Answers', desc: `Retry ${validRetryCount} wrong questions` },
+                            { 
+                                id: 'full', 
+                                icon: '📝', 
+                                title: getTranslation(state.language, 'full_exam'), 
+                                desc: getTranslation(state.language, 'full_exam_desc') 
+                            },
+                            { 
+                                id: 'random', 
+                                icon: '🎲', 
+                                title: getTranslation(state.language, 'random_exam'), 
+                                desc: getTranslation(state.language, 'random_exam_desc') 
+                            },
+                            { 
+                                id: 'topic', 
+                                icon: '📚', 
+                                title: getTranslation(state.language, 'practice_topic'), 
+                                desc: getTranslation(state.language, 'practice_topic_desc') 
+                            },
+                            { 
+                                id: 'retry', 
+                                icon: '🔄', 
+                                title: getTranslation(state.language, 'review_wrong'), 
+                                desc: getTranslation(state.language, 'review_wrong_desc', { count: validRetryCount }) 
+                            },
                         ].map(m => (
                             <button
                                 key={m.id}
@@ -143,14 +194,14 @@ export default function StartScreen() {
                 {mode === 'topic' && (
                     <div className="glass-card p-6 md:p-8 mb-6 animate-fade-in">
                         <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-                            📚 Select Topics
+                            📚 {getTranslation(state.language, 'select_topics')}
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {topics.map(t => (
                                 <label
                                     key={t.id}
                                     className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all duration-200 ${selectedTopics.includes(t.id)
-                                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30'
+                                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30 font-semibold'
                                         : 'border-gray-200 dark:border-white/10 hover:border-primary-300 dark:hover:border-primary-500/20'
                                         }`}
                                 >
@@ -162,7 +213,7 @@ export default function StartScreen() {
                                     />
                                     <div className="flex-1 min-w-0">
                                         <div className="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">{t.name}</div>
-                                        <div className="text-xs text-gray-500 dark:text-gray-400">{t.count} questions</div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400">{t.count} {getTranslation(state.language, 'questions')}</div>
                                     </div>
                                 </label>
                             ))}
@@ -170,12 +221,12 @@ export default function StartScreen() {
                     </div>
                 )}
 
-                {/* Question count selector - ẩn khi Full Exam hoặc Retry */}
+                {/* Question count selector */}
                 {mode !== 'full' && mode !== 'retry' && (
                     <div className="glass-card p-6 md:p-8 mb-6 animate-fade-in">
                         <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-                            🔢 Number of Questions
-                            <span className="text-sm font-normal text-gray-400">({maxAvailable} available)</span>
+                            🔢 {getTranslation(state.language, 'num_questions')}
+                            <span className="text-sm font-normal text-gray-400">({maxAvailable} {getTranslation(state.language, 'available')})</span>
                         </h3>
                         <div className="flex flex-wrap gap-2 mb-4">
                             {[10, 20, 30, 40, 60, 100].filter(n => n <= maxAvailable).map(n => (
@@ -197,11 +248,11 @@ export default function StartScreen() {
                                     : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:border-primary-300'
                                     }`}
                             >
-                                All ({maxAvailable})
+                                {getTranslation(state.language, 'all')} ({maxAvailable})
                             </button>
                         </div>
                         <div className="flex items-center gap-3">
-                            <span className="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">Custom:</span>
+                            <span className="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">{getTranslation(state.language, 'custom')}:</span>
                             <input
                                 type="number"
                                 min="1"
@@ -231,13 +282,13 @@ export default function StartScreen() {
                 {/* Options */}
                 <div className="glass-card p-6 md:p-8 mb-6 animate-slide-up" style={{ animationDelay: '0.1s' }}>
                     <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-                        ⚙️ Options
+                        ⚙️ {getTranslation(state.language, 'options')}
                     </h3>
                     <div className="space-y-3">
                         {[
-                            { id: 'shuffleQ', label: 'Shuffle question order', checked: shuffleQ, onChange: () => setShuffleQ(!shuffleQ) },
-                            { id: 'shuffleA', label: 'Shuffle answer order', checked: shuffleA, onChange: () => setShuffleA(!shuffleA) },
-                            { id: 'studyMode', label: 'Study mode (show answer immediately after selecting)', checked: studyMode, onChange: () => setStudyMode(!studyMode) },
+                            { id: 'shuffleQ', label: getTranslation(state.language, 'shuffle_questions'), checked: shuffleQ, onChange: () => setShuffleQ(!shuffleQ) },
+                            { id: 'shuffleA', label: getTranslation(state.language, 'shuffle_answers'), checked: shuffleA, onChange: () => setShuffleA(!shuffleA) },
+                            { id: 'studyMode', label: getTranslation(state.language, 'study_mode'), checked: studyMode, onChange: () => setStudyMode(!studyMode) },
                         ].map(opt => (
                             <label key={opt.id} className="flex items-center gap-3 cursor-pointer group">
                                 <div className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${opt.checked ? 'bg-primary-500' : 'bg-gray-300 dark:bg-surface-700'}`}>
@@ -249,12 +300,113 @@ export default function StartScreen() {
                     </div>
                 </div>
 
+                {/* Exam History */}
+                <div className="glass-card p-6 md:p-8 mb-6 animate-slide-up" style={{ animationDelay: '0.15s' }}>
+                    <div className="flex items-center justify-between mb-4 border-b border-gray-200 dark:border-white/5 pb-3">
+                        <h3 className="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                            ⏱️ {getTranslation(state.language, 'exam_history')}
+                        </h3>
+                        {state.examHistory && state.examHistory.length > 0 && (
+                            <button
+                                onClick={() => {
+                                    if (window.confirm(getTranslation(state.language, 'confirm_clear_history'))) {
+                                        dispatch({ type: 'CLEAR_HISTORY' });
+                                    }
+                                }}
+                                className="text-xs text-rose-500 hover:text-rose-600 font-semibold transition-colors flex items-center gap-1"
+                            >
+                                🗑️ {getTranslation(state.language, 'btn_clear_history')}
+                            </button>
+                        )}
+                    </div>
+
+                    {!state.examHistory || state.examHistory.length === 0 ? (
+                        <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">
+                            {getTranslation(state.language, 'history_empty')}
+                        </p>
+                    ) : (
+                        <div className="overflow-x-auto max-h-80 overflow-y-auto pr-1">
+                            <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+                                <thead className="text-xs text-gray-700 dark:text-gray-300 uppercase bg-gray-50 dark:bg-surface-800/50 sticky top-0">
+                                    <tr>
+                                        <th scope="col" className="px-3 py-2.5">{getTranslation(state.language, 'history_date')}</th>
+                                        <th scope="col" className="px-3 py-2.5">{getTranslation(state.language, 'exam_mode')}</th>
+                                        <th scope="col" className="px-3 py-2.5">{getTranslation(state.language, 'history_score')}</th>
+                                        <th scope="col" className="px-3 py-2.5">{getTranslation(state.language, 'history_result')}</th>
+                                        <th scope="col" className="px-3 py-2.5 text-right">{getTranslation(state.language, 'history_actions')}</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-200 dark:divide-white/5">
+                                    {state.examHistory.map((item) => {
+                                        const dateObj = new Date(item.date);
+                                        const formattedDate = dateObj.toLocaleDateString(state.language === 'vi' ? 'vi-VN' : 'en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                        });
+
+                                        let modeName = '';
+                                        if (item.mode === 'full') modeName = getTranslation(state.language, 'full_exam');
+                                        else if (item.mode === 'random') modeName = getTranslation(state.language, 'random_exam');
+                                        else if (item.mode === 'topic') modeName = getTranslation(state.language, 'practice_topic');
+                                        else if (item.mode === 'retry') modeName = getTranslation(state.language, 'review_wrong');
+
+                                        const scorePercentage = item.result?.percentage ?? 0;
+                                        const passed = item.result?.passed ?? false;
+
+                                        return (
+                                            <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+                                                <td className="px-3 py-3 font-medium text-gray-900 dark:text-white whitespace-nowrap font-mono text-xs">
+                                                    {formattedDate}
+                                                </td>
+                                                <td className="px-3 py-3 whitespace-nowrap text-xs">
+                                                    <span className="badge-primary">{modeName}</span>
+                                                </td>
+                                                <td className="px-3 py-3 font-semibold text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                                    {scorePercentage}% ({item.result?.correct}/{item.result?.total})
+                                                </td>
+                                                <td className="px-3 py-3 whitespace-nowrap">
+                                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                                                        passed
+                                                            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300'
+                                                            : 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300'
+                                                    }`}>
+                                                        {passed
+                                                            ? getTranslation(state.language, 'passed')
+                                                            : getTranslation(state.language, 'failed')
+                                                        }
+                                                    </span>
+                                                </td>
+                                                <td className="px-3 py-3 text-right whitespace-nowrap text-xs font-semibold">
+                                                    <button
+                                                        onClick={() => dispatch({ type: 'VIEW_HISTORY_RESULT', payload: item })}
+                                                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 transition-colors"
+                                                    >
+                                                        {getTranslation(state.language, 'btn_review_answers')}
+                                                    </button>
+                                                    <button
+                                                        onClick={() => dispatch({ type: 'DELETE_HISTORY_ITEM', payload: item.id })}
+                                                        className="text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                                                    >
+                                                        {getTranslation(state.language, 'btn_delete')}
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+
                 {/* Start button */}
                 <div className="text-center animate-slide-up" style={{ animationDelay: '0.2s' }}>
                     <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                         {estimatedQuestions > 0
-                            ? `📋 ${estimatedQuestions} questions will be loaded`
-                            : '⚠️ No questions available for this selection'
+                            ? getTranslation(state.language, 'questions_loaded', { count: estimatedQuestions })
+                            : getTranslation(state.language, 'no_questions')
                         }
                     </div>
                     <button
@@ -266,13 +418,13 @@ export default function StartScreen() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        Start Exam
+                        {getTranslation(state.language, 'start_exam')}
                     </button>
 
                     {/* Keyboard shortcuts hint */}
                     <div className="mt-8 text-xs text-gray-400 dark:text-gray-500">
-                        <p className="font-medium mb-1">⌨️ Keyboard Shortcuts (during exam)</p>
-                        <p>A/B/C/D = select option · N = next · P = previous · F = flag</p>
+                        <p className="font-medium mb-1">⌨️ {getTranslation(state.language, 'kb_shortcuts')}</p>
+                        <p>{getTranslation(state.language, 'kb_desc')}</p>
                     </div>
                 </div>
             </div>

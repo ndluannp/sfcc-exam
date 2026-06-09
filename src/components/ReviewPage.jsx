@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useExam } from '../contexts/ExamContext';
 import { getTopicName, getLetter } from '../utils/examUtils';
 import ThemeToggle from './ThemeToggle';
+import { getTranslation } from '../utils/translations';
 
 export default function ReviewPage() {
     const { state, dispatch } = useExam();
@@ -31,24 +32,28 @@ export default function ReviewPage() {
                         onClick={() => dispatch({ type: 'BACK_TO_START' })}
                         className="btn-secondary"
                     >
-                        ← Back to Home
+                        ← {getTranslation(state.language, 'btn_back_home')}
                     </button>
                     <ThemeToggle />
                 </div>
 
                 <h1 className="text-3xl font-extrabold text-gray-800 dark:text-white mb-2 animate-fade-in">
-                    📖 Answer Review
+                    📖 {getTranslation(state.language, 'review_title')}
                 </h1>
                 <p className="text-gray-500 dark:text-gray-400 mb-6">
-                    Score: {result.percentage}% · {result.correct}/{result.total} correct
+                    {getTranslation(state.language, 'review_subtitle', {
+                        percentage: result.percentage,
+                        correct: result.correct,
+                        total: result.total
+                    })}
                 </p>
 
                 {/* Filters */}
                 <div className="flex flex-wrap gap-2 mb-6">
                     {[
-                        { id: 'all', label: `All (${result.details.length})` },
-                        { id: 'wrong', label: `Wrong (${wrongCount})`, color: 'text-rose-600 dark:text-rose-400' },
-                        { id: 'correct', label: `Correct (${correctCount})`, color: 'text-emerald-600 dark:text-emerald-400' },
+                        { id: 'all', label: getTranslation(state.language, 'filter_all', { count: result.details.length }) },
+                        { id: 'wrong', label: getTranslation(state.language, 'filter_wrong', { count: wrongCount }), color: 'text-rose-600 dark:text-rose-400' },
+                        { id: 'correct', label: getTranslation(state.language, 'filter_correct', { count: correctCount }), color: 'text-emerald-600 dark:text-emerald-400' },
                     ].map(f => (
                         <button
                             key={f.id}
@@ -72,7 +77,7 @@ export default function ReviewPage() {
                                 : 'bg-gray-100 dark:bg-surface-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-surface-700/80'
                         }`}
                     >
-                        {expandAll ? '🔽 Collapse All' : '🔼 Expand All'}
+                        {expandAll ? `🔽 ${getTranslation(state.language, 'collapse_all')}` : `🔼 ${getTranslation(state.language, 'expand_all')}`}
                     </button>
                 </div>
 
@@ -110,12 +115,12 @@ export default function ReviewPage() {
                                         </p>
                                         <div className="flex flex-wrap gap-3 mt-2 text-xs">
                                             <span className="text-gray-500 dark:text-gray-400">
-                                                Your: <span className={`font-bold ${detail.isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                                                {getTranslation(state.language, 'your_answer_label')}: <span className={`font-bold ${detail.isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                                                     {detail.userAnswer.length > 0 ? detail.userAnswer.join(', ') : '(no answer)'}
                                                 </span>
                                             </span>
                                             <span className="text-gray-500 dark:text-gray-400">
-                                                Correct: <span className="font-bold text-emerald-600 dark:text-emerald-400">{detail.answer.join(', ')}</span>
+                                                {getTranslation(state.language, 'correct_label')}: <span className="font-bold text-emerald-600 dark:text-emerald-400">{detail.answer.join(', ')}</span>
                                             </span>
                                         </div>
                                     </div>
@@ -156,12 +161,12 @@ export default function ReviewPage() {
                                                                 : isUserSelected
                                                                     ? 'bg-rose-500 text-white'
                                                                     : 'bg-gray-200 dark:bg-surface-700 text-gray-500'
-                                                            }`}>
+                                                              }`}>
                                                             {letter}
                                                         </span>
                                                         <span className="flex-1 text-sm text-gray-700 dark:text-gray-300">{opt}</span>
-                                                        {isCorrectOption && <span className="text-emerald-500 text-sm">✓ Correct</span>}
-                                                        {isUserSelected && !isCorrectOption && <span className="text-rose-500 text-sm">✗ Your answer</span>}
+                                                        {isCorrectOption && <span className="text-emerald-500 text-sm font-semibold">✓ {getTranslation(state.language, 'correct_label')}</span>}
+                                                        {isUserSelected && !isCorrectOption && <span className="text-rose-500 text-sm font-semibold">✗ {getTranslation(state.language, 'your_answer_label')}</span>}
                                                     </div>
                                                 );
                                             })}
@@ -174,7 +179,7 @@ export default function ReviewPage() {
                                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                     </svg>
-                                                    Explanation
+                                                    {getTranslation(state.language, 'explanation')}
                                                 </h4>
                                                 <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">{detail.explanation}</p>
                                             </div>
@@ -187,7 +192,7 @@ export default function ReviewPage() {
                                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                                                     </svg>
-                                                    Tip
+                                                    {getTranslation(state.language, 'tip')}
                                                 </h4>
                                                 <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">{detail.tip}</p>
                                             </div>
@@ -202,7 +207,7 @@ export default function ReviewPage() {
                 {filtered.length === 0 && (
                     <div className="text-center py-16 text-gray-500 dark:text-gray-400">
                         <div className="text-4xl mb-3">🎯</div>
-                        <p>No questions to show for this filter.</p>
+                        <p>{getTranslation(state.language, 'no_filter_results')}</p>
                     </div>
                 )}
 
@@ -212,14 +217,14 @@ export default function ReviewPage() {
                         onClick={() => dispatch({ type: 'BACK_TO_START' })}
                         className="btn-primary"
                     >
-                        🏠 Back to Home
+                        🏠 {getTranslation(state.language, 'btn_back_home')}
                     </button>
                     {wrongCount > 0 && (
                         <button
                             onClick={() => dispatch({ type: 'BACK_TO_START' })}
                             className="btn-warning"
                         >
-                            🔄 Retry Wrong Questions ({wrongCount})
+                            🔄 {getTranslation(state.language, 'btn_retry_wrong_count', { count: wrongCount })}
                         </button>
                     )}
                 </div>

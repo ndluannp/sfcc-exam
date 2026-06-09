@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { useExam } from '../contexts/ExamContext';
 import { formatTime, getTopicName } from '../utils/examUtils';
 import ThemeToggle from './ThemeToggle';
+import { getTranslation } from '../utils/translations';
 
 export default function ResultPage() {
     const { state, dispatch } = useExam();
@@ -40,7 +41,10 @@ export default function ResultPage() {
         <div className="min-h-screen p-4 md:p-8">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
-                <div className="flex justify-end mb-6">
+                <div className="flex justify-between items-center mb-6">
+                    <div className="flex items-center gap-2">
+                        <span className="text-lg font-bold text-gray-800 dark:text-white">☁️ SFCC Developer Exam</span>
+                    </div>
                     <ThemeToggle />
                 </div>
 
@@ -52,23 +56,30 @@ export default function ResultPage() {
                         }`}>
                         <div className="text-center text-white">
                             <div className="text-3xl font-extrabold">{result.percentage}%</div>
-                            <div className="text-xs font-medium opacity-90">
-                                {result.passed ? 'PASSED' : 'FAILED'}
+                            <div className="text-xs font-semibold tracking-wider opacity-90">
+                                {result.passed 
+                                    ? getTranslation(state.language, 'passed') 
+                                    : getTranslation(state.language, 'failed')
+                                }
                             </div>
                         </div>
                     </div>
 
                     <h1 className="text-3xl md:text-4xl font-extrabold mb-2">
                         {result.passed ? (
-                            <span className="text-emerald-600 dark:text-emerald-400">🎉 Congratulations!</span>
+                            <span className="text-emerald-600 dark:text-emerald-400">
+                                {getTranslation(state.language, 'congrats')}
+                            </span>
                         ) : (
-                            <span className="text-rose-600 dark:text-rose-400">Keep Practicing! 💪</span>
+                            <span className="text-rose-600 dark:text-rose-400">
+                                {getTranslation(state.language, 'keep_practicing')}
+                            </span>
                         )}
                     </h1>
                     <p className="text-gray-500 dark:text-gray-400">
                         {result.passed
-                            ? 'You have passed the practice exam.'
-                            : `You need ${result.passingScore}% to pass. Keep studying!`
+                            ? getTranslation(state.language, 'passed_desc')
+                            : getTranslation(state.language, 'failed_desc', { score: result.passingScore })
                         }
                     </p>
                 </div>
@@ -76,10 +87,10 @@ export default function ResultPage() {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 animate-slide-up">
                     {[
-                        { label: 'Correct', value: result.correct, color: 'text-emerald-600 dark:text-emerald-400', icon: '✅' },
-                        { label: 'Wrong', value: result.wrong, color: 'text-rose-600 dark:text-rose-400', icon: '❌' },
-                        { label: 'Total', value: result.total, color: 'text-primary-600 dark:text-primary-400', icon: '📝' },
-                        { label: 'Avg Time', value: stats ? `${stats.avgTime}s` : '-', color: 'text-cyan-600 dark:text-cyan-400', icon: '⏱️' },
+                        { label: getTranslation(state.language, 'stats_correct'), value: result.correct, color: 'text-emerald-600 dark:text-emerald-400', icon: '✅' },
+                        { label: getTranslation(state.language, 'stats_wrong'), value: result.wrong, color: 'text-rose-600 dark:text-rose-400', icon: '❌' },
+                        { label: getTranslation(state.language, 'stats_total'), value: result.total, color: 'text-primary-600 dark:text-primary-400', icon: '📝' },
+                        { label: getTranslation(state.language, 'stats_avg_time'), value: stats ? `${stats.avgTime}s` : '-', color: 'text-cyan-600 dark:text-cyan-400', icon: '⏱️' },
                     ].map(s => (
                         <div key={s.label} className="glass-card p-5 text-center">
                             <div className="text-2xl mb-1">{s.icon}</div>
@@ -92,7 +103,9 @@ export default function ResultPage() {
                 {/* Score bar */}
                 <div className="glass-card p-6 mb-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Score</span>
+                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                            {getTranslation(state.language, 'history_score')}
+                        </span>
                         <span className="text-sm font-bold text-gray-800 dark:text-white">{result.percentage}%</span>
                     </div>
                     <div className="relative w-full h-4 bg-gray-200 dark:bg-surface-700 rounded-full overflow-hidden">
@@ -107,7 +120,7 @@ export default function ResultPage() {
                         <div
                             className="absolute top-0 bottom-0 w-0.5 bg-gray-800 dark:bg-white"
                             style={{ left: `${result.passingScore}%` }}
-                            title={`Passing: ${result.passingScore}%`}
+                            title={`${getTranslation(state.language, 'passing_score')}: ${result.passingScore}%`}
                         >
                             <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-bold text-gray-600 dark:text-gray-400 whitespace-nowrap">
                                 {result.passingScore}%
@@ -120,7 +133,7 @@ export default function ResultPage() {
                 {stats && stats.weakTopics.length > 0 && (
                     <div className="glass-card p-6 mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
                         <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-                            📊 Topic Accuracy
+                            📊 {getTranslation(state.language, 'topic_accuracy')}
                         </h3>
                         <div className="space-y-3">
                             {stats.weakTopics.map(t => (
@@ -159,7 +172,7 @@ export default function ResultPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
-                        Review Answers
+                        {getTranslation(state.language, 'btn_review_answers')}
                     </button>
 
                     {result.wrong > 0 && (
@@ -167,7 +180,7 @@ export default function ResultPage() {
                             onClick={() => dispatch({ type: 'BACK_TO_START' })}
                             className="btn-warning"
                         >
-                            🔄 Retry Wrong Questions
+                            🔄 {getTranslation(state.language, 'btn_retry_wrong')}
                         </button>
                     )}
 
@@ -175,7 +188,7 @@ export default function ResultPage() {
                         onClick={() => dispatch({ type: 'BACK_TO_START' })}
                         className="btn-secondary"
                     >
-                        ← Back to Home
+                        ← {getTranslation(state.language, 'btn_back_home')}
                     </button>
                 </div>
             </div>

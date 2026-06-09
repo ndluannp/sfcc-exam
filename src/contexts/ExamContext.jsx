@@ -7,6 +7,7 @@ const INITIAL_STATE = {
     theme: 'dark',
     allQuestions: [],
     loading: true,
+    language: 'en',          // en | vi
 
     // Exam config
     mode: 'full',            // full | topic | random | retry
@@ -30,6 +31,7 @@ const INITIAL_STATE = {
 
     // History
     wrongQuestionIds: [],
+    wrongAnswersMap: {},     // { questionId: userAnswer }
     examHistory: [],
 };
 
@@ -40,6 +42,9 @@ function reducer(state, action) {
 
         case 'SET_THEME':
             return { ...state, theme: action.payload };
+
+        case 'SET_LANGUAGE':
+            return { ...state, language: action.payload };
 
         case 'START_EXAM':
             return {
@@ -128,6 +133,9 @@ function reducer(state, action) {
         case 'SET_WRONG_IDS':
             return { ...state, wrongQuestionIds: action.payload };
 
+        case 'SET_WRONG_ANSWERS_MAP':
+            return { ...state, wrongAnswersMap: action.payload };
+
         case 'SHOW_REVIEW':
             return { ...state, screen: 'review' };
 
@@ -147,6 +155,30 @@ function reducer(state, action) {
         case 'RESTORE_EXAM':
             return { ...state, ...action.payload, loading: false };
 
+        case 'ADD_HISTORY': {
+            const newHistory = [action.payload, ...state.examHistory];
+            return { ...state, examHistory: newHistory };
+        }
+
+        case 'CLEAR_HISTORY':
+            return { ...state, examHistory: [] };
+
+        case 'DELETE_HISTORY_ITEM': {
+            const newHistory = state.examHistory.filter(item => item.id !== action.payload);
+            return { ...state, examHistory: newHistory };
+        }
+
+        case 'VIEW_HISTORY_RESULT':
+            return {
+                ...state,
+                screen: 'review',
+                questions: action.payload.questions,
+                answers: action.payload.answers,
+                result: action.payload.result,
+                mode: action.payload.mode,
+                examStarted: false,
+            };
+
         default:
             return state;
     }
@@ -156,7 +188,7 @@ export function ExamProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
     const questionTimeRef = useRef(null);
 
-    // Load questions
+    // Load questions and restore state
     useEffect(() => {
         fetch(`${import.meta.env.BASE_URL}questions.json`)
             .then(res => res.json())
@@ -188,6 +220,24 @@ export function ExamProvider({ children }) {
                 try {
                     const wrongIds = JSON.parse(localStorage.getItem('sfcc_wrong_ids') || '[]');
                     dispatch({ type: 'SET_WRONG_IDS', payload: wrongIds });
+                } catch (e) { /* ignore */ }
+
+                // Load wrong answers map
+                try {
+                    const wrongAnswers = JSON.parse(localStorage.getItem('sfcc_wrong_answers_map') || '{}');
+                    dispatch({ type: 'SET_WRONG_ANSWERS_MAP', payload: wrongAnswers });
+                } catch (e) { /* ignore */ }
+
+                // Load exam history
+                try {
+                    const history = JSON.parse(localStorage.getItem('sfcc_exam_history') || '[]');
+                    dispatch({ type: 'RESTORE_EXAM', payload: { examHistory: history } });
+                } catch (e) { /* ignore */ }
+
+                // Load language
+                try {
+                    const lang = localStorage.getItem('sfcc_lang') || 'en';
+                    dispatch({ type: 'SET_LANGUAGE', payload: lang });
                 } catch (e) { /* ignore */ }
             })
             .catch(err => {
@@ -250,6 +300,21 @@ export function ExamProvider({ children }) {
     useEffect(() => {
         localStorage.setItem('sfcc_wrong_ids', JSON.stringify(state.wrongQuestionIds));
     }, [state.wrongQuestionIds]);
+
+    // Save wrong answers map
+    useEffect(() => {
+        localStorage.setItem('sfcc_wrong_answers_map', JSON.stringify(state.wrongAnswersMap));
+    }, [state.wrongAnswersMap]);
+
+    // Save exam history
+    useEffect(() => {
+        localStorage.setItem('sfcc_exam_history', JSON.stringify(state.examHistory));
+    }, [state.examHistory]);
+
+    // Save language
+    useEffect(() => {
+        localStorage.setItem('sfcc_lang', state.language);
+    }, [state.language]);
 
     // Theme management
     useEffect(() => {

@@ -32,9 +32,31 @@ export default function ExamPage() {
         // Merge danh sách cũ (đã lọc) với danh sách sai mới
         const mergedWrongIds = [...new Set([...remainingWrongIds, ...wrongIds])];
         
+        // Cập nhật wrongAnswersMap
+        const newWrongAnswersMap = { ...state.wrongAnswersMap };
+        result.details.forEach(d => {
+            if (!d.isCorrect) {
+                newWrongAnswersMap[d.id] = d.userAnswer;
+            } else {
+                delete newWrongAnswersMap[d.id];
+            }
+        });
+
+        // Tạo item lịch sử thi
+        const historyItem = {
+            id: Date.now(),
+            date: new Date().toISOString(),
+            mode: state.mode,
+            questions: state.questions,
+            answers: state.answers,
+            result: result,
+        };
+        
         dispatch({ type: 'SET_WRONG_IDS', payload: mergedWrongIds });
+        dispatch({ type: 'SET_WRONG_ANSWERS_MAP', payload: newWrongAnswersMap });
+        dispatch({ type: 'ADD_HISTORY', payload: historyItem });
         dispatch({ type: 'SUBMIT_EXAM', payload: result });
-    }, [state.questions, state.answers, state.timePerQuestion, state.mode, state.wrongQuestionIds, dispatch]);
+    }, [state.questions, state.answers, state.timePerQuestion, state.mode, state.wrongQuestionIds, state.wrongAnswersMap, dispatch]);
 
     // Keyboard shortcuts
     useEffect(() => {
