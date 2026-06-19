@@ -4,10 +4,22 @@ const ExamContext = createContext(null);
 
 const INITIAL_STATE = {
     screen: 'start',         // start | exam | result | review
-    theme: 'dark',
+    theme: (() => {
+        try {
+            return localStorage.getItem('sfcc_theme') || 'dark';
+        } catch (e) {
+            return 'dark';
+        }
+    })(),
     allQuestions: [],
     loading: true,
-    language: 'en',          // en | vi
+    language: (() => {
+        try {
+            return localStorage.getItem('sfcc_lang') || 'en';
+        } catch (e) {
+            return 'en';
+        }
+    })(),
 
     // Exam config
     mode: 'full',            // full | topic | random | retry
@@ -30,9 +42,27 @@ const INITIAL_STATE = {
     result: null,
 
     // History
-    wrongQuestionIds: [],
-    wrongAnswersMap: {},     // { questionId: userAnswer }
-    examHistory: [],
+    wrongQuestionIds: (() => {
+        try {
+            return JSON.parse(localStorage.getItem('sfcc_wrong_ids') || '[]');
+        } catch (e) {
+            return [];
+        }
+    })(),
+    wrongAnswersMap: (() => {
+        try {
+            return JSON.parse(localStorage.getItem('sfcc_wrong_answers_map') || '{}');
+        } catch (e) {
+            return {};
+        }
+    })(),
+    examHistory: (() => {
+        try {
+            return JSON.parse(localStorage.getItem('sfcc_exam_history') || '[]');
+        } catch (e) {
+            return [];
+        }
+    })(),
 };
 
 function reducer(state, action) {
@@ -215,30 +245,6 @@ export function ExamProvider({ children }) {
                 } catch (e) {
                     console.error('Failed to restore exam:', e);
                 }
-
-                // Load wrong question IDs
-                try {
-                    const wrongIds = JSON.parse(localStorage.getItem('sfcc_wrong_ids') || '[]');
-                    dispatch({ type: 'SET_WRONG_IDS', payload: wrongIds });
-                } catch (e) { /* ignore */ }
-
-                // Load wrong answers map
-                try {
-                    const wrongAnswers = JSON.parse(localStorage.getItem('sfcc_wrong_answers_map') || '{}');
-                    dispatch({ type: 'SET_WRONG_ANSWERS_MAP', payload: wrongAnswers });
-                } catch (e) { /* ignore */ }
-
-                // Load exam history
-                try {
-                    const history = JSON.parse(localStorage.getItem('sfcc_exam_history') || '[]');
-                    dispatch({ type: 'RESTORE_EXAM', payload: { examHistory: history } });
-                } catch (e) { /* ignore */ }
-
-                // Load language
-                try {
-                    const lang = localStorage.getItem('sfcc_lang') || 'en';
-                    dispatch({ type: 'SET_LANGUAGE', payload: lang });
-                } catch (e) { /* ignore */ }
             })
             .catch(err => {
                 console.error('Failed to load questions:', err);
