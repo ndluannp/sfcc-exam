@@ -9,8 +9,15 @@ export const translations = {
         // Language Selector
         lang_en: "English",
         lang_vi: "Tiếng Việt",
+        lang_ja: "日本語",
+
+        // Bank Selection
+        bank_source: "Question Bank",
+        bank_1_title: "Question Bank (Bank 1)",
+        bank_2_title: "Exam Questions (Bank 2)",
         
         // Start Screen
+        loading_questions: "Loading questions...",
         b2c_title: "B2C Commerce Cloud",
         practice_exam: "Developer Practice Exam",
         questions_available: "questions available",
@@ -102,8 +109,15 @@ export const translations = {
         // Language Selector
         lang_en: "English",
         lang_vi: "Tiếng Việt",
+        lang_ja: "日本語",
+
+        // Bank Selection
+        bank_source: "Ngân hàng câu hỏi",
+        bank_1_title: "Ngân Hàng Câu Hỏi",
+        bank_2_title: "Câu Hỏi Đề Thi",
         
         // Start Screen
+        loading_questions: "Đang tải câu hỏi...",
         b2c_title: "B2C Commerce Cloud",
         practice_exam: "Bài kiểm tra thử Developer",
         questions_available: "câu hỏi có sẵn",
@@ -187,6 +201,106 @@ export const translations = {
         btn_clear_history: "Xóa toàn bộ lịch sử",
         btn_delete: "Xóa",
         confirm_clear_history: "Bạn có chắc chắn muốn xóa toàn bộ lịch sử thi thử?",
+    },
+    ja: {
+        // App Header
+        app_title: "SFCCデベロッパー試験対策",
+        
+        // Language Selector
+        lang_en: "English",
+        lang_vi: "Tiếng Việt",
+        lang_ja: "日本語",
+        
+        // Bank Selection
+        bank_source: "問題バンク",
+        bank_1_title: "問題バンク (バンク1)",
+        bank_2_title: "試験問題 (バンク2)",
+
+        // Start Screen
+        loading_questions: "質問を読み込んでいます...",
+        b2c_title: "B2C Commerce Cloud",
+        practice_exam: "デベロッパー模擬試験",
+        questions_available: "問の質問が利用可能",
+        minutes: "分",
+        passing_score: "合格基準",
+        exam_mode: "試験モード",
+        full_exam: "本番形式試験",
+        full_exam_desc: "採点対象60問 ＋ 採点対象外5問、105分",
+        random_exam: "ランダム",
+        random_exam_desc: "すべてのセットからランダムに出題数をカスタマイズ",
+        practice_topic: "分野別練習",
+        practice_topic_desc: "特定のトピックを選択して練習",
+        review_wrong: "間違えた問題の復習",
+        review_wrong_desc: "間違えた {count} 問に再挑戦",
+        select_topics: "トピックの選択",
+        questions: "問",
+        num_questions: "問題数",
+        available: "利用可能",
+        all: "すべて",
+        custom: "カスタム",
+        options: "オプション",
+        shuffle_questions: "問題の順序をシャッフル",
+        shuffle_answers: "選択肢の順序をシャッフル",
+        study_mode: "学習モード（選択直後に正解を表示）",
+        questions_loaded: "{count} 問が読み込まれます",
+        no_questions: "選択された条件に該当する問題はありません",
+        start_exam: "試験開始",
+        kb_shortcuts: "キーボードショートカット（試験中）",
+        kb_desc: "A/B/C/D = 選択肢の選択 · N = 次へ · P = 前へ · F = フラグ",
+        
+        // Exam Page
+        answered: "回答済み",
+        unanswered: "未回答",
+        flagged: "フラグ付き",
+        submit: "提出",
+        submit_confirm_title: "試験を提出しますか？",
+        submit_confirm_warning: "未回答の問題が {count} 問あります。",
+        continue_exam: "試験を続ける",
+        submit_now: "今すぐ提出",
+        
+        // Result Page
+        passed: "合格",
+        failed: "不合格",
+        congrats: "🎉 おめでとうございます！",
+        keep_practicing: "あきらめずに練習を続けましょう！ 💪",
+        passed_desc: "模擬試験に合格しました。",
+        failed_desc: "合格には {score}% が必要です。勉強を続けましょう！",
+        stats_correct: "正解数",
+        stats_wrong: "不正解数",
+        stats_total: "総問題数",
+        stats_avg_time: "平均時間",
+        topic_accuracy: "分野別正解率",
+        btn_review_answers: "回答を確認する",
+        btn_retry_wrong: "間違えた問題に再挑戦",
+        btn_back_home: "ホームに戻る",
+        
+        // Review Page
+        review_title: "回答レビュー",
+        review_subtitle: "スコア: {percentage}% · 正解 {correct}/{total}",
+        filter_all: "すべて ({count})",
+        filter_wrong: "不正解 ({count})",
+        filter_correct: "正解 ({count})",
+        collapse_all: "すべて折りたたむ",
+        expand_all: "すべて展開",
+        no_filter_results: "このフィルターに該当する問題はありません。",
+        btn_retry_wrong_count: "間違えた問題に再挑戦 ({count})",
+        explanation: "解説",
+        tip: "ヒント",
+        correct_label: "正解",
+        your_answer_label: "あなたの回答",
+        prev_incorrect_label: "前回の不正解回答",
+        
+        // Exam History
+        exam_history: "試験履歴",
+        history_date: "日付",
+        history_score: "スコア",
+        history_time: "時間",
+        history_result: "結果",
+        history_actions: "アクション",
+        history_empty: "試験履歴がありません。試験を受けて履歴を残しましょう！",
+        btn_clear_history: "履歴をクリア",
+        btn_delete: "削除",
+        confirm_clear_history: "本当にすべての試験履歴をクリアしますか？",
     }
 };
 

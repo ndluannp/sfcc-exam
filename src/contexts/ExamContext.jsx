@@ -13,6 +13,13 @@ const INITIAL_STATE = {
     })(),
     allQuestions: [],
     loading: true,
+    bankSource: (() => {
+        try {
+            return localStorage.getItem('sfcc_bank_source') || 'bank_1';
+        } catch (e) {
+            return 'bank_1';
+        }
+    })(),
     language: (() => {
         try {
             return localStorage.getItem('sfcc_lang') || 'en';
@@ -69,6 +76,9 @@ function reducer(state, action) {
     switch (action.type) {
         case 'SET_QUESTIONS':
             return { ...state, allQuestions: action.payload, loading: false };
+
+        case 'SET_BANK_SOURCE':
+            return { ...state, bankSource: action.payload, loading: true };
 
         case 'SET_THEME':
             return { ...state, theme: action.payload };
@@ -218,38 +228,44 @@ export function ExamProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
     const questionTimeRef = useRef(null);
 
-    // Load questions and restore state
+    // Load questions when bankSource changes
     useEffect(() => {
-        fetch(`${import.meta.env.BASE_URL}questions.json`)
+        const jsonFile = state.bankSource === 'bank_2' ? 'bank_2.json' : 'bank_1.json';
+        fetch(`${import.meta.env.BASE_URL}${jsonFile}`)
             .then(res => res.json())
             .then(data => {
                 dispatch({ type: 'SET_QUESTIONS', payload: data });
-
-                // Try restore exam from localStorage
-                try {
-                    const saved = localStorage.getItem('sfcc_exam_state');
-                    if (saved) {
-                        const parsed = JSON.parse(saved);
-                        if (parsed.examStarted && parsed.questions?.length > 0) {
-                            // Trừ thời gian đã trôi khi tắt browser
-                            if (parsed.savedAt && parsed.timeRemaining > 0) {
-                                const elapsed = Math.floor((Date.now() - parsed.savedAt) / 1000);
-                                parsed.timeRemaining = Math.max(0, parsed.timeRemaining - elapsed);
-                            }
-                            dispatch({ type: 'RESTORE_EXAM', payload: parsed });
-                        } else if (parsed.screen === 'result' && parsed.result) {
-                            // Restore kết quả thi
-                            dispatch({ type: 'RESTORE_EXAM', payload: parsed });
-                        }
-                    }
-                } catch (e) {
-                    console.error('Failed to restore exam:', e);
-                }
             })
             .catch(err => {
                 console.error('Failed to load questions:', err);
                 dispatch({ type: 'SET_QUESTIONS', payload: [] });
             });
+    }, [state.bankSource]);
+
+    // Restore state once on mount
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem('sfcc_exam_state');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (parsed.bankSource) {
+                    dispatch({ type: 'SET_BANK_SOURCE', payload: parsed.bankSource });
+                }
+                if (parsed.examStarted && parsed.questions?.length > 0) {
+                    // Trừ thời gian đã trôi khi tắt browser
+                    if (parsed.savedAt && parsed.timeRemaining > 0) {
+                        const elapsed = Math.floor((Date.now() - parsed.savedAt) / 1000);
+                        parsed.timeRemaining = Math.max(0, parsed.timeRemaining - elapsed);
+                    }
+                    dispatch({ type: 'RESTORE_EXAM', payload: parsed });
+                } else if (parsed.screen === 'result' && parsed.result) {
+                    // Restore kết quả thi
+                    dispatch({ type: 'RESTORE_EXAM', payload: parsed });
+                }
+            }
+        } catch (e) {
+            console.error('Failed to restore exam:', e);
+        }
     }, []);
 
     // Save exam state to localStorage
@@ -267,6 +283,7 @@ export function ExamProvider({ children }) {
                 examStarted: state.examStarted,
                 mode: state.mode,
                 studyMode: state.studyMode,
+                bankSource: state.bankSource,
                 savedAt: Date.now(), // Timestamp để tính thời gian trôi
             };
             localStorage.setItem('sfcc_exam_state', JSON.stringify(toSave));
@@ -279,6 +296,7 @@ export function ExamProvider({ children }) {
                 result: state.result,
                 mode: state.mode,
                 examStarted: false,
+                bankSource: state.bankSource,
                 savedAt: Date.now(),
             };
             localStorage.setItem('sfcc_exam_state', JSON.stringify(toSave));
@@ -288,7 +306,7 @@ export function ExamProvider({ children }) {
     }, [
         state.examStarted, state.screen, state.currentIndex,
         state.answers, state.flagged, state.timeRemaining, state.timePerQuestion,
-        state.result,
+        state.result, state.bankSource
     ]);
 
     // Cảnh báo khi đang thi mà tắt browser/tab
@@ -321,6 +339,11 @@ export function ExamProvider({ children }) {
     useEffect(() => {
         localStorage.setItem('sfcc_lang', state.language);
     }, [state.language]);
+
+    // Save bankSource
+    useEffect(() => {
+        localStorage.setItem('sfcc_bank_source', state.bankSource);
+    }, [state.bankSource]);
 
     // Theme management
     useEffect(() => {

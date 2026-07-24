@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useExam } from '../contexts/ExamContext';
 import { getUniqueTopics, selectQuestions, shuffleArray, shuffleOptions } from '../utils/examUtils';
 import ThemeToggle from './ThemeToggle';
@@ -15,6 +15,10 @@ export default function StartScreen() {
     const [customCount, setCustomCount] = useState('');
 
     const topics = useMemo(() => getUniqueTopics(state.allQuestions), [state.allQuestions]);
+
+    useEffect(() => {
+        setSelectedTopics([]);
+    }, [state.bankSource]);
 
     const toggleTopic = (id) => {
         setSelectedTopics(prev =>
@@ -72,10 +76,10 @@ export default function StartScreen() {
 
     if (state.loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-primary-500/30 border-t-primary-500 rounded-full animate-spin"></div>
-                    <p className="text-gray-500 dark:text-gray-400">Loading questions...</p>
+            <div className="min-h-screen bg-gray-50 dark:bg-surface-900 flex flex-col items-center justify-center p-4 transition-colors duration-300">
+                <div className="flex flex-col items-center gap-3">
+                    <div className="w-10 h-10 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-gray-500 dark:text-gray-400">{getTranslation(state.language, 'loading_questions')}</p>
                 </div>
             </div>
         );
@@ -114,6 +118,16 @@ export default function StartScreen() {
                             >
                                 VI
                             </button>
+                            <button
+                                onClick={() => dispatch({ type: 'SET_LANGUAGE', payload: 'ja' })}
+                                className={`px-2.5 py-1.5 rounded-lg font-medium transition-all ${
+                                    state.language === 'ja'
+                                        ? 'bg-white dark:bg-surface-700 text-gray-800 dark:text-white shadow-sm font-semibold'
+                                        : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                                }`}
+                            >
+                                JA
+                            </button>
                         </div>
                         <ThemeToggle />
                     </div>
@@ -132,6 +146,49 @@ export default function StartScreen() {
                     <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
                         {state.allQuestions.length} {getTranslation(state.language, 'questions_available')} · 105 {getTranslation(state.language, 'minutes')} · 65% {getTranslation(state.language, 'passing_score')}
                     </p>
+                </div>
+
+                {/* Bank selection */}
+                <div className="glass-card p-6 md:p-8 mb-6 animate-slide-up">
+                    <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                        <svg className="w-5 h-5 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                        {getTranslation(state.language, 'bank_source')}
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {[
+                            {
+                                id: 'bank_1',
+                                icon: '📂',
+                                title: getTranslation(state.language, 'bank_1_title'),
+                                desc: getTranslation(state.language, 'practice_exam')
+                            },
+                            {
+                                id: 'bank_2',
+                                icon: '📝',
+                                title: getTranslation(state.language, 'bank_2_title'),
+                                desc: getTranslation(state.language, 'full_exam')
+                            }
+                        ].map(b => (
+                            <button
+                                key={b.id}
+                                onClick={() => dispatch({ type: 'SET_BANK_SOURCE', payload: b.id })}
+                                className={`p-4 rounded-xl border-2 text-left transition-all duration-200 ${state.bankSource === b.id
+                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500/30'
+                                    : 'border-gray-200 dark:border-white/10 hover:border-primary-300 dark:hover:border-primary-500/30'
+                                    }`}
+                            >
+                                <div className="flex items-center gap-3">
+                                    <span className="text-2xl">{b.icon}</span>
+                                    <div>
+                                        <div className="font-semibold text-gray-800 dark:text-white">{b.title}</div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400">{b.desc}</div>
+                                    </div>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Mode selection */}
