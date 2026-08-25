@@ -156,7 +156,7 @@ export default function StartScreen() {
                         </svg>
                         {getTranslation(state.language, 'bank_source')}
                     </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {[
                             {
                                 id: 'bank_1',
@@ -168,12 +168,6 @@ export default function StartScreen() {
                                 id: 'bank_2',
                                 icon: '📝',
                                 title: getTranslation(state.language, 'bank_2_title'),
-                                desc: getTranslation(state.language, 'full_exam')
-                            },
-                            {
-                                id: 'bank_3',
-                                icon: '📚',
-                                title: getTranslation(state.language, 'bank_3_title'),
                                 desc: getTranslation(state.language, 'full_exam')
                             }
                         ].map(b => (

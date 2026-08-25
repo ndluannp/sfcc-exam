@@ -230,8 +230,7 @@ export function ExamProvider({ children }) {
 
     // Load questions when bankSource changes
     useEffect(() => {
-        const validBanks = ['bank_1', 'bank_2', 'bank_3'];
-        const jsonFile = validBanks.includes(state.bankSource) ? `${state.bankSource}.json` : 'bank_1.json';
+        const jsonFile = state.bankSource === 'bank_2' ? 'bank_2.json' : 'bank_1.json';
         fetch(`${import.meta.env.BASE_URL}${jsonFile}`)
             .then(res => res.json())
             .then(data => {

@@ -15,8 +15,7 @@ export const translations = {
         bank_source: "Question Bank",
         bank_1_title: "Question Bank (Bank 1)",
         bank_2_title: "Exam Questions (Bank 2)",
-        bank_3_title: "Exam Questions (Bank 3)",
-
+        
         // Start Screen
         loading_questions: "Loading questions...",
         b2c_title: "B2C Commerce Cloud",
@@ -116,8 +115,7 @@ export const translations = {
         bank_source: "Ngân hàng câu hỏi",
         bank_1_title: "Ngân Hàng Câu Hỏi",
         bank_2_title: "Câu Hỏi Đề Thi",
-        bank_3_title: "Câu Hỏi Đề Thi 2",
-
+        
         // Start Screen
         loading_questions: "Đang tải câu hỏi...",
         b2c_title: "B2C Commerce Cloud",
@@ -217,7 +215,6 @@ export const translations = {
         bank_source: "問題バンク",
         bank_1_title: "問題バンク (バンク1)",
         bank_2_title: "試験問題 (バンク2)",
-        bank_3_title: "試験問題 (バンク3)",
 
         // Start Screen
         loading_questions: "質問を読み込んでいます...",
